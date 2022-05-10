@@ -1,0 +1,10 @@
+/*abstracts*/
+@use './styles/abstracts/variables';
+@use './styles/abstracts/mixims';
+
+/**/
+@use './styles/base/base';
+@use './styles/base/resets';
+
+
+@use './styles/components/Navbar.scss'
