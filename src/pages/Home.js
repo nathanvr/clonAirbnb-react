@@ -2,9 +2,11 @@ import React from 'react';
 import Title from '../components/Title';
 import Header from '../components/Header';
 import CardSm from '../components/CardSm';
+import CardMd from '../components/CardMd';
 import rec1 from '../images/cards/rectangle4.0.png';
 import rec2 from '../images/cards/rectangle4.1.png';
 import rec3 from '../images/cards/rectangle4.2.png';
+import cardmd1 from '../images/cards/cardmd1.png';
 
 const Home = () => {
   return (
@@ -23,6 +25,13 @@ const Home = () => {
           <Title
             title="Alojamientos Airbnb Plus"
             info="Una selección de alojamientos contrastados según criterios de calidad y diseño"></Title>
+          <CardMd
+            src={cardmd1}
+            country="cayman island"
+            texth3="2 Nights PACKAGE All Inclusive"
+            textp="À partir de 577€/personne - 3 jours"
+            score="5.0★"
+          />
         </section>
         <section>
           <Title
