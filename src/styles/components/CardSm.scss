@@ -1,0 +1,41 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixims';
+
+.bg-cardsm {
+    position: relative; // relative to locate, absolute default
+    height: 85px;
+    width: 391px;
+    left: 0px;
+    top: 0px;
+    top: 0px;
+    bottom: 0px;
+
+    border-radius: 12px;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+.rectangle-sm {
+    height: 85px;
+    width: 121px;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    position: absolute;
+    width: 121px;
+
+    background: #C4C4C4;
+}
+
+.text-cardsm {
+    position: absolute;
+    width: 81px;
+    height: 19px;
+    left: 145px;
+    top: calc(50% - 19px/2);
+    border-radius: nullpx;
+
+    @include text-format-cardsm;
+}
+
+
