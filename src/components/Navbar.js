@@ -1,11 +1,13 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import Logocut from '../images/Vector.png';
 
 
 const Navbar = () =>{
+    const location= useLocation();
+    console.log('Location', location);
     return (
-    <div className="navbar">
+    <div className={location.pathname === "/" ? 'navbar navbar-home': 'navbar navbar-default'}>
         <div className="logo">
         <Link to="/"><img src={Logocut} alt="logo"></img></Link>
         </div>

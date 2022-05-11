@@ -1,12 +1,11 @@
 import React from "react";
 import Title from "../components/Title"
-import Header from "../components/Header";
-
+import Form from "../components/Form"
 const Home = () =>{
     return(
         <div className="container-home">
             <div className="header">
-                <Header></Header>
+                <Form></Form>
             </div>
             <div className="main">
                 <section>

@@ -1,17 +1,3 @@
-@mixin text-format-titles() {
-    color: var(--darkgrey);
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 28px;
-}
-
-@mixin text-format-paragraph (){
-    color: var(--darkgrey);
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 19px;
-}
-
 .container{
     h1{
         @include text-format-titles;
