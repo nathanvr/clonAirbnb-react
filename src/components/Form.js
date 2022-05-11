@@ -1,6 +1,6 @@
 const Form = () => {
   return (
-    <div>
+    <div className="container-form">
       <h2>Reserva alojamientos y actividades únicas.</h2>
       <form>
         <label>

@@ -1,9 +1,10 @@
-import pictureH from '../images/planeheader.jpg';
-
+import Form from './Form';
 const Header = () => {
   return (
-    <div className="">
-      <img src={pictureH} />
+    <div className="containerHeader">
+      <div className='form'>
+      <Form></Form>
+      </div>
     </div>
   );
 };

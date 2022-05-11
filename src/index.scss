@@ -7,4 +7,8 @@
 @use './styles/base/resets';
 
 
-@use './styles/components/Navbar.scss'
+@use './styles/components/Navbar.scss';
+@use './styles/components/Header.scss';
+@use './styles/components/Home.scss';
+@use './styles/components/Title.scss';
+@use './styles/components/Form.scss';
