@@ -29,3 +29,58 @@
     padding-left: $pl;
     padding-right: $pr;
 }
+
+@mixin text-format-cardsm () {
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #484848;
+}
+
+@mixin text-format-cardmd-country () {
+    font-family: Roboto;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 12px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #767676;
+    text-transform: uppercase;
+}
+
+@mixin text-format-cardmd-h3 () {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #484848;
+}
+
+@mixin text-format-cardmd-p () {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #484848;
+}
+
+@mixin text-format-cardmd-score () {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    color: #008489;
+    letter-spacing: 0em;
+    text-align: left;
+
+}
