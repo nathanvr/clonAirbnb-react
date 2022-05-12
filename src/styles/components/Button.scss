@@ -2,23 +2,23 @@
 @import '../abstracts/mixims';
 
 .btn1 {
-    position: absolute;
+    position: relative; // relative to locate, absolute default
     height: 48px;
     width: 146px;
     left: 0px;
     top: 0px;
     right: 0%;
     bottom: 0%;
-    
-    border-radius: 4px;
+
     background: #FF5A5F;
+    border: none;
     border-radius: 4px;
 }
 
 .text1 {
     height: 19px;
     width: 83px;
-    border-radius: nullpx;
+    
     position: absolute;
     left: 21.23%;
     right: 21.92%;
@@ -32,7 +32,7 @@
     height: 28px;
     width: 74px;
     box-sizing: border-box;
-    position: absolute;
+    position: relative; // relative to locate, absolute default
     left: 0%;
     right: 0%;
     top: 0%;
@@ -41,7 +41,7 @@
     border-radius: 2px;
 }
 
-text2 {
+.text2 {
     position: absolute;
     left: 10.81%;
     right: 10.81%;

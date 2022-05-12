@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../components/Button';
 import Title from '../components/Title';
 import Form from '../components/Form';
 import CardSm from '../components/CardSm';
@@ -37,6 +38,8 @@ const Home = () => {
           <Title
             title="Descubre las aventuras de Airbnb"
             info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
+          <Button text="prueba" cond="true" />
+          <Button text="pruebo" />
         </section>
         <section>
           <Title title="Alojamientos en todo el mundo"></Title>
