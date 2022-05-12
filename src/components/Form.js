@@ -15,11 +15,11 @@ const Form = () => {
         <div className="searchContainerForm__form__schedule">
           <label className="searchContainerForm__form__schedule__arrive">
             Llegada
-            <input type="text" placeholder="dd/mm/aaaa"></input>
+            <input type="date" placeholder="dd/mm/aaaa"></input>
           </label>
           <label className="searchContainerForm__form__schedule__departure">
             Salida
-            <input type="text" placeholder="dd/mm/aaaa"></input>
+            <input type="date" placeholder="dd/mm/aaaa"></input>
           </label>
         </div>
 

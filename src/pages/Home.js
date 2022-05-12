@@ -39,6 +39,9 @@ const Home = () => {
         <Title
             title="Alojamientos Airbnb Plus"
             info="Una selección de alojamientos contrastados según criterios de calidad y diseño"></Title>
+        <section>
+
+        </section>
         <Title
             title="Descubre las aventuras de Airbnb"
             info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
@@ -86,27 +89,15 @@ const Home = () => {
             score="5.0★"
         />
         </section>
-        <section>
         <Title title="Alojamientos en todo el mundo"></Title>
-            score="5.0★"
-          />
-        </section>
-        <section>
-          <Title
-            title="Descubre las aventuras de Airbnb"
-            info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
-          <Button text="prueba" cond="true" />
-          <Button text="pruebo" />
-        </section>
-        <section>
-          <Title title="Alojamientos en todo el mundo"></Title>
+        <section className='alojamientos-plus'>
           <CardLg
             src={cardlg1}
             textbtn="superhost"
             city="City name"
             score="4.9"
             text="À partir de 577€/personne - 3 jours"
-          />
+        />
         </section>
         <Title
             title="Experiencias altamente calificadas"
