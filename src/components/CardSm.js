@@ -1,8 +1,7 @@
 import '../styles/components/CardSm.scss';
 
 const CardSm = (props) => {
-  const { text } = props;
-  const { src } = props;
+  const { text, src } = props;
   return (
     <div className="bg-cardsm">
       <div className="rectangle-sm">

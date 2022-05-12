@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../components/Button';
 import Title from '../components/Title';
 import Form from '../components/Form';
 import CardSm from '../components/CardSm';
@@ -7,6 +8,8 @@ import rec1 from '../images/cards/rectangle4.0.png';
 import rec2 from '../images/cards/rectangle4.1.png';
 import rec3 from '../images/cards/rectangle4.2.png';
 import cardmd1 from '../images/cards/cardmd1.png';
+import cardlg1 from '../images/cards/cardlg1.png';
+import CardLg from '../components/CardLg';
 
 const Home = () => {
   return (
@@ -37,9 +40,18 @@ const Home = () => {
           <Title
             title="Descubre las aventuras de Airbnb"
             info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
+          <Button text="prueba" cond="true" />
+          <Button text="pruebo" />
         </section>
         <section>
           <Title title="Alojamientos en todo el mundo"></Title>
+          <CardLg
+            src={cardlg1}
+            textbtn="superhost"
+            city="City name"
+            score="4.9"
+            text="À partir de 577€/personne - 3 jours"
+          />
         </section>
         <section>
           <Title
