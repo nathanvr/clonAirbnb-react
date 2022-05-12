@@ -8,7 +8,6 @@ const CardMd = (props) => {
       <div className="rectangle-md">
         <img loading="lazy" src={src} alt=""></img>
       </div>
-
       <h2 className="country">{country}</h2>
       <Link to="#"><h3 className="cmdtexth3">{texth3}</h3></Link>
       <p className="cmdtextp">{textp}</p>

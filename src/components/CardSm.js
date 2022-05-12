@@ -2,9 +2,10 @@ import '../styles/components/CardSm.scss';
 import {Link} from "react-router-dom";
 
 const CardSm = (props) => {
-  const { text } = props;
-  const { src } = props;
-  const {link} = props;
+
+ const {link} = props;
+ const { text, src } = props;
+
   return (
     <Link to={link}> 
     <div className="bg-cardsm">

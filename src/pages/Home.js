@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../components/Button';
 import Title from '../components/Title';
 import Form from '../components/Form';
 import CardSm from '../components/CardSm';
@@ -18,6 +19,9 @@ import cardmd9 from '../images/cards/cardmd9.png';
 import cardmd10 from '../images/cards/cardmd10.png';
 import cardmd11 from '../images/cards/cardmd11.png';
 import cardmd12 from '../images/cards/cardmd12.png';
+import cardlg1 from '../images/cards/cardlg1.png';
+import CardLg from '../components/CardLg';
+
 
 const Home = () => {
     return (
@@ -51,39 +55,58 @@ const Home = () => {
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
-            score="5.0"
+            score="5.0★"
         />
         <CardMd
             src={cardmd3}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
-            score="5.0"
+            score="5.0★"
         />
         <CardMd
             src={cardmd4}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
-            score="5.0"
+            score="5.0★"
         />
         <CardMd
             src={cardmd5}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
-            score="5.0"
+            score="5.0★"
         />
         <CardMd
             src={cardmd6}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
-            score="5.0"
+            score="5.0★"
         />
         </section>
         <section>
         <Title title="Alojamientos en todo el mundo"></Title>
+            score="5.0★"
+          />
+        </section>
+        <section>
+          <Title
+            title="Descubre las aventuras de Airbnb"
+            info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
+          <Button text="prueba" cond="true" />
+          <Button text="pruebo" />
+        </section>
+        <section>
+          <Title title="Alojamientos en todo el mundo"></Title>
+          <CardLg
+            src={cardlg1}
+            textbtn="superhost"
+            city="City name"
+            score="4.9"
+            text="À partir de 577€/personne - 3 jours"
+          />
         </section>
         <Title
             title="Experiencias altamente calificadas"
