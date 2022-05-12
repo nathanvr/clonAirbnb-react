@@ -5,13 +5,9 @@ import Home from './pages/Home';
 import Anfitrion from './pages/Anfitrion';
 import Experiencia from './pages/Experiencia';
 
-import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
-import BrandIcon from './BrandIcon';
-
 function App() {
   return (
     <div className="App">
-      <BrandIcon iconType={faAirbnb} colorIcon="red" sizeIcon="20px" />
       <BrowserRouter>
         <Navbar></Navbar>
         <Routes>
