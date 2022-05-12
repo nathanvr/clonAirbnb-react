@@ -102,3 +102,31 @@
     line-height: 12px;
     color: #484848;
 }
+@mixin text-format-cardlg-city () {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+
+    color: #767676;
+}
+@mixin text-format-cardlg-score () {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+
+    color: #484848;
+}
+
+@mixin text-format-cardlg-text () {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+
+    color: #484848;
+}
