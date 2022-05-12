@@ -12,6 +12,23 @@
     line-height: 19px;
 }
 
+@mixin module-wraper ($px, $pt, $pb){
+    margin:0px;
+    padding-left: $px;
+    padding-right: $px;
+    padding-top: $pt;
+    padding-bottom: $pb;
+}
+
+@mixin assign-margin ($mr, $ml){
+    margin-left: $ml;
+    margin-right: $mr;
+}
+
+@mixin assign-padding ($pr, $pl){
+    padding-left: $pl;
+    padding-right: $pr;
+}
 
 @mixin text-format-cardsm () {
     font-family: Roboto;
@@ -65,4 +82,5 @@
     color: #008489;
     letter-spacing: 0em;
     text-align: left;
+
 }

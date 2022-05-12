@@ -1,6 +1,6 @@
 import React from 'react';
 import Title from '../components/Title';
-import Header from '../components/Header';
+import Form from '../components/Form';
 import CardSm from '../components/CardSm';
 import CardMd from '../components/CardMd';
 import rec1 from '../images/cards/rectangle4.0.png';
@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <div className="container-home">
       <div className="header">
-        <Header></Header>
+        <Form></Form>
       </div>
       <div className="main">
         <section>
