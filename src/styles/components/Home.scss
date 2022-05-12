@@ -24,13 +24,18 @@
 .main{
     width: 100%;
     position: relative;
-    
     padding: 80px;
-    background-color: #e5e5e56c;
+    background-color: #fff;
     z-index: 1;
 
 }
-section{
-    padding-bottom: 80px;
+.explorar-airbnb{
+    @include cards-display-margin ();
 }
 
+.alojamientos-plus{
+    @include cards-display-margin ();
+}
+.experiencias-calificadas{
+    @include cards-display-margin ();
+}

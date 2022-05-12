@@ -7,53 +7,139 @@ import rec1 from '../images/cards/rectangle4.0.png';
 import rec2 from '../images/cards/rectangle4.1.png';
 import rec3 from '../images/cards/rectangle4.2.png';
 import cardmd1 from '../images/cards/cardmd1.png';
+import cardmd2 from '../images/cards/cardmd2.png';
+import cardmd3 from '../images/cards/cardmd3.png';
+import cardmd4 from '../images/cards/cardmd4.png';
+import cardmd5 from '../images/cards/cardmd5.png';
+import cardmd6 from '../images/cards/cardmd6.png';
+import cardmd7 from '../images/cards/cardmd7.png';
+import cardmd8 from '../images/cards/cardmd8.png';
+import cardmd9 from '../images/cards/cardmd9.png';
+import cardmd10 from '../images/cards/cardmd10.png';
+import cardmd11 from '../images/cards/cardmd11.png';
+import cardmd12 from '../images/cards/cardmd12.png';
 
 const Home = () => {
-  return (
+    return (
     <div className="container-home">
-      <div className="header">
+        <div className="header">
         <Form></Form>
-      </div>
-      <div className="main">
-        <section>
-          <Title title="Explorar Airbnb"></Title>
-          <CardSm text="Logements" src={rec1}></CardSm>
-          <CardSm text="Expériences" src={rec2}></CardSm>
-          <CardSm text="Aventures" src={rec3}></CardSm>
+        </div>
+        <div className="main">
+        <Title title="Explorar Airbnb"></Title>
+        <section className='explorar-airbnb'>
+            <CardSm text="Logements" src={rec1} link="/"></CardSm>
+            <CardSm text="Expériences" src={rec2} link="/experiencia"></CardSm>
+            <CardSm text="Aventures" src={rec3} link="/"></CardSm>
         </section>
-        <section>
-          <Title
+        <Title
             title="Alojamientos Airbnb Plus"
             info="Una selección de alojamientos contrastados según criterios de calidad y diseño"></Title>
-          <CardMd
+        <Title
+            title="Descubre las aventuras de Airbnb"
+            info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
+        <section className='alojamientos-plus'>
+        <CardMd
             src={cardmd1}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
-            score="5.0★"
-          />
+            score="5.0"
+        />
+        <CardMd
+            src={cardmd2}
+            country="cayman island"
+            texth3="2 Nights PACKAGE All Inclusive"
+            textp="À partir de 577€/personne - 3 jours"
+            score="5.0"
+        />
+        <CardMd
+            src={cardmd3}
+            country="cayman island"
+            texth3="2 Nights PACKAGE All Inclusive"
+            textp="À partir de 577€/personne - 3 jours"
+            score="5.0"
+        />
+        <CardMd
+            src={cardmd4}
+            country="cayman island"
+            texth3="2 Nights PACKAGE All Inclusive"
+            textp="À partir de 577€/personne - 3 jours"
+            score="5.0"
+        />
+        <CardMd
+            src={cardmd5}
+            country="cayman island"
+            texth3="2 Nights PACKAGE All Inclusive"
+            textp="À partir de 577€/personne - 3 jours"
+            score="5.0"
+        />
+        <CardMd
+            src={cardmd6}
+            country="cayman island"
+            texth3="2 Nights PACKAGE All Inclusive"
+            textp="À partir de 577€/personne - 3 jours"
+            score="5.0"
+        />
         </section>
         <section>
-          <Title
-            title="Descubre las aventuras de Airbnb"
-            info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
+        <Title title="Alojamientos en todo el mundo"></Title>
         </section>
-        <section>
-          <Title title="Alojamientos en todo el mundo"></Title>
-        </section>
-        <section>
-          <Title
+        <Title
             title="Experiencias altamente calificadas"
             info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
+        <section className='experiencias-calificadas'>
+        <CardMd
+            src={cardmd7}
+            country="cayman island"
+            texth3="2 Nights PACKAGE All Inclusive"
+            textp="À partir de 577€/personne - 3 jours"
+            score="5.0"
+        />
+        <CardMd
+            src={cardmd8}
+            country="cayman island"
+            texth3="2 Nights PACKAGE All Inclusive"
+            textp="À partir de 577€/personne - 3 jours"
+            score="5.0"
+        />
+        <CardMd
+            src={cardmd9}
+            country="cayman island"
+            texth3="2 Nights PACKAGE All Inclusive"
+            textp="À partir de 577€/personne - 3 jours"
+            score="5.0"
+        />
+        <CardMd
+            src={cardmd10}
+            country="cayman island"
+            texth3="2 Nights PACKAGE All Inclusive"
+            textp="À partir de 577€/personne - 3 jours"
+            score="5.0"
+        />
+        <CardMd
+            src={cardmd11}
+            country="cayman island"
+            texth3="2 Nights PACKAGE All Inclusive"
+            textp="À partir de 577€/personne - 3 jours"
+            score="5.0"
+        />
+        <CardMd
+            src={cardmd12}
+            country="cayman island"
+            texth3="2 Nights PACKAGE All Inclusive"
+            textp="À partir de 577€/personne - 3 jours"
+            score="5.0"
+        />
         </section>
         <section>
-          <Title
+        <Title
             title="Destinos destacados de Airbnb Más"
             info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
         </section>
-      </div>
     </div>
-  );
+    </div>
+);
 };
 
 export default Home;
