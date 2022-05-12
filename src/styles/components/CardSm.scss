@@ -7,12 +7,16 @@
     width: 391px;
     left: 0px;
     top: 0px;
-    top: 0px;
     bottom: 0px;
-
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;;
     border-radius: 12px;
     background: #FFFFFF;
     overflow: hidden;
+    margin: 5px 0px;
+
+    .cmdtexth3 :hover{
+        text-decoration: underline;
+    }
 }
 
 .rectangle-sm {

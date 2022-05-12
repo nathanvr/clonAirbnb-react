@@ -1,3 +1,6 @@
+$small: 300px;
+$medium: 900px;
+
 @mixin text-format-titles() {
     color: var(--darkgrey);
     font-size: 24px;
@@ -129,4 +132,11 @@
     line-height: 21px;
 
     color: #484848;
+}
+
+@mixin cards-display-margin(){
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 24px 0 88px 0;
 }

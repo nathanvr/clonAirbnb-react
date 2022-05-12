@@ -8,10 +8,10 @@
     left: 0px;  //modify to position
     top: 0px;   //modify to position
     bottom: 0px;
-
     border-radius: 4px;
     background: #FFFFFF;
     overflow: hidden;
+    margin-bottom: 5px;
 }
 
 .rectangle-md {
@@ -42,7 +42,7 @@
     left: 0px;
     right: 0px;
     top: 264px;
-   
+
     @include text-format-cardmd-h3;
 }
 
