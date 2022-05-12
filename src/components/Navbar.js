@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import Logocut from '../images/Vector.png';
+import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
+import BrandIcon from './BrandIcon';
 
 const Navbar = () => {
   const location = useLocation();
-
+  console.log('Location', location);
   return (
     <div
       className={
@@ -14,7 +15,12 @@ const Navbar = () => {
       }>
       <div className="logo">
         <Link to="/">
-          <img src={Logocut} alt="logo"></img>
+          <BrandIcon
+            className="nav--logo"
+            iconType={faAirbnb}
+            colorIcon={location.pathname === '/' ? 'white' : 'var(--red)'}
+            sizeIcon="40px"
+          />
         </Link>
       </div>
       <ul className="nav-menu">
