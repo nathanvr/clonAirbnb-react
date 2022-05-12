@@ -8,7 +8,7 @@ const CardLg = (props) => {
       <div className="rectangle-lg">
         <img loading="lazy" src={src}></img>
       </div>
-      <Button style="top: 208px" text={textbtn} />
+      <Button text={textbtn} top="206px" />
       <h2 className="city-lg">{city}</h2>
       <span className="star-lg">★</span>
       <p className="score-lg">{score}</p>
