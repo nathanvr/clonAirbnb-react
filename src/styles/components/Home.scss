@@ -19,8 +19,6 @@
     height: 508px;
 }
 
-
-
 .main{
     width: 100%;
     position: relative;
@@ -38,4 +36,23 @@
 }
 .experiencias-calificadas{
     @include cards-display-margin ();
+}
+.main__housing{
+    background: url('../../images/alojamientos.png');
+    background-repeat: no-repeat;
+    height: 310px;
+
+
+
+    .main__housing__emelemts{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 60px;
+
+        BrandIcon{
+            margin-bottom: 100px;
+        }
+
+    }
 }

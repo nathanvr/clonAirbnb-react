@@ -23,6 +23,8 @@ import cardlg1 from '../images/cards/cardlg1.png';
 import cardxl1 from '../images/cards/cardxl1.png';
 import CardLg from '../components/CardLg';
 import CardXl from '../components/CardXl';
+import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
+import BrandIcon from '../components/BrandIcon';
 
 const Home = () => {
   return (
@@ -40,17 +42,14 @@ const Home = () => {
         <Title
           title="Alojamientos Airbnb Plus"
           info="Una selección de alojamientos contrastados según criterios de calidad y diseño"></Title>
-        <section>
-          <Title title="Card XL" />
-          <CardXl
-            src={cardxl1}
-            title="Plus de 200 séjours vérifiés"
-            text="À partir de 577€/personne - 3 jours"
-          />
-          <Button text="prueba1" cond="1" />
-          <Button text="prueba2" cond="2" />
-          <Button text="prueba3" cond="3" />
+
+        <section className="main__housing">
+          <div className="main__housing__emelemts">
+            <BrandIcon iconType={faAirbnb} colorIcon="white" sizeIcon="100px" />
+            <Button text="Descubre alojamientos" cond="3" />
+          </div>
         </section>
+
         <Title
           title="Descubre las aventuras de Airbnb"
           info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
@@ -159,6 +158,18 @@ const Home = () => {
           <Title
             title="Destinos destacados de Airbnb Más"
             info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
+        </section>
+
+        <section>
+          <Title title="Card XL" />
+          <CardXl
+            src={cardxl1}
+            title="Plus de 200 séjours vérifiés"
+            text="À partir de 577€/personne - 3 jours"
+          />
+          <Button text="prueba1" cond="1" />
+          <Button text="prueba2" cond="2" />
+          <Button text="prueba3" cond="3" />
         </section>
       </div>
     </div>
