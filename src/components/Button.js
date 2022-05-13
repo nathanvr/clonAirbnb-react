@@ -1,5 +1,5 @@
 import '../styles/components/Button.scss';
-import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import BrandIcon from './BrandIcon';
 
 const Button = (props) => {
@@ -13,7 +13,7 @@ const Button = (props) => {
       <p className={tex}>{text}</p>
       <BrandIcon
         right="83%"
-        iconType={faAirbnb}
+        iconType={faAngleRight}
         colorIcon={color}
         sizeIcon="15px"
       />
