@@ -1,0 +1,64 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixims';
+
+.bg-cardxl {
+    position: relative; // relative to locate, absolute default
+    height: 294px;
+    width: 391px;
+    left: 0px;  //modify to position
+    top: 0px;   //modify to position
+    bottom: 0px;
+    
+    border-radius: 4px;
+    background: #FFFFFF;
+    overflow: hidden;
+    margin-bottom: 5px;
+
+}
+
+.rectangle-xl {
+    height: 239px;
+    width: 391px;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    position: absolute;
+
+    border-radius: 12px;
+    background: #C4C4C4;
+}
+
+.iconxl{
+    position: absolute;
+    z-index: 1;
+    left: 166.5px;
+    top: 87px;
+}
+
+.imagexl {
+    position: absolute;
+}
+
+.titlexl {
+    position: absolute;
+    width: 179px;
+    height: 14px;
+    left: 0px;
+    top: 249px;
+    letter-spacing: 0em;
+    text-align: left;
+    text-transform: uppercase;
+
+    @include text-format-cardxl-title;
+}
+
+.textxl {
+    position: absolute;
+    width: 391px;
+    height: 21px;
+    left: 0px;
+    top: 273px;
+    letter-spacing: 0em;
+
+    @include text-format-cardxl-text;
+}
