@@ -29,7 +29,7 @@
             
     @media only screen and (min-width: 300px) and (max-width: 900px){
         width: 100%;
-        padding: 40px;
+
 }
 
 }
@@ -42,8 +42,10 @@
 
 .alojamientos-plus{
     @include cards-display-margin ();
+
 }
 .experiencias-calificadas{
     @include cards-display-margin ();
+
 }
 

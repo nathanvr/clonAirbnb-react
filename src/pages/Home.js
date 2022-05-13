@@ -53,7 +53,7 @@ const Home = () => {
             info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
         
         <section className='alojamientos-plus'>
-        <Swiper pagination={{dynamicBullets: true, clickable: true}} modules={[Pagination]}  className="mySwiper" speed={500}  breakpoints={{480: { slidesPerView: 2, }, 720: { slidesPerView: 3, }, 950: { slidesPerView: 4,},1333:{slidesPerView:6}}}> 
+        <Swiper pagination={{dynamicBullets: true, clickable: true}} modules={[Pagination]}  className="mySwiper" speed={500}  breakpoints={{300:{slidesPerView:1},560: { slidesPerView: 2, }, 760: { slidesPerView: 3, }, 960: { slidesPerView: 4}, 1160:{slidesPerView: 5},1333:{slidesPerView:6, spaceBetween:5}}}> 
             <SwiperSlide><CardMd
             src={cardmd1}
             country="cayman island"
@@ -99,7 +99,7 @@ const Home = () => {
         </Swiper>
         </section>
         <Title title="Alojamientos en todo el mundo"></Title>
-        <section className='alojamientos-plus'>
+        <section className='alojamientos-plus1'>
         <CardLg
             src={cardlg1}
             textbtn="superhost"
@@ -112,48 +112,50 @@ const Home = () => {
             title="Experiencias altamente calificadas"
             info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
         <section className='experiencias-calificadas'>
-        <CardMd
+        <Swiper pagination={{dynamicBullets: true, clickable: true}} modules={[Pagination]}  className="mySwiper" speed={500}  breakpoints={{300:{slidesPerView:1},560: { slidesPerView: 2, }, 760: { slidesPerView: 3, }, 960: { slidesPerView: 4}, 1160:{slidesPerView: 5},1333:{slidesPerView:6, spaceBetween:5}}}> 
+            <SwiperSlide><CardMd
             src={cardmd7}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
             score="5.0"
-        />
-        <CardMd
+        /> </SwiperSlide>
+        <SwiperSlide><CardMd
             src={cardmd8}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
-            score="5.0"
-        />
-        <CardMd
+            score="5.0★"
+        /></SwiperSlide>
+        <SwiperSlide><CardMd
             src={cardmd9}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
-            score="5.0"
-        />
-        <CardMd
+            score="5.0★"
+        /></SwiperSlide>
+        <SwiperSlide><CardMd
             src={cardmd10}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
-            score="5.0"
-        />
-        <CardMd
+            score="5.0★"
+        /></SwiperSlide>
+        <SwiperSlide><CardMd
             src={cardmd11}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
-            score="5.0"
-        />
-        <CardMd
+            score="5.0★"
+        /></SwiperSlide>
+        <SwiperSlide><CardMd
             src={cardmd12}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
-            score="5.0"
-        />
+            score="5.0★"
+        /></SwiperSlide>
+        </Swiper>
         </section>
         <section>
         <Title
