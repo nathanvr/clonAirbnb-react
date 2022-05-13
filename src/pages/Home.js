@@ -25,6 +25,7 @@ import CardLg from '../components/CardLg';
 import CardXl from '../components/CardXl';
 import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
 import BrandIcon from '../components/BrandIcon';
+import LodgementSlider from '../components/LodgementSlider';
 
 const Home = () => {
   return (
@@ -170,6 +171,10 @@ const Home = () => {
           <Button text="prueba1" cond="1" />
           <Button text="prueba2" cond="2" />
           <Button text="prueba3" cond="3" />
+        </section>
+
+        <section>
+          <LodgementSlider />
         </section>
       </div>
     </div>
