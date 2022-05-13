@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import {Link, useLocation} from "react-router-dom";
-import {FaTimes} from 'react-icons/fa'
-import {BsThreeDotsVertical} from 'react-icons/bs'
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { FaTimes } from 'react-icons/fa';
+import { BsThreeDotsVertical } from 'react-icons/bs';
 import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
 import BrandIcon from './BrandIcon';
-
 
 const Navbar = () =>{
     const location= useLocation();
@@ -34,7 +33,7 @@ const Navbar = () =>{
         </ul>
         <button className="open" onClick={()=> setShow(!show)}><BsThreeDotsVertical></BsThreeDotsVertical></button>
     </div>
-        );
+  );
 };
 
 export default Navbar;

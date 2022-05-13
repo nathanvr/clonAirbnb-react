@@ -50,3 +50,32 @@
     @include text-format-btn2;
     text-transform: uppercase;  
 }
+
+.btn3 {
+
+    height: 44px;
+    width: 200px;
+    box-sizing: border-box;
+    position: relative; // relative to locate, absolute default
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    background: #FFFFFF;
+    border-radius: 4px;
+}
+
+.text3 {
+    position: absolute;
+    width: 136px;
+    height: 12px;
+    left: 24px;
+    top: calc(50% - 12px/2);
+    text-transform: uppercase;
+    @include text-format-btn2;
+}
+
+.icon {
+    display:flex;
+}
