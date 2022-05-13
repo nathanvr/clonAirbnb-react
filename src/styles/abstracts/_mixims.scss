@@ -6,6 +6,10 @@ $medium: 900px;
     font-size: 24px;
     font-weight: 700;
     line-height: 28px;
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+        font-size: 18px;
+    
+}
 }
 
 @mixin text-format-paragraph (){
@@ -13,6 +17,10 @@ $medium: 900px;
     font-weight: 300;
     font-size: 16px;
     line-height: 19px;
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+        font-size: 14px;
+    
+}
 }
 
 @mixin module-wraper ($px, $pt, $pb){
@@ -41,6 +49,7 @@ $medium: 900px;
     letter-spacing: 0em;
     text-align: left;
     color: #484848;
+    
 }
 
 @mixin text-format-cardmd-country () {

@@ -12,14 +12,13 @@
         display: flex;
         align-items: center;
         background-size: cover;
+        
+        @media only screen and (min-width: 300px) and (max-width: 900px){
+            width: 100%;
+            display: flex;
+            justify-content: left;
+    }
 }
-
-.form{
-    padding-left: 80px;
-    height: 508px;
-}
-
-
 
 .main{
     width: 100%;
@@ -27,10 +26,18 @@
     padding: 80px;
     background-color: #fff;
     z-index: 1;
+            
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+        width: 100%;
+        padding: 40px;
+}
 
 }
 .explorar-airbnb{
     @include cards-display-margin ();
+    @media only screen and (max-width: 599px){
+        justify-content: center;
+    }
 }
 
 .alojamientos-plus{
@@ -39,3 +46,4 @@
 .experiencias-calificadas{
     @include cards-display-margin ();
 }
+
