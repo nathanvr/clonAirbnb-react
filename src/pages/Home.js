@@ -19,9 +19,7 @@ import cardmd9 from '../images/cards/cardmd9.png';
 import cardmd10 from '../images/cards/cardmd10.png';
 import cardmd11 from '../images/cards/cardmd11.png';
 import cardmd12 from '../images/cards/cardmd12.png';
-import cardlg1 from '../images/cards/cardlg1.png';
 import cardxl1 from '../images/cards/cardxl1.png';
-import CardLg from '../components/CardLg';
 import CardXl from '../components/CardXl';
 import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
 import BrandIcon from '../components/BrandIcon';
@@ -99,14 +97,8 @@ const Home = () => {
           />
         </section>
         <Title title="Alojamientos en todo el mundo"></Title>
-        <section className="alojamientos-plus">
-          <CardLg
-            src={cardlg1}
-            textbtn="superhost"
-            city="City name"
-            score="4.9"
-            text="À partir de 577€/personne - 3 jours"
-          />
+        <section className="lodgement__slider">
+          <LodgementSlider />
         </section>
         <Title
           title="Experiencias altamente calificadas"
@@ -171,10 +163,6 @@ const Home = () => {
           <Button text="prueba1" cond="1" />
           <Button text="prueba2" cond="2" />
           <Button text="prueba3" cond="3" />
-        </section>
-
-        <section>
-          <LodgementSlider />
         </section>
       </div>
     </div>
