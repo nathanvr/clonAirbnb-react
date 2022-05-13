@@ -34,7 +34,7 @@
             
     @media only screen and (min-width: 300px) and (max-width: 900px){
         width: 100%;
-        padding: 40px;
+
 }
 
 }
@@ -47,9 +47,20 @@
 
 .alojamientos-plus{
     @include cards-display-margin ();
+
 }
 .experiencias-calificadas{
     @include cards-display-margin ();
+
+}
+.airbnb-plus{
+    @include cards-display-margin ();
+}
+.lodgement__slider{
+    padding-bottom: 60px;
+}
+.main__housing{
+    margin: 24px 0 88px 0;
 }
 .main__housing{
     background: url('../../images/alojamientos.png');

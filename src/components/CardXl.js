@@ -14,7 +14,7 @@ const CardXl = (props) => {
             sizeIcon="58px"
           />
         </div>
-        <img className="imagexl" loading="lazy" src={src}></img>
+        <img className="imagexl" loading="lazy" src={src} alt=""></img>
       </div>
       <h2 className="titlexl">{title}</h2>
       <p className="textxl">{text}</p>

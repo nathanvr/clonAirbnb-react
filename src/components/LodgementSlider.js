@@ -23,7 +23,7 @@ const LodgementSlider = () => {
     <div>
       <Swiper
         slidesPerView={4}
-        spaceBetween={50}
+        spaceBetween={5}
         pagination={{
           clickable: true,
         }}

@@ -6,7 +6,7 @@ const Button = (props) => {
   const { text, cond, top } = props;
   const btn = `btn${cond}`;
   const tex = `text${cond}`;
-  const color = cond != 3 ? 'transparent' : '#484848';
+  const color = cond !== 3 ? 'transparent' : '#484848';
 
   return (
     <button style={{ top: top }} className={btn}>
