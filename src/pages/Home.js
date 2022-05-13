@@ -1,4 +1,5 @@
 import React from 'react';
+import {Swiper, SwiperSlide} from 'swiper/react'
 import Button from '../components/Button';
 import Title from '../components/Title';
 import Form from '../components/Form';
@@ -21,6 +22,11 @@ import cardmd11 from '../images/cards/cardmd11.png';
 import cardmd12 from '../images/cards/cardmd12.png';
 import cardlg1 from '../images/cards/cardlg1.png';
 import CardLg from '../components/CardLg';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import { Pagination } from "swiper";
 
 
 const Home = () => {
@@ -45,53 +51,56 @@ const Home = () => {
         <Title
             title="Descubre las aventuras de Airbnb"
             info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
+        
         <section className='alojamientos-plus'>
-        <CardMd
+        <Swiper pagination={{dynamicBullets: true, clickable: true}} modules={[Pagination]}  className="mySwiper" speed={500}  breakpoints={{480: { slidesPerView: 2, }, 720: { slidesPerView: 3, }, 950: { slidesPerView: 4,},1333:{slidesPerView:6}}}> 
+            <SwiperSlide><CardMd
             src={cardmd1}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
             score="5.0"
-        />
-        <CardMd
+        /> </SwiperSlide>
+        <SwiperSlide><CardMd
             src={cardmd2}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
             score="5.0★"
-        />
-        <CardMd
+        /></SwiperSlide>
+        <SwiperSlide><CardMd
             src={cardmd3}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
             score="5.0★"
-        />
-        <CardMd
+        /></SwiperSlide>
+        <SwiperSlide><CardMd
             src={cardmd4}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
             score="5.0★"
-        />
-        <CardMd
+        /></SwiperSlide>
+        <SwiperSlide><CardMd
             src={cardmd5}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
             score="5.0★"
-        />
-        <CardMd
+        /></SwiperSlide>
+        <SwiperSlide><CardMd
             src={cardmd6}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
             score="5.0★"
-        />
+        /></SwiperSlide>
+        </Swiper>
         </section>
         <Title title="Alojamientos en todo el mundo"></Title>
         <section className='alojamientos-plus'>
-          <CardLg
+        <CardLg
             src={cardlg1}
             textbtn="superhost"
             city="City name"

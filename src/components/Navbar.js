@@ -13,7 +13,7 @@ const Navbar = () =>{
     return (
     <div className={location.pathname === "/" ? 'navbar navbar-home': 'navbar navbar-default'}>
         <div className="logo">
-            <Link to="/">
+            <Link to="/" onClick={()=> setShow(show)}>
                 <BrandIcon
                     className="nav--logo"
                     iconType={faAirbnb}
@@ -23,10 +23,10 @@ const Navbar = () =>{
             </Link>
         </div>
         <ul className="nav-menu" id={show ? "hidden" : ""}>
-            <li className="nav-item"><Link to="#">Français (FR)</Link></li>
+            <li className="nav-item"><Link to="#" >Français (FR)</Link></li>
             <li className="nav-item"><Link to="#">EUR </Link></li>
-            <li className="nav-item"><Link to="/anfitrion">Conviértete en un anfitrión</Link></li>
-            <li className="nav-item"><Link to="/experiencia">Crea tu experiencia</Link></li>
+            <li className="nav-item"><Link to="/anfitrion" onClick={()=> setShow(!show)}>Conviértete en un anfitrión</Link></li>
+            <li className="nav-item"><Link to="/experiencia" onClick={()=> setShow(!show)}>Crea tu experiencia</Link></li>
             <li className="nav-item"><Link to="#">Ayuda</Link></li>
             <li className="nav-item"><Link to="#">Registro</Link></li>
             <li className="nav-item"><Link to="#">Acceso</Link></li>
