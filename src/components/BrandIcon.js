@@ -1,11 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const BrandIcon = (props) => {
-  const { iconType, colorIcon, sizeIcon } = props;
+  const { iconType, colorIcon, sizeIcon, right } = props;
   return (
     <FontAwesomeIcon
       icon={iconType}
-      style={{ color: colorIcon, fontSize: sizeIcon }}
+      style={{
+        color: colorIcon,
+        fontSize: sizeIcon,
+        paddingLeft: right,
+      }}
     />
   );
 };
