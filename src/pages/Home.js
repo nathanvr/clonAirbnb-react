@@ -28,6 +28,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { Pagination } from "swiper";
+import {Link} from 'react-router-dom'
 
 import CardXl from '../components/CardXl';
 import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
@@ -66,13 +67,13 @@ const Home = () => {
 
         <section className='alojamientos-plus'>
         <Swiper pagination={{dynamicBullets: true, clickable: true}} modules={[Pagination]}  className="mySwiper" speed={500}  breakpoints={{300:{slidesPerView:1},560: { slidesPerView: 2, }, 760: { slidesPerView: 3, }, 960: { slidesPerView: 4}, 1160:{slidesPerView: 5},1333:{slidesPerView:6, spaceBetween:5}}}> 
-            <SwiperSlide><CardMd
+            <SwiperSlide><Link to="/reservasroom"><CardMd
             src={cardmd1}
             country="cayman island"
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
             score="5.0"
-        /> </SwiperSlide>
+        /></Link> </SwiperSlide>
         <SwiperSlide>
 
         <CardMd

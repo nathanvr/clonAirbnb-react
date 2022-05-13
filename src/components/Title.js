@@ -6,7 +6,7 @@ const Title = (props) =>{
     const {info}=props;
         return (
             <div className="container">
-                <h1>{title}</h1>
+                <h2>{title}</h2>
                 <p>{info}</p>
             </div>
     )
