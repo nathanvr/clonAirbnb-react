@@ -1,4 +1,5 @@
 import React from 'react';
+import {Swiper, SwiperSlide} from 'swiper/react'
 import Button from '../components/Button';
 import Title from '../components/Title';
 import Form from '../components/Form';
@@ -20,6 +21,14 @@ import cardmd10 from '../images/cards/cardmd10.png';
 import cardmd11 from '../images/cards/cardmd11.png';
 import cardmd12 from '../images/cards/cardmd12.png';
 import cardxl1 from '../images/cards/cardxl1.png';
+
+import CardLg from '../components/CardLg';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import { Pagination } from "swiper";
+
 import CardXl from '../components/CardXl';
 import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
 import BrandIcon from '../components/BrandIcon';
@@ -50,6 +59,12 @@ const Home = () => {
         </section>
 
         <Title
+            title="Descubre las aventuras de Airbnb"
+            info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
+        
+        <section className='alojamientos-plus'>
+        <Swiper pagination={{dynamicBullets: true, clickable: true}} modules={[Pagination]}  className="mySwiper" speed={500}  breakpoints={{480: { slidesPerView: 2, }, 720: { slidesPerView: 3, }, 950: { slidesPerView: 4,},1333:{slidesPerView:6}}}> 
+            <SwiperSlide><CardMd
           title="Descubre las aventuras de Airbnb"
           info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
         <section className="alojamientos-plus">
@@ -59,6 +74,8 @@ const Home = () => {
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
             score="5.0"
+        /> </SwiperSlide>
+        <SwiperSlide><CardMd
           />
           <CardMd
             src={cardmd2}
@@ -66,6 +83,8 @@ const Home = () => {
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
             score="5.0★"
+        /></SwiperSlide>
+        <SwiperSlide><CardMd
           />
           <CardMd
             src={cardmd3}
@@ -73,6 +92,8 @@ const Home = () => {
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
             score="5.0★"
+        /></SwiperSlide>
+        <SwiperSlide><CardMd
           />
           <CardMd
             src={cardmd4}
@@ -80,6 +101,8 @@ const Home = () => {
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
             score="5.0★"
+        /></SwiperSlide>
+        <SwiperSlide><CardMd
           />
           <CardMd
             src={cardmd5}
@@ -87,6 +110,8 @@ const Home = () => {
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
             score="5.0★"
+        /></SwiperSlide>
+        <SwiperSlide><CardMd
           />
           <CardMd
             src={cardmd6}
@@ -94,6 +119,12 @@ const Home = () => {
             texth3="2 Nights PACKAGE All Inclusive"
             textp="À partir de 577€/personne - 3 jours"
             score="5.0★"
+        /></SwiperSlide>
+        </Swiper>
+        </section>
+        <Title title="Alojamientos en todo el mundo"></Title>
+        <section className='alojamientos-plus'>
+        <CardLg
           />
         </section>
         <Title title="Alojamientos en todo el mundo"></Title>
