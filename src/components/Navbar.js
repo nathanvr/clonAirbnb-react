@@ -4,13 +4,10 @@ import { FaTimes } from 'react-icons/fa';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
 import BrandIcon from './BrandIcon';
-import Modal from 'react-modal/lib/components/Modal';
 import LoginModal from './LoginModal';
 
-Modal.setAppElement('#root');
 const Navbar = () => {
   const location = useLocation();
-  const [modalOpen, setModalOpen] = useState(false);
   const [show, setShow] = useState(false);
 
   return (
@@ -51,17 +48,7 @@ const Navbar = () => {
           <Link to="#">Ayuda</Link>
         </li>
         <li className="nav-item">
-          <Link to="#" onClick={() => setModalOpen(true)}>
-            Registro
-          </Link>
-          <div>
-            <Modal
-              isOpen={modalOpen}
-              onRequestClose={() => setModalOpen(false)}>
-              <button onClick={() => setModalOpen(false)}> X </button>
-              <LoginModal />
-            </Modal>
-          </div>
+          <LoginModal />
         </li>
         <li className="nav-item">
           <Link to="#">Acceso</Link>

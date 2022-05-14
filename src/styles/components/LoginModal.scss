@@ -1,4 +1,82 @@
 .loginFormContainer{
+    border: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    margin: 0 60px;
+    background-color:rgb(255, 255, 255);
+    border-radius: 5px;
+    padding: 10px;
 
 
+    
+}
+
+.loginForm__header{
+    display: flex;
+    
+
+    button{
+        width: 30px;
+        border: none;
+        background: none;
+    }
+    h2{
+        margin: auto;
+        font-size: 16px;
+
+    }
+
+
+}
+.form-group{
+    display: flex;
+}
+.form__group__select{
+    padding-left: 10px;
+}
+
+.form-row{
+    display: flex;
+    flex-direction: column;
+
+
+
+    .form__button__country{
+        border: 1px solid lightgrey;
+
+        .form__button__country--text{
+            color: gray;
+            font-size: 12px;
+            padding-left: 5px;
+        }
+
+    }
+    
+
+
+    select{
+        appearance: none;
+        background-color: transparent;
+        border: none;
+        width: 100%;
+    }
+}
+
+.form__body__politics--text{
+    font-size: 10px;
+    line-height: 100% !important;
+}
+
+
+.form__buttons__sm{
+    display: flex;
+    flex-direction: column;
+  
+
+
+}
+
+.form__button__continue{
+    margin-top: 10px;
+    margin-bottom: 30px;
 }
