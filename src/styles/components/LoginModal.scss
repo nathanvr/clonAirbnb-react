@@ -1,0 +1,138 @@
+.loginFormContainer{
+    display: flex;
+    flex-direction: column;
+    background-color:rgb(255, 255, 255);
+   
+
+    .loginForm__header{
+        display: flex;
+        margin-bottom: 30px;
+        button{
+            width: 30px;
+            border: none;
+            background: none;
+        }
+        h2{
+            margin: auto;
+            font-size: 14px;
+        }
+    }
+}
+
+.form-row{
+    display: flex;
+    flex-direction: column;
+
+    .form__button__country{
+        border: 1px solid lightgrey;
+        
+
+        .form__button__country--text{
+            color: gray;
+            font-size: 12px;
+            padding-left: 5px;
+            
+        }
+    }
+
+    select{
+        appearance: none;
+        background-color: transparent;
+        border: none;
+        width: 100%;
+    }
+
+    .form__group__label{
+        border: 1px solid lightgray;
+        padding-left: 5px;
+        .form__control--label{
+            width: 100%;
+            appearance: none;
+            border: none;
+        }
+    }
+}
+
+.form__button__country{
+    cursor: pointer;
+    .form__button__country--text{
+        cursor: pointer;
+    }
+    select{
+        cursor: pointer;
+    }
+}
+
+.form__group__select{
+    padding-left: 10px;
+}
+
+
+.form__body__politics--text{
+    font-size: 10px;
+    line-height: 100% !important;
+    margin-top: 5px;
+}
+
+
+.form__button__continue{
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    height: 45px;
+    
+
+    .form__button--continue{
+        width: 100%;
+        background-color: var(--red);
+        color: white;
+        cursor: pointer;
+    
+    }
+}
+
+.sectioner{
+   display: flex;
+   justify-content: space-between;
+   width: 100%;
+
+    .section__divider{
+        border-bottom: 1px solid lightgray;
+    
+    }
+
+}
+
+.form__buttons__sm{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    
+
+    button{
+        background-color: transparent;
+        width: 100%;
+        margin: 5px 0;
+        height: 45px;
+        border: 1px solid black;
+        cursor: pointer;
+        
+    }
+
+}
+
+.form__buttons__sm__f__content, 
+.form__buttons__sm__g__content, 
+.form__buttons__sm__a__content, 
+.form__buttons__sm__em__content{
+    padding-left: 5px;
+    display: flex;
+   
+}
+.form__buttons__sm__f__content--text, 
+.form__buttons__sm__g__content--text, 
+.form__buttons__sm__a__content--text, 
+.form__buttons__sm__em__content--text{
+    margin: auto;
+}
+
