@@ -34,11 +34,14 @@ import CardXl from '../components/CardXl';
 import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
 import BrandIcon from '../components/BrandIcon';
 import LodgementSlider from '../components/LodgementSlider';
+import BookingSection from '../components/BookingSection';
 
 const Home = () => {
   return (
     <div className="container-home">
-      <div className="header">
+      <BookingSection />
+
+      {/* <div className="header">
         <Form></Form>
       </div>
       <div className="main">
@@ -264,7 +267,7 @@ const Home = () => {
             </SwiperSlide>
           </Swiper>
         </section>
-      </div>
+      </div> */}
     </div>
   );
 };
