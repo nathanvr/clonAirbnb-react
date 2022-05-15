@@ -36,7 +36,7 @@ import BrandIcon from '../components/BrandIcon';
 import LodgementSlider from '../components/LodgementSlider';
 
 const Home = () => {
-  return (
+    return (
     <div className="container-home">
     <div className="header">
         <Form></Form>
