@@ -48,10 +48,10 @@ const Navbar = () => {
           <Link to="#">Ayuda</Link>
         </li>
         <li className="nav-item">
-          <LoginModal />
+          <LoginModal sitio="Registro" />
         </li>
         <li className="nav-item">
-          <Link to="#">Acceso</Link>
+        <LoginModal sitio="Acceso" />
         </li>
         <button className="close">
           <FaTimes></FaTimes>

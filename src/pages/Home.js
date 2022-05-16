@@ -37,11 +37,10 @@ import LodgementSlider from '../components/LodgementSlider';
 import BookingSection from '../components/BookingSection';
 
 const Home = () => {
-  return (
+    return (
     <div className="container-home">
-      <BookingSection />
 
-      {/* <div className="header">
+      <div className="header">
         <Form></Form>
       </div>
       <div className="main">
@@ -267,7 +266,7 @@ const Home = () => {
             </SwiperSlide>
           </Swiper>
         </section>
-      </div> */}
+      </div>
     </div>
   );
 };

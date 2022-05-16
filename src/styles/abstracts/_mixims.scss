@@ -40,6 +40,11 @@ $medium: 900px;
     padding-left: $pl;
     padding-right: $pr;
 }
+@mixin assign-fontstye ($fontSize, $color, $fontWeigth){
+    font-size: $fontSize;
+    color: $color;
+    font-weight: $fontWeigth;
+}
 
 @mixin text-format-cardsm () {
     font-family: Roboto;
