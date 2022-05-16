@@ -3,6 +3,7 @@ import Photo from '../components/Photo';
 import cardmd1 from '../images/cards/cardmd1.png';
 import Loader from '../components/Loader';
 import Module5xx from '../components/Modelo5xx';
+import Module3hv from '../components/Module3hv';
 
 const Prueba = () => {
   const images = Loader();
@@ -12,14 +13,14 @@ const Prueba = () => {
   const height = img.height;
 
   const images1 = images.slice(0, 5);
-  const images2 = images.slice(5, 10);
+  const images2 = images.slice(5, 9);
   console.log('images: ', images);
   return (
     <div>
       <p>{`${img} lol ${height}`}</p>
       <Photo src={img.src} />
       <Module5xx album={images1} />
-      <Module5xx album={images2} />
+      <Module3hv album={images2} />
     </div>
   );
 };
