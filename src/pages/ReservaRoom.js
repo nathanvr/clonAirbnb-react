@@ -57,41 +57,43 @@ const ReservaRoom = () => {
             <div className="titulo-seccion">
               <h2>¿Dónde vas a dormir?</h2>
             </div>
-            <Swiper
-              pagination={{ dynamicBullets: true, clickable: true }}
-              modules={[Pagination]}
-              className="mySwiper"
-              speed={500}
-              slidesPerView={3}
-              breakpoints={{
-                300: { slidesPerView: 1 },
-                700: { slidesPerView: 2 },
-                942: { slidesPerView: 2 },
-                1300: { slidesPerView: 3 },
-              }}>
-              <SwiperSlide>
-                <InfoHabitaciones
-                  titulohabitacion="Habitación 1"
-                  descripcionhabitacion="1 cama king"></InfoHabitaciones>
-              </SwiperSlide>
-              <SwiperSlide>
-                <InfoHabitaciones
-                  titulohabitacion="Habitación 2"
-                  descripcionhabitacion="1 cama queen"></InfoHabitaciones>
-              </SwiperSlide>
-              <SwiperSlide>
-                {' '}
-                <InfoHabitaciones
-                  titulohabitacion="Habitación 3"
-                  descripcionhabitacion="1 cama queen"></InfoHabitaciones>
-              </SwiperSlide>
-              <SwiperSlide>
-                {' '}
-                <InfoHabitaciones
-                  titulohabitacion="Área de  la habitación"
-                  descripcionhabitacion="1 cama king, 2 camas individuales"></InfoHabitaciones>
-              </SwiperSlide>
-            </Swiper>
+            <div>
+              <Swiper
+                pagination={{ dynamicBullets: true, clickable: true }}
+                modules={[Pagination]}
+                className="mySwiper"
+                speed={500}
+                slidesPerView={3}
+                breakpoints={{
+                  300: { slidesPerView: 1 },
+                  700: { slidesPerView: 2 },
+                  942: { slidesPerView: 2 },
+                  1300: { slidesPerView: 3 },
+                }}>
+                <SwiperSlide>
+                  <InfoHabitaciones
+                    titulohabitacion="Habitación 1"
+                    descripcionhabitacion="1 cama king"></InfoHabitaciones>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <InfoHabitaciones
+                    titulohabitacion="Habitación 2"
+                    descripcionhabitacion="1 cama queen"></InfoHabitaciones>
+                </SwiperSlide>
+                <SwiperSlide>
+                  {' '}
+                  <InfoHabitaciones
+                    titulohabitacion="Habitación 3"
+                    descripcionhabitacion="1 cama queen"></InfoHabitaciones>
+                </SwiperSlide>
+                <SwiperSlide>
+                  {' '}
+                  <InfoHabitaciones
+                    titulohabitacion="Área de  la habitación"
+                    descripcionhabitacion="1 cama king, 2 camas individuales"></InfoHabitaciones>
+                </SwiperSlide>
+              </Swiper>
+            </div>
           </section>
           <section className="servicios-room">
             <h2>Lo que este lugar ofrece</h2>
