@@ -152,6 +152,9 @@ const LoginModal = (props) => {
               </div>
             </button>
           </div>
+          <Link to='forgotpassword'>
+            <p>olvidaste la contrasenia?</p>
+          </Link>
         </div>
       </Modal>
     </div>
