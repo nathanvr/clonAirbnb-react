@@ -151,7 +151,7 @@ const LoginModal = (props) => {
               </div>
             </button>
           </div>
-          <Link to='forgotpassword'>
+          <Link onClick={()=> setModalOpen(false)} to='forgotpassword'>
             <p>olvidaste la contrasenia?</p>
           </Link>
         </div>
