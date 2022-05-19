@@ -62,6 +62,7 @@
 }
 
 .navbar-home{
+
     .nav-item a{
         color: var(--white);
     }
@@ -74,9 +75,29 @@
         }
     }
 }
+.navbar-host{
+    background-color: #000000;
+    .nav-menu{
+        display: none;
+    }
+    .nav-item a{
+        color: var(--white);
+    }
+    .open{
+        display: none;
+    }
+    .logo{
+        padding: 30px;
+    }
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+    #hidden{
+            display: none;
+        }
+    }
+}
 .navbar-default{
-    border-bottom: 1px solid rgb(201, 201, 201);
-    box-shadow: 0 2px 2px -2px gray;
+    border-bottom: 1px solid rgba(201, 201, 201, 0.685);
+    
     .nav-item a{
         color: var(--darkgrey);
     }

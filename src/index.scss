@@ -14,4 +14,14 @@
 @import './styles/components/Header.scss';
 @import './styles/components/ReservaRoom.scss';
 @import './styles/components/CalendarioReservas.scss';
-@import './styles/components/LoginModal.scss'
+@import './styles/components/LoginModal.scss';
+@import './styles/components/Host.scss';
+@import './styles/components/SubNavbar.scss';
+@import './styles/components/HostDashboard.scss';
+@import './styles/components/Tabs.scss';
+
+
+.container-notfound{
+text-align: center;
+margin-top: 10px;
+}

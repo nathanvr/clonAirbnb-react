@@ -13,16 +13,18 @@ const Navbar = () => {
   return (
     <div
       className={
-        location.pathname === '/'
-          ? 'navbar navbar-home'
-          : 'navbar navbar-default'
+        location.pathname === '/' ? 'navbar navbar-home' : 
+        location.pathname === '/host' ? ' navbar-host':
+        'navbar navbar-default'
       }>
       <div className="logo">
         <Link to="/" onClick={() => setShow(show)}>
           <BrandIcon
             className="nav--logo"
             iconType={faAirbnb}
-            colorIcon={location.pathname === '/' ? 'white' : 'var(--red)'}
+            colorIcon={location.pathname === '/' ? 'white' :
+                        location.pathname === '/host' ? 'white':
+                        'var(--red)'}
             sizeIcon="40px"
           />
         </Link>
@@ -35,12 +37,12 @@ const Navbar = () => {
           <Link to="#">EUR </Link>
         </li>
         <li className="nav-item">
-          <Link to="/anfitrion" onClick={() => setShow(!show)}>
+          <Link to="/host"  onClick={() => setShow(!show)}>
             Conviértete en un anfitrión
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/experiencia" onClick={() => setShow(!show)}>
+          <Link to="/">
             Crea tu experiencia
           </Link>
         </li>

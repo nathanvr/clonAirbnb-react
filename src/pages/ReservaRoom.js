@@ -1,6 +1,6 @@
 import React from "react";
-import InfoAnfitrionTitulo from "../components/InfoAnfitrionTitulo";
-import anfitrion1 from '../images/anfitriones/anfitrion1.jpg';
+import InfoHostTitulo from "../components/InfoHostTitulo";
+import Host1 from '../images/Hostes/Host1.jpg';
 import InfoGeneralReseva from "../components/InfoGeneralReseva";
 import Aircoversection from "../components/Aircoversection";
 import DescripcionReserva from "../components/DescripcionReserva";
@@ -23,8 +23,8 @@ const ReservaRoom =()=>{
     <div className="container-total">
         <div className="info-reserva">
         <div id="left">
-            <section className="titulo-anfitrion">
-                <InfoAnfitrionTitulo tiporeserva="Cabaña entera" anfitrion="Amy and Bryant" maxhuespedes="10" numrooms="3" numbeds="6" numbath="2" src={anfitrion1} > </InfoAnfitrionTitulo>
+            <section className="titulo-Host">
+                <InfoHostTitulo tiporeserva="Cabaña entera" Host="Amy and Bryant" maxhuespedes="10" numrooms="3" numbeds="6" numbath="2" src={Host1} > </InfoHostTitulo>
             </section>
             <section className="info-general-reserva">
                 <InfoGeneralReseva diseñadores="Meredith Higgins y Bryant Gingerich" textacceso=" mediante la caja de seguridad para llaves" textcancelacion="durante 48 horas" ></InfoGeneralReseva>
