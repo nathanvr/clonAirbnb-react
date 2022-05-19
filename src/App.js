@@ -7,6 +7,7 @@ import Anfitrion from './pages/Anfitrion';
 import Experiencia from './pages/Experiencia';
 import ReservaRoom from './pages/ReservaRoom';
 import Prueba from './pages/Prueba';
+import ForgotPassword from './pages/ForgotPassword';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route index element={<Home />}></Route>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/anfitrion" element={<Anfitrion></Anfitrion>} />
+
           <Route
             exact
             path="/experiencia"
@@ -28,6 +30,10 @@ function App() {
             element={<ReservaRoom></ReservaRoom>}
           />
           <Route exact path="/prueba" element={<Prueba></Prueba>} />
+
+          
+          <Route exact path='/forgotpassword' element={<ForgotPassword></ForgotPassword>}/>
+
         </Routes>
       </BrowserRouter>
     </div>
