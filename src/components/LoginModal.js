@@ -13,7 +13,7 @@ import BrandIcon from './BrandIcon';
 Modal.setAppElement('#root');
 
 const LoginModal = (props) => {
-  const {sitio}=props;
+  const { sitio } = props;
   const [modalOpen, setModalOpen] = useState(false);
   const customStyles = {
     content: {
@@ -25,7 +25,6 @@ const LoginModal = (props) => {
     },
   };
   return (
-    
     <div>
       <Link to="#" onClick={() => setModalOpen(true)}>
         {sitio}

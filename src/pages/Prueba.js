@@ -11,7 +11,7 @@ import Module1xx from '../components/Module1xx';
 import AlbumSwiper from '../components/AlbumSwiper';
 import { useMediaQuery } from 'react-responsive';
 import Album from '../components/Album';
-import Moto from '../components/Moto';
+import AlbumModal from '../components/AlbumModal';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -42,6 +42,7 @@ const Prueba = () => {
       <Module1xx album={images2} />
       <AlbumSwiper album={images} />
       <Album />
+      <AlbumModal />
     </div>
   );
 };
