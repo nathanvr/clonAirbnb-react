@@ -13,15 +13,21 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import ServiciosLugar from "../components/ServiciosLugar";
-import ReseñaReserva from "../components/ReseñaReserva";
-import persona1 from "../images/clientes/persona1.jpg"
+import ServiciosLugar from '../components/ServiciosLugar';
+import ReseñaReserva from '../components/ReseñaReserva';
+import persona1 from '../images/clientes/persona1.jpg';
+import Album from '../components/Album';
 
-
-const ReservaRoom =()=>{
-    return (
+const ReservaRoom = () => {
+  return (
     <div className="container-total">
-        <div className="info-reserva">
+      <div className="titulo-anfitrion">
+        <h1 className=".info_anfitrion_container"></h1>
+      </div>
+      <div className="albumreser">
+        <Album />
+      </div>
+      <div className="info-reserva">
         <div id="left">
             <section className="titulo-Host">
                 <InfoHostTitulo tiporeserva="Cabaña entera" Host="Amy and Bryant" maxhuespedes="10" numrooms="3" numbeds="6" numbath="2" src={Host1} > </InfoHostTitulo>
@@ -55,30 +61,50 @@ const ReservaRoom =()=>{
             <section className="servicios-room">
             <h2>Lo que este lugar ofrece</h2>
             <ServiciosLugar></ServiciosLugar>
-            </section>
-            <section className="calendar">
+          </section>
+          <section className="calendar">
             <h2>Selecciona las fechas</h2>
-                <CalendarioReservas/>
-            </section>
+            <CalendarioReservas />
+          </section>
         </div>
         <div id="right">
-            <div className="form">
+          <div className="form">
             <Form></Form>
-            </div>
+          </div>
         </div>
-        </div>
+      </div>
 
-        <div className="footer">
-            <h2>★ 4.9 - 60 reseñas</h2>
-            <section className="Reseñas">
-            <ReseñaReserva cliente="Stormy" fecha="abril de 2022" comentario="¡Este lugar era aún mejor que en las fotos! ¡Lo recomendaría encarecidamente!"src={persona1} />
-            <ReseñaReserva cliente="Stormy" fecha="abril de 2022" comentario="¡Este lugar era aún mejor que en las fotos! ¡Lo recomendaría encarecidamente!"src={persona1} />
-            <ReseñaReserva cliente="Stormy" fecha="abril de 2022" comentario="¡Este lugar era aún mejor que en las fotos! ¡Lo recomendaría encarecidamente!"src={persona1} />
-            <ReseñaReserva cliente="Stormy" fecha="abril de 2022" comentario="¡Este lugar era aún mejor que en las fotos! ¡Lo recomendaría encarecidamente!"src={persona1} />
-            </section>
-        </div>
+      <div className="footer">
+        <h2>★ 4.9 - 60 reseñas</h2>
+        <section className="Reseñas">
+          <ReseñaReserva
+            cliente="Stormy"
+            fecha="abril de 2022"
+            comentario="¡Este lugar era aún mejor que en las fotos! ¡Lo recomendaría encarecidamente!"
+            src={persona1}
+          />
+          <ReseñaReserva
+            cliente="Stormy"
+            fecha="abril de 2022"
+            comentario="¡Este lugar era aún mejor que en las fotos! ¡Lo recomendaría encarecidamente!"
+            src={persona1}
+          />
+          <ReseñaReserva
+            cliente="Stormy"
+            fecha="abril de 2022"
+            comentario="¡Este lugar era aún mejor que en las fotos! ¡Lo recomendaría encarecidamente!"
+            src={persona1}
+          />
+          <ReseñaReserva
+            cliente="Stormy"
+            fecha="abril de 2022"
+            comentario="¡Este lugar era aún mejor que en las fotos! ¡Lo recomendaría encarecidamente!"
+            src={persona1}
+          />
+        </section>
+      </div>
     </div>
-    )
-}
+  );
+};
 
 export default ReservaRoom;
