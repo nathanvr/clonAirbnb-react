@@ -7,7 +7,7 @@ const Album = () => {
   const images = Loader();
   const lol = useMediaQuery({ query: '(min-width: 740px)' });
 
-  console.log(lol);
+  console.log(lol, images);
   return lol ? <Module5xx album={images} /> : <AlbumSwiper album={images} />;
 };
 
