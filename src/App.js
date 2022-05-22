@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Navbar from './components/Navbar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
@@ -9,8 +8,7 @@ import ReservaRoom from './pages/ReservaRoom';
 import NotFound from './pages/NotFound';
 import HostDashboard from './pages/HostDashboard';
 import MessagesHost from './pages/MessagesHost';
-import SubNavbar from './components/host/SubNavbar';
-import Prueba from './pages/Prueba';
+import CreateListing from './pages/CreateListing';
 import ForgotPassword from './pages/ForgotPassword';
 
 function App() {
@@ -25,6 +23,7 @@ function App() {
           <Route exact path="/host" element={<Host></Host>} />
             <Route exact path="/host/dashboard" element={<HostDashboard></HostDashboard>}></Route>
             <Route exact path="/host/messages" element={<MessagesHost></MessagesHost>}></Route>
+            <Route exact path="/host/create-listing" element={<CreateListing/>}></Route>
           <Route exact path="/experiencia" element={<Experiencia></Experiencia>}/>
           <Route exact path="/reservasroom" element={<ReservaRoom></ReservaRoom>} />
            <Route exact path='/forgotpassword' element={<ForgotPassword></ForgotPassword>}/>
