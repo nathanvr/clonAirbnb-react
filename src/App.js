@@ -12,43 +12,26 @@ import MessagesHost from './pages/MessagesHost';
 import SubNavbar from './components/host/SubNavbar';
 import Prueba from './pages/Prueba';
 import ForgotPassword from './pages/ForgotPassword';
-
+import ChangePassword from './components/ChangePassword';
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        
         <Navbar></Navbar>
+      
         <Routes>
           <Route index element={<Home />}></Route>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/host" element={<Host></Host>} />
-          <Route
-            exact
-            path="/host/dashboard"
-            element={<HostDashboard></HostDashboard>}></Route>
-          <Route
-            exact
-            path="/host/messages"
-            element={<MessagesHost></MessagesHost>}></Route>
-          <Route
-            exact
-            path="/experiencia"
-            element={<Experiencia></Experiencia>}
-          />
-          <Route
-            exact
-            path="/reservasroom"
-            element={<ReservaRoom></ReservaRoom>}
-          />
-          <Route
-            exact
-            path="/forgotpassword"
-            element={<ForgotPassword></ForgotPassword>}
-          />
-          <Route exact path="/pruebas" element={<Prueba></Prueba>} />
-          <Route exact path="*" element={<NotFound></NotFound>} />
+
+          <Route exact path="/host/dashboard" element={<HostDashboard></HostDashboard>}></Route>
+          <Route exact path="/host/messages" element={<MessagesHost></MessagesHost>}></Route>
+          <Route exact path="/experiencia" element={<Experiencia></Experiencia>}/>
+          <Route exact path="/reservasroom" element={<ReservaRoom></ReservaRoom>} />
+          <Route exact path='/forgotpassword' element={<ForgotPassword></ForgotPassword>}/>
+          <Route exact path="*" element={<NotFound></NotFound>}/>
         </Routes>
-        <Routes></Routes>
       </BrowserRouter>
     </div>
   );

@@ -5,6 +5,7 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
 import BrandIcon from './BrandIcon';
 import LoginModal from './LoginModal';
+import RegisterModal from './RegisterModal'
 
 const Navbar = () => {
   const location = useLocation();
@@ -50,7 +51,7 @@ const Navbar = () => {
           <Link to="#">Ayuda</Link>
         </li>
         <li className="nav-item">
-          <LoginModal sitio="Registro" />
+          <RegisterModal sitio="Registro" />
         </li>
         <li className="nav-item">
         <LoginModal sitio="Acceso" />
