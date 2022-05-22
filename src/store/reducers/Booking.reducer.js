@@ -3,6 +3,7 @@ export const CHANGE_INFO = 'CHANGE_INFO';
 //action creator
 
 const initialState = {
+  hostId: 1,
   bookingType: 'Cabaña entera',
   description: 'bla bla bla',
   locatiion: '12345678',

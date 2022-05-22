@@ -35,11 +35,15 @@ import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
 import BrandIcon from '../components/BrandIcon';
 import LodgementSlider from '../components/LodgementSlider';
 import BookingSection from '../components/BookingSection';
+import { useDispatch } from 'react-redux';
+import { changeAlbum1 } from '../store/reducers/Albums.reducer';
+import Loader from '../components/Loader';
 
 const Home = () => {
-    return (
-    <div className="container-home">
+  const dispatch = useDispatch();
 
+  return (
+    <div className="container-home">
       <div className="header">
         <Form></Form>
       </div>
@@ -84,6 +88,7 @@ const Home = () => {
             <SwiperSlide>
               <Link to="/reservasroom">
                 <CardMd
+                  onClick={dispatch(changeAlbum1())}
                   src={cardmd1}
                   country="cayman island"
                   texth3="2 Nights PACKAGE All Inclusive"
