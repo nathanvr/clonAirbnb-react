@@ -12,7 +12,7 @@ import BrandIcon from './BrandIcon';
 
 Modal.setAppElement('#root');
 
-const LoginModal = (props) => {
+const RegisterModal = (props) => {
   const { sitio } = props;
   const [modalOpen, setModalOpen] = useState(false);
   const customStyles = {
@@ -36,7 +36,7 @@ const LoginModal = (props) => {
         <div className="loginFormContainer">
           <div className="loginForm__header">
             <button onClick={() => setModalOpen(false)}> X </button>
-            <h2>Iniciar sesion</h2>
+            <h2>Registrarse</h2>
           </div>
           <div></div>
           <form>
@@ -45,28 +45,38 @@ const LoginModal = (props) => {
                 <label>
                   <div>
                     <div className="form__button__country--text">
-                      Correo o numero de telefono
+                      Pais/Region
                     </div>
                   </div>
                 </label>
                 <div className="form-group">
-                  <input type='text'>
-                  </input>
-                 
+                  <select id="country__select" className="form__group__select">
+                    <option value="1" defaultValue>
+                      Estados Unidos (+1)
+                    </option>
+                    <option value="2">Afganistan (+93)</option>
+                    <option value="3">Albania (+93)</option>
+                  </select>
                 </div>
               </div>
 
               <div className="form__group__label">
                 <input
                   className="form__control--label"
-                  placeholder="Contrasenia"
-                  type='password'
+                  placeholder="Numero de telefono"
                 />
+              </div>
+              <div className="form__body__politics">
+                <p className="form__body__politics--text">
+                  Te vamos a confirmar el número por teléfono o mensaje de
+                  texto. Sujeto a las tarifas estándar para mensajes y datos.
+                  <a href="#politics">Política de privacidad</a>
+                </p>
               </div>
             </div>
 
             <div className="form__button__continue">
-              <button className="form__button--continue">Iniciar sesion</button>
+              <button className="form__button--continue">Continua</button>
             </div>
           </form>
           <div className="sectioner">
@@ -141,12 +151,9 @@ const LoginModal = (props) => {
               </div>
             </button>
           </div>
-          <Link onClick={()=> setModalOpen(false)} to='forgotpassword'>
-            <p>olvidaste la contrasenia?</p>
-          </Link>
         </div>
       </Modal>
     </div>
   );
 };
-export default LoginModal;
+export default RegisterModal;
