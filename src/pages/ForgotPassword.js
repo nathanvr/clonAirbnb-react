@@ -2,6 +2,7 @@ import React from "react";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import BrandIcon from '../components/BrandIcon'
 import '../styles/components/ForgotPassword.scss'
+import { Link } from "react-router-dom";
 
 
 const ForgotPassword = () => {
@@ -11,9 +12,12 @@ const ForgotPassword = () => {
         <div className="fPassword">
             <header className="fPassword__header">
                 <div className="fPassword__header__icon">
+                    <Link to='/'>
                     <span>
                         <BrandIcon iconType = {faAngleLeft}/>
                     </span>
+                    </Link>
+
                 </div>
                 <div className="fPassword__header__text">
                     <span><strong>Te olvidaste la contrasenia?</strong></span>
