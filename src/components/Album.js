@@ -1,14 +1,18 @@
 import { useMediaQuery } from 'react-responsive';
 import AlbumSwiper from './AlbumSwiper';
 import Module5xx from './Modele5xx';
-import Loader from './Loader';
+import { useSelector } from 'react-redux';
 
 const Album = () => {
-  const images = Loader();
+  const album = useSelector((state) => state.albumsReducer);
   const lol = useMediaQuery({ query: '(min-width: 740px)' });
 
-  console.log(lol);
-  return lol ? <Module5xx album={images} /> : <AlbumSwiper album={images} />;
+  console.log(lol, album);
+  return lol ? (
+    <Module5xx album={album.album} />
+  ) : (
+    <AlbumSwiper album={album.album} />
+  );
 };
 
 export default Album;
