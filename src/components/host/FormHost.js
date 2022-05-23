@@ -4,6 +4,7 @@ import Select from 'react-select';
 import { render } from "@testing-library/react";
 import { Services, ServicesSecond, ServicesThird } from "./Services";
 import { icon } from "@fortawesome/fontawesome-svg-core";
+import GoogleMapForm from "../GoogleMapForm"
 
 
 const options1 = [
@@ -277,6 +278,7 @@ const FormHost =()=>{
             {formStep===2 &&<section>
                 <h2>¿Dónde se encuentra tu espacio?</h2>
                             <section>
+                                <GoogleMapForm></GoogleMapForm>
                             </section>
                 </section>}
             {formStep===3 &&    <section>
