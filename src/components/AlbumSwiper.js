@@ -3,8 +3,7 @@ import Loader from './Loader';
 import Photo from './Photo';
 
 const AlbumSwiper = (props) => {
-  const {} = props;
-  const album = Loader();
+  const { album } = props;
   return (
     <div className="albumSwiper">
       <Swiper
