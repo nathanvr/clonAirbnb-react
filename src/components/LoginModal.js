@@ -1,73 +1,34 @@
-import '../styles/components/LoginModal.scss';
-import Modal from 'react-modal/lib/components/Modal';
+import { Modal, useMantineTheme, PasswordInput,TextInput } from '@mantine/core';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  faFacebook,
-  faGoogle,
-  faApple,
-} from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faGoogle,  faApple, } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import BrandIcon from './BrandIcon';
 
-Modal.setAppElement('#root');
 
 const LoginModal = (props) => {
   const { sitio } = props;
-  const [modalOpen, setModalOpen] = useState(false);
-  const customStyles = {
-    content: {
-      position: 'absolute',
-      margin: 'auto',
-      width: '400px',
-      overflow: 'auto',
-      WebkitOverflowScrolling: 'touch',
-    },
-  };
+  const theme = useMantineTheme();
+  const [opened, setOpened] = useState(false);
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+
   return (
     <div>
-      <Link to="#" onClick={() => setModalOpen(true)}>
-        {sitio}
-      </Link>
-      <Modal
-        isOpen={modalOpen}
-        onRequestClose={() => setModalOpen(false)}
-        style={customStyles}>
-        <div className="loginFormContainer">
-          <div className="loginForm__header">
-            <button onClick={() => setModalOpen(false)}> X </button>
-            <h2>Iniciar sesion</h2>
-          </div>
-          <div></div>
+      <Link to="#" onClick={() => setOpened(true)}>{sitio}</Link>
+      <Modal opened={opened}
+        onClose={() => setOpened(false)}
+        title="Iniciar sesión"
+        overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
+        overlayOpacity={0.55}
+        overlayBlur={3} >
           <form>
-            <div className="form-row">
-              <div className="form__button__country">
-                <label>
-                  <div>
-                    <div className="form__button__country--text">
-                      Correo o numero de telefono
-                    </div>
-                  </div>
-                </label>
-                <div className="form-group">
-                  <input type='text'>
-                  </input>
-                 
-                </div>
-              </div>
+          <TextInput placeholder="example@example.com" label="Correo Electrónico" required value={email} onChange={(event) => setEmail(event.currentTarget.value)} />
 
-              <div className="form__group__label">
-                <input
-                  className="form__control--label"
-                  placeholder="Contrasenia"
-                  type='password'
-                />
-              </div>
-            </div>
-
-            <div className="form__button__continue">
-              <button className="form__button--continue">Iniciar sesion</button>
-            </div>
+          <PasswordInput label="Contraseña" required value={password} onChange={(event) => setPassword(event.currentTarget.value)} />
+          <div className="form__button__continue">
+              <button className="form__button--continue">Continua</button>
+          </div>
           </form>
           <div className="sectioner">
             <div className="section__divider" />
@@ -141,11 +102,12 @@ const LoginModal = (props) => {
               </div>
             </button>
           </div>
-          <Link onClick={()=> setModalOpen(false)} to='forgotpassword'>
-            <p>olvidaste la contrasenia?</p>
+      
+          <Link onClick={()=> setOpened(false)} to='forgotpassword'>
+            <p id="forgot-password">Olvidaste la contraseña</p>
           </Link>
-        </div>
-      </Modal>
+          </Modal>
+
     </div>
   );
 };

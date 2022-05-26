@@ -8,8 +8,7 @@
 }
 .container-form{
     padding: 0 80px ;
-    margin: 20px 80px;
-    box-shadow: #00848956 0px 2px 4px;
+    margin: 20px 20px;
 
     h1{
         @include assign-fontstye (30px, var(--green), 500);

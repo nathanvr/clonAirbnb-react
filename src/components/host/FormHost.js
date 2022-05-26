@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { Modal, useMantineTheme} from '@mantine/core';
 import { Icon } from '@iconify/react';
 import Select from 'react-select';
-import { render } from "@testing-library/react";
+import { Link } from "react-router-dom";
 import { Services, ServicesSecond, ServicesThird } from "./Services";
-import { icon } from "@fortawesome/fontawesome-svg-core";
 import GoogleMapForm from "../GoogleMapForm"
 
 
@@ -44,7 +44,10 @@ const options3 = [
     {value:"shared", label:"Una habitación compartida"},
 ]
 
-const FormHost =()=>{
+const FormHost =(props)=>{
+    const { sitio } = props;
+    const theme = useMantineTheme();
+    const [opened, setOpened] = useState(false);
     const [countGuest, setCountGuest] = useState(0);
     const [countBeds, setCountBeds] = useState(0);
     const [countRooms, setCountRooms] = useState(0);
@@ -174,6 +177,13 @@ const FormHost =()=>{
         setIsChecked3(updatedCheckedState3);
     };
     return (
+        <div>
+            <Link to="#" onClick={() => setOpened(true)}>{sitio}</Link>
+        <Modal Modal size="90%" opened={opened}
+        onClose={() => setOpened(false)}
+        overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
+        overlayOpacity={0.55}
+        overlayBlur={3} >
         <div className="container-form">
             {formStep===0 && <section>
                 <div className="typebooking">
@@ -319,6 +329,8 @@ const FormHost =()=>{
             {renderButtonNext()}
             {renderButtonSubmit()}
             </section>
+        </div>
+        </Modal>
         </div>
 
     )

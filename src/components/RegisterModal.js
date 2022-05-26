@@ -1,158 +1,53 @@
-import '../styles/components/LoginModal.scss';
-import Modal from 'react-modal/lib/components/Modal';
+import { Modal, useMantineTheme, PasswordInput,TextInput, RadioGroup, Radio} from '@mantine/core';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  faFacebook,
-  faGoogle,
-  faApple,
-} from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
-import BrandIcon from './BrandIcon';
-
-Modal.setAppElement('#root');
+import { DatePicker } from '@mantine/dates';
 
 const RegisterModal = (props) => {
   const { sitio } = props;
-  const [modalOpen, setModalOpen] = useState(false);
-  const customStyles = {
-    content: {
-      position: 'absolute',
-      margin: 'auto',
-      width: '400px',
-      overflow: 'auto',
-      WebkitOverflowScrolling: 'touch',
-    },
-  };
+  const theme = useMantineTheme();
+  const [opened, setOpened] = useState(false);
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [value, onChange] = useState(new Date());
+  const [values, setValue] = useState('guest');
+
+
   return (
     <div>
-      <Link to="#" onClick={() => setModalOpen(true)}>
-        {sitio}
-      </Link>
-      <Modal
-        isOpen={modalOpen}
-        onRequestClose={() => setModalOpen(false)}
-        style={customStyles}>
-        <div className="loginFormContainer">
-          <div className="loginForm__header">
-            <button onClick={() => setModalOpen(false)}> X </button>
-            <h2>Registrarse</h2>
-          </div>
-          <div></div>
+      <div>
+      <Link to="#" onClick={() => setOpened(true)}>{sitio}</Link>
+      <Modal opened={opened}
+        onClose={() => setOpened(false)}
+        title="Registrarse"
+        overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
+        overlayOpacity={0.55}
+        overlayBlur={3} >
           <form>
-            <div className="form-row">
-              <div className="form__button__country">
-                <label>
-                  <div>
-                    <div className="form__button__country--text">
-                      Pais/Region
-                    </div>
-                  </div>
-                </label>
-                <div className="form-group">
-                  <select id="country__select" className="form__group__select">
-                    <option value="1" defaultValue>
-                      Estados Unidos (+1)
-                    </option>
-                    <option value="2">Afganistan (+93)</option>
-                    <option value="3">Albania (+93)</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="form__group__label">
-                <input
-                  className="form__control--label"
-                  placeholder="Numero de telefono"
-                />
-              </div>
-              <div className="form__body__politics">
-                <p className="form__body__politics--text">
-                  Te vamos a confirmar el número por teléfono o mensaje de
-                  texto. Sujeto a las tarifas estándar para mensajes y datos.
-                  <a href="#politics">Política de privacidad</a>
-                </p>
-              </div>
-            </div>
-
-            <div className="form__button__continue">
-              <button className="form__button--continue">Continua</button>
-            </div>
+          <TextInput placeholder="Tu nombre" label="Nombre" required value={name} onChange={(event) => setName(event.currentTarget.value)} />
+          <TextInput placeholder="Tu apellido" label="Apellido" required value={lastName} onChange={(event) => setLastName(event.currentTarget.value)} />
+          <TextInput placeholder="example@example.com" label="Correo Electrónico" required value={email} onChange={(event) => setEmail(event.currentTarget.value)} />
+          <DatePicker label="Fecha de nacimiento" value={value} onChange={onChange} />
+          <PasswordInput label="Contraseña" required value={password} onChange={(event) => setPassword(event.currentTarget.value)} />
+          <RadioGroup
+          color="red"
+            value={values}
+            onChange={setValue}
+            required
+          >
+            <Radio value="guest" label="Querio ser huesped" />
+            <Radio value="host" label="Quiero ser anfitrión" />
+          </RadioGroup>
+          <div className="form__button__continue">
+              <button className="form__button--continue">Registrarse</button>
+          </div>
           </form>
-          <div className="sectioner">
-            <div className="section__divider" />
-            <p>o</p>
-            <div className="section__divider" />
-          </div>
+          
+          </Modal>
 
-          <div className="form__buttons__sm">
-            <button
-              type="submit"
-              className="form__buttons__sm__f btn btn-outline-dark">
-              <div className="form__buttons__sm__f__content">
-                <div className="form__buttons__sm__f__content--icon">
-                  <BrandIcon
-                    iconType={faFacebook}
-                    colorIcon="black"
-                    sizeIcon="12px"
-                  />
-                </div>
-                <div className="form__buttons__sm__f__content--text">
-                  <span>Continua con Facebook</span>
-                </div>
-              </div>
-            </button>
-            <button
-              type="submit"
-              className="form__buttons__sm__g btn btn-outline-dark">
-              <div className="form__buttons__sm__g__content">
-                <div className="form__buttons__sm__g__content--icon">
-                  <BrandIcon
-                    iconType={faGoogle}
-                    colorIcon="black"
-                    sizeIcon="12px"
-                  />
-                </div>
-                <div className="form__buttons__sm__g__content--text">
-                  <span>Continua con Google</span>
-                </div>
-              </div>
-            </button>
-            <button
-              type="submit"
-              className="form__buttons__sm__a btn btn-outline-dark">
-              <div className="form__buttons__sm__a__content">
-                <div className="form__buttons__sm__a__content--icon">
-                  <BrandIcon
-                    iconType={faApple}
-                    colorIcon="black"
-                    sizeIcon="12px"
-                  />
-                </div>
-                <div className="form__buttons__sm__a__content--text">
-                  <span>Continua con Apple</span>
-                </div>
-              </div>
-            </button>
-            <button
-              type="submit"
-              className="form__buttons__sm__em btn btn-outline-dark">
-              <div className="form__buttons__sm__em__content">
-                <div className="form__buttons__sm__em__content--icon">
-                  <BrandIcon
-                    iconType={faEnvelope}
-                    colorIcon="black"
-                    sizeIcon="12px"
-                  />
-                </div>
-                <div className="form__buttons__sm__em__content--text">
-                  <span>Continua con el correo electronico</span>
-                </div>
-              </div>
-            </button>
-          </div>
-        </div>
-      </Modal>
+    </div>
     </div>
   );
 };

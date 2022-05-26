@@ -2,7 +2,7 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Button from '../components/Button';
 import Title from '../components/Title';
-import Form from '../components/Form';
+import Form from '../components/FormSearchDates';
 import CardSm from '../components/CardSm';
 import CardMd from '../components/CardMd';
 import rec1 from '../images/cards/rectangle4.0.png';
@@ -86,7 +86,7 @@ const Home = () => {
               1333: { slidesPerView: 6, spaceBetween: 5 },
             }}>
             <SwiperSlide>
-              <Link to="/reservasroom">
+              <Link to="/room">
                 <CardMd
                   onClick={dispatch(changeAlbum1())}
                   src={cardmd1}

@@ -91,6 +91,8 @@
     .form__button--continue{
         width: 100%;
         background-color: var(--red);
+        border: none;
+        border-radius: 20px;
         color: white;
         cursor: pointer;
     
@@ -120,9 +122,12 @@
         width: 100%;
         margin: 5px 0;
         height: 45px;
-        border: 1px solid black;
+        border: 1px solid grey;
         cursor: pointer;
         
+    }
+    button:hover{
+        background-color: lightgray;
     }
 
 }
@@ -142,3 +147,11 @@
     margin: auto;
 }
 
+#forgot-password{
+    text-decoration: none;
+    color:gray
+}
+#forgot-password :hover{
+    text-decoration: dashed;
+    color:darkgray;
+}
