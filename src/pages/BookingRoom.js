@@ -1,14 +1,8 @@
 import React from 'react';
 import InfoHostTitulo from '../components/InfoHostTitulo';
 import Host1 from '../images/Hostes/Host1.jpg';
-import InfoGeneralReseva from '../components/InfoGeneralReseva';
 import Aircoversection from '../components/Aircoversection';
 import DescripcionReserva from '../components/DescripcionReserva';
-import InfoHabitaciones from '../components/InfoHabitaciones';
-import Form from '../components/FormSearchDates';
-import CalendarioReservas from '../components/CalendarioReservas';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -18,7 +12,8 @@ import ReseñaReserva from '../components/ReseñaReserva';
 import persona1 from '../images/clientes/persona1.jpg';
 import Album from '../components/Album';
 import { useSelector } from 'react-redux';
-import { ScrollArea } from '@mantine/core';
+import BookingSection from '../components/BookingSection';
+import GoogleMapForm from '../components/GoogleMapForm';
 
 
 const BookingRoom = () => {
@@ -50,6 +45,7 @@ const BookingRoom = () => {
             <Aircoversection></Aircoversection>
           </section>
           <section className="descripcion-reserva">
+          <h2>Descripción del lugar</h2>
             <DescripcionReserva descripciongeneral="El Dunlap Hollow A-Frame es una nueva construcción que se completará a mediados de marzo de 2021. Ofrecemos reservas anticipadas con fechas que comienzan el 1 de abril de 2021. El A-Frame tiene capacidad para 10 huéspedes con 3 dormitorios y un pintoresco loft lleno de ventanas con capacidad para 4 personas."></DescripcionReserva>
           </section>
           {/*<section className="info-habitaciones">
@@ -97,15 +93,13 @@ const BookingRoom = () => {
             <ServiciosLugar></ServiciosLugar>
           </section>
           <section className="calendar">
-            <h2>Selecciona las fechas</h2>
-            <CalendarioReservas />
+            <h2>¿A dónde irás?</h2>
+            <GoogleMapForm></GoogleMapForm>
           </section>
         </div>
         <div id="right">
           <div className="form">
-          <ScrollArea style={{ height: 250 }} type="scroll">
-            <Form/>
-          </ScrollArea>
+            <BookingSection/>
           </div>
         </div>
       </div>

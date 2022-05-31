@@ -7,8 +7,8 @@
     margin: 10px;
 }
 .container-form{
-    padding: 0 80px ;
-    margin: 20px 20px;
+    padding: 0 20px ;
+    margin: 2px 20px;
 
     h1{
         @include assign-fontstye (30px, var(--green), 500);

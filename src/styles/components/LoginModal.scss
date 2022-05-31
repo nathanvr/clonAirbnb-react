@@ -92,7 +92,6 @@
         width: 100%;
         background-color: var(--red);
         border: none;
-        border-radius: 20px;
         color: white;
         cursor: pointer;
     
@@ -100,9 +99,9 @@
 }
 
 .sectioner{
-   display: flex;
-   justify-content: space-between;
-   width: 100%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 
     .section__divider{
         border-bottom: 1px solid lightgray;

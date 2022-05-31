@@ -8,7 +8,7 @@ import GoogleMapForm from "../GoogleMapForm"
 
 
 const options1 = [
-    {value:"apartament", label:"Apartamentos"},
+    {value:"apartment", label:"Apartamentos"},
     {value:"house", label:"Casa"},
     {value:"attachedhouse", label:"Vivienda anexa"},
     {value:"uniqueaccommodation", label:"Alojamiento único"},
@@ -22,20 +22,12 @@ const options2 = [
     {value:"terraced-house", label:"Casa adosada: Casa de varios niveles que comparte paredes."},
     {value:"cabin", label:"Casa de campo: Casa construida en un área rural, cerca de un lago o playa."},
     {value:"bungalow", label:"Bungalow: Casa de un piso con un porche amplio y tejado inclinado"},
-    {value:"underground", label:"Arquitectura subterránea: Alojamiento construido en el suelo"},
-    {value:"houseboat", label:"Casa flotante"},
     {value:"hut", label:"Choza: Casa de madera o barro con techo de paja"},
     {value:"farm", label:"Estadía en granja: Alojamiento donde los huespedes pueden pasar tiempo en un entorno agrícola"},
     {value:"dome", label:"Domo: Alojamiento con techo de forma esférica"},
-    {value:"cycled-house", label:"Casa cíclada: Casa encalada de techo plano."},
     {value:"chalet", label:"Chalé: Casa de madera con un techo inclinado."},
-    {value:"dammuso", label:"Dammuso: Casa de piedra con techo abovedado."},
-    {value:"lighthouse", label:"Faro: Una torre cerca de agua con una luz que ayuda a guiar a los barcos."},
-    {value:"shepherd", label:"Casa de pastor: Pequeño vagón con ruedas que originalmente se usa para el pastoreo de ovejas"},
     {value:"tiny-house", label:"Minicasa: Casa independiente que generalmente mide menos de 35 metros cuadrados."},
-    {value:"trullo", label:"Trullo: Casa hecha de piedra, con tejado en forma de cono."},
     {value:"houseroom", label:"Casa particular: Habitación Privada"},
-    {value:"pension", label:"Pensión: Casa con parilla en Corea"},
     {value:"holiday-accommodation", label:"Alojamiento Vacacional"},
 ]
 const options3 = [
@@ -185,6 +177,7 @@ const FormHost =(props)=>{
         overlayOpacity={0.55}
         overlayBlur={3} >
         <div className="container-form">
+            
             {formStep===0 && <section>
                 <div className="typebooking">
                     <h1>Paso 1: Empieza con lo básico</h1>

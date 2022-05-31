@@ -1,6 +1,6 @@
 import React from "react";
-import image from "../images/super-host.jpg"
-import LoginModalHost from "../components/host/LoginModalHost"
+import image from "../images/super-host.jpg";
+
 
 const Host = () =>{
     return (
@@ -8,7 +8,6 @@ const Host = () =>{
         <div className="container-host">
             <div className="info-box">
                 <h1>Abre tus puertas como anfitrión</h1>
-                <LoginModalHost></LoginModalHost>
             </div>
             <div className="picture-box">
                 <img src={image} alt="superhost" loading="lazy"></img>

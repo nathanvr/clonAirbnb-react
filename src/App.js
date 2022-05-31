@@ -9,7 +9,6 @@ import HostDashboard from './pages/HostDashboard';
 import MessagesHost from './pages/MessagesHost';
 import CreateListing from './pages/CreateListing';
 import ForgotPassword from './pages/ForgotPassword';
-import ChangePassword from './components/ChangePassword';
 function App() {
   return (
     <div className="App">

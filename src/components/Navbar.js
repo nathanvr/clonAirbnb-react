@@ -5,13 +5,11 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
 import BrandIcon from './BrandIcon';
 import RegisterModal from './RegisterModal'
-import { Modal, Group } from '@mantine/core';
 import LoginModal from './LoginModal';
 
 const Navbar = () => {
   const location = useLocation();
   const [show, setShow] = useState(false);
-  const [opened, setOpened] = useState(false);
 
   return (
     <div

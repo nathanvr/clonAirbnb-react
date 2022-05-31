@@ -35,7 +35,7 @@ const GoogleMapForm =()=>{
         <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
-            zoom={0}
+            zoom={1}
             onLoad={onLoad}
             onUnmount={onUnmount}
         >

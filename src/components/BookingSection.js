@@ -1,72 +1,50 @@
-import Button from './Button';
+import { useState } from 'react';
+import { DateRangePicker} from '@mantine/dates';
+import { NumberInput} from '@mantine/core';
 
-const { renderIntoDocument } = require('react-dom/test-utils');
 
 const BookingSection = () => {
+  const [date, setDate] = useState([
+    new Date(),
+    new Date(),
+  ]);
+  const [numGuest, setNumGuest] = useState(0);
   return (
-    <section className="booking">
-      <div className="booking__fee">
-        <div className="booking__fee__price">
-          <span>muchos millones por noche</span>
+    <div className="bookingContainerForm">
+      <h2 className="bookingContainerForm__title">
+        $35.000 COP /noche
+      </h2>
+      <form className="bookingContainerForm__form">
+        <div className="bookingContainerForm__form__schedule">
+        <DateRangePicker
+            label="Selecciona las fechas"
+            placeholder="Pick dates range"
+            value={date}
+            onChange={setDate}
+            amountOfMonths={2}
+            
+        />
         </div>
-        <div className="booking__fee__rating">
-          <span>aca van las calificaciones</span>
+        <div>
+        <NumberInput placeholder="¿Cuántos viajan? "label="Viajeros" value={numGuest} onChange={(val) => setNumGuest(val)}  min={0} />
         </div>
-      </div>
-
-      <div className="booking__schedule">
-        <div className="booking__schedule__calendar">
-          <button>
-            <div className="booking__schedule__calendar__arrive">
-              <span>llegada</span>
+        <div className="bookingContainerForm__button">
+          <button onClick={() => alert('UwU')}><h3>Reserva</h3></button>
+        </div>
+            <div className='footer-price'>
+              <p>No se hará ningún cargo por el momento</p>
+            <div className='price-box'>
+              <p>$68,900 COP x 7 noches</p><p> $482,300 COP</p>
             </div>
-            <div className="booking__schedule__calendar__departure">
-              <span>salida</span>
+            <div className='price-box'>
+              <p>Tarifa por servicio</p><p>$41,324 COP</p>
             </div>
-          </button>
-          <div className="booking__schedule__guest">
-            <div className="booking__schedule__guest__label">
-              <label className="booking__schedule__guest__label__comp">
-                <span className="booking__schedule__guest__label__comp__tag">
-                  huespedes
-                </span>
-                <span className="booking__schedule__guest__label__comp__num">
-                  3 huespedes
-                </span>
-              </label>
-            </div>
-            <div>
-              <>aca va el icono</>
+            <div className='price-box-total'>
+              <p>Total sin incluir impuestos</p>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="booking__reservation">
-        <Button text="Reservar" cond="1" />
-      </div>
-      <div>
-        <p>No se hará ningún cargo por el momento</p>
-      </div>
-
-      <div className="booking__feeDetail">
-        <div className="booking__feeDetail__resume__charge">
-          <button>x noches</button>
-          <span>mucho diner</span>
-        </div>
-        <div className="booking__feeDetail__resume__cleaning">
-          <button>limpieza</button>
-          <span>mas dinero</span>
-        </div>
-        <div className="booking__feeDetail__resume__service">
-          <button>servicio</button>
-          <span> pffff</span>
-        </div>
-        <div className="booking__feeDetail__resume__bigTotal">
-          <span> Total</span>
-          <span> WOW </span>
-        </div>
-      </div>
-    </section>
+      </form>
+    </div>
   );
 };
 export default BookingSection;

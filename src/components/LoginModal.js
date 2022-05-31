@@ -25,7 +25,7 @@ const LoginModal = (props) => {
           <form>
           <TextInput placeholder="example@example.com" label="Correo Electrónico" required value={email} onChange={(event) => setEmail(event.currentTarget.value)} />
 
-          <PasswordInput label="Contraseña" required value={password} onChange={(event) => setPassword(event.currentTarget.value)} />
+          <PasswordInput  placeholder="Contraseña" label="Contraseña" required value={password} onChange={(event) => setPassword(event.currentTarget.value)} />
           <div className="form__button__continue">
               <button className="form__button--continue">Continua</button>
           </div>
