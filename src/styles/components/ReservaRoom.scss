@@ -1,10 +1,6 @@
 
 .info_Host_container{
-.albumreser {
-    width: 100%;
-    padding: 0px;
-    justify-content: center;
-}
+
     display: flex;
     justify-content: space-between;
     h2{
@@ -21,7 +17,11 @@
         }
     }
 }
-
+.albumreser {
+    width: 90%;
+    margin-top: 30px;
+    justify-content: center;
+    z-index: -1;}
 .info-reserva{
     width: 100%;
     padding: 0px 80px;    
@@ -38,7 +38,6 @@
     #right{
         width: 42%;
         float:right;
-        position: relative;
         @media only screen and (max-width:900px){
             width: 100%;
             float: none;
@@ -47,7 +46,6 @@
             justify-content: center;
         }
         .form{
-            position: fixed;
             @media only screen and (min-width:900px) and (max-width: 1060px){
                 padding-left: 30px;
             }
@@ -172,6 +170,7 @@
 .container-total{
     display: flex;
     flex-direction: column;
+    align-items:center;
 }
 .footer{
 

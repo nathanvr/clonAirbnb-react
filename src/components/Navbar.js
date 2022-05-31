@@ -4,8 +4,8 @@ import { FaTimes } from 'react-icons/fa';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
 import BrandIcon from './BrandIcon';
-import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal'
+import LoginModal from './LoginModal';
 
 const Navbar = () => {
   const location = useLocation();
@@ -15,7 +15,6 @@ const Navbar = () => {
     <div
       className={
         location.pathname === '/' ? 'navbar navbar-home' : 
-        location.pathname === '/host' ? ' navbar-host':
         'navbar navbar-default'
       }>
       <div className="logo">
@@ -24,8 +23,7 @@ const Navbar = () => {
             className="nav--logo"
             iconType={faAirbnb}
             colorIcon={location.pathname === '/' ? 'white' :
-                        location.pathname === '/host' ? 'white':
-                        'var(--red)'}
+                                                'var(--red)'}
             sizeIcon="40px"
           />
         </Link>
@@ -43,18 +41,15 @@ const Navbar = () => {
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/">
-            Crea tu experiencia
-          </Link>
-        </li>
-        <li className="nav-item">
           <Link to="#">Ayuda</Link>
         </li>
         <li className="nav-item">
           <RegisterModal sitio="Registro" />
         </li>
         <li className="nav-item">
+        
         <LoginModal sitio="Acceso" />
+    
         </li>
         <button className="close">
           <FaTimes></FaTimes>

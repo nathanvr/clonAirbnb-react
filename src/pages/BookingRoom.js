@@ -1,14 +1,8 @@
 import React from 'react';
 import InfoHostTitulo from '../components/InfoHostTitulo';
 import Host1 from '../images/Hostes/Host1.jpg';
-import InfoGeneralReseva from '../components/InfoGeneralReseva';
 import Aircoversection from '../components/Aircoversection';
 import DescripcionReserva from '../components/DescripcionReserva';
-import InfoHabitaciones from '../components/InfoHabitaciones';
-import Form from '../components/Form';
-import CalendarioReservas from '../components/CalendarioReservas';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -18,15 +12,17 @@ import ReseñaReserva from '../components/ReseñaReserva';
 import persona1 from '../images/clientes/persona1.jpg';
 import Album from '../components/Album';
 import { useSelector } from 'react-redux';
+import BookingSection from '../components/BookingSection';
+import GoogleMapForm from '../components/GoogleMapForm';
 
-const ReservaRoom = () => {
+
+const BookingRoom = () => {
   const booking = useSelector((state) => state.bookingReducer);
   console.log('booking: ', booking);
 
   return (
     <div className="container-total">
       <div className="titulo-anfitrion">
-        <h1 className=".info_anfitrion_container"></h1>
       </div>
       <div className="albumreser">
         <Album />
@@ -45,19 +41,14 @@ const ReservaRoom = () => {
               {' '}
             </InfoHostTitulo>
           </section>
-          <section className="info-general-reserva">
-            <InfoGeneralReseva
-              diseñadores="Meredith Higgins y Bryant Gingerich"
-              textacceso=" mediante la caja de seguridad para llaves"
-              textcancelacion="durante 48 horas"></InfoGeneralReseva>
-          </section>
           <section className="aircover">
             <Aircoversection></Aircoversection>
           </section>
           <section className="descripcion-reserva">
+          <h2>Descripción del lugar</h2>
             <DescripcionReserva descripciongeneral="El Dunlap Hollow A-Frame es una nueva construcción que se completará a mediados de marzo de 2021. Ofrecemos reservas anticipadas con fechas que comienzan el 1 de abril de 2021. El A-Frame tiene capacidad para 10 huéspedes con 3 dormitorios y un pintoresco loft lleno de ventanas con capacidad para 4 personas."></DescripcionReserva>
           </section>
-          <section className="info-habitaciones">
+          {/*<section className="info-habitaciones">
             <div className="titulo-seccion">
               <h2>¿Dónde vas a dormir?</h2>
             </div>
@@ -96,19 +87,19 @@ const ReservaRoom = () => {
                   descripcionhabitacion="1 cama king, 2 camas individuales"></InfoHabitaciones>
               </SwiperSlide>
             </Swiper>
-          </section>
+            </section>*/}
           <section className="servicios-room">
             <h2>Lo que este lugar ofrece</h2>
             <ServiciosLugar></ServiciosLugar>
           </section>
           <section className="calendar">
-            <h2>Selecciona las fechas</h2>
-            <CalendarioReservas />
+            <h2>¿A dónde irás?</h2>
+            <GoogleMapForm></GoogleMapForm>
           </section>
         </div>
         <div id="right">
           <div className="form">
-            <Form></Form>
+            <BookingSection/>
           </div>
         </div>
       </div>
@@ -146,4 +137,4 @@ const ReservaRoom = () => {
   );
 };
 
-export default ReservaRoom;
+export default BookingRoom;

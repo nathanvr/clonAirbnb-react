@@ -4,7 +4,6 @@ export function importAll(r) {
   let images = [];
   r.keys().map((item, index) => {
     images[index] = r(item);
-    console.log('!!!switch');
   });
   return images;
 }

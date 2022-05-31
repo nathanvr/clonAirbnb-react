@@ -3,14 +3,12 @@ import Navbar from './components/Navbar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Host from './pages/Host';
-import Experiencia from './pages/Experiencia';
-import ReservaRoom from './pages/ReservaRoom';
+import BookingRoom from './pages/BookingRoom';
 import NotFound from './pages/NotFound';
 import HostDashboard from './pages/HostDashboard';
 import MessagesHost from './pages/MessagesHost';
 import CreateListing from './pages/CreateListing';
 import ForgotPassword from './pages/ForgotPassword';
-import ChangePassword from './components/ChangePassword';
 function App() {
   return (
     <div className="App">
@@ -25,7 +23,7 @@ function App() {
             <Route exact path="/host/dashboard" element={<HostDashboard></HostDashboard>}></Route>
             <Route exact path="/host/messages" element={<MessagesHost></MessagesHost>}></Route>
             <Route exact path="/host/create-listing" element={<CreateListing/>}></Route>
-          <Route exact path="/reservasroom" element={<ReservaRoom></ReservaRoom>} />
+          <Route exact path="/room" element={<BookingRoom></BookingRoom>} />
           <Route exact path='/forgotpassword' element={<ForgotPassword></ForgotPassword>}/>
           <Route exact path="*" element={<NotFound></NotFound>}/>
         </Routes>

@@ -16,7 +16,6 @@ const ServiciosLugar = () =>{
                     <div className="servicio"><Icon icon="iconoir:air-conditioner" /> Aire acondicionado</div>
                     <div className="servicio"><Icon icon="ic:baseline-balcony" /> Patio o balcón</div>
                 </div>
-                <button className="mostrar-modal">Mostrar los 32 servicios</button>
             </div>
         </div>
     )
