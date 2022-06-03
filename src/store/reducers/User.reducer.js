@@ -12,7 +12,7 @@ export const REVIEWS_CHANGE = 'REVIEWS_CHANGE';
 
 export function roleDefine(value) {
   return {
-    type: DEFINE_ROLE,
+    type: ROLE_DEFINE,
     payload: value,
   };
 }
