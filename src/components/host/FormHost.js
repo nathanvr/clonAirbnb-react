@@ -4,7 +4,8 @@ import { Icon } from '@iconify/react';
 import Select from 'react-select';
 import { Link } from "react-router-dom";
 import { Services, ServicesSecond, ServicesThird } from "./Services";
-import GoogleMapForm from "../GoogleMapForm"
+import GoogleMapForm from "../GoogleMapForm";
+import { NumberInput} from '@mantine/core';
 
 
 const options1 = [
@@ -141,7 +142,7 @@ const FormHost =(props)=>{
     }
     const renderButtonSubmit =()=>{
         if(formStep===5){
-           return( <button type="button" id ="button">Enviar</button>)
+        return( <button type="button" id ="button">Enviar</button>)
         } else{
             return undefined;
             
@@ -150,21 +151,21 @@ const FormHost =(props)=>{
     const handleOnChange = (position) => {
         const updatedCheckedState = isChecked.map((item, index) =>
         index === position ? !item : item
-      );
+    );
   
         setIsChecked(updatedCheckedState);
     };
     const handleOnChange2 = (position2) => {
         const updatedCheckedState2 = isChecked2.map((item2, index2) =>
         index2 === position2 ? !item2 : item2
-      );
+    );
   
         setIsChecked2(updatedCheckedState2);
     };
     const handleOnChange3 = (position3) => {
         const updatedCheckedState3 = isChecked3.map((item3, index3) =>
         index3 === position3 ? !item3 : item3
-      );
+    );
   
         setIsChecked3(updatedCheckedState3);
     };
@@ -197,7 +198,15 @@ const FormHost =(props)=>{
                             <h2>¿A cuántos huéspedes te gustaría recibir?</h2>
                                 <section className="counter">
                                     <div>Huéspedes 
-                                        <button onClick={removeCountGuest}>-</button>{countGuest} 
+                                        <button onClick={removeCountGuest}>-</button><NumberInput
+        hideControls
+        value={countGuest}
+        onChange={(val) => setCountGuest(val)}
+        max={10}
+        min={0}
+        step={2}
+        styles={{ input: { width: 54, textAlign: 'center' } }}
+      /> 
                                         <button onClick={()=>addCountGuest()}>+</button>
                                     </div>
                                     <div>Camas 

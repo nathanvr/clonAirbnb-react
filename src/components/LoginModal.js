@@ -4,7 +4,12 @@ import { Link } from 'react-router-dom';
 import { faFacebook, faGoogle,  faApple, } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import BrandIcon from './BrandIcon';
+import { z } from 'zod';
+import { useForm, zodResolver } from '@mantine/form';
 
+const schema = z.object({
+  email: z.string().email({ message: 'Invalid email' }),
+});
 
 const LoginModal = (props) => {
   const { sitio } = props;
@@ -13,6 +18,12 @@ const LoginModal = (props) => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
 
+  const form = useForm({
+    schema: zodResolver(schema),
+    initialValues: {
+      email: '',
+    },
+  });
   return (
     <div>
       <Link to="#" onClick={() => setOpened(true)}>{sitio}</Link>
@@ -22,8 +33,8 @@ const LoginModal = (props) => {
         overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
         overlayOpacity={0.55}
         overlayBlur={3} >
-          <form>
-          <TextInput placeholder="example@example.com" label="Correo Electrónico" required value={email} onChange={(event) => setEmail(event.currentTarget.value)} />
+          <form onSubmit={form.onSubmit((values) => console.log(values))}>
+          <TextInput placeholder="example@example.com" label="Correo Electrónico" required value={email} onChange={(event) => setEmail(event.currentTarget.value)}    {...form.getInputProps('email')} />
 
           <PasswordInput  placeholder="Contraseña" label="Contraseña" required value={password} onChange={(event) => setPassword(event.currentTarget.value)} />
           <div className="form__button__continue">

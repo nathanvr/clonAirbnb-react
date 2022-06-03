@@ -41,7 +41,7 @@ const GoogleMapForm =()=>{
         >
             { /* Child components, such as markers, info windows, etc. */ }
             <></>
-          </GoogleMap>
-      ) : <></>
+        </GoogleMap>
+    ) : <></>
 }
 export default GoogleMapForm;
