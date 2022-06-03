@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import Loader from './Loader';
+//
 import Photo from './Photo';
 
 const AlbumSwiper = (props) => {
@@ -10,7 +10,7 @@ const AlbumSwiper = (props) => {
         spaceBetween={0}
         slidesPerView={1}
         onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}>
+        onSwiper={(swiper) => console.log(swiper, 'album: ', album)}>
         {album.map((item, index) => {
           return (
             <SwiperSlide key={index}>

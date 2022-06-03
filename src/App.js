@@ -9,23 +9,39 @@ import HostDashboard from './pages/HostDashboard';
 import MessagesHost from './pages/MessagesHost';
 import CreateListing from './pages/CreateListing';
 import ForgotPassword from './pages/ForgotPassword';
+import Profile from './pages/Profile';
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        
         <Navbar></Navbar>
-      
+
         <Routes>
-          <Route index element={<Home />}></Route>
+          <Route index element={<Home />} />
           <Route exact path="/" element={<Home />} />
           <Route exact path="/host" element={<Host></Host>} />
-            <Route exact path="/host/dashboard" element={<HostDashboard></HostDashboard>}></Route>
-            <Route exact path="/host/messages" element={<MessagesHost></MessagesHost>}></Route>
-            <Route exact path="/host/create-listing" element={<CreateListing/>}></Route>
+          <Route
+            exact
+            path="/host/dashboard"
+            element={<HostDashboard></HostDashboard>}
+          />
+          <Route
+            exact
+            path="/host/messages"
+            element={<MessagesHost></MessagesHost>}
+          />
+          <Route
+            exact
+            path="/host/create-listing"
+            element={<CreateListing />}></Route>
           <Route exact path="/room" element={<BookingRoom></BookingRoom>} />
-          <Route exact path='/forgotpassword' element={<ForgotPassword></ForgotPassword>}/>
-          <Route exact path="*" element={<NotFound></NotFound>}/>
+          <Route
+            exact
+            path="/forgotpassword"
+            element={<ForgotPassword></ForgotPassword>}
+          />
+          <Route exact path="/profile" element={<Profile></Profile>} />
+          <Route exact path="*" element={<NotFound></NotFound>} />
         </Routes>
       </BrowserRouter>
     </div>
