@@ -16,6 +16,7 @@ import BrandIcon from './BrandIcon';
 import { z } from 'zod';
 import { useForm, zodResolver } from '@mantine/form';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
 const schema = z.object({
   email: z.string().email({ message: 'Invalid email' }),
@@ -26,10 +27,10 @@ const LoginModal = (props) => {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
 
-  const [user, setUser] = {
+  const [user, setUser] = useState({
     email: '',
     password: '',
-  };
+  });
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -45,11 +46,16 @@ const LoginModal = (props) => {
       email: email,
       password: password,
     });
+    localStorage.setItem("token", res.data.token);
   };
+
+
+  
   const form = useForm({
     schema: zodResolver(schema),
     initialValues: {
       email: '',
+      password:''
     },
   });
 
@@ -69,13 +75,14 @@ const LoginModal = (props) => {
         }
         overlayOpacity={0.55}
         overlayBlur={3}>
-        <form onSubmit={form.onSubmit((values) => console.log(values))}>
+        <form onSubmit={handleSubmit}>
           <TextInput
             placeholder="example@example.com"
             label="Correo Electrónico"
             required
-            value={email}
-            onChange={(event) => setEmail(event.currentTarget.value)}
+            name='email'
+            value={user.email}
+            onChange={handleChange}
             {...form.getInputProps('email')}
           />
 
@@ -83,8 +90,9 @@ const LoginModal = (props) => {
             placeholder="Contraseña"
             label="Contraseña"
             required
-            value={password}
-            onChange={(event) => setPassword(event.currentTarget.value)}
+            name='password'
+            onChange={handleChange}
+            value={user.password}
           />
           <div className="form__button__continue">
             <button className="form__button--continue">Continua</button>
