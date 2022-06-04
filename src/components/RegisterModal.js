@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const schema = z.object({
   name: z.string().min(2, { message: 'Name should have at least 2 letters' }),
-  lastName: z.string().min(2, { message: 'Name should have at least 2 letters' }),
+  lastname: z.string().min(2, { message: 'Name should have at least 2 letters' }),
   email: z.string().email({ message: 'Invalid email' }),
   password: z.string().regex(new RegExp("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$"), 'La contraseña debe tener al menos 1 número, 1 caracter especial y una mayuscula')
 });
@@ -25,9 +25,19 @@ const RegisterModal = (props) => {
   const [role, setRole] = useState('guest');
 
 
+  const form = useForm({
+    schema: zodResolver(schema),
+    initialValues: {
+    name:'',
+    lastName:'',
+    email: '',
+    password:'',
+    },
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
 
     const res = await axios.post('http://localhost:8080/users/', {
       email: email,
@@ -42,15 +52,7 @@ const RegisterModal = (props) => {
   };
 
 
-  const form = useForm({
-    schema: zodResolver(schema),
-    initialValues: {
-    name:'',
-    lastName:'',
-    email: '',
-    password:'',
-    },
-  });
+  
 
 
   return (
@@ -109,7 +111,8 @@ const RegisterModal = (props) => {
               name='password'
               required 
               value={password} 
-              onChange={(event) => setPassword(event.currentTarget.value)} />
+              onChange={(event) => setPassword(event.currentTarget.value)}
+               />
             </div>
             <div className='box-register'>
               <RadioGroup

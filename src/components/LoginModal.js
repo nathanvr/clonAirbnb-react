@@ -4,7 +4,7 @@ import {
   PasswordInput,
   TextInput,
 } from '@mantine/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   faFacebook,
@@ -17,13 +17,15 @@ import { z } from 'zod';
 import { useForm, zodResolver } from '@mantine/form';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import {useHistory} from "react-router-dom"
+import { postLogin } from '../store/reducers/User.reducer';
 
 const schema = z.object({
   email: z.string().email({ message: 'Invalid email' }),
 });
 
 const LoginModal = (props) => {
-  const { sitio } = props;
+  const { login, sitio } = props;
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
 
@@ -36,10 +38,13 @@ const LoginModal = (props) => {
     const { value, name } = event.target;
     setUser({ ...user, [name]: value });
   };
-
+  const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    dispatch(postLogin(user));
+
+/*
     const { email, password } = user;
 
     const res = await axios.post('http://localhost:8080/users/login', {
@@ -48,7 +53,9 @@ const LoginModal = (props) => {
     });
     console.log(res)
     localStorage.setItem("token", res.data.data);
+    */
   };
+
 
 
   
