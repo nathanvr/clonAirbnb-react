@@ -17,30 +17,25 @@ const RegisterModal = (props) => {
   const { sitio } = props;
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [lastname, setLastName] = useState('');
+  const [birthday, setBirthday] = useState(new Date());
+  const [role, setRole] = useState('guest');
 
-  const [user, setUser] = useState({
-    email: '',
-    password: '',
-    name: '',
-    lastName: '',
-    birthday: new Date(),
-    role: 'guest'
-  });
 
-  const handleChange = (event) => {
-    const { value, name } = event.target;
-    setUser({ ...user, [name]: value });
-    console.log(user)
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { email, password } = user;
-
     const res = await axios.post('http://localhost:8080/users/', {
       email: email,
       password: password,
+      name: name,
+      lastname:lastname,
+      birthday:birthday,
+      role:role
     });
     console.log(res)
     localStorage.setItem("token", res.data.data);
@@ -75,8 +70,8 @@ const RegisterModal = (props) => {
               label="Nombre" 
               name='name'
               required 
-              value={user.name}
-              onChange={handleChange} 
+              value={name} 
+              onChange={(event) => setName(event.currentTarget.value)} 
             />
             </div>
             <div className='box-register'>
@@ -84,8 +79,9 @@ const RegisterModal = (props) => {
               placeholder="Tu apellido" 
               label="Apellido" 
               name='lastName'
-              required value={user.lastName}
-              onChange={handleChange} 
+              required 
+              value={lastname} 
+              onChange={(event) => setLastName(event.currentTarget.value)}
               />
             </div>
             <div className='box-register'>
@@ -93,15 +89,16 @@ const RegisterModal = (props) => {
               placeholder="example@example.com" 
               label="Correo Electrónico" 
               name='email'
-              required value={user.email}
-              onChange={handleChange}/>
+              required 
+              value={email} 
+              onChange={(event) => setEmail(event.currentTarget.value)}/>
             </div>
             <div className='box-register'> 
               <DatePicker 
               label="Fecha de nacimiento"
               name='name'
-              value={user.birthday} 
-              onChange={handleChange}
+              value={birthday} 
+              onChange={setBirthday}
               />
               
             </div>
@@ -111,18 +108,19 @@ const RegisterModal = (props) => {
               label="Contraseña" 
               name='password'
               required 
-              value={user.password}
-              onChange={handleChange} />
+              value={password} 
+              onChange={(event) => setPassword(event.currentTarget.value)} />
             </div>
             <div className='box-register'>
               <RadioGroup
               color="red"
-                value={user.role}
+                value={role}
+                onChange={setRole}
                 required
                 name='role'
               >
-                <Radio value="guest" label="Querio ser huesped" />
-                <Radio value="host" label="Quiero ser anfitrión" />
+                <Radio  value="guest" label="Querio ser huesped" />
+                <Radio  value="host" label="Quiero ser anfitrión" />
               </RadioGroup>
             </div>
               <div className="form__button__continue">
