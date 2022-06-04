@@ -17,10 +17,17 @@ export const USER_REGISTER_ERROR = 'USER_REGISTER_ERROR';
 
 //action creator: login
 
-export const postLogin = async() =>{
+export const postLogin = (loginState) =>{
 
-  return function (dispatch){
-    
+  return async (dispatch)=>{
+    try{
+      const res = await axios.post('http://localhost:8080/users/login', loginState);
+      localStorage.setItem("token", res.data.data);
+      dispatch({type: USER_LOGIN_SUCCESS, payload:res})
+    }catch(error){
+      dispatch({type: USER_LOGIN_ERROR, payload:error})
+
+    }
   }
 }
 
@@ -87,23 +94,33 @@ export function reviewsChange(value) {
 }
 
 const initialState = {
-  role: '',
-  name: '',
-  lastname: '',
-  email: '',
-  birthday: '',
-  password: '',
-  description: '',
-  bookingSites: [],
-  booking: [],
-  reviews: [],
+  isLoggenIn: false,
+  user:{
+    token:'',
+    role: '',
+    name: '',
+    lastname: '',
+    email: '',
+    birthday: '',
+    password: '',
+    description: '',
+    bookingSites: [],
+    booking: [],
+    reviews: [],
+}
 };
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    case USER_LOGIN_SUCCESS:
+      return{
+        ...state,
+        isLoggenIn:true,
+        user:action.payload
+      }
     case USER_ROLE:
       return {
-        ...state,
+        ...state.user,
         role: action.payload.role,
       };
     case USER_NAME:
