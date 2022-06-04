@@ -46,7 +46,8 @@ const LoginModal = (props) => {
       email: email,
       password: password,
     });
-    localStorage.setItem("token", res.data.token);
+    console.log(res)
+    localStorage.setItem("token", res.data.data);
   };
 
 
@@ -83,7 +84,7 @@ const LoginModal = (props) => {
             name='email'
             value={user.email}
             onChange={handleChange}
-            {...form.getInputProps('email')}
+          
           />
 
           <PasswordInput
