@@ -1,78 +1,87 @@
-export const ROLE_DEFINE = 'ROLE_DEFINE';
-export const NAME_CHANGE = 'NAME_CHANGE';
-export const LASTNAME_CHANGE = 'LASTNAME_CHANGE';
-export const EMAIL_CHANGE = 'EMAIL_CHANGE';
-export const BIRTHDAY_CHANGE = 'BIRTHDAY_CHANGE';
-export const PASSWORD_CHANGE = 'PASSWORD_CHANGE';
-export const PHONE_CHANGE = 'PHONE_CHANGE';
-export const DESCRIPTION_CHANGE = 'DESCRIPTION_CHANGE';
-export const BOOKINGSITES_CHANGE = 'BOOKINGSITES_CHANGE';
-export const BOOKING_CHANGE = 'BOOKING_CHANGE';
-export const REVIEWS_CHANGE = 'REVIEWS_CHANGE';
+import axios from "axios";
+export const USER_ID = 'USER_ID';
+export const USER_ROLE = 'USER_ROLE';
+export const USER_NAME = 'USER_NAME';
+export const USER_LASTNAME = 'USER_LASTNAME';
+export const USER_EMAIL = 'USER_EMAIL';
+export const USER_BIRTHDAY = 'USER_BIRTHDAY';
+export const USER_PASSWORD = 'USER_PASSWORD';
+export const USER_DESCRIPTION = 'USER_DESCRIPTION';
+export const USER_BOOKINGSITES = 'USER_BOOKINGSITES';
+export const USER_BOOKINGS = 'USER_BOOKINGS';
+export const USER_REVIEWS = 'USER_BOOKINGS';
+export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
+export const USER_LOGIN_ERROR = 'USER_LOGIN_ERROR';
+export const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS';
+export const USER_REGISTER_ERROR = 'USER_REGISTER_ERROR';
+
+//action creator: login
+
+export const postLogin = async() =>{
+
+  return function (dispatch){
+    
+  }
+}
+
 
 export function roleDefine(value) {
   return {
-    type: ROLE_DEFINE,
+    type: USER_ROLE,
     payload: value,
   };
 }
 export function nameChange(value) {
   return {
-    type: NAME_CHANGE,
+    type: USER_NAME,
     payload: value,
   };
 }
 export function lastnameChange(value) {
   return {
-    type: LASTNAME_CHANGE,
+    type: USER_LASTNAME,
     payload: value,
   };
 }
 export function emailChange(value) {
   return {
-    type: EMAIL_CHANGE,
+    type: USER_EMAIL,
     payload: value,
   };
 }
 export function birthdayChange(value) {
   return {
-    type: BIRTHDAY_CHANGE,
+    type: USER_BIRTHDAY,
     payload: value,
   };
 }
 export function passwordChange(value) {
   return {
-    type: PASSWORD_CHANGE,
-    payload: value,
-  };
-}
-export function phoneChange(value) {
-  return {
-    type: PHONE_CHANGE,
+    type: USER_PASSWORD,
     payload: value,
   };
 }
 export function descriptionChange(value) {
   return {
-    type: DESCRIPTION_CHANGE,
+    type: USER_DESCRIPTION,
     payload: value,
   };
 }
 export function bookingSitesChange(value) {
   return {
-    type: BOOKINGSITES_CHANGE,
+    type: USER_BOOKINGSITES,
     payload: value,
   };
 }
 export function bookingChange(value) {
   return {
-    type: BOOKING_CHANGE,
+    type: USER_BOOKINGS,
     payload: value,
   };
 }
 export function reviewsChange(value) {
   return {
-    type: REVIEWS_CHANGE,
+    type: USER_REVIEWS,
     payload: value,
   };
 }
@@ -80,11 +89,10 @@ export function reviewsChange(value) {
 const initialState = {
   role: '',
   name: '',
-  lastName: '',
+  lastname: '',
   email: '',
   birthday: '',
   password: '',
-  phone: 0,
   description: '',
   bookingSites: [],
   booking: [],
@@ -93,57 +101,52 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ROLE_DEFINE:
+    case USER_ROLE:
       return {
         ...state,
         role: action.payload.role,
       };
-    case NAME_CHANGE:
+    case USER_NAME:
       return {
         ...state,
         name: action.payload.name,
       };
-    case LASTNAME_CHANGE:
+    case USER_LASTNAME:
       return {
         ...state,
         lastName: action.payload.lastName,
       };
-    case EMAIL_CHANGE:
+    case USER_EMAIL:
       return {
         ...state,
         email: action.payload.email,
       };
-    case BIRTHDAY_CHANGE:
+    case USER_BIRTHDAY:
       return {
         ...state,
         birthday: action.payload.birthday,
       };
-    case PASSWORD_CHANGE:
+    case USER_PASSWORD:
       return {
         ...state,
         password: action.payload.password,
       };
-    case PHONE_CHANGE:
-      return {
-        ...state,
-        phone: action.payload.phone,
-      };
-    case DESCRIPTION_CHANGE:
+    case USER_DESCRIPTION:
       return {
         ...state,
         description: action.payload.description,
       };
-    case BOOKINGSITES_CHANGE:
+    case USER_BOOKINGSITES:
       return {
         ...state,
         bookingSites: [...this.bookingSites, action.payload.bookingSites],
       };
-    case BOOKING_CHANGE:
+    case USER_BOOKINGS:
       return {
         ...state,
         booking: [...this.booking, action.payload.booking],
       };
-    case REVIEWS_CHANGE:
+    case USER_REVIEWS:
       return {
         ...state,
         reviews: [...this.reviews, action.payload.reviews],

@@ -11,6 +11,7 @@ import CreateListing from './pages/CreateListing';
 import ForgotPassword from './pages/ForgotPassword';
 import Profile from './pages/Profile';
 function App() {
+  const token = localStorage.getItem("token");
   return (
     <div className="App">
       <BrowserRouter>

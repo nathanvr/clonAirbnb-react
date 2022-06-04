@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { DatePicker } from '@mantine/dates';
 import { z } from 'zod';
 import { useForm, zodResolver } from '@mantine/form';
+import axios from 'axios';
 
 const schema = z.object({
   name: z.string().min(2, { message: 'Name should have at least 2 letters' }),
@@ -19,9 +20,28 @@ const RegisterModal = (props) => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [lastname, setLastName] = useState('');
   const [birthday, setBirthday] = useState(new Date());
   const [role, setRole] = useState('guest');
+
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const res = await axios.post('http://localhost:8080/users/', {
+      email: email,
+      password: password,
+      name: name,
+      lastname:lastname,
+      birthday:birthday,
+      role:role
+    });
+    console.log(res)
+    localStorage.setItem("token", res.data.data);
+  };
+
+
   const form = useForm({
     schema: zodResolver(schema),
     initialValues: {
@@ -43,21 +63,53 @@ const RegisterModal = (props) => {
         overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
         overlayOpacity={0.55}
         overlayBlur={3} >
-          <form className='form-register' onSubmit={form.onSubmit((values) => console.log(values))}>
+          <form className='form-register' onSubmit={handleSubmit}>
             <div className='box-register'>
-              <TextInput placeholder="Tu nombre" label="Nombre" required value={name} onChange={(event) => setName(event.currentTarget.value)}{...form.getInputProps('name')} />
+              <TextInput 
+              placeholder="Tu nombre" 
+              label="Nombre" 
+              name='name'
+              required 
+              value={name} 
+              onChange={(event) => setName(event.currentTarget.value)} 
+            />
             </div>
             <div className='box-register'>
-              <TextInput placeholder="Tu apellido" label="Apellido" required value={lastName} onChange={(event) => setLastName(event.currentTarget.value)} {...form.getInputProps('lastName')} />
+              <TextInput 
+              placeholder="Tu apellido" 
+              label="Apellido" 
+              name='lastName'
+              required 
+              value={lastname} 
+              onChange={(event) => setLastName(event.currentTarget.value)}
+              />
             </div>
             <div className='box-register'>
-              <TextInput placeholder="example@example.com" label="Correo Electrónico" required value={email} onChange={(event) => setEmail(event.currentTarget.value)} {...form.getInputProps('email')}/>
+              <TextInput 
+              placeholder="example@example.com" 
+              label="Correo Electrónico" 
+              name='email'
+              required 
+              value={email} 
+              onChange={(event) => setEmail(event.currentTarget.value)}/>
             </div>
             <div className='box-register'> 
-              <DatePicker label="Fecha de nacimiento" value={birthday} onChange={setBirthday} />
+              <DatePicker 
+              label="Fecha de nacimiento"
+              name='name'
+              value={birthday} 
+              onChange={setBirthday}
+              />
+              
             </div>
             <div className='box-register'>
-              <PasswordInput placeholder='Contraseña' label="Contraseña" required value={password} onChange={(event) => setPassword(event.currentTarget.value)}{...form.getInputProps('password')} />
+              <PasswordInput 
+              placeholder='Contraseña' 
+              label="Contraseña" 
+              name='password'
+              required 
+              value={password} 
+              onChange={(event) => setPassword(event.currentTarget.value)} />
             </div>
             <div className='box-register'>
               <RadioGroup
@@ -65,9 +117,10 @@ const RegisterModal = (props) => {
                 value={role}
                 onChange={setRole}
                 required
+                name='role'
               >
-                <Radio value="guest" label="Querio ser huesped" />
-                <Radio value="host" label="Quiero ser anfitrión" />
+                <Radio  value="guest" label="Querio ser huesped" />
+                <Radio  value="host" label="Quiero ser anfitrión" />
               </RadioGroup>
             </div>
               <div className="form__button__continue">
