@@ -9,11 +9,19 @@ export const USER_PASSWORD = 'USER_PASSWORD';
 export const USER_DESCRIPTION = 'USER_DESCRIPTION';
 export const USER_BOOKINGSITES = 'USER_BOOKINGSITES';
 export const USER_BOOKINGS = 'USER_BOOKINGS';
-export const USER_REVIEWS = 'USER_BOOKINGS';
+export const USER_REVIEWS = 'USER_REVIEWS';
+export const USER_REQUEST = 'USER_REQUEST';
+export const USER_SUCCESS = 'USER_SUCCESS';
+export const USER_ERROR = 'USER_ERROR';
+
+export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const USER_LOGIN_ERROR = 'USER_LOGIN_ERROR';
 export const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS';
 export const USER_REGISTER_ERROR = 'USER_REGISTER_ERROR';
+export const USER_LOGOUT_SUCCESS = 'USER_LOGOUT_SUCCESS';
+
+
 
 //action creator: login
 
@@ -30,6 +38,37 @@ export const postLogin = (loginState) =>{
     }
   }
 }
+export const getUser = () =>{
+  return async  (dispatch) => {
+    const token = localStorage.getItem('token');
+    try {
+      const user  = await axios.get("http://localhost:8080/users/getid", { header: {
+        Authorization: `Bearer ${token}`, 
+      }})
+      dispatch({ type: USER_ROLE, payload: user.role });
+      dispatch({ type: USER_NAME, payload: user.name });
+      dispatch({ type: USER_LASTNAME, payload: user.lastName });
+      dispatch({ type: USER_EMAIL, payload: user.email });
+      dispatch({ type: USER_BIRTHDAY, payload: user.birthday });
+      dispatch({ type: USER_PASSWORD, payload: user.password });
+      dispatch({ type: USER_DESCRIPTION, payload: user.description });
+      dispatch({ type: USER_BOOKINGSITES, payload: user.bookingSites });
+      dispatch({ type: USER_BOOKINGS, payload: user.booking });
+      dispatch({ type: USER_REVIEWS, payload: user.reviews });
+      dispatch({type: USER_SUCCESS})
+    } catch (err) {
+      dispatch({ type: USER_ERROR, payload: err });
+    }
+    
+  }
+  };
+export const signOutSuccess = () =>{
+  return {
+    type:  USER_LOGOUT_SUCCESS,
+  };
+};
+
+
 
 
 export function roleDefine(value) {
@@ -94,9 +133,10 @@ export function reviewsChange(value) {
 }
 
 const initialState = {
-  isLoggenIn: false,
-  user:{
-    token:'',
+  token: "",
+  isLoggedIn: false,
+  error:'',
+  userData:{
     role: '',
     name: '',
     lastname: '',
@@ -107,7 +147,7 @@ const initialState = {
     bookingSites: [],
     booking: [],
     reviews: [],
-}
+  }
 };
 
 const userReducer = (state = initialState, action) => {
@@ -115,57 +155,64 @@ const userReducer = (state = initialState, action) => {
     case USER_LOGIN_SUCCESS:
       return{
         ...state,
-        isLoggenIn:true,
-        user:action.payload
+        token: action.payload.data.data,
+        isLoggedIn:true,
+      }
+      case USER_LOGOUT_SUCCESS:
+      localStorage.removeItem("token");
+      return{
+        ...state,
+        token: "",
+        isLoggedIn:false,
       }
     case USER_ROLE:
       return {
-        ...state.user,
+        ...state.userData,
         role: action.payload.role,
       };
     case USER_NAME:
       return {
-        ...state,
+        ...state.userData,
         name: action.payload.name,
       };
     case USER_LASTNAME:
       return {
-        ...state,
+        ...state.userData,
         lastName: action.payload.lastName,
       };
     case USER_EMAIL:
       return {
-        ...state,
+        ...state.userData,
         email: action.payload.email,
       };
     case USER_BIRTHDAY:
       return {
-        ...state,
+        ...state.userData,
         birthday: action.payload.birthday,
       };
     case USER_PASSWORD:
       return {
-        ...state,
+        ...state.userData,
         password: action.payload.password,
       };
     case USER_DESCRIPTION:
       return {
-        ...state,
+        ...state.userData,
         description: action.payload.description,
       };
     case USER_BOOKINGSITES:
       return {
-        ...state,
+        ...state.userData,
         bookingSites: [...this.bookingSites, action.payload.bookingSites],
       };
     case USER_BOOKINGS:
       return {
-        ...state,
+        ...state.userData,
         booking: [...this.booking, action.payload.booking],
       };
     case USER_REVIEWS:
       return {
-        ...state,
+        ...state.userData,
         reviews: [...this.reviews, action.payload.reviews],
       };
     default:
