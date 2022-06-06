@@ -1,10 +1,12 @@
-import { Modal, useMantineTheme, PasswordInput,TextInput, RadioGroup, Radio} from '@mantine/core';
+import { Modal, useMantineTheme, PasswordInput,TextInput, RadioGroup, Radio, LoadingOverlay} from '@mantine/core';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DatePicker } from '@mantine/dates';
 import { z } from 'zod';
 import { useForm, zodResolver } from '@mantine/form';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { postRegister } from '../store/reducers/User.reducer';
 
 const schema = z.object({
   name: z.string().min(2, { message: 'Name should have at least 2 letters' }),
@@ -23,6 +25,8 @@ const RegisterModal = (props) => {
   const [lastname, setLastName] = useState('');
   const [birthday, setBirthday] = useState(new Date());
   const [role, setRole] = useState('guest');
+  const [visible, setVisible] = useState(false);
+  const {error, loading}=useSelector((state)=>state.userReducer)
 
 
   const form = useForm({
@@ -34,21 +38,19 @@ const RegisterModal = (props) => {
     password:'',
     },
   });
-
+  const registerData = {
+    email: email,
+    password: password,
+    name: name,
+    lastname:lastname,
+    birthday:birthday,
+    role:role
+  }
+    const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
 
-    const res = await axios.post('http://localhost:8080/users/', {
-      email: email,
-      password: password,
-      name: name,
-      lastname:lastname,
-      birthday:birthday,
-      role:role
-    });
-    console.log(res)
-    localStorage.setItem("token", res.data.data);
+    dispatch(postRegister(registerData));
   };
 
 
@@ -66,6 +68,11 @@ const RegisterModal = (props) => {
         overlayOpacity={0.55}
         overlayBlur={3} >
           <form className='form-register' onSubmit={handleSubmit}>
+          {loading ===true && 
+          <div className='loading' style={{ width: 400, zIndex:1000 }}>
+        <LoadingOverlay visible={visible} />
+        {/* ...other content */}
+      </div>}
             <div className='box-register'>
               <TextInput 
               placeholder="Tu nombre" 
@@ -127,7 +134,7 @@ const RegisterModal = (props) => {
               </RadioGroup>
             </div>
               <div className="form__button__continue">
-                  <button className="form__button--continue" type='submit'>Registrarse</button>
+                  <button className="form__button--continue" type='submit' onClick={() => setVisible((v) => !v)}>Registrarse</button>
               </div>
           </form>
           

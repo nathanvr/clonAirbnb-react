@@ -3,6 +3,8 @@ import {
   useMantineTheme,
   PasswordInput,
   TextInput,
+  Alert,
+  LoadingOverlay,
 } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -16,10 +18,9 @@ import BrandIcon from './BrandIcon';
 import { z } from 'zod';
 import { useForm, zodResolver } from '@mantine/form';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
-import {useHistory} from "react-router-dom"
 import { postLogin } from '../store/reducers/User.reducer';
 import { useNavigate } from "react-router-dom";
+
 const schema = z.object({
   email: z.string().email({ message: 'Invalid email' }),
 });
@@ -28,7 +29,8 @@ const LoginModal = (props) => {
   const { login, sitio } = props;
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
-
+  const [visible, setVisible] = useState(false);
+  const {error, loading}=useSelector((state)=>state.userReducer)
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -43,16 +45,6 @@ const LoginModal = (props) => {
     e.preventDefault();
 
     dispatch(postLogin(user));
-/*
-    const { email, password } = user;
-
-    const res = await axios.post('http://localhost:8080/users/login', {
-      email: email,
-      password: password,
-    });
-    console.log(res)
-    localStorage.setItem("token", res.data.data);
-    */
   };
 
 
@@ -83,6 +75,11 @@ const LoginModal = (props) => {
         overlayOpacity={0.55}
         overlayBlur={3}>
         <form onSubmit={handleSubmit}>
+          {loading ===true && 
+          <div className='loading' style={{ width: 400, zIndex:1000 }}>
+        <LoadingOverlay visible={visible} />
+        {/* ...other content */}
+      </div>}
           <TextInput
             placeholder="example@example.com"
             label="Correo Electrónico"
@@ -101,8 +98,9 @@ const LoginModal = (props) => {
             onChange={handleChange}
             value={user.password}
           />
+          {error !== null && <Alert title="Error!" color="red">Usuario o contraseña incorrectos</Alert>}
           <div className="form__button__continue">
-            <button className="form__button--continue">Continua</button>
+            <button className="form__button--continue" onClick={() => setVisible((v) => !v)}>Continua</button>
           </div>
         </form>
         <div className="sectioner">

@@ -116,3 +116,21 @@
     }
 }
 }
+.navbar-user{
+    font-family: var(--font-family);
+        p{
+            margin-left: 5px;
+        }
+    .info-user-home{
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        color:white,
+        }
+
+    .info-user{
+        display: flex;
+        align-items: center;
+        padding: 8px;
+    }
+}
