@@ -19,11 +19,8 @@ export const SIGNIN_FAILURE = 'SIGNIN_FAILURE';
 export function userDefine() {
   return async (dispatch) => {
     const token = localStorage.getItem('token');
-
     try {
-      const {
-        user: { user },
-      } = await axios({
+      const { data: data } = await axios({
         method: 'GET',
         baseURL: 'http://localhost:8080/users',
         url: '/show',
@@ -31,9 +28,11 @@ export function userDefine() {
           Authorization: `Bearer ${token}`,
         },
       });
+      const user = data.data;
+      console.log('user_reducer:', user);
       dispatch({ type: ROLE_DEFINE, payload: user.role });
       dispatch({ type: NAME_CHANGE, payload: user.name });
-      dispatch({ type: LASTNAME_CHANGE, payload: user.lastName });
+      dispatch({ type: LASTNAME_CHANGE, payload: user.lastname });
       dispatch({ type: EMAIL_CHANGE, payload: user.email });
       dispatch({ type: BIRTHDAY_CHANGE, payload: user.birthday });
       dispatch({ type: PASSWORD_CHANGE, payload: user.password });
@@ -225,6 +224,7 @@ const userReducer = (state = initialState, action) => {
         reviews: [...action.payload],
       };
     case SIGNED:
+      console.log('signed: ', signed);
       return {
         ...state,
         signed: action.payload,

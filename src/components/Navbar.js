@@ -11,15 +11,15 @@ import { logOut, userDefine } from '../store/reducers/User.reducer';
 const Navbar = () => {
   const location = useLocation();
   const [show, setShow] = useState(false);
+  const [showPill, setShowPill] = useState(false);
   const user = useSelector((state) => state.userReducer);
+  console.log('user_navbar: ', user);
   const dispatch = useDispatch();
 
   const handleSignOut = () => {
     dispatch(logOut());
   };
-  useEffect(() => {
-    user.signed;
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div
       className={

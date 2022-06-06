@@ -43,15 +43,14 @@ const LoginModal = (props) => {
     event.preventDefault();
     const { email, password } = user;
 
-    //'http://localhost:8080/users/login'
     const res = await axios.post('http://localhost:8080/users/login', {
       email: email,
       password: password,
     });
-    console.log(res);
     localStorage.setItem('token', res.data.token);
     dispatch(userDefine());
-    console.log(res.data);
+    console.log('res2:', res.data);
+    setOpened(false);
   };
 
   const form = useForm({
