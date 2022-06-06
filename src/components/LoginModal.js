@@ -19,7 +19,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import {useHistory} from "react-router-dom"
 import { postLogin } from '../store/reducers/User.reducer';
-
+import { useNavigate } from "react-router-dom";
 const schema = z.object({
   email: z.string().email({ message: 'Invalid email' }),
 });
@@ -43,7 +43,6 @@ const LoginModal = (props) => {
     e.preventDefault();
 
     dispatch(postLogin(user));
-
 /*
     const { email, password } = user;
 
