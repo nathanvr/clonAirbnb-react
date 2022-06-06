@@ -17,8 +17,12 @@ export const USER_ERROR = 'USER_ERROR';
 export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const USER_LOGIN_ERROR = 'USER_LOGIN_ERROR';
+
+export const USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST';
 export const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS';
 export const USER_REGISTER_ERROR = 'USER_REGISTER_ERROR';
+
+
 export const USER_LOGOUT_SUCCESS = 'USER_LOGOUT_SUCCESS';
 
 
@@ -26,8 +30,8 @@ export const USER_LOGOUT_SUCCESS = 'USER_LOGOUT_SUCCESS';
 //action creator: login
 
 export const postLogin = (loginState) =>{
-
   return async (dispatch)=>{
+    dispatch({type: USER_LOGIN_REQUEST})
     try{
       const res = await axios.post('http://localhost:8080/users/login', loginState);
       localStorage.setItem("token", res.data.data);
@@ -38,6 +42,7 @@ export const postLogin = (loginState) =>{
     }
   }
 }
+
 export const getUser = () =>{
   return async  (dispatch) => {
     const token = localStorage.getItem('token');
@@ -68,6 +73,21 @@ export const signOutSuccess = () =>{
   };
 };
 
+
+//action creator: Register
+export const postRegister = (registerState) =>{
+  return async (dispatch)=>{
+    dispatch({type: USER_REGISTER_REQUEST})
+    try{
+      const res = await axios.post('http://localhost:8080/users/singup', registerState);
+      localStorage.setItem("token", res.data.data);
+      dispatch({type: USER_REGISTER_SUCCESS, payload:res})
+    }catch(error){
+      dispatch({type: USER_REGISTER_ERROR, payload:error})
+
+    }
+  }
+}
 
 
 
@@ -134,8 +154,9 @@ export function reviewsChange(value) {
 
 const initialState = {
   token: "",
+  loading: false,
   isLoggedIn: false,
-  error:'',
+  error:null,
   userData:{
     role: '',
     name: '',
@@ -152,12 +173,26 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    case USER_LOGIN_REQUEST:
+      return{
+        ...state,
+        loading:true,
+        isLoggedIn:false,
+      }
     case USER_LOGIN_SUCCESS:
       return{
         ...state,
         token: action.payload.data.data,
         isLoggedIn:true,
+        loading: false,
       }
+      case USER_LOGIN_ERROR:
+        return{
+          ...state,
+          error: action.payload,
+          isLoggedIn:false,
+          loading: false,
+        }
       case USER_LOGOUT_SUCCESS:
       localStorage.removeItem("token");
       return{
@@ -165,7 +200,26 @@ const userReducer = (state = initialState, action) => {
         token: "",
         isLoggedIn:false,
       }
-    case USER_ROLE:
+      case USER_REGISTER_REQUEST:
+      return{
+        ...state,
+        loading:true,
+        isLoggedIn:false,
+      }
+    case USER_REGISTER_SUCCESS:
+      return{
+        ...state,
+        token: action.payload.data.data,
+        loading: false,
+      }
+      case USER_REGISTER_ERROR:
+        return{
+          ...state,
+          error: action.payload,
+          isLoggedIn:false,
+          loading: false,
+        }
+        case USER_ROLE:
       return {
         ...state.userData,
         role: action.payload.role,
