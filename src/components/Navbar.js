@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+
+import { Link, useLocation} from 'react-router-dom';
+
 import { FaTimes } from 'react-icons/fa';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
@@ -7,19 +9,19 @@ import BrandIcon from './BrandIcon';
 import RegisterModal from './RegisterModal';
 import LoginModal from './LoginModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { logOut, userDefine } from '../store/reducers/User.reducer';
+import { signOutSuccess } from '../store/reducers/User.reducer';
+import { getUser } from '../store/reducers/User.reducer';
+import { Menu, Divider, Avatar } from '@mantine/core';
 const Navbar = () => {
   const location = useLocation();
   const [show, setShow] = useState(false);
-  const [showPill, setShowPill] = useState(false);
-  const user = useSelector((state) => state.userReducer);
-  console.log('user_navbar: ', user);
+  const {token, isLoggedIn, userData}=useSelector((state)=>state.userReducer)
   const dispatch = useDispatch();
-
+ 
   const handleSignOut = () => {
     dispatch(logOut());
   };
-  useEffect(() => {}, []);
+
   return (
     <div
       className={
@@ -54,20 +56,31 @@ const Navbar = () => {
         </li>
         {user.signed === false ? (
           <>
-            <li className="nav-item">
-              <RegisterModal sitio="Registro" />
-            </li>
-            <li className="nav-item">
-              <LoginModal sitio="Acceso" />
-            </li>
-            <button className="close">
-              <FaTimes></FaTimes>
-            </button>
-          </>
-        ) : (
-          <li onClick={handleSignOut}>
-            <Link to="/">Sign out</Link>
-          </li>
+
+        <li className="nav-item">
+          <RegisterModal sitio="Registro" />
+        </li>
+        <li className="nav-item">
+        <LoginModal sitio="Acceso" />
+        </li>
+        <button className="close">
+          <FaTimes></FaTimes>
+        </button>
+        </>
+        ): (
+          <div className='navbar-user'>
+            <Menu placement="end" withArrow control={
+            <div className={location.pathname === '/' ? 'info-user-home' :
+                                                        'info-user'}>
+              <Avatar radius="xl" />
+              <p>Nombre de usuario</p>
+              </div>}  trigger="hover" delay={500}>
+            <Menu.Item >Ver tu perfil</Menu.Item>
+            <Menu.Item >Ver tus reservas</Menu.Item>
+            <Divider />
+            <Menu.Item onClick={handleSignOut}><Link to="/">Cerrar Sesión</Link></Menu.Item>
+            </Menu>
+          </div>
         )}
       </ul>
       <button className="open" onClick={() => setShow(!show)}>
