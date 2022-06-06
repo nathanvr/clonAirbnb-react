@@ -199,6 +199,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         token: "",
         isLoggedIn:false,
+        error:null,
       }
       case USER_REGISTER_REQUEST:
       return{
