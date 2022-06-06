@@ -6,7 +6,7 @@ import {
   Alert,
   LoadingOverlay,
 } from '@mantine/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   faFacebook,
@@ -17,20 +17,20 @@ import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import BrandIcon from './BrandIcon';
 import { z } from 'zod';
 import { useForm, zodResolver } from '@mantine/form';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { userDefine } from '../store/reducers/User.reducer';
+import { useSelector, useDispatch } from 'react-redux';
+import { postLogin } from '../store/reducers/User.reducer';
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   email: z.string().email({ message: 'Invalid email' }),
 });
 
 const LoginModal = (props) => {
-  const dispatch = useDispatch();
-  const { sitio } = props;
+  const { login, sitio } = props;
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
-
+  const [visible, setVisible] = useState(false);
+  const {error, loading}=useSelector((state)=>state.userReducer)
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -40,26 +40,21 @@ const LoginModal = (props) => {
     const { value, name } = event.target;
     setUser({ ...user, [name]: value });
   };
+  const dispatch = useDispatch();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const { email, password } = user;
-
-    const res = await axios.post('http://localhost:8080/users/login', {
-      email: email,
-      password: password,
-    });
-    localStorage.setItem('token', res.data.token);
-    dispatch(userDefine());
-    console.log('res2:', res.data);
-    setOpened(false);
+    dispatch(postLogin(user));
   };
 
+
+
+  
   const form = useForm({
     schema: zodResolver(schema),
     initialValues: {
       email: '',
-      password: '',
+      password:''
     },
   });
 
@@ -80,27 +75,32 @@ const LoginModal = (props) => {
         overlayOpacity={0.55}
         overlayBlur={3}>
         <form onSubmit={handleSubmit}>
+          {loading ===true && 
+          <div className='loading' style={{ width: 400, zIndex:1000 }}>
+        <LoadingOverlay visible={visible} />
+        {/* ...other content */}
+      </div>}
           <TextInput
             placeholder="example@example.com"
             label="Correo Electrónico"
             required
-            name="email"
+            name='email'
             value={user.email}
             onChange={handleChange}
-            //{...form.getInputProps('email')}
+          
           />
 
           <PasswordInput
             placeholder="Contraseña"
             label="Contraseña"
             required
-            name="password"
-            value={user.password}
+            name='password'
             onChange={handleChange}
-            //{...form.getInputProps('password')}
+            value={user.password}
           />
+          {error !== null && <Alert title="Error!" color="red">Usuario o contraseña incorrectos</Alert>}
           <div className="form__button__continue">
-            <button className="form__button--continue">Continua</button>
+            <button className="form__button--continue" onClick={() => setVisible((v) => !v)}>Continua</button>
           </div>
         </form>
         <div className="sectioner">
