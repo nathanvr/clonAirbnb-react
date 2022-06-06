@@ -34,17 +34,11 @@ import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
 import BrandIcon from '../components/BrandIcon';
 import LodgementSlider from '../components/LodgementSlider';
 import { changeAlbum1 } from '../store/reducers/Albums.reducer';
-import { getUser } from '../store/reducers/User.reducer';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const {userData}=useSelector((state)=>state.userReducer)
-  useEffect(() => {
-    dispatch(getUser())
-    }, []);
+  const user = useSelector((state) => state.userReducer);
 
   return (
     <div className="container-home">
@@ -53,7 +47,7 @@ const Home = () => {
       </div>
       <div className="main">
         <Title title="Explorar Airbnb"></Title>
-          <h1>Hola {userData.name}</h1>
+        <h1>Hola {user.name}</h1>
         <section className="explorar-airbnb">
           <CardSm text="Logements" src={rec1} link="/"></CardSm>
           <CardSm text="Expériences" src={rec2} link="/experiencia"></CardSm>
@@ -92,7 +86,7 @@ const Home = () => {
             <SwiperSlide>
               <Link to="/room">
                 <CardMd
-                  onClick={dispatch(changeAlbum1())}
+                  //onClick={dispatch(changeAlbum1())}
                   src={cardmd1}
                   country="cayman island"
                   texth3="2 Nights PACKAGE All Inclusive"
