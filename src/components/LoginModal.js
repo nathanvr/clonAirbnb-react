@@ -20,6 +20,7 @@ import { useForm, zodResolver } from '@mantine/form';
 import { useSelector, useDispatch } from 'react-redux';
 import { postLogin } from '../store/reducers/User.reducer';
 import { useNavigate } from "react-router-dom";
+import { getUser } from '../store/reducers/User.reducer';
 
 const schema = z.object({
   email: z.string().email({ message: 'Invalid email' }),

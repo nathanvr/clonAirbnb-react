@@ -15,6 +15,7 @@ import { useForm, zodResolver } from '@mantine/form';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { postRegister } from '../store/reducers/User.reducer';
+import { getUser } from '../store/reducers/User.reducer';
 
 const schema = z.object({
   name: z.string().min(2, { message: 'Name should have at least 2 letters' }),
@@ -66,7 +67,9 @@ const RegisterModal = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(postRegister(registerData));
+    dispatch(getUser());
     setOpened(false);
+
   };
 
   return (
