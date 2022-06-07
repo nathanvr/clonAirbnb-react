@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 export const USER_ID = 'USER_ID';
 export const USER_ROLE = 'USER_ROLE';
 export const USER_NAME = 'USER_NAME';
@@ -22,34 +22,35 @@ export const USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST';
 export const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS';
 export const USER_REGISTER_ERROR = 'USER_REGISTER_ERROR';
 
-
 export const USER_LOGOUT_SUCCESS = 'USER_LOGOUT_SUCCESS';
-
-
 
 //action creator: login
 
-export const postLogin = (loginState) =>{
-  return async (dispatch)=>{
-    dispatch({type: USER_LOGIN_REQUEST})
-    try{
-      const res = await axios.post('http://localhost:8080/users/login', loginState);
-      localStorage.setItem("token", res.data.data);
-      dispatch({type: USER_LOGIN_SUCCESS, payload:res})
-    }catch(error){
-      dispatch({type: USER_LOGIN_ERROR, payload:error})
-
+export const postLogin = (loginState) => {
+  return async (dispatch) => {
+    dispatch({ type: USER_LOGIN_REQUEST });
+    try {
+      const res = await axios.post(
+        'http://localhost:8080/users/login',
+        loginState
+      );
+      localStorage.setItem('token', res.data.data);
+      dispatch({ type: USER_LOGIN_SUCCESS, payload: res });
+    } catch (error) {
+      dispatch({ type: USER_LOGIN_ERROR, payload: error });
     }
-  }
-}
+  };
+};
 
-export const getUser = () =>{
-  return async  (dispatch) => {
+export const getUser = () => {
+  return async (dispatch) => {
     const token = localStorage.getItem('token');
     try {
-      const user  = await axios.get("http://localhost:8080/users/getid", { header: {
-        Authorization: `Bearer ${token}`, 
-      }})
+      const user = await axios.get('http://localhost:8080/users/getid', {
+        header: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       dispatch({ type: USER_ROLE, payload: user.role });
       dispatch({ type: USER_NAME, payload: user.name });
       dispatch({ type: USER_LASTNAME, payload: user.lastName });
@@ -60,36 +61,34 @@ export const getUser = () =>{
       dispatch({ type: USER_BOOKINGSITES, payload: user.bookingSites });
       dispatch({ type: USER_BOOKINGS, payload: user.booking });
       dispatch({ type: USER_REVIEWS, payload: user.reviews });
-      dispatch({type: USER_SUCCESS})
+      dispatch({ type: USER_SUCCESS });
     } catch (err) {
       dispatch({ type: USER_ERROR, payload: err });
     }
-    
-  }
   };
-export const signOutSuccess = () =>{
+};
+export const signOutSuccess = () => {
   return {
-    type:  USER_LOGOUT_SUCCESS,
+    type: USER_LOGOUT_SUCCESS,
   };
 };
 
-
 //action creator: Register
-export const postRegister = (registerState) =>{
-  return async (dispatch)=>{
-    dispatch({type: USER_REGISTER_REQUEST})
-    try{
-      const res = await axios.post('http://localhost:8080/users/singup', registerState);
-      localStorage.setItem("token", res.data.data);
-      dispatch({type: USER_REGISTER_SUCCESS, payload:res})
-    }catch(error){
-      dispatch({type: USER_REGISTER_ERROR, payload:error})
-
+export const postRegister = (registerState) => {
+  return async (dispatch) => {
+    dispatch({ type: USER_REGISTER_REQUEST });
+    try {
+      const res = await axios.post(
+        'http://localhost:8080/users/singup',
+        registerState
+      );
+      localStorage.setItem('token', res.data.data.token);
+      dispatch({ type: USER_REGISTER_SUCCESS, payload: res });
+    } catch (error) {
+      dispatch({ type: USER_REGISTER_ERROR, payload: error });
     }
-  }
-}
-
-
+  };
+};
 
 export function roleDefine(value) {
   return {
@@ -153,11 +152,11 @@ export function reviewsChange(value) {
 }
 
 const initialState = {
-  token: "",
+  token: '',
   loading: false,
   isLoggedIn: false,
-  error:null,
-  userData:{
+  error: null,
+  userData: {
     role: '',
     name: '',
     lastname: '',
@@ -168,59 +167,59 @@ const initialState = {
     bookingSites: [],
     booking: [],
     reviews: [],
-  }
+  },
 };
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
-      return{
+      return {
         ...state,
-        loading:true,
-        isLoggedIn:false,
-      }
+        loading: true,
+        isLoggedIn: false,
+      };
     case USER_LOGIN_SUCCESS:
-      return{
+      return {
         ...state,
         token: action.payload.data.data,
-        isLoggedIn:true,
+        isLoggedIn: true,
         loading: false,
-      }
-      case USER_LOGIN_ERROR:
-        return{
-          ...state,
-          error: action.payload,
-          isLoggedIn:false,
-          loading: false,
-        }
-      case USER_LOGOUT_SUCCESS:
-      localStorage.removeItem("token");
-      return{
+      };
+    case USER_LOGIN_ERROR:
+      return {
         ...state,
-        token: "",
-        isLoggedIn:false,
-        error:null,
-      }
-      case USER_REGISTER_REQUEST:
-      return{
+        error: action.payload,
+        isLoggedIn: false,
+        loading: false,
+      };
+    case USER_LOGOUT_SUCCESS:
+      localStorage.removeItem('token');
+      return {
         ...state,
-        loading:true,
-        isLoggedIn:false,
-      }
+        token: '',
+        isLoggedIn: false,
+        error: null,
+      };
+    case USER_REGISTER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        isLoggedIn: false,
+      };
     case USER_REGISTER_SUCCESS:
-      return{
+      return {
         ...state,
         token: action.payload.data.data,
         loading: false,
-      }
-      case USER_REGISTER_ERROR:
-        return{
-          ...state,
-          error: action.payload,
-          isLoggedIn:false,
-          loading: false,
-        }
-        case USER_ROLE:
+      };
+    case USER_REGISTER_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        isLoggedIn: false,
+        loading: false,
+      };
+    case USER_ROLE:
       return {
         ...state.userData,
         role: action.payload.role,
