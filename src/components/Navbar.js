@@ -13,9 +13,9 @@ import { Menu, Divider, Avatar } from '@mantine/core';
 const Navbar = () => {
   const location = useLocation();
   const [show, setShow] = useState(false);
-  const {token, isLoggedIn, userData}=useSelector((state)=>state.userReducer)
+  const {token, isLoggedIn, name}=useSelector((state)=>state.userReducer)
   const dispatch = useDispatch();
- 
+
   const handleSignOut = () => {
     dispatch(signOutSuccess());
   };
@@ -55,9 +55,23 @@ const Navbar = () => {
         <li className="nav-item">
           <Link to="#">Ayuda</Link>
         </li>
-        {isLoggedIn === false ? (
+        { token !== null ? (
+          <div className='navbar-user'>
+            <Menu placement="end" withArrow control={
+            <div className={location.pathname === '/' ? 'info-user-home' :
+                                                        'info-user'}>
+              <Avatar radius="xl" />
+              <p>{name}</p>
+              </div>}  trigger="hover" delay={500}>
+            <Menu.Item >Ver tu perfil</Menu.Item>
+            <Menu.Item >Ver tus reservas</Menu.Item>
+            <Divider />
+            <Menu.Item onClick={handleSignOut}><Link to="/">Cerrar Sesión</Link></Menu.Item>
+            </Menu>
+          </div>
+        ): (
           <>
-        <li className="nav-item">
+          <li className="nav-item">
           <RegisterModal sitio="Registro" />
         </li>
         <li className="nav-item">
@@ -67,20 +81,6 @@ const Navbar = () => {
           <FaTimes></FaTimes>
         </button>
         </>
-        ): (
-          <div className='navbar-user'>
-            <Menu placement="end" withArrow control={
-            <div className={location.pathname === '/' ? 'info-user-home' :
-                                                        'info-user'}>
-              <Avatar radius="xl" />
-              <p>Nombre de usuario</p>
-              </div>}  trigger="hover" delay={500}>
-            <Menu.Item >Ver tu perfil</Menu.Item>
-            <Menu.Item >Ver tus reservas</Menu.Item>
-            <Divider />
-            <Menu.Item onClick={handleSignOut}><Link to="/">Cerrar Sesión</Link></Menu.Item>
-            </Menu>
-          </div>
         )}
       </ul>
       <button className="open" onClick={() => setShow(!show)}>
