@@ -50,6 +50,7 @@ export const postLogin = (loginState) =>{
 export const getUser = () =>{
   return async (dispatch) => {
     const token = localStorage.getItem("token");
+    console.log(token)
     try {
       const  data = await axios({
         method: 'GET',
@@ -91,6 +92,7 @@ export const postRegister = (registerState) =>{
       const res = await axios.post('http://localhost:8080/users/singup', registerState);
       localStorage.setItem("token", res.data.data.token);
       dispatch({type: USER_REGISTER_SUCCESS, payload:res})
+      dispatch(getUser())
     }catch(error){
       dispatch({type: USER_REGISTER_ERROR, payload:error})
 
@@ -189,6 +191,7 @@ const userReducer = (state = initialState, action) => {
         isLoggedIn:false,
       }
     case USER_LOGIN_SUCCESS:
+      
       return{
         ...state,
         token: action.payload.data.data,

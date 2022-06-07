@@ -52,7 +52,6 @@ const RegisterModal = (props) => {
     e.preventDefault();
 
     dispatch(postRegister(registerData));
-    dispatch(getUser());
   };
 
 
