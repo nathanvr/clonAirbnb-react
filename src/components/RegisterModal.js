@@ -67,8 +67,6 @@ const RegisterModal = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(postRegister(registerData));
-    dispatch(getUser());
-    setOpened(false);
 
   };
 

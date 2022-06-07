@@ -52,6 +52,7 @@ export const postLogin = (loginState) =>{
 export const getUser = () =>{
   return async (dispatch) => {
     const token = localStorage.getItem("token");
+    console.log(token)
     try {
       const  data = await axios({
         method: 'GET',
@@ -84,18 +85,18 @@ export const signOutSuccess = () => {
 };
 
 
-export const postRegister = (registerState) => {
-  return async (dispatch) => {
-    dispatch({ type: USER_REGISTER_REQUEST });
-    try {
-      const res = await axios.post(
-        'http://localhost:8080/users/singup',
-        registerState
-      );
-      localStorage.setItem('token', res.data.data.token);
-      dispatch({ type: USER_REGISTER_SUCCESS, payload: res });
-    } catch (error) {
-      dispatch({ type: USER_REGISTER_ERROR, payload: error });
+
+//action creator: Register
+export const postRegister = (registerState) =>{
+  return async (dispatch)=>{
+    dispatch({type: USER_REGISTER_REQUEST})
+    try{
+      const res = await axios.post('http://localhost:8080/users/singup', registerState);
+      localStorage.setItem("token", res.data.data.token);
+      dispatch({type: USER_REGISTER_SUCCESS, payload:res})
+      dispatch(getUser())
+    }catch(error){
+      dispatch({type: USER_REGISTER_ERROR, payload:error})
     }
   };
 };
