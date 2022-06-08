@@ -15,6 +15,8 @@ import { useForm, zodResolver } from '@mantine/form';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { postRegister } from '../store/reducers/User.reducer';
+import dayjs from 'dayjs/locale/es';
+
 import { getUser } from '../store/reducers/User.reducer';
 
 const schema = z.object({
@@ -60,16 +62,19 @@ const RegisterModal = (props) => {
     password: password,
     name: name,
     lastname: lastname,
-    birthday: birthday,
+    //birthday: birthday,
+    birthday: `${birthday.getDate()} de ${
+      dayjs.months[birthday.getMonth()]
+    } de ${birthday.getFullYear()}`,
     role: role,
   };
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Reg_date: ', registerData, typeof registerData.birthday);
     dispatch(postRegister(registerData));
     dispatch(getUser());
     setOpened(false);
-
   };
 
   return (
@@ -128,6 +133,8 @@ const RegisterModal = (props) => {
             </div>
             <div className="box-register">
               <DatePicker
+                inputFormat="DD MMMM YYYY"
+                locale="es"
                 label="Fecha de nacimiento"
                 name="name"
                 value={birthday}
