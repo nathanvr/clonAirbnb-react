@@ -1,5 +1,4 @@
 import React from "react";
-import SubNavbar from "../components/host/SubNavbar";
 import Tabs from "../components/host/Tabs";
 
 import FormHost from "../components/host/FormHost";
@@ -8,7 +7,6 @@ import FormHost from "../components/host/FormHost";
 const HostDashboard =()=>{
     return(
         <div className="dashboard-container">
-            <SubNavbar></SubNavbar>
             <section className="hero">
                 <div>
                     <h2>Hoy</h2>
