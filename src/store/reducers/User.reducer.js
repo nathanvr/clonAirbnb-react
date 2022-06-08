@@ -104,16 +104,13 @@ export const postRegister = (registerState) => {
 export const userUpdate = (value) => {
   return async (dispatch) => {
     const token = localStorage.getItem('token');
+    console.log('value: ', value);
     try {
-      const { data: data } = await axios.postUpdate(
-        'http://localhost:8080/users/update',
-        value,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.put('http://localhost:8080/users/update', value, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       dispatch(getUser());
     } catch (error) {
       dispatch({ type: USER_REGISTER_ERROR, payload: error });

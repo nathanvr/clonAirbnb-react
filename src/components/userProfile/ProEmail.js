@@ -1,16 +1,31 @@
 import { Input } from '@mantine/core';
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { userUpdate } from '../../store/reducers/User.reducer';
 
 const ProName = () => {
-  const { email: email } = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
 
-  const handleClick = () => {};
+  const [email, setEmail] = useState('');
+
+  const handleClick = () => {
+    console.log('handleclick_update');
+    dispatch(
+      userUpdate({
+        email: email,
+      })
+    );
+  };
   return (
     <div>
       <p>Utiliza una dirección a la que siempre tendrás acceso.</p>
       <div style={{ border: '1px solid black' }}>
         <p>Nombre</p>
-        <Input placeholder={email} variant="unstyled" />
+        <Input
+          value={email}
+          onChange={(event) => setEmail(event.currentTarget.value)}
+          variant="unstyled"
+        />
       </div>
       <button onClick={handleClick}>Guardar</button>
     </div>
