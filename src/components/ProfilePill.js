@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import ProName from './userProfile/ProName';
 import ProEmail from './userProfile/ProEmail';
 import ProDate from './userProfile/ProDate';
+import ProDescription from './userProfile/ProDescription';
 
 const ProfilePill = () => {
   const [name, setName] = useState('');
@@ -35,6 +36,11 @@ const ProfilePill = () => {
       description: `${birthDay}`,
       content: <ProDate />,
     },
+    {
+      label: 'Descripcion',
+      description: `${description}`,
+      content: <ProDescription />,
+    },
   ];
 
   function AccordionLabel({ label, description }) {
@@ -61,7 +67,6 @@ const ProfilePill = () => {
 
   return (
     <Accordion icon="Edita" iconPosition="right" disableIconRotation>
-      {console.log(items)}
       {items}
     </Accordion>
   );
