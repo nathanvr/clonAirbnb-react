@@ -1,3 +1,4 @@
+import { ACTION_ICON_SIZES } from '@mantine/core';
 import axios from 'axios';
 export const USER_ID = 'USER_ID';
 export const USER_ROLE = 'USER_ROLE';
@@ -22,39 +23,36 @@ export const USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST';
 export const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS';
 export const USER_REGISTER_ERROR = 'USER_REGISTER_ERROR';
 
-
 export const SIGNED = 'SIGNED';
 export const SIGNIN_FAILURE = 'SIGNIN_FAILURE';
-
-
-
 
 export const USER_LOGOUT_SUCCESS = 'USER_LOGOUT_SUCCESS';
 
 //action creator: login
 
-
-export const postLogin = (loginState) =>{
-  return async (dispatch)=>{
-    dispatch({type: USER_LOGIN_REQUEST})
-    try{
-      const res = await axios.post('http://localhost:8080/users/login', loginState);
-      localStorage.setItem("token", res.data.data);
-      dispatch({type: USER_LOGIN_SUCCESS, payload:res})
-      dispatch(getUser())
-    }catch(error){
-      dispatch({type: USER_LOGIN_ERROR, payload:error})
+export const postLogin = (loginState) => {
+  return async (dispatch) => {
+    dispatch({ type: USER_LOGIN_REQUEST });
+    try {
+      const res = await axios.post(
+        'http://localhost:8080/users/login',
+        loginState
+      );
+      localStorage.setItem('token', res.data.data);
+      dispatch({ type: USER_LOGIN_SUCCESS, payload: res });
+      dispatch(getUser());
+    } catch (error) {
+      dispatch({ type: USER_LOGIN_ERROR, payload: error });
     }
   };
 };
 
-
-export const getUser = () =>{
+export const getUser = () => {
   return async (dispatch) => {
-    const token = localStorage.getItem("token");
-    console.log(token)
+    const token = localStorage.getItem('token');
+    console.log(token);
     try {
-      const  data = await axios({
+      const data = await axios({
         method: 'GET',
         baseURL: 'http://localhost:8080/users/getid',
         headers: {
@@ -64,7 +62,7 @@ export const getUser = () =>{
       const user = data.data;
       dispatch({ type: USER_ROLE, payload: user.role });
       dispatch({ type: USER_NAME, payload: user.name });
-      dispatch({ type: USER_LASTNAME, payload: user.lastName });
+      dispatch({ type: USER_LASTNAME, payload: user.lastname });
       dispatch({ type: USER_EMAIL, payload: user.email });
       dispatch({ type: USER_BIRTHDAY, payload: user.birthday });
       dispatch({ type: USER_PASSWORD, payload: user.password });
@@ -78,25 +76,44 @@ export const getUser = () =>{
     }
   };
 };
+
 export const signOutSuccess = () => {
   return {
     type: USER_LOGOUT_SUCCESS,
   };
 };
 
-
-
 //action creator: Register
-export const postRegister = (registerState) =>{
-  return async (dispatch)=>{
-    dispatch({type: USER_REGISTER_REQUEST})
-    try{
-      const res = await axios.post('http://localhost:8080/users/singup', registerState);
-      localStorage.setItem("token", res.data.data.token);
-      dispatch({type: USER_REGISTER_SUCCESS, payload:res})
-      dispatch(getUser())
-    }catch(error){
-      dispatch({type: USER_REGISTER_ERROR, payload:error})
+export const postRegister = (registerState) => {
+  return async (dispatch) => {
+    dispatch({ type: USER_REGISTER_REQUEST });
+    try {
+      const res = await axios.post(
+        'http://localhost:8080/users/singup',
+        registerState
+      );
+      localStorage.setItem('token', res.data.data.token);
+      dispatch({ type: USER_REGISTER_SUCCESS, payload: res });
+      dispatch(getUser());
+    } catch (error) {
+      dispatch({ type: USER_REGISTER_ERROR, payload: error });
+    }
+  };
+};
+
+export const userUpdate = (value) => {
+  return async (dispatch) => {
+    const token = localStorage.getItem('token');
+    console.log('value: ', value);
+    try {
+      await axios.put('http://localhost:8080/users/update', value, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      dispatch(getUser());
+    } catch (error) {
+      dispatch({ type: USER_REGISTER_ERROR, payload: error });
     }
   };
 };
@@ -166,10 +183,10 @@ const initialState = {
   token: null,
   loading: false,
   isLoggedIn: false,
-  error:null,
+  error: null,
   role: null,
   name: null,
-  lastname:null,
+  lastname: null,
   email: null,
   birthday: null,
   password: null,
@@ -178,8 +195,7 @@ const initialState = {
   booking: [],
   reviews: [],
   signed: false,
-  }
-
+};
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -204,7 +220,7 @@ const userReducer = (state = initialState, action) => {
         isLoggedIn: false,
         role: null,
         name: null,
-        lastname:null,
+        lastname: null,
         email: null,
         birthday: null,
         password: null,
@@ -213,9 +229,9 @@ const userReducer = (state = initialState, action) => {
         booking: [],
         reviews: [],
         signed: false,
-      }
-      case USER_REGISTER_REQUEST:
-      return{
+      };
+    case USER_REGISTER_REQUEST:
+      return {
         error: action.payload,
         isLoggedIn: false,
         loading: false,
@@ -238,7 +254,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         token: action.payload.data.data.token,
-        isLoggedIn:true,
+        isLoggedIn: true,
         loading: false,
       };
     case USER_REGISTER_ERROR:
@@ -256,27 +272,27 @@ const userReducer = (state = initialState, action) => {
     case USER_NAME:
       return {
         ...state,
-        name: action.payload
+        name: action.payload,
       };
     case USER_LASTNAME:
       return {
         ...state,
-        lastName: action.payload
+        lastname: action.payload,
       };
     case USER_EMAIL:
       return {
         ...state,
-        email: action.payload
+        email: action.payload,
       };
     case USER_BIRTHDAY:
       return {
         ...state,
-        birthday: action.payload
+        birthday: action.payload,
       };
     case USER_PASSWORD:
       return {
         ...state,
-        password: action.payload
+        password: action.payload,
       };
     case USER_DESCRIPTION:
       return {
@@ -298,7 +314,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         reviews: [...action.payload],
       };
-      case SIGNED:
+    case SIGNED:
       return {
         ...state,
         signed: action.payload,
