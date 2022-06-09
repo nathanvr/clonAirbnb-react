@@ -80,6 +80,18 @@
             font-size: 40px;
             color:var(--green);
         }
+        .section-map{
+            display: flex;
+            justify-content: space-between;
+
+            .adress_content{
+                width: 500px;
+                .coordinates{
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
+        }
     }
     .typebooking4{
 
@@ -116,4 +128,9 @@
         justify-content: space-between;
         padding: 20px;
     }
+}
+
+.leaflet-container{
+    width: 300px;
+    height: 300px;
 }

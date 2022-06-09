@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Modal, useMantineTheme} from '@mantine/core';
 import { Link } from "react-router-dom";
 import { NumberInput,Select, CheckboxGroup, Checkbox, TextInput } from '@mantine/core';
-
+import { MapContainer, TileLayer, useMap, Marker, Popup, } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css'
+import Markericon from "../../images/venue_location_icon.svg"
 
 const options1 = [
     {value:"apartment", label:"Apartamentos"},
@@ -255,12 +257,33 @@ const FormHost =(props)=>{
                     <h1>Paso 3: Selecciona tu ubicación</h1>
                         
                         <h2>Ingresa la ubicación del espacio</h2>
-                                <section>
-                                    <div>
+                                <section className="section-map">
+                                    <div className="adress_content">
                                         <TextInput label="Ingresa la dirección del sitio" required></TextInput>
                                         <TextInput label="Ciudad" required></TextInput>
                                         <TextInput label="Pais" required></TextInput>
                                         <TextInput label="Zipcode" required></TextInput>
+                                    </div>
+                                    <div>
+                                        <div>
+
+                                        </div>
+                                        <div className="adress_content">
+                                            <div className="coordinates">
+                                                <TextInput label="Ingresa la latitud" required></TextInput>
+                                                <TextInput label="Ingresa la longitud" required></TextInput>
+                                            </div>
+                                        <MapContainer center={[3.42158,-76.5205]} zoom={13} scrollWheelZoom={false} >
+                                            <TileLayer
+                                                attribution='<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                            />
+                                            <Marker position={[3.42158, -76.5205]}>
+                                                <Popup>
+                                                </Popup>
+                                            </Marker>
+                                            </MapContainer>
+                                        </div>
                                     </div>
                                 </section>
                                 </div>
