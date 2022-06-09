@@ -29,7 +29,6 @@ const RegisterModal = (props) => {
   const [visible, setVisible] = useState(false);
   const {error, loading}=useSelector((state)=>state.userReducer)
 
-
   const form = useForm({
     schema: zodResolver(schema),
     initialValues: {

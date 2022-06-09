@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { Modal, useMantineTheme} from '@mantine/core';
-import { Icon } from '@iconify/react';
-import Select from 'react-select';
 import { Link } from "react-router-dom";
-import { Services, ServicesSecond, ServicesThird } from "./Services";
-import GoogleMapForm from "../GoogleMapForm";
-import { NumberInput} from '@mantine/core';
+import { NumberInput,Select, CheckboxGroup, Checkbox, TextInput } from '@mantine/core';
 
 
 const options1 = [
@@ -45,16 +41,7 @@ const FormHost =(props)=>{
     const [countBeds, setCountBeds] = useState(0);
     const [countRooms, setCountRooms] = useState(0);
     const [countBaths, setCountBaths] = useState(0);
-    const [isChecked, setIsChecked] = useState(
-            new Array(Services.length).fill(false));
-        
-
-    const [isChecked2, setIsChecked2] = useState(
-            new Array (ServicesSecond.length).fill(false));
-
-    const [isChecked3, setIsChecked3] = useState(
-        new Array(ServicesThird.length).fill(false));
-
+    const [isChecked, setIsChecked] = useState([]);
     const [selectedOption1, setSelectedOption1] = useState(null);
     const [selectedOption2, setSelectedOption2] = useState(null);
     const [selectedOption3, setSelectedOption3] = useState(null);
@@ -148,31 +135,13 @@ const FormHost =(props)=>{
             
         }
     }
-    const handleOnChange = (position) => {
-        const updatedCheckedState = isChecked.map((item, index) =>
-        index === position ? !item : item
-    );
-  
-        setIsChecked(updatedCheckedState);
-    };
-    const handleOnChange2 = (position2) => {
-        const updatedCheckedState2 = isChecked2.map((item2, index2) =>
-        index2 === position2 ? !item2 : item2
-    );
-  
-        setIsChecked2(updatedCheckedState2);
-    };
-    const handleOnChange3 = (position3) => {
-        const updatedCheckedState3 = isChecked3.map((item3, index3) =>
-        index3 === position3 ? !item3 : item3
-    );
-  
-        setIsChecked3(updatedCheckedState3);
-    };
+    
+
+    
     return (
         <div>
             <Link to="#" onClick={() => setOpened(true)}>{sitio}</Link>
-                <Modal Modal size="90%" opened={opened}
+                <Modal size="90%" opened={opened}
                 onClose={() => setOpened(false)}
                 overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
                 overlayOpacity={0.55}
@@ -183,22 +152,29 @@ const FormHost =(props)=>{
                 {formStep===0 && <section>
                     <div className="typebooking">
                         <h1>Paso 1: Empieza con lo básico</h1>
-                            <div>
-                                <h2>¿En qué tipo de espacio brindarás servicios de anfitrión?</h2>
-                                <Select placeholder="Selecciona una opción" defaultValue={selectedOption1} onChange={setSelectedOption1} options={options1} /> 
+                        <h2>Cuentanos acerca de tu espacio</h2>
+                            <div className="select">
+                                <Select placeholder="Selecciona una opción" value={selectedOption1} onChange={setSelectedOption1} data={options1} label="¿En qué tipo de espacio brindarás servicios de anfitrión?" required/> 
                             </div>
-                            <h2>¿Cuál de estas opciones describe mejor tu espacio?</h2>
-                            <div>
-                                <Select placeholder="Selecciona una opción" defaultValue={selectedOption2} onChange={setSelectedOption2} options={options2} /> 
+                            <div className="select">
+                                <Select label="¿Cuál de estas opciones describe mejor tu espacio?" required placeholder="Selecciona una opción" value={selectedOption2} onChange={setSelectedOption2} data={options2} /> 
                             </div>
-                            <h2>¿De qué tipo de espacio dispondrán los huéspedes?</h2>
-                            <div>
-                                <Select placeholder="Selecciona una opción" defaultValue={selectedOption3} onChange={setSelectedOption3} options={options3} /> 
+                            <div className="select">
+                                <Select label="¿De qué tipo de espacio dispondrán los huéspedes?" required placeholder="Selecciona una opción" value={selectedOption3} onChange={setSelectedOption3} data={options3} /> 
                             </div>
                 
-                                <h2>¿A cuántos huéspedes te gustaría recibir?</h2>
+                                
+                        
+                </div>
+                </section> } 
+                {formStep===1 &&<section>
+                    <div className="typebooking2">
+                        <h1>Paso 2: Describe tu espacio</h1>
+                        
+                        <h2>¿A cuántos huéspedes te gustaría recibir?<span className="red"> *</span></h2>
                                     <section className="counter">
-                                        <div className="section-guest">Huéspedes 
+                                        <div className="section-guest">
+                                            <p>Huéspedes</p>
                                             <button onClick={removeCountGuest}>-</button>
                                             <NumberInput
                                                 hideControls
@@ -207,11 +183,12 @@ const FormHost =(props)=>{
                                                 max={16}
                                                 min={0}
                                                 step={1}
-                                                styles={{ input: { width: 54, textAlign: 'center' } }}
+                                                styles={{ input: { width: 44, textAlign: 'center' } }}
                                             /> 
                                             <button onClick={()=>addCountGuest()}>+</button>
                                         </div>
-                                        <div className="section-beds">Camas 
+                                        <div className="section-guest">
+                                            <div>Camas </div>
                                             <button onClick={removeCountBeds}>-</button>
                                             <NumberInput
                                                 hideControls
@@ -220,97 +197,81 @@ const FormHost =(props)=>{
                                                 max={50}
                                                 min={0}
                                                 step={1}
-                                                styles={{ input: { width: 54, textAlign: 'center' } }}
+                                                styles={{ input: { width: 44, textAlign: 'center' } }}
                                             /> 
                                             <button onClick={addCountBeds}>+</button>   
                                         </div>
-                                        <div className="section-rooms">Habitaciones 
-                                            <button onClick={removeCountRooms}>-</button>{countRooms} 
+                                        <div className="section-guest">Habitaciones 
+                                            <button onClick={removeCountRooms}>-</button>
+                                            <NumberInput
+                                                hideControls
+                                                value={countRooms}
+                                                onChange={(val) => setCountRooms(val)}
+                                                max={50}
+                                                min={0}
+                                                step={1}
+                                                styles={{ input: { width: 44, textAlign: 'center' } }}
+                                            /> 
                                             <button onClick={addCountRooms}>+</button>   
                                         </div>
-                                        <div className="section-baths">Baños
-                                            <button onClick={removeCountBaths}>-</button>{countBaths} 
+                                        <div className="section-guest">Baños
+                                            <button onClick={removeCountBaths}>-</button>
+                                            <NumberInput
+                                                hideControls
+                                                value={countBaths}
+                                                onChange={(val) => setCountBaths(val)}
+                                                max={50}
+                                                min={0}
+                                                step={1}
+                                                styles={{ input: { width: 44, textAlign: 'center' } }}
+                                            /> 
                                             <button onClick={addCountBaths}>+</button>   
                                         </div>
                                     </section>
-                        
-                </div>
-                </section> } 
-                {formStep===1 &&<section>
-                    <div className="typebooking2">
-                        <h1>Paso 2: Describe tu espacio</h1>
-                        <h2>Cuéntale a los huéspedes todo lo que tu espacio tiene para ofrecer</h2>
                             <div className="info-1">
-                                <h3>¿Tienes alguna comodidad destacada?</h3>
-                                    <ul>
-                                    {Services.map(({name, icon}, index)=>{
-                                        return(
-                                            <li key={index}>
-                                                <input
-                                                        type="checkbox"
-                                                        id={index}
-                                                        name={name}
-                                                        value={name}
-                                                        checked={isChecked[index]}
-                                                        onChange={() => handleOnChange(index)}
-                                                    />
-                                                    <label><Icon icon={icon}></Icon>{name}</label>                                            
-                                            </li>
-                                        )
-                                    })}
-                                    </ul>
-                                        <h3>¿Estos son los servicios preferidos por los huéspedes. ¿Los tienes?</h3>
-                                        <ul>
-                                    {ServicesSecond.map(({name2, icon2}, index2)=>{
-                                        return(
-                                            <li key={index2}>
-                                                <input
-                                                        type="checkbox"
-                                                        id={index2}
-                                                        name={name2}
-                                                        value={name2}
-                                                        checked={isChecked2[index2]}
-                                                        onChange={() => handleOnChange2(index2)}
-                                                    />
-                                                    <label><Icon icon={icon2}></Icon>{name2}</label>                                            
-                                            </li>
-                                        )
-                                    })}
-                                    </ul>
-                                        <h3>¿Cuentas con alguno de estos elementos de seguridad?</h3>
-                                    <ul>
-                                    {ServicesThird.map(({name3, icon3}, index3)=>{
-                                        return(
-                                            <li key={index3}>
-                                                <input
-                                                        type="checkbox"
-                                                        id={index3}
-                                                        name={name3}
-                                                        value={name3}
-                                                        checked={isChecked3[index3]}
-                                                        onChange={() => handleOnChange3(index3)}
-                                                    />
-                                                    <label><Icon icon={icon3}></Icon>{name3}</label>                                            
-                                            </li>
-                                        )
-                                    })}
-                                    </ul>
+                                <CheckboxGroup value={isChecked} onChange={setIsChecked}  color="cyan"
+                                                label="¿Tienes alguna comodidad destacada?"
+                                                required
+                                                spacing="xl"
+                                                size="md">
+                                    <Checkbox value="pool" label="Piscina"/>
+                                    <Checkbox value="jacuzzi" label="Jacuzzi" />
+                                    <Checkbox value="bbq" label="Parrilla" />
+                                    <Checkbox value="woodfire" label="Fogata" />
+                                    <Checkbox value="essentialservices" label="Servicios imprescindibles" />
+                                    <Checkbox value="hotwater" label="Agua caliente" />
+                                    <Checkbox value="wifi" label="Wifi" />
+                                    <Checkbox value="tv" label="TV" />
+                                    <Checkbox value="kitchen" label="Cocina" />
+                                    <Checkbox value="washer" label="Lavadora" />
+                                    <Checkbox value="airconditioner" label="Aire acondicionado" />
+                                    <Checkbox value="firstaidkit" label="Botiquín" />
+                                </CheckboxGroup>
                             </div>         
                 </div>
                 </section>}
                 {formStep===2 &&<section>
-                    <h2>¿Dónde se encuentra tu espacio?</h2>
+                    <div className="typebooking2">
+                    <h1>Paso 3: Selecciona tu ubicación</h1>
+                        
+                        <h2>Ingresa la ubicación del espacio</h2>
                                 <section>
-                                    <GoogleMapForm></GoogleMapForm>
+                                    <div>
+                                        <TextInput label="Ingresa la dirección del sitio" required></TextInput>
+                                        <TextInput label="Ciudad" required></TextInput>
+                                        <TextInput label="Pais" required></TextInput>
+                                        <TextInput label="Zipcode" required></TextInput>
+                                    </div>
                                 </section>
+                                </div>
                     </section>}
                 {formStep===3 &&    <section>
                 <div className="typebooking2">
                     
-                        <h1>Paso 3: Sube tus fotos</h1>
+                        <h1>Paso 4: Sube tus fotos</h1>
                             <section>
                                 <h2>Ahora, agreguemos algunas fotos de tu espacio</h2>
-                                <button className="addphotos"><Icon icon="material-symbols:add-a-photo" /></button>
+                                <button className="addphotos"></button>
                             </section>
                     
                 </div>

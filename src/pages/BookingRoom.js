@@ -13,7 +13,6 @@ import persona1 from '../images/clientes/persona1.jpg';
 import Album from '../components/Album';
 import { useSelector } from 'react-redux';
 import BookingSection from '../components/BookingSection';
-import GoogleMapForm from '../components/GoogleMapForm';
 
 
 const BookingRoom = () => {
@@ -94,7 +93,6 @@ const BookingRoom = () => {
           </section>
           <section className="calendar">
             <h2>¿A dónde irás?</h2>
-            <GoogleMapForm></GoogleMapForm>
           </section>
         </div>
         <div id="right">
