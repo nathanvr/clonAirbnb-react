@@ -17,7 +17,6 @@ import BookingSection from '../components/BookingSection';
 
 const BookingRoom = () => {
   const booking = useSelector((state) => state.bookingReducer);
-  console.log('booking: ', booking);
 
   return (
     <div className="container-total">

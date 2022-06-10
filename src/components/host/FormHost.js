@@ -1,10 +1,15 @@
-import { useState } from "react";
-import { Modal, useMantineTheme} from '@mantine/core';
+import React,{ useEffect, useState } from "react";
+import { Burger, Modal, useMantineTheme, Textarea} from '@mantine/core';
 import { Link } from "react-router-dom";
 import { NumberInput,Select, CheckboxGroup, Checkbox, TextInput } from '@mantine/core';
+import MapView from "../MapView";
 import { MapContainer, TileLayer, useMap, Marker, Popup, } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css'
-import Markericon from "../../images/venue_location_icon.svg"
+import 'leaflet/dist/leaflet.css';
+import { VenueLocationIcon } from "../VenueLocationIcon";
+import axios from "axios";
+import { useMapEvents } from 'react-leaflet/hooks';
+import L from 'leaflet';
+import Map from "./Map";
 
 const options1 = [
     {value:"apartment", label:"Apartamentos"},
@@ -44,14 +49,29 @@ const FormHost =(props)=>{
     const [countRooms, setCountRooms] = useState(0);
     const [countBaths, setCountBaths] = useState(0);
     const [isChecked, setIsChecked] = useState([]);
-    const [selectedOption1, setSelectedOption1] = useState(null);
-    const [selectedOption2, setSelectedOption2] = useState(null);
-    const [selectedOption3, setSelectedOption3] = useState(null);
+    const [home_type, setHome_type] = useState(null);
+    const [description_type, setDescription_type] = useState(null);
+    const [room_type, setRoom_type] = useState(null);
     const [formStep, setformStep] = useState(0);
+    const [address, setAddress]=useState("");
+    const [city, setCity]=useState("");
+    const [country, setCountry]=useState("");
+    const [zipcode, setZipcode]=useState("");
     const [title, setTitle]=useState("");
     const [description, setDescription]= useState("");
     const [price,setPrice]=useState(0);
+    const [state, setState] = useState({
+        currentLocation: { lat: 4.570868, lng: -74.297333 },
+        zoom: 13,
+    });
+    const [lati, setLat]=useState(0);
+    const [lngi, setLng]=useState(0);
+    const [image, setImage] = useState(null);
+    const [file, setFile] = useState(null);
 
+    const handleButton =()=>{
+        setState({currentLocation:{lat:lati, lng:lngi}})
+    }
     //Huespedes
     const addCountGuest = () => { 
         if(countGuest === 16){
@@ -131,15 +151,77 @@ const FormHost =(props)=>{
     }
     const renderButtonSubmit =()=>{
         if(formStep===5){
-        return( <button type="button" id ="button">Enviar</button>)
+        return( <button type="button" id ="button" onClick={handleSubmit}>Enviar</button>)
         } else{
             return undefined;
             
         }
     }
     
+    async function handleSubmit(e) {
+        e.preventDefault();
+        const data = new FormData();
+        data.append("home_type", home_type)
+        data.append("description_type", description_type)
+        data.append("room_type", room_type)
+        data.append("total_occupancy", countGuest)
+        data.append("total_rooms", countRooms)
+        data.append("total_beds", countBeds)
+        data.append("total_bathrooms", countBaths)
+        data.append("services", isChecked)
+        data.append("title", title)
+        data.append("description", description)
+        data.append("price", price)
+        data.append("address", address)
+        data.append("city", city)
+        data.append("country", country)
+        data.append("zipcode", zipcode)
+        data.append("lat", lati)
+        data.append("lng", lngi)
 
+        if (file) {
+
+            for (let i = 0; i < file.length; i++) {
+              //nombre de la propiedad, archivo y nombre del archivo
+            data.append(`file_${i}`, file[i], file[i].name);
+            }
+        }
+        const token = localStorage.getItem('token');
+        console.log(data)
+        const response = await axios.post("http://localhost:8080/bookingsites/post", data, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+        },
+        
+        
+    });
+    console.log(response)
     
+    }
+    function handleChange(e) {
+    
+if(e.target.files.length > 0 && e.target.files[0].size < 1024 * 1024 * 5) {
+     readFile(e.target.files[0])
+     setFile(e.target.files[0])
+    }
+    setFile(e.target.files);
+    
+}
+console.log(file)
+
+    function readFile(file) {
+        const reader = new FileReader();
+        //Result tiene el resultado de la imagen
+        reader.onload = (e) => setImage(e.target.result);
+        // reader.onload = e => console.log(e.target.result)
+        //Como no hemos seleccionado imagen aùn
+        reader.readAsDataURL(file);
+    }
+    function SetViewOnClick({ coords }) {
+        const map = useMap();
+        map.setView(coords, map.getZoom());
+    }
     return (
         <div>
             <Link to="#" onClick={() => setOpened(true)}>{sitio}</Link>
@@ -150,19 +232,20 @@ const FormHost =(props)=>{
                 overlayBlur={3} >
             
                 <div className="container-form">
-                
-                {formStep===0 && <section>
+                <form onSubmit={handleSubmit}>
+                {formStep===0 && 
+                <section>
                     <div className="typebooking">
                         <h1>Paso 1: Empieza con lo básico</h1>
                         <h2>Cuentanos acerca de tu espacio</h2>
                             <div className="select">
-                                <Select placeholder="Selecciona una opción" value={selectedOption1} onChange={setSelectedOption1} data={options1} label="¿En qué tipo de espacio brindarás servicios de anfitrión?" required/> 
+                                <Select placeholder="Selecciona una opción" value={home_type} onChange={setHome_type} data={options1} label="¿En qué tipo de espacio brindarás servicios de anfitrión?" required/> 
                             </div>
                             <div className="select">
-                                <Select label="¿Cuál de estas opciones describe mejor tu espacio?" required placeholder="Selecciona una opción" value={selectedOption2} onChange={setSelectedOption2} data={options2} /> 
+                                <Select label="¿Cuál de estas opciones describe mejor tu espacio?" required placeholder="Selecciona una opción" value={description_type} onChange={setDescription_type} data={options2} /> 
                             </div>
                             <div className="select">
-                                <Select label="¿De qué tipo de espacio dispondrán los huéspedes?" required placeholder="Selecciona una opción" value={selectedOption3} onChange={setSelectedOption3} data={options3} /> 
+                                <Select label="¿De qué tipo de espacio dispondrán los huéspedes?" required placeholder="Selecciona una opción" value={room_type} onChange={setRoom_type} data={options3} /> 
                             </div>
                 
                                 
@@ -177,7 +260,7 @@ const FormHost =(props)=>{
                                     <section className="counter">
                                         <div className="section-guest">
                                             <p>Huéspedes</p>
-                                            <button onClick={removeCountGuest}>-</button>
+                                            <div className="button-counter" onClick={removeCountGuest}>-</div>
                                             <NumberInput
                                                 hideControls
                                                 value={countGuest}
@@ -187,11 +270,11 @@ const FormHost =(props)=>{
                                                 step={1}
                                                 styles={{ input: { width: 44, textAlign: 'center' } }}
                                             /> 
-                                            <button onClick={()=>addCountGuest()}>+</button>
+                                            <div  className="button-counter" onClick={()=>addCountGuest()}>+</div>
                                         </div>
                                         <div className="section-guest">
                                             <div>Camas </div>
-                                            <button onClick={removeCountBeds}>-</button>
+                                            <div className="button-counter" onClick={removeCountBeds}>-</div>
                                             <NumberInput
                                                 hideControls
                                                 value={countBeds}
@@ -201,10 +284,10 @@ const FormHost =(props)=>{
                                                 step={1}
                                                 styles={{ input: { width: 44, textAlign: 'center' } }}
                                             /> 
-                                            <button onClick={addCountBeds}>+</button>   
+                                            <div className="button-counter" onClick={addCountBeds}>+</div>   
                                         </div>
                                         <div className="section-guest">Habitaciones 
-                                            <button onClick={removeCountRooms}>-</button>
+                                            <div className="button-counter"  onClick={removeCountRooms}>-</div>
                                             <NumberInput
                                                 hideControls
                                                 value={countRooms}
@@ -214,10 +297,10 @@ const FormHost =(props)=>{
                                                 step={1}
                                                 styles={{ input: { width: 44, textAlign: 'center' } }}
                                             /> 
-                                            <button onClick={addCountRooms}>+</button>   
+                                            <div className="button-counter" onClick={addCountRooms}>+</div>   
                                         </div>
                                         <div className="section-guest">Baños
-                                            <button onClick={removeCountBaths}>-</button>
+                                            <div className="button-counter" onClick={removeCountBaths}>-</div>
                                             <NumberInput
                                                 hideControls
                                                 value={countBaths}
@@ -227,11 +310,11 @@ const FormHost =(props)=>{
                                                 step={1}
                                                 styles={{ input: { width: 44, textAlign: 'center' } }}
                                             /> 
-                                            <button onClick={addCountBaths}>+</button>   
+                                            <div className="button-counter" onClick={addCountBaths}>+</div>   
                                         </div>
                                     </section>
                             <div className="info-1">
-                                <CheckboxGroup value={isChecked} onChange={setIsChecked}  color="cyan"
+                                <CheckboxGroup value={isChecked} onChange={setIsChecked}   color="violet"
                                                 label="¿Tienes alguna comodidad destacada?"
                                                 required
                                                 spacing="xl"
@@ -259,30 +342,36 @@ const FormHost =(props)=>{
                         <h2>Ingresa la ubicación del espacio</h2>
                                 <section className="section-map">
                                     <div className="adress_content">
-                                        <TextInput label="Ingresa la dirección del sitio" required></TextInput>
-                                        <TextInput label="Ciudad" required></TextInput>
-                                        <TextInput label="Pais" required></TextInput>
-                                        <TextInput label="Zipcode" required></TextInput>
+                                        <TextInput label="Ingresa la dirección del sitio" required value={address} onChange={(event) => setAddress(event.currentTarget.value)}></TextInput>
+                                        <TextInput label="Ciudad" required value={city} onChange={(event) => setCity(event.currentTarget.value)}></TextInput>
+                                        <TextInput label="Pais" required value={country} onChange={(event) => setCountry(event.currentTarget.value)}></TextInput>
+                                        <TextInput label="Zipcode" value={zipcode} onChange={(event) => setZipcode(event.currentTarget.value)}></TextInput>
+                                        <div className="coordinates">
+                                                <TextInput label="Ingresa la latitud" required value={lati} onChange={(event) => setLat(event.currentTarget.value)}></TextInput>
+                                                <TextInput label="Ingresa la longitud" required value={lngi} onChange={(event) => setLng(event.currentTarget.value)}></TextInput>
+                                                <div onClick={handleButton} className="button">Buscar</div>
+                                        </div>
                                     </div>
                                     <div>
                                         <div>
 
                                         </div>
                                         <div className="adress_content">
-                                            <div className="coordinates">
-                                                <TextInput label="Ingresa la latitud" required></TextInput>
-                                                <TextInput label="Ingresa la longitud" required></TextInput>
-                                            </div>
-                                        <MapContainer center={[3.42158,-76.5205]} zoom={13} scrollWheelZoom={false} >
-                                            <TileLayer
-                                                attribution='<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                            />
-                                            <Marker position={[3.42158, -76.5205]}>
-                                                <Popup>
-                                                </Popup>
-                                            </Marker>
-                                            </MapContainer>
+                                            <MapContainer center={state.currentLocation} zoom={state.zoom} scrollWheelZoom={false} >
+                                                <TileLayer
+                                                    attribution='<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                                    />
+                                                    <SetViewOnClick
+                                                            coords={state.currentLocation}
+                                                                        />
+                                            <Marker position={state.currentLocation} icon={VenueLocationIcon}>
+                                                    <Popup>
+                                                        Esta es tu ubicación
+                                                    </Popup>
+                                                    
+                                                </Marker>
+                                                </MapContainer>
                                         </div>
                                     </div>
                                 </section>
@@ -294,8 +383,20 @@ const FormHost =(props)=>{
                         <h1>Paso 4: Sube tus fotos</h1>
                             <section>
                                 <h2>Ahora, agreguemos algunas fotos de tu espacio</h2>
-                                <button className="addphotos"></button>
+                                {/*<div className="addphotos"></div>*/}
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    multiple
+                                    name="file"
+                                    id="file"
+                                    onChange={handleChange}
+                                    />
                             </section>
+                            <div className="addphotos">
+                            {!!image && <img src={image} alt="upload preview" />}
+                            
+                            </div>
                     
                 </div>
                 </section>}
@@ -304,14 +405,24 @@ const FormHost =(props)=>{
                     <section>
                         <h1>Paso 4: Agrega los últimos detalles</h1>
                             <section>
-                                <h2>Ponle un nombre a tu espacio</h2>
-                                <input type="text" placeholder="Añade un titulo" value={title} onInput={e => setTitle(e.target.value)} className="title"></input>
-                                <h2>Ahora vamos a describir tu espacio</h2>
-                                <textarea className="description" value={description} onInput={e => setDescription(e.target.value)}></textarea>
-                                <h2>Ahora viene la mejor parte: define el precio</h2>
-                                <label>$
-                                    <input type="text" className="price" value={price} onInput={e => setPrice(e.target.value)}></input>/por noche
-                                </label>
+                                <TextInput label="Ponle un nombre a tu espacio" placeholder="Añade un titulo" required value={title} onChange={(event) => setTitle(event.currentTarget.value)}></TextInput>
+                                <Textarea label="Ahora vamos a describir tu espacio" placeholder="Añade una descripción"  required  value={description} onChange={(event) => setDescription(event.currentTarget.value)}/>
+                                <NumberInput
+                                                label="Ahora viene la mejor parte: define el precio"
+                                                required
+                                                hideControls
+                                                value={price}
+                                                onChange={(val) => setPrice(val)}
+                                                parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                                                    formatter={(value) =>
+                                                        !Number.isNaN(parseFloat(value))
+                                                        ? `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                                                        : '$ '
+                                                    }
+                                                min={0}
+                                                step={1}
+                                                styles={{ input: { width: 400, } }}
+                                            /> 
                             </section>
                     </section>
                 </div>
@@ -319,12 +430,24 @@ const FormHost =(props)=>{
                 {formStep===5 &&    <section>
                 <div className="typebooking4">
                                 <h2>Revisa tu anuncio</h2>
+                                <div className="addphotos">
+                                    {!!image && <img src={image} alt="upload preview" />}
+                                </div>
+                                {home_type === "apartment" && <h3>Apartamento</h3>}
+                                {countBeds}
+                                {countBaths}
+                                {price}
+                                {isChecked}
+                                {}
+                                <section className="buttons">
+                                <button>Enviar</button>
+                                </section>
                 </div>
                 </section>}
+                </form>
                 <section className="buttons">
                 {renderButtonPrev()}
                 {renderButtonNext()}
-                {renderButtonSubmit()}
                 </section>
             </div>
             </Modal>

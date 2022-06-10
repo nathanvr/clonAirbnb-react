@@ -50,7 +50,6 @@ export const postLogin = (loginState) => {
 export const getUser = () => {
   return async (dispatch) => {
     const token = localStorage.getItem('token');
-    console.log(token);
     try {
       const data = await axios({
         method: 'GET',
@@ -104,7 +103,6 @@ export const postRegister = (registerState) => {
 export const userUpdate = (value) => {
   return async (dispatch) => {
     const token = localStorage.getItem('token');
-    console.log('value: ', value);
     try {
       await axios.put('http://localhost:8080/users/update', value, {
         headers: {

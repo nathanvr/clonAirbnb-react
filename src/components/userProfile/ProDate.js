@@ -10,7 +10,6 @@ const ProDate = () => {
   const [birthday, setBirthday] = useState('');
 
   const handleClick = () => {
-    console.log('handleclick_update');
     dispatch(
       userUpdate({
         birthday: `${birthday.getDate()} de ${
