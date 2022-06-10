@@ -27,8 +27,6 @@ const Prueba = () => {
   const images2 = images.slice(5, 9);
 
   const lol = useMediaQuery({ query: '(min-width: 740px)' });
-
-  console.log(lol);
   return (
     <div>
       {lol && <p>You are a desktop or laptop</p>}

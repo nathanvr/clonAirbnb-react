@@ -50,7 +50,6 @@ export const postLogin = (loginState) => {
 export const getUser = () => {
   return async (dispatch) => {
     const token = localStorage.getItem('token');
-    console.log(token);
     try {
       const data = await axios({
         method: 'GET',
@@ -104,7 +103,6 @@ export const postRegister = (registerState) => {
 export const userUpdate = (value) => {
   return async (dispatch) => {
     const token = localStorage.getItem('token');
-    console.log('value: ', value);
     try {
       await axios.put('http://localhost:8080/users/update', value, {
         headers: {
@@ -215,6 +213,7 @@ const userReducer = (state = initialState, action) => {
     case USER_LOGIN_ERROR:
       return {
         ...state,
+        error: action.payload,
         token: null,
         loading: false,
         isLoggedIn: false,
@@ -230,17 +229,12 @@ const userReducer = (state = initialState, action) => {
         reviews: [],
         signed: false,
       };
-    case USER_REGISTER_REQUEST:
-      return {
-        error: action.payload,
-        isLoggedIn: false,
-        loading: false,
-      };
+
     case USER_LOGOUT_SUCCESS:
       localStorage.removeItem('token');
       return {
         ...state,
-        token: '',
+        token: null,
         isLoggedIn: false,
         error: null,
       };
