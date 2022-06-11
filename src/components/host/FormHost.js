@@ -1,15 +1,93 @@
-import React,{ useEffect, useState } from "react";
-import { Burger, Modal, useMantineTheme, Textarea} from '@mantine/core';
+import React,{ useEffect, useState, useMemo, useRef} from "react";
+import { Burger, Modal, useMantineTheme, Textarea, Popover} from '@mantine/core';
 import { Link } from "react-router-dom";
 import { NumberInput,Select, CheckboxGroup, Checkbox, TextInput } from '@mantine/core';
-import MapView from "../MapView";
-import { MapContainer, TileLayer, useMap, Marker, Popup, } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import { VenueLocationIcon } from "../VenueLocationIcon";
 import axios from "axios";
-import { useMapEvents } from 'react-leaflet/hooks';
-import L from 'leaflet';
-import Map from "./Map";
+import {
+    useJsApiLoader,
+    GoogleMap,
+    Marker,
+    Autocomplete,
+    DirectionsRenderer,
+    useLoadScript,
+    
+  } from '@react-google-maps/api'
+  import usePlacesAutocomplete, {
+    getGeocode,
+    getLatLng,
+  } from "use-places-autocomplete";
+  import useOnclickOutside from "react-cool-onclickoutside";
+  
+  const PlacesAutocomplete = ({setSelected}) => {
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      /* Define search scope here */
+    },
+    debounce: 300,
+  });
+  const ref = useOnclickOutside(() => {
+    // When user clicks outside of the component, we can dismiss
+    // the searched suggestions by calling this method
+    clearSuggestions();
+  });
+
+  const handleInput = (e) => {
+    // Update the keyword of the input element
+    setValue(e.target.value);
+  };
+
+  const handleSelect =
+    ({ description }) =>
+    () => {
+      // When user selects a place, we can replace the keyword without request data from API
+      // by setting the second parameter to "false"
+      setValue(description, false);
+      clearSuggestions();
+
+      // Get latitude and longitude via utility functions
+      getGeocode({ address: description }).then((results) => {
+        try {
+          const { lat, lng } = getLatLng(results[0]);
+          console.log("📍 Coordinates: ", { lat, lng });
+        } catch (error) {
+          console.log("😱 Error: ", error);
+        }
+      });
+    };
+
+  const renderSuggestions = () =>
+    data.map((suggestion) => {
+      const {
+        place_id,
+        structured_formatting: { main_text, secondary_text },
+      } = suggestion;
+
+      return (
+        <li key={place_id} onClick={handleSelect(suggestion)}>
+          <strong>{main_text}</strong> <small>{secondary_text}</small>
+        </li>
+      );
+    });
+
+  return (
+    <div ref={ref}>
+      <input
+        value={value}
+        onChange={handleInput}
+        disabled={!ready}
+        placeholder="Where are you going?"
+      />
+      {/* We can use the "status" to decide whether we should display the dropdown or not */}
+      {status === "OK" && <ul>{renderSuggestions()}</ul>}
+    </div>
+  );
+};
 
 const options1 = [
     {value:"apartment", label:"Apartamentos"},
@@ -39,7 +117,12 @@ const options3 = [
     {value:"private", label:"Una habitación privada"},
     {value:"shared", label:"Una habitación compartida"},
 ]
-
+const containerStyle = {
+    width: '500px',
+    height: '400px'
+  };
+  const center = { lat: 4.570868, lng:  -74.297333 }
+  const position = {lat:3.43722, lng:-76.5225}
 const FormHost =(props)=>{
     const { sitio } = props;
     const theme = useMantineTheme();
@@ -60,18 +143,20 @@ const FormHost =(props)=>{
     const [title, setTitle]=useState("");
     const [description, setDescription]= useState("");
     const [price,setPrice]=useState(0);
-    const [state, setState] = useState({
-        currentLocation: { lat: 4.570868, lng: -74.297333 },
-        zoom: 13,
-    });
-    const [lati, setLat]=useState(0);
+    const [lati, setLat]=useState( 0);
     const [lngi, setLng]=useState(0);
     const [image, setImage] = useState(null);
     const [file, setFile] = useState(null);
+    const [map, setMap] = useState(/** @type google.maps.Map */ (null))
+    const [selected, setSelected] = useState(null)
+    const center = useMemo(() => ({ lat: 43.45, lng: -80.49 }), []);
+     /** @type React.MutableRefObject<HTMLInputElement> */
+  const originRef = useRef()
+  /** @type React.MutableRefObject<HTMLInputElement> */
+  const destiantionRef = useRef()
+  const [ libraries ] = useState(['places']);
 
-    const handleButton =()=>{
-        setState({currentLocation:{lat:lati, lng:lngi}})
-    }
+  
     //Huespedes
     const addCountGuest = () => { 
         if(countGuest === 16){
@@ -178,16 +263,9 @@ const FormHost =(props)=>{
         data.append("zipcode", zipcode)
         data.append("lat", lati)
         data.append("lng", lngi)
+        data.append("file",file)
 
-        if (file) {
-
-            for (let i = 0; i < file.length; i++) {
-              //nombre de la propiedad, archivo y nombre del archivo
-            data.append(`file_${i}`, file[i], file[i].name);
-            }
-        }
         const token = localStorage.getItem('token');
-        console.log(data)
         const response = await axios.post("http://localhost:8080/bookingsites/post", data, {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -200,14 +278,9 @@ const FormHost =(props)=>{
     
     }
     function handleChange(e) {
-    
-if(e.target.files.length > 0 && e.target.files[0].size < 1024 * 1024 * 5) {
-     readFile(e.target.files[0])
-     setFile(e.target.files[0])
+    setFile(e.target.files[0])
     }
-    setFile(e.target.files);
-    
-}
+
 console.log(file)
 
     function readFile(file) {
@@ -218,10 +291,13 @@ console.log(file)
         //Como no hemos seleccionado imagen aùn
         reader.readAsDataURL(file);
     }
-    function SetViewOnClick({ coords }) {
-        const map = useMap();
-        map.setView(coords, map.getZoom());
-    }
+    const { isLoaded } = useLoadScript({
+        googleMapsApiKey: process.env.GOOGLE_API_KEY,
+        libraries,
+    })
+
+    if(!isLoaded) return <div>Loading...</div>;
+    console.log(address)
     return (
         <div>
             <Link to="#" onClick={() => setOpened(true)}>{sitio}</Link>
@@ -342,36 +418,31 @@ console.log(file)
                         <h2>Ingresa la ubicación del espacio</h2>
                                 <section className="section-map">
                                     <div className="adress_content">
-                                        <TextInput label="Ingresa la dirección del sitio" required value={address} onChange={(event) => setAddress(event.currentTarget.value)}></TextInput>
+                                    <TextInput label="Ingresa la dirección del sitio" required value={address} onChange={(event) => setAddress(event.currentTarget.value)}></TextInput>
                                         <TextInput label="Ciudad" required value={city} onChange={(event) => setCity(event.currentTarget.value)}></TextInput>
                                         <TextInput label="Pais" required value={country} onChange={(event) => setCountry(event.currentTarget.value)}></TextInput>
                                         <TextInput label="Zipcode" value={zipcode} onChange={(event) => setZipcode(event.currentTarget.value)}></TextInput>
-                                        <div className="coordinates">
+
                                                 <TextInput label="Ingresa la latitud" required value={lati} onChange={(event) => setLat(event.currentTarget.value)}></TextInput>
                                                 <TextInput label="Ingresa la longitud" required value={lngi} onChange={(event) => setLng(event.currentTarget.value)}></TextInput>
-                                                <div onClick={handleButton} className="button">Buscar</div>
+                                    
+                                        <div className="coordinates">
+                                        <GoogleMap
+                                                mapContainerStyle={containerStyle}
+                                                center={center}
+                                                zoom={9}>
+                                                    <Marker  position={selected}/>
+                                                
+                                            </GoogleMap>
                                         </div>
+
                                     </div>
                                     <div>
                                         <div>
 
                                         </div>
                                         <div className="adress_content">
-                                            <MapContainer center={state.currentLocation} zoom={state.zoom} scrollWheelZoom={false} >
-                                                <TileLayer
-                                                    attribution='<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                                    />
-                                                    <SetViewOnClick
-                                                            coords={state.currentLocation}
-                                                                        />
-                                            <Marker position={state.currentLocation} icon={VenueLocationIcon}>
-                                                    <Popup>
-                                                        Esta es tu ubicación
-                                                    </Popup>
-                                                    
-                                                </Marker>
-                                                </MapContainer>
+                                            <PlacesAutocomplete setSelected={setSelected}/>
                                         </div>
                                     </div>
                                 </section>
@@ -387,7 +458,6 @@ console.log(file)
                                 <input
                                     type="file"
                                     accept="image/*"
-                                    multiple
                                     name="file"
                                     id="file"
                                     onChange={handleChange}
