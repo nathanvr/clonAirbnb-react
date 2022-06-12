@@ -13,7 +13,7 @@ import { Menu, Divider, Avatar } from '@mantine/core';
 const Navbar = () => {
   const location = useLocation();
   const [show, setShow] = useState(false);
-  const { token, isLoggedIn, name } = useSelector((state) => state.userReducer);
+  const { token, isLoggedIn, name, role } = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
   const handleSignOut = () => {
@@ -45,11 +45,6 @@ const Navbar = () => {
           <Link to="#">EUR </Link>
         </li>
         <li className="nav-item">
-          <Link to="/host" onClick={() => setShow(!show)}>
-            Conviértete en un anfitrión
-          </Link>
-        </li>
-        <li className="nav-item">
           <Link to="#">Ayuda</Link>
         </li>
         {token !== null ? (
@@ -68,18 +63,40 @@ const Navbar = () => {
               }
               trigger="hover"
               delay={500}>
-              <Menu.Item>
+              {role === "guest" ? (
+                <div>
+                  <Menu.Item>
                 <Link to="/profile">Ver tu perfil</Link>
               </Menu.Item>
               <Menu.Item>Ver tus reservas</Menu.Item>
+              <Menu.Item>Mensajes</Menu.Item>
               <Divider />
               <Menu.Item onClick={handleSignOut}>
                 <Link to="/">Cerrar Sesión</Link>
               </Menu.Item>
+                </div>
+                ):(
+                  <div>
+                      <Menu.Item>
+                <Link to="/profile">Ver tu perfil</Link>
+              </Menu.Item>
+              <Menu.Item><Link to="/host/dashboard">Ver tus sitios</Link></Menu.Item>
+              <Menu.Item>Mensajes</Menu.Item>
+              <Divider />
+              <Menu.Item onClick={handleSignOut}>
+                <Link to="/">Cerrar Sesión</Link>
+              </Menu.Item>
+                  </div>
+                )}
             </Menu>
           </div>
         ) : (
           <>
+          <li className="nav-item">
+            <Link to="/host" onClick={() => setShow(!show)}>
+              Conviértete en un anfitrión
+            </Link>
+          </li>
             <li className="nav-item">
               <RegisterModal sitio="Registro" />
             </li>

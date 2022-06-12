@@ -16,7 +16,6 @@ const ProName = () => {
   }, [sName, sLastname]);*/
 
   const handleClick = () => {
-    console.log('handleclick_update');
     dispatch(
       userUpdate({
         name: name,

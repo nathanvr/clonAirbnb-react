@@ -9,7 +9,6 @@ const ProName = () => {
   const [email, setEmail] = useState('');
 
   const handleClick = () => {
-    console.log('handleclick_update');
     dispatch(
       userUpdate({
         email: email,

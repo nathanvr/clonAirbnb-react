@@ -46,7 +46,7 @@ const RegisterModal = (props) => {
   const [birthday, setBirthday] = useState(new Date());
   const [role, setRole] = useState('guest');
   const [visible, setVisible] = useState(false);
-  const { error, loading } = useSelector((state) => state.userReducer);
+  const {error, loading}=useSelector((state)=>state.userReducer)
 
   const form = useForm({
     schema: zodResolver(schema),
