@@ -1,0 +1,42 @@
+.container-card{
+    display: flex;
+    margin: 10px 10px;
+    
+
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(230, 230, 230);
+    .boxpicture{
+        display: flex;
+        text-align: left;
+        align-items: center;
+        .picture{
+        img{
+            width: 200px;
+            margin-top: 8px;
+        }
+    } 
+    .info{
+        padding-left: 15px;
+        h2{
+            @include assign-fontstye (32px, var(--textoreserva), 400);
+            margin: 0;
+        }
+        p{
+            padding-right: 10px;
+        }
+    }
+    }
+    .boxfooter2{
+        margin-left: 10px;
+        button{
+            margin: 10px;
+        }
+    }
+    }
+    .cancel-buttons{
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+
