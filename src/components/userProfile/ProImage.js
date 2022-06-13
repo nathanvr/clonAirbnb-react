@@ -17,11 +17,15 @@ function ProImage() {
       }
     }
     console.log('data: ', data);
-    const response = await axios.post('http://localhost:8080/profile', data, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    const response = await axios.post(
+      'http://localhost:8080/users/update',
+      data,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
     console.log(response);
   }
 
@@ -29,14 +33,18 @@ function ProImage() {
     const reader = new FileReader();
 
     reader.onload = (e) => setImage(e.target.result);
-
+    console.log('image ', image);
     reader.readAsDataURL(file);
   }
 
   function handleChange(e) {
-    setFile(e.target.files);
-    console.log('file: ', file);
+    console.log('e ', e);
+    if (e.target.files.length > 0 && e.target.files[0].size < 1024 * 1024 * 5) {
+      readFile(e.target.files[0]);
+      setFile(e.target.files[0]);
+    }
   }
+
   return (
     <div className="App">
       <form onSubmit={handleSubmit}>

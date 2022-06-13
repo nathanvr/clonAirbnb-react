@@ -1,5 +1,6 @@
 import { ACTION_ICON_SIZES } from '@mantine/core';
 import axios from 'axios';
+import { Flag } from 'tabler-icons-react';
 export const USER_ID = 'USER_ID';
 export const USER_ROLE = 'USER_ROLE';
 export const USER_NAME = 'USER_NAME';
@@ -23,31 +24,14 @@ export const USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST';
 export const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS';
 export const USER_REGISTER_ERROR = 'USER_REGISTER_ERROR';
 
-export const SIGNED = 'SIGNED';
 export const SIGNIN_FAILURE = 'SIGNIN_FAILURE';
 
 export const USER_LOGOUT_SUCCESS = 'USER_LOGOUT_SUCCESS';
 
 //action creator: login
 
-export const postLogin = (loginState) => {
-  return async (dispatch) => {
-    dispatch({ type: USER_LOGIN_REQUEST });
-    try {
-      const res = await axios.post(
-        'http://localhost:8080/users/login',
-        loginState
-      );
-      localStorage.setItem('token', res.data.data);
-      dispatch({ type: USER_LOGIN_SUCCESS, payload: res });
-      dispatch(getUser());
-    } catch (error) {
-      dispatch({ type: USER_LOGIN_ERROR, payload: error });
-    }
-  };
-};
-
 export const getUser = () => {
+  console.log('getUserini');
   return async (dispatch) => {
     const token = localStorage.getItem('token');
     try {
@@ -66,12 +50,35 @@ export const getUser = () => {
       dispatch({ type: USER_BIRTHDAY, payload: user.birthday });
       dispatch({ type: USER_PASSWORD, payload: user.password });
       dispatch({ type: USER_DESCRIPTION, payload: user.description });
+      console.log('getUser1');
       dispatch({ type: USER_BOOKINGSITES, payload: user.bookingSites });
+      console.log('getUser2');
       dispatch({ type: USER_BOOKINGS, payload: user.booking });
+      console.log('getUser3');
       dispatch({ type: USER_REVIEWS, payload: user.reviews });
-      dispatch({ type: SIGNED, payload: true });
+      console.log('getUser4');
+      dispatch({ type: USER_LOGIN_SUCCESS });
+      console.log('getUser5');
     } catch (err) {
+      console.log('getUserFail', err);
       dispatch({ type: SIGNIN_FAILURE, payload: err });
+    }
+  };
+};
+
+export const postLogin = (loginState) => {
+  return async (dispatch) => {
+    dispatch({ type: USER_LOGIN_REQUEST });
+    try {
+      const res = await axios.post(
+        'http://localhost:8080/users/login',
+        loginState
+      );
+      localStorage.setItem('token', res.data.data);
+      dispatch({ type: USER_LOGIN_SUCCESS });
+      dispatch(getUser());
+    } catch (error) {
+      dispatch({ type: USER_LOGIN_ERROR, payload: error });
     }
   };
 };
@@ -178,7 +185,6 @@ export function reviewsChange(value) {
 }
 
 const initialState = {
-  token: null,
   loading: false,
   isLoggedIn: false,
   error: null,
@@ -192,25 +198,20 @@ const initialState = {
   bookingSites: [],
   booking: [],
   reviews: [],
-  signed: false,
 };
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
+      console.log('Se lanzo USER_LOGIN_REQUEST');
       return {
         ...state,
         loading: true,
         isLoggedIn: false,
       };
-    case USER_LOGIN_SUCCESS:
-      return {
-        ...state,
-        token: action.payload.data.data,
-        isLoggedIn: true,
-        loading: false,
-      };
+
     case USER_LOGIN_ERROR:
+      console.log('Se lanzo USER_LOGIN_ERROR');
       return {
         ...state,
         error: action.payload,
@@ -229,8 +230,8 @@ const userReducer = (state = initialState, action) => {
         reviews: [],
         signed: false,
       };
-
     case USER_LOGOUT_SUCCESS:
+      console.log('Se lanzo USER_LOGOUT_SUCCESS');
       localStorage.removeItem('token');
       return {
         ...state,
@@ -239,19 +240,21 @@ const userReducer = (state = initialState, action) => {
         error: null,
       };
     case USER_REGISTER_REQUEST:
+      console.log('Se lanzo USER_REGISTER_REQUEST');
       return {
         ...state,
         loading: true,
         isLoggedIn: false,
       };
     case USER_REGISTER_SUCCESS:
+      console.log('Se lanzo USER_REGISTER_SUCCESS');
       return {
         ...state,
-        token: action.payload.data.data.token,
         isLoggedIn: true,
         loading: false,
       };
     case USER_REGISTER_ERROR:
+      console.log('Se lanzo USER_REGISTER_ERROR');
       return {
         ...state,
         error: action.payload,
@@ -296,22 +299,24 @@ const userReducer = (state = initialState, action) => {
     case USER_BOOKINGSITES:
       return {
         ...state,
-        bookingSites: [...action.payload],
+        bookingSites: action.payload,
       };
     case USER_BOOKINGS:
       return {
         ...state,
-        booking: [...action.payload],
+        booking: action.payload,
       };
     case USER_REVIEWS:
       return {
         ...state,
-        reviews: [...action.payload],
+        reviews: action.payload,
       };
-    case SIGNED:
+    case USER_LOGIN_SUCCESS:
+      console.log('Se lanzo USER_LOGIN_SUCCESS');
       return {
         ...state,
-        signed: action.payload,
+        isLoggedIn: true,
+        loading: false,
       };
     default:
       return state;

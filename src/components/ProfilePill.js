@@ -23,6 +23,7 @@ const ProfilePill = () => {
     setBirthDay(userData.birthday);
     setDescription(userData.description);
   }, [userData]);
+  
   const list = [
     {
       label: 'Imagen',
