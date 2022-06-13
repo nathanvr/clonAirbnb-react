@@ -1,18 +1,11 @@
 import React,{ useState, useMemo, useRef} from "react";
 import { Modal, useMantineTheme, Textarea} from '@mantine/core';
 import { Link } from "react-router-dom";
-import { NumberInput,Select, CheckboxGroup, Checkbox, TextInput } from '@mantine/core';
+import { NumberInput,Select, CheckboxGroup, Checkbox, TextInput, Button } from '@mantine/core';
 import axios from "axios";
-import {
-    GoogleMap,
-    Marker,
-    useLoadScript,
-} from '@react-google-maps/api'
 import { useSelector } from "react-redux";
 import { Icon } from '@iconify/react';
 import PlacesAutocomplete from "../Maps/PlacesAutocomplete";
-
-
 
 const options1 = [
     {value:"apartment", label:"Apartamentos"},
@@ -46,8 +39,9 @@ const containerStyle = {
     width: '500px',
     height: '400px'
   };
-
-const FormHost =(props)=>{
+  const center = { lat: 4.570868, lng:  -74.297333 }
+  const position = {lat:3.43722, lng:-76.5225}
+const EditFormHost =(props)=>{
     const { sitio } = props;
     const { name} = useSelector((state) => state.userReducer);
     const theme = useMantineTheme();
@@ -72,6 +66,7 @@ const FormHost =(props)=>{
     const [lngi, setLng]=useState(0);
     const [image, setImage] = useState(null);
     const [file, setFile] = useState(null);
+    const [map, setMap] = useState(/** @type google.maps.Map */ (null))
     const [selected, setSelected] = useState(null)
     const center = useMemo(() => ({ lat: 43.45, lng: -80.49 }), []);
      /** @type React.MutableRefObject<HTMLInputElement> */
@@ -158,6 +153,14 @@ const FormHost =(props)=>{
             )
         }
     }
+    const renderButtonSubmit =()=>{
+        if(formStep===5){
+        return( <button type="button" id ="button" onClick={handleSubmit}>Enviar</button>)
+        } else{
+            return undefined;
+            
+        }
+    }
     
     async function handleSubmit(e) {
         e.preventDefault();
@@ -233,13 +236,6 @@ console.log(file)
         //Como no hemos seleccionado imagen aùn
         reader.readAsDataURL(file);
     }
-    const { isLoaded } = useLoadScript({
-        googleMapsApiKey: "AIzaSyCsW9trmjliEY9-Qz_uuAK8C2DRCUFzDqs",
-        libraries,
-    })
-
-    if(!isLoaded) return <div>Loading...</div>;
-    console.log(address)
 
     const listItems = isChecked.map((element) =>{
     if(element==="pool"){
@@ -267,20 +263,16 @@ console.log(file)
                                             {
                                                 return <p><Icon icon="clarity:first-aid-kit-line"/>Botiquín</p>}
     });
-    const onLoad = marker => {
-        console.log('marker: ', marker)
-      }
-      
     return (
         <div>
-            <Link to="#" onClick={() => setOpened(true)}>{sitio}</Link>
+            <Button color="violet" onClick={() => setOpened(true)}>Editar</Button>
                 <Modal size="90%" opened={opened}
                 onClose={() => setOpened(false)}
                 overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
                 overlayOpacity={0.55}
                 overlayBlur={3} >
             
-                <div className="container-form">
+            <div className="container-form">
                 <form onSubmit={handleSubmit}>
                 {formStep===0 && 
                 <section>
@@ -398,22 +390,9 @@ console.log(file)
 
                                                 <TextInput label="Ingresa la latitud" required value={lati} onChange={(event) => setLat(event.currentTarget.value)}></TextInput>
                                                 <TextInput label="Ingresa la longitud" required value={lngi} onChange={(event) => setLng(event.currentTarget.value)}></TextInput>
-                                    
-                                        <div className="coordinates">
-                                        <GoogleMap
-                                                mapContainerStyle={containerStyle}
-                                                center={center}
-                                                zoom={9}>
-                                                    <Marker  visible={true} onLoad={onLoad} position={center} />
-                                                
-                                            </GoogleMap>
-                                        </div>
 
                                     </div>
                                     <div>
-                                        <div>
-
-                                        </div>
                                         <div className="adress_content">
                                             <PlacesAutocomplete/>
                                         </div>
@@ -508,4 +487,4 @@ console.log(file)
     )
 }
 
-export default FormHost;
+export default EditFormHost;

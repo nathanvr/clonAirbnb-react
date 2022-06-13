@@ -7,7 +7,6 @@ import BookingRoom from './pages/BookingRoom';
 import NotFound from './pages/NotFound';
 import HostDashboard from './pages/HostDashboard';
 import MessagesHost from './pages/MessagesHost';
-import CreateListing from './pages/CreateListing';
 import ForgotPassword from './pages/ForgotPassword';
 import Profile from './pages/Profile';
 function App() {
@@ -31,10 +30,6 @@ function App() {
             path="/host/messages"
             element={<MessagesHost></MessagesHost>}
           />
-          <Route
-            exact
-            path="/host/create-listing"
-            element={<CreateListing />}></Route>
           <Route exact path="/room" element={<BookingRoom></BookingRoom>} />
           <Route
             exact

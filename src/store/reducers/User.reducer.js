@@ -59,6 +59,7 @@ export const getUser = () => {
         },
       });
       const user = data.data;
+      console.log(user)
       dispatch({ type: USER_ROLE, payload: user.role });
       dispatch({ type: USER_NAME, payload: user.name });
       dispatch({ type: USER_LASTNAME, payload: user.lastname });
@@ -66,7 +67,7 @@ export const getUser = () => {
       dispatch({ type: USER_BIRTHDAY, payload: user.birthday });
       dispatch({ type: USER_PASSWORD, payload: user.password });
       dispatch({ type: USER_DESCRIPTION, payload: user.description });
-      dispatch({ type: USER_BOOKINGSITES, payload: user.bookingSites });
+      dispatch({ type: USER_BOOKINGSITES, payload: user.bookingsites });
       dispatch({ type: USER_BOOKINGS, payload: user.booking });
       dispatch({ type: USER_REVIEWS, payload: user.reviews });
       dispatch({ type: SIGNED, payload: true });
@@ -189,7 +190,7 @@ const initialState = {
   birthday: null,
   password: null,
   description: null,
-  bookingSites: [],
+  bookingsites: [],
   booking: [],
   reviews: [],
   signed: false,
@@ -296,7 +297,7 @@ const userReducer = (state = initialState, action) => {
     case USER_BOOKINGSITES:
       return {
         ...state,
-        bookingSites: [...action.payload],
+        bookingsites: [...action.payload],
       };
     case USER_BOOKINGS:
       return {
