@@ -7,7 +7,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import ServiciosLugar from '../components/ServiciosLugar';
 import ReseñaReserva from '../components/ReseñaReserva';
 import persona1 from '../images/clientes/persona1.jpg';
 import Album from '../components/Album';
@@ -88,7 +87,6 @@ const BookingRoom = () => {
             </section>*/}
           <section className="servicios-room">
             <h2>Lo que este lugar ofrece</h2>
-            <ServiciosLugar></ServiciosLugar>
           </section>
           <section className="calendar">
             <h2>¿A dónde irás?</h2>

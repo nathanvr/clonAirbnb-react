@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tabs from "../components/host/Tabs";
 
 import FormHost from "../components/host/FormHost";
+import { useSelector, useDispatch } from "react-redux";
+import { getUser } from "../store/reducers/User.reducer";
+import Bookingsitecard from "../components/host/Bookingsitecard";
 
 
 const HostDashboard =()=>{
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(getUser())
+    },[dispatch])
+
+    const {bookingsites} = useSelector((state) => state.userReducer);
+    console.log(bookingsites)
+
     return(
         <div className="dashboard-container">
             <section className="hero">
@@ -21,10 +33,17 @@ const HostDashboard =()=>{
             <div className="container-bookings">
                 <h2>Tus sitios</h2>
                     <div className="content-tabs1">
-                        <p>¡Muy bien! Por ahora, está todo listo.</p>
+ 
+                            <div className="container-cards">
+                            {bookingsites.map((item, i)=>(
+                            <Bookingsitecard booking={item} key={i}/>
+                            ))}
+        </div>
+                            
+                            </div>
+                        
                     </div>
             </div>
-        </div>
 
     )
 }
