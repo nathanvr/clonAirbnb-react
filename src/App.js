@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Navbar from './components/Navbar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
@@ -9,8 +10,19 @@ import HostDashboard from './pages/HostDashboard';
 import MessagesHost from './pages/MessagesHost';
 import ForgotPassword from './pages/ForgotPassword';
 import Profile from './pages/Profile';
+import { getUser } from './store/reducers/User.reducer';
+
 function App() {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (token) {
+      console.log('!!Se lanzo useEffect de App!!');
+      dispatch(getUser());
+    }
+  }, [dispatch]);
+
   return (
     <div className="App">
       <BrowserRouter>

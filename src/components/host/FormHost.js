@@ -197,6 +197,19 @@ const FormHost =(props)=>{
         
         
     });
+<<<<<<< HEAD
+    
+    
+    }
+    function handleChange(e) {
+        if(e.target.files.length > 0 && e.target.files[0].size < 1024 * 1024 * 5) {
+            readFile(e.target.files[0])
+            setFile(e.target.files[0])
+        }
+    setFile(e.target.files);
+    }
+    
+=======
     console.log(response)
     if(response.status===201){
         setOpened(false);
@@ -232,6 +245,7 @@ const FormHost =(props)=>{
     }
 
 console.log(file)
+>>>>>>> 89559e4f9a5134eda75324a3b124939593c18ab9
 
     function readFile(file) {
         const reader = new FileReader();
@@ -304,10 +318,7 @@ console.log(file)
                             <div className="select">
                                 <Select label="¿De qué tipo de espacio dispondrán los huéspedes?" required placeholder="Selecciona una opción" value={room_type} onChange={setRoom_type} data={options3} /> 
                             </div>
-                
-                                
-                        
-                </div>
+                    </div>
                 </section> } 
                 {formStep===1 &&<section>
                     <div className="typebooking2">

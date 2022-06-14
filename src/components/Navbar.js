@@ -11,12 +11,25 @@ import { signOutSuccess } from '../store/reducers/User.reducer';
 import { getUser } from '../store/reducers/User.reducer';
 import { Menu, Divider, Avatar } from '@mantine/core';
 const Navbar = () => {
-  const location = useLocation();
-  const [show, setShow] = useState(false);
-  const { token, isLoggedIn, name, role } = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
+  const location = useLocation();
+  const [show, setShow] = useState(false);
+  /*const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [name, setName] = useState('');
+  const [role, setRole] = useState('');*/
+  //const userData = useSelector((state) => state.userReducer);
+  const { isLoggedIn, name, role } = useSelector((state) => state.userReducer);
+  //console.log('userData_nav: ', userData);
+
+  /*useEffect(() => {
+    setIsLoggedIn(userData.isLoggedIn);
+    setName(userData.name);
+    setRole(userData.role);
+  }, [userData]);*/
+
   const handleSignOut = () => {
+    console.log('!!Se lanzo el sign Out!!');
     dispatch(signOutSuccess());
   };
 
@@ -47,7 +60,7 @@ const Navbar = () => {
         <li className="nav-item">
           <Link to="#">Ayuda</Link>
         </li>
-        {token !== null ? (
+        {isLoggedIn ? (
           <div className="navbar-user">
             <Menu
               placement="end"
@@ -63,40 +76,42 @@ const Navbar = () => {
               }
               trigger="hover"
               delay={500}>
-              {role === "guest" ? (
+              {role === 'guest' ? (
                 <div>
                   <Menu.Item>
-                <Link to="/profile">Ver tu perfil</Link>
-              </Menu.Item>
-              <Menu.Item>Ver tus reservas</Menu.Item>
-              <Menu.Item>Mensajes</Menu.Item>
-              <Divider />
-              <Menu.Item onClick={handleSignOut}>
-                <Link to="/">Cerrar Sesión</Link>
-              </Menu.Item>
+                    <Link to="/profile">Ver tu perfil</Link>
+                  </Menu.Item>
+                  <Menu.Item>Ver tus reservas</Menu.Item>
+                  <Menu.Item>Mensajes</Menu.Item>
+                  <Divider />
+                  <Menu.Item onClick={handleSignOut}>
+                    <Link to="/">Cerrar Sesión</Link>
+                  </Menu.Item>
                 </div>
-                ):(
-                  <div>
-                      <Menu.Item>
-                <Link to="/profile">Ver tu perfil</Link>
-              </Menu.Item>
-              <Menu.Item><Link to="/host/dashboard">Ver tus sitios</Link></Menu.Item>
-              <Menu.Item>Mensajes</Menu.Item>
-              <Divider />
-              <Menu.Item onClick={handleSignOut}>
-                <Link to="/">Cerrar Sesión</Link>
-              </Menu.Item>
-                  </div>
-                )}
+              ) : (
+                <div>
+                  <Menu.Item>
+                    <Link to="/profile">Ver tu perfil</Link>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <Link to="/host/dashboard">Ver tus sitios</Link>
+                  </Menu.Item>
+                  <Menu.Item>Mensajes</Menu.Item>
+                  <Divider />
+                  <Menu.Item onClick={handleSignOut}>
+                    <Link to="/">Cerrar Sesión</Link>
+                  </Menu.Item>
+                </div>
+              )}
             </Menu>
           </div>
         ) : (
           <>
-          <li className="nav-item">
-            <Link to="/host" onClick={() => setShow(!show)}>
-              Conviértete en un anfitrión
-            </Link>
-          </li>
+            <li className="nav-item">
+              <Link to="/host" onClick={() => setShow(!show)}>
+                Conviértete en un anfitrión
+              </Link>
+            </li>
             <li className="nav-item">
               <RegisterModal sitio="Registro" />
             </li>
