@@ -1,0 +1,15 @@
+.profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 900px;
+    margin: 10%;
+}
+.item-flex {
+    flex: 0 1 50%;
+    margin: 20px
+}
+.description {
+    margin-top: 20px;
+    font-size: 12px;
+}

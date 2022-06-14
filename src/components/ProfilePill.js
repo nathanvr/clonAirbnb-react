@@ -1,15 +1,18 @@
 import { Group, Text, Accordion, Input } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import ProImage from './userProfile/ProImage';
 import ProName from './userProfile/ProName';
 import ProEmail from './userProfile/ProEmail';
 import ProDate from './userProfile/ProDate';
+import ProDescription from './userProfile/ProDescription';
 
 const ProfilePill = () => {
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [birthDay, setBirthDay] = useState(new Date());
+  const [description, setDescription] = useState('');
   const userData = useSelector((state) => state.userReducer);
   console.log('userDat: ', userData);
   console.log('birthday: ', birthDay, typeof birthDay);
@@ -18,8 +21,15 @@ const ProfilePill = () => {
     setLastName(userData.lastname);
     setEmail(userData.email);
     setBirthDay(userData.birthday);
+    setDescription(userData.description);
   }, [userData]);
+  
   const list = [
+    {
+      label: 'Imagen',
+      description: 'Agreaga una imagen a tu perfil.',
+      content: <ProImage />,
+    },
     {
       label: 'Nombre legal',
       description: `${name} ${lastName}`,
@@ -34,6 +44,11 @@ const ProfilePill = () => {
       label: 'Fecha de nacimiento',
       description: `${birthDay}`,
       content: <ProDate />,
+    },
+    {
+      label: 'Descripcion',
+      description: `${description}`,
+      content: <ProDescription />,
     },
   ];
 
@@ -61,7 +76,6 @@ const ProfilePill = () => {
 
   return (
     <Accordion icon="Edita" iconPosition="right" disableIconRotation>
-      {console.log(items)}
       {items}
     </Accordion>
   );

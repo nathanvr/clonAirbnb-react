@@ -47,9 +47,6 @@ const LoginModal = (props) => {
 
     dispatch(postLogin(user));
   };
-
-
-
   
   const form = useForm({
     schema: zodResolver(schema),
