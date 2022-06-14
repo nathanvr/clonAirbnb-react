@@ -179,7 +179,14 @@ const FormHost =(props)=>{
         data.append("zipcode", zipcode)
         data.append("lat", lati)
         data.append("lng", lngi)
-        data.append("file",file)
+        //data.append("file",file)
+        if (file) {
+            console.log(typeof file);
+            for (let i = 0; i < file.length; i++) {
+              //nombre de la propiedad, archivo y nombre del archivo
+              data.append(`file_${i}`, file[i], file[i].name);
+            }
+          }
 
         const token = localStorage.getItem('token');
         const response = await axios.post("http://localhost:8080/bookingsites/post", data, {
@@ -218,10 +225,11 @@ const FormHost =(props)=>{
     }
     
     function handleChange(e) {
-        if(e.target.files.length > 0 && e.target.files[0].size < 1024 * 1024 * 5){
+    /*    if(e.target.files.length > 0 && e.target.files[0].size < 1024 * 1024 * 5){
+    setFile(e.target.files[0])*/
     readFile(e.target.files[0])
-    setFile(e.target.files[0])
-    }}
+    setFile(e.target.files);
+    }
 
 console.log(file)
 
@@ -241,31 +249,31 @@ console.log(file)
     if(!isLoaded) return <div>Loading...</div>;
     console.log(address)
 
-    const listItems = isChecked.map((element) =>{
+    const listItems = isChecked.map((element, index) =>{
     if(element==="pool"){
-    return <p><Icon icon="cil:pool"/>Piscina</p>}else if (element==="jacuzzi")
+    return <p key={index}><Icon icon="cil:pool"/>Piscina</p>}else if (element==="jacuzzi")
     {
-        return <p><Icon icon="emojione-monotone:bathtub"/>Jacuzzi</p>}else if (element==="bbq")
+        return <p key={index}><Icon icon="emojione-monotone:bathtub"/>Jacuzzi</p>}else if (element==="bbq")
         {
-            return <p><Icon icon="iconoir:bbq"/>Parrila</p>}else if (element==="woodfire")
+            return <p key={index}> <Icon icon="iconoir:bbq"/>Parrila</p>}else if (element==="woodfire")
             {
-                return <p><Icon icon="icon-park-outline:fire-two"/>Fogata</p>}else if (element==="essentialservices")
+                return <p key={index}><Icon icon="icon-park-outline:fire-two"/>Fogata</p>}else if (element==="essentialservices")
                 {
-                    return <p><Icon icon="ep:toilet-paper"/>Servicios esenciales</p>}else if (element==="hotwater")
+                    return <p key={index}><Icon icon="ep:toilet-paper"/>Servicios esenciales</p>}else if (element==="hotwater")
                     {
-                        return <p><Icon icon="ph:thermometer-hot"/>Agua caliente</p>}else if (element==="wifi")
+                        return <p key={index}><Icon icon="ph:thermometer-hot"/>Agua caliente</p>}else if (element==="wifi")
                         {
-                            return <p><Icon icon="clarity:wifi-line"/>Wifi</p>}else if (element==="tv")
+                            return <p key={index}><Icon icon="clarity:wifi-line"/>Wifi</p>}else if (element==="tv")
                             {
-                                return <p><Icon icon="arcticons:hanju-tv"/>Tv</p>}else if (element==="kitchen")
+                                return <p key={index}><Icon icon="arcticons:hanju-tv"/>Tv</p>}else if (element==="kitchen")
                                 {
-                                    return <p><Icon icon="tabler:tools-kitchen-2"/>Cocina</p>}else if (element==="washer")
+                                    return <p key={index}><Icon icon="tabler:tools-kitchen-2"/>Cocina</p>}else if (element==="washer")
                                     {
-                                        return <p><Icon icon="bxs:washer"/>Lavadora</p>}else if (element==="airconditioner")
+                                        return <p key={index}><Icon icon="bxs:washer"/>Lavadora</p>}else if (element==="airconditioner")
                                         {
-                                            return <p><Icon icon="iconoir:air-conditioner"/>Aire acondicionado</p>}else if (element==="firstaidkit")
+                                            return <p key={index}><Icon icon="iconoir:air-conditioner"/>Aire acondicionado</p>}else if (element==="firstaidkit")
                                             {
-                                                return <p><Icon icon="clarity:first-aid-kit-line"/>Botiquín</p>}
+                                                return <p key={index}><Icon icon="clarity:first-aid-kit-line"/>Botiquín</p>}
     });
     const onLoad = marker => {
         console.log('marker: ', marker)
@@ -430,6 +438,7 @@ console.log(file)
                                 {/*<div className="addphotos"></div>*/}
                                 <input
                                     type="file"
+                                    multiple
                                     accept="image/*"
                                     name="file"
                                     id="file"

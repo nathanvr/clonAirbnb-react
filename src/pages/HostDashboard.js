@@ -17,6 +17,7 @@ const HostDashboard =()=>{
     const {bookingsites} = useSelector((state) => state.userReducer);
     console.log(bookingsites)
 
+
     return(
         <div className="dashboard-container">
             <section className="hero">
