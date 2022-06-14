@@ -10,7 +10,10 @@ const Bookingsitecard = ({booking}) => {
         <div key={booking._id} className="container-card">
             <div className="boxpicture">
                 <div className="picture">
-                <img src="https://res.cloudinary.com/dhacdmuvs/image/upload/v1655065456/booking-image/exous0drefak10mpoqn7.webp" loading="lazy" alt=""></img>
+                {booking.images.map((item, i)=>(
+                    <img src={item}  key={i} loading="lazy" alt=""></img>
+                            ))}
+                <img src={booking.images} loading="lazy" alt=""></img>
                 </div>
                 <div className="info">
                 <h2>{booking.title}</h2>

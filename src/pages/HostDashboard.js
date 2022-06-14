@@ -14,8 +14,9 @@ const HostDashboard =()=>{
       dispatch(getUser())
     },[dispatch])
 
-    const {bookingsites} = useSelector((state) => state.userReducer);
-    console.log(bookingsites)
+    const {bookingSites} = useSelector((state) => state.userReducer);
+    console.log(bookingSites)
+
 
     return(
         <div className="dashboard-container">
@@ -35,7 +36,7 @@ const HostDashboard =()=>{
                     <div className="content-tabs1">
  
                             <div className="container-cards">
-                            {bookingsites.map((item, i)=>(
+                            {bookingSites.map((item, i)=>(
                             <Bookingsitecard booking={item} key={i}/>
                             ))}
         </div>
