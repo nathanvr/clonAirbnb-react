@@ -3,12 +3,19 @@ import { TextInput } from '@mantine/core';
 import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
+    getZipCode
 } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
 
-  const PlacesAutocomplete = ({setSelected}) => {
-   
-                                
+  const PlacesAutocomplete = ({childToParent}) => {
+  
+    const[lati, setLat]=useState(0);
+    const[lngi, setLng]=useState(0);
+    const [city, setCity]=useState("");
+    const [country, setCountry]=useState("");
+    const [zipcode, setZipcode]=useState(undefined);
+  
+    
   const {
     ready,
     value,
@@ -44,13 +51,26 @@ import useOnclickOutside from "react-cool-onclickoutside";
       getGeocode({ address: description }).then((results) => {
         try {
         const { lat, lng } = getLatLng(results[0]);
-        console.log("📍 Coordinates: ", { lat, lng });
+        
+        const cityArray = results[0].address_components.filter((item)=>item.types.includes("locality"));
+        const countryArray = results[0].address_components.filter((item)=>item.types.includes("country"))
+        const city = cityArray[0].long_name;
+        const postal_code = getZipCode(results[0])
+        const country = countryArray[0].long_name;
+        console.log("ciudad",city, "pais", country, postal_code)
+        //console.log("📍 Coordinates: ", { lat, lng });
+        setLat(lat);
+        setLng(lng);
+        setCity(city);
+        setCountry(country);
+        setZipcode(postal_code)
+        setValue(description, false);
+        childToParent({lat,lng, city, country, postal_code, value})
         } catch (error) {
         console.log("😱 Error: ", error);
         }
     });
     };
-
   const renderSuggestions = () =>
     data.map((suggestion) => {
     const {
@@ -67,13 +87,18 @@ import useOnclickOutside from "react-cool-onclickoutside";
 
   return (
     <div ref={ref}>
-        <TextInput value={value}
+        <TextInput
+        label="Ingresa la dirección del sitio" required
+        value={value}
         onChange={handleInput}
         disabled={!ready}
         placeholder="Where are you going?"></TextInput>
       {/* We can use the "status" to decide whether we should display the dropdown or not */}
       {status === "OK" && <ul>{renderSuggestions()}</ul>}
 
+      <TextInput label="Pais" required value={country} onChange={(event) => setCountry(event.currentTarget.value)}></TextInput>
+      <TextInput label="Ciudad" required value={city} onChange={(event) => setCity(event.currentTarget.value)}></TextInput>
+      <TextInput label="Zipcode" value={zipcode} onChange={(event) => setZipcode(event.currentTarget.value)}></TextInput>
       <div>
       </div>
     </div>

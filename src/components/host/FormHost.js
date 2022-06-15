@@ -11,6 +11,7 @@ import {
 import { useSelector } from "react-redux";
 import { Icon } from '@iconify/react';
 import PlacesAutocomplete from "../Maps/PlacesAutocomplete";
+import { set } from "zod";
 
 
 
@@ -61,10 +62,10 @@ const FormHost =(props)=>{
     const [description_type, setDescription_type] = useState(null);
     const [room_type, setRoom_type] = useState(null);
     const [formStep, setformStep] = useState(0);
-    const [address, setAddress]=useState("");
+    const [address, setAddress]=useState(null);
     const [city, setCity]=useState("");
     const [country, setCountry]=useState("");
-    const [zipcode, setZipcode]=useState("");
+    const [zipcode, setZipcode]=useState(undefined);
     const [title, setTitle]=useState("");
     const [description, setDescription]= useState("");
     const [price,setPrice]=useState(45000);
@@ -73,14 +74,29 @@ const FormHost =(props)=>{
     const [image, setImage] = useState(null);
     const [file, setFile] = useState(null);
     const [selected, setSelected] = useState(null)
-    const center = useMemo(() => ({ lat: 43.45, lng: -80.49 }), []);
+    const [center ,setCenter]=useState({ lat: 4.570868, lng: -74.297333})
+    const [position,setPosition]=useState({ lat: 4.570868, lng: -74.297333})
      /** @type React.MutableRefObject<HTMLInputElement> */
   const originRef = useRef()
   /** @type React.MutableRefObject<HTMLInputElement> */
-  const destiantionRef = useRef()
-  const [ libraries ] = useState(['places']);
+    const destiantionRef = useRef()
+    const [ libraries ] = useState(['places']);
+    const [data, setData] = useState(null);
+    const childToParent = (childdata) => {
+    setAddress(childdata.value)
+    setLat(childdata.lat)
+    setLng(childdata.lng);
+    setCity(childdata.city);
+    setCountry(childdata.country);
+    setZipcode(childdata.postal_code)
+    setPosition({lat:childdata.lat, lng:childdata.lng})
+    setCenter({lat:childdata.lat, lng:childdata.lng})
 
-  
+
+
+}
+console.log(data)
+console.log("latitu",lati,lngi,city,country,zipcode, address)
     //Huespedes
     const addCountGuest = () => { 
         if(countGuest === 16){
@@ -396,20 +412,16 @@ console.log(file)
                         <h2>Ingresa la ubicación del espacio</h2>
                                 <section className="section-map">
                                     <div className="adress_content">
-                                    <TextInput label="Ingresa la dirección del sitio" required value={address} onChange={(event) => setAddress(event.currentTarget.value)}></TextInput>
-                                        <TextInput label="Ciudad" required value={city} onChange={(event) => setCity(event.currentTarget.value)}></TextInput>
-                                        <TextInput label="Pais" required value={country} onChange={(event) => setCountry(event.currentTarget.value)}></TextInput>
-                                        <TextInput label="Zipcode" value={zipcode} onChange={(event) => setZipcode(event.currentTarget.value)}></TextInput>
-
-                                                <TextInput label="Ingresa la latitud" required value={lati} onChange={(event) => setLat(event.currentTarget.value)}></TextInput>
-                                                <TextInput label="Ingresa la longitud" required value={lngi} onChange={(event) => setLng(event.currentTarget.value)}></TextInput>
+                                    <div className="adress_contenta">
+                                            <PlacesAutocomplete childToParent={childToParent}/>
+                                        </div>
                                     
                                         <div className="coordinates">
                                         <GoogleMap
                                                 mapContainerStyle={containerStyle}
                                                 center={center}
                                                 zoom={9}>
-                                                    <Marker  visible={true} onLoad={onLoad} position={center} />
+                                                    <Marker  visible={true} onLoad={onLoad} position={position} />
                                                 
                                             </GoogleMap>
                                         </div>
@@ -418,9 +430,6 @@ console.log(file)
                                     <div>
                                         <div>
 
-                                        </div>
-                                        <div className="adress_content">
-                                            <PlacesAutocomplete/>
                                         </div>
                                     </div>
                                 </section>

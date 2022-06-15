@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import Navbar from './components/Navbar';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Host from './pages/Host';
 import BookingRoom from './pages/BookingRoom';
@@ -14,6 +14,7 @@ import { getUser } from './store/reducers/User.reducer';
 
 function App() {
   const token = localStorage.getItem('token');
+  const { role } = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,6 +23,7 @@ function App() {
       dispatch(getUser());
     }
   }, [dispatch]);
+  console.log(role)
 
   return (
     <div className="App">
@@ -35,7 +37,7 @@ function App() {
           <Route
             exact
             path="/host/dashboard"
-            element={<HostDashboard></HostDashboard>}
+            element={token !== null ? <HostDashboard/> : <Navigate to="/" /> }
           />
           <Route
             exact
@@ -48,7 +50,7 @@ function App() {
             path="/forgotpassword"
             element={<ForgotPassword></ForgotPassword>}
           />
-          <Route exact path="/profile" element={<Profile></Profile>} />
+          <Route exact path="/profile" element={token !== null ? <Profile/> : <Navigate to="/" /> }/>
           <Route exact path="*" element={<NotFound></NotFound>} />
         </Routes>
       </BrowserRouter>
