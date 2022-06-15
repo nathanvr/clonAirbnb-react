@@ -73,8 +73,6 @@ const RegisterModal = (props) => {
     e.preventDefault();
     console.log('Reg_date: ', registerData, typeof registerData.birthday);
     dispatch(postRegister(registerData));
-    dispatch(getUser());
-    setOpened(false);
   };
 
   return (

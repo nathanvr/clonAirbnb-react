@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, Navigate } from 'react-router-dom';
 import { FaTimes } from 'react-icons/fa';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
@@ -31,6 +31,8 @@ const Navbar = () => {
   const handleSignOut = () => {
     console.log('!!Se lanzo el sign Out!!');
     dispatch(signOutSuccess());
+    <Navigate to="/" replace={true} />
+
   };
 
   return (

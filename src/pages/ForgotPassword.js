@@ -1,12 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import BrandIcon from '../components/BrandIcon'
 import '../styles/components/ForgotPassword.scss'
 import { Link } from "react-router-dom";
+import { TextInput } from '@mantine/core';
 
 
 const ForgotPassword = () => {
 
+const[email, setEmail]=useState("")
 
     return (
         <div className="fPassword">
@@ -20,16 +22,17 @@ const ForgotPassword = () => {
 
                 </div>
                 <div className="fPassword__header__text">
-                    <span><strong>Te olvidaste la contrasenia?</strong></span>
+                    <h2>¿Olvidaste la contraseña?</h2>
                 </div>
             </header>
             <form className="fPassword__form">
-                <label>
-                    <span>Ingresa la dirección de correo electrónico asociada a tu cuenta y te enviaremos un enlace para restablecer tu contraseña. </span>
-                <input placeholder="Correo electronico"></input>
-                </label>
+
+                    <TextInput label="Ingresa la dirección de correo electrónico asociada a tu cuenta y te enviaremos un enlace para restablecer tu contraseña. " 
+                    placeholder="Ingresa tu correo electrónico" value={email} onChange={((e)=>setEmail(e.target.value))} required />
+
+
                 <div>
-                <button>Enviar enlace para restablecer contrasenia</button>
+                <button>Enviar enlace para restablecer contraseña</button>
                 </div>
             </form>
         
