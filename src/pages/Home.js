@@ -42,7 +42,7 @@ const Home = () => {
 
         <section className="alojamientos-plus">
           {sites.map((site, index) => (
-            <Link to={`/room/${site._id}`}>
+            <Link to={`/room/${site._id}`} key={index}>
               <CardMd service={site} />
             </Link>
           ))}

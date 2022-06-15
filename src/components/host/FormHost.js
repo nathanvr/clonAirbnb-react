@@ -411,11 +411,10 @@ console.log(file)
                         
                         <h2>Ingresa la ubicación del espacio</h2>
                                 <section className="section-map">
+
                                     <div className="adress_content">
-                                    <div className="adress_contenta">
                                             <PlacesAutocomplete childToParent={childToParent}/>
                                         </div>
-                                    
                                         <div className="coordinates">
                                         <GoogleMap
                                                 mapContainerStyle={containerStyle}
@@ -425,13 +424,6 @@ console.log(file)
                                                 
                                             </GoogleMap>
                                         </div>
-
-                                    </div>
-                                    <div>
-                                        <div>
-
-                                        </div>
-                                    </div>
                                 </section>
                                 </div>
                     </section>}
