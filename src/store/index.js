@@ -4,12 +4,14 @@ import userReducer from './reducers/User.reducer';
 import thunk from 'redux-thunk';
 import albumReducer from './reducers/Album.reducer';
 import albumsReducer from './reducers/Albums.reducer';
+import bookingSiteReducer from './reducers/BookingSite.reducer';
 
 const rootReducer = combineReducers({
   bookingReducer,
   albumReducer,
   albumsReducer,
-  userReducer
+  userReducer,
+  bookingSiteReducer,
 });
 
 // const state = {
