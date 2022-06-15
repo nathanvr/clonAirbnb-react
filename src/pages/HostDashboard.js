@@ -6,10 +6,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "../store/reducers/User.reducer";
 import Bookingsitecard from "../components/host/Bookingsitecard";
 import { Icon } from '@iconify/react';
+import dayjs from 'dayjs/locale/es';
 
 
 const HostDashboard =()=>{
-
+    const current = new Date();
+    const date = `${current.getDate()} de ${
+        dayjs.months[current.getMonth()]
+      } de ${current.getFullYear()}`
     const dispatch = useDispatch();
     useEffect(() => {
       dispatch(getUser())
@@ -23,7 +27,7 @@ const HostDashboard =()=>{
         <div className="dashboard-container">
             <section className="hero">
                 <div>
-                    <h2>Hoy</h2>
+                    <h2>Hoy {date}</h2>
                     <p>Empieza a agregar anuncios</p>
                 </div>
                 <div><button><FormHost sitio="Haz un anuncio"/></button></div>
