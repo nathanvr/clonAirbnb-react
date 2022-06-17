@@ -16,7 +16,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(true);
   const { loading, error, sites } = useSelector(
-    (state) => state.bookingSiteReducer
+    (state) => state.bookingSitesReducer
   );
   useEffect(() => {
     dispatch(getBookingSites());

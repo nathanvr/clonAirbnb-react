@@ -4,6 +4,7 @@ import userReducer from './reducers/User.reducer';
 import thunk from 'redux-thunk';
 import albumReducer from './reducers/Album.reducer';
 import albumsReducer from './reducers/Albums.reducer';
+import bookingSitesReducer from './reducers/BookingSites.reducer';
 import bookingSiteReducer from './reducers/BookingSite.reducer';
 
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   albumReducer,
   albumsReducer,
   userReducer,
+  bookingSitesReducer,
   bookingSiteReducer,
 });
 
