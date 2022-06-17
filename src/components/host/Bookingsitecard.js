@@ -11,7 +11,7 @@ import { Icon } from '@iconify/react';
 const Bookingsitecard = ({booking}) => {
     const [opened, setOpened] = useState(false);
     const theme = useMantineTheme();
-    console.log(booking.images)
+    console.log("aqui esta",booking)
     function AccordionLabel({ label, image, description }) {
         return (
         <Group noWrap>
@@ -45,7 +45,7 @@ const Bookingsitecard = ({booking}) => {
          <Accordion initialItem={-1} iconPosition="left" icon={ <ThemeIcon  variant="light" radius="xl" size="sm" color="gray"><Icon icon="bi:house" /></ThemeIcon>}>
             <Accordion.Item label={<AccordionLabel {...booking} />} key={booking._id}>
                 <div className="boxfooter2">
-                    <EditFormHost/>
+                    <EditFormHost booking={booking}/>
                     <Button color="red" onClick={() => setOpened(true)}>Eliminar</Button>   
                 </div>
             </Accordion.Item>
