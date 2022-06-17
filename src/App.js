@@ -11,7 +11,9 @@ import MessagesHost from './pages/MessagesHost';
 import ForgotPassword from './pages/ForgotPassword';
 import Profile from './pages/Profile';
 import { getUser } from './store/reducers/User.reducer';
-
+import RecoveryPassword from './pages/RecoveryPassword';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const token = localStorage.getItem('token');
   const { role } = useSelector((state) => state.userReducer);
@@ -26,6 +28,16 @@ function App() {
 
   return (
     <div className="App">
+              <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover/>
       <BrowserRouter>
         <Navbar></Navbar>
 
@@ -51,9 +63,10 @@ function App() {
           />
           <Route
             exact
-            path="/profile"
-            element={token !== null ? <Profile /> : <Navigate to="/" />}
+            path="/password-recovery/:token"
+            element={<RecoveryPassword></RecoveryPassword>}
           />
+          <Route exact path="/profile" element={token !== null ? <Profile/> : <Navigate to="/" /> }/>
           <Route exact path="*" element={<NotFound></NotFound>} />
         </Routes>
       </BrowserRouter>

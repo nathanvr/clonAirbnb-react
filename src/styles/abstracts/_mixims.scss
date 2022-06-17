@@ -67,7 +67,15 @@ $medium: 900px;
     color: #767676;
     text-transform: uppercase;
 }
-
+@mixin text-format-cardmd-reviews () {
+    font-family: Roboto;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 12px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #000000;
+}
 @mixin text-format-cardmd-h3 () {
     font-family: Roboto;
     font-style: normal;

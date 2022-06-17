@@ -6,25 +6,21 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-
 import { Link } from 'react-router-dom';
-
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { getBookingSites } from '../store/reducers/BookingSites.reducer';
+import { useEffect, useState } from 'react';
+import {LoadingOverlay} from '@mantine/core';
+import { getBookingSites } from '../store/reducers/BookingSite.reducer';
 
 const Home = () => {
   const dispatch = useDispatch();
+  const [visible, setVisible] = useState(true);
   const { loading, error, sites } = useSelector(
     (state) => state.bookingSitesReducer
   );
   useEffect(() => {
     dispatch(getBookingSites());
   }, []);
-
-  if (loading === true) {
-    return <p>loading...</p>;
-  }
 
   if (error === true) {
     return <p>Lo sentimos, ha ocurrido un error. {error}</p>;
@@ -37,7 +33,8 @@ const Home = () => {
       </div>
       <div className="main">
         <Title title="Alojamientos en todo el mundo" />
-
+        {loading ===true && 
+        <LoadingOverlay  visible={visible}/>}
         <section className="alojamientos-plus">
           {sites.map((site, index) => (
             <Link to={`/room/${site._id}`} key={index}>
