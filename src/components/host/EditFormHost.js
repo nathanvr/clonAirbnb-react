@@ -6,7 +6,11 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { Icon } from '@iconify/react';
 import PlacesAutocomplete from "../Maps/PlacesAutocomplete";
-
+import {
+    GoogleMap,
+    Marker,
+    useLoadScript,
+} from '@react-google-maps/api'
 const options1 = [
     {value:"apartment", label:"Apartamentos"},
     {value:"house", label:"Casa"},
@@ -41,41 +45,46 @@ const containerStyle = {
   };
   const center = { lat: 4.570868, lng:  -74.297333 }
   const position = {lat:3.43722, lng:-76.5225}
-const EditFormHost =(props)=>{
-    const { sitio } = props;
+const EditFormHost =({booking})=>{
+    console.log(booking, "desde el edit")
     const { name} = useSelector((state) => state.userReducer);
     const theme = useMantineTheme();
+    const string = booking.services.toString();
+    const services= string.split(",");
     const [opened, setOpened] = useState(false);
-    const [countGuest, setCountGuest] = useState(0);
-    const [countBeds, setCountBeds] = useState(0);
-    const [countRooms, setCountRooms] = useState(0);
-    const [countBaths, setCountBaths] = useState(0);
-    const [isChecked, setIsChecked] = useState([]);
-    const [home_type, setHome_type] = useState(null);
-    const [description_type, setDescription_type] = useState(null);
-    const [room_type, setRoom_type] = useState(null);
+    const [countGuest, setCountGuest] = useState(booking.total_occupancy);
+    const [countBeds, setCountBeds] = useState(booking.total_beds);
+    const [countRooms, setCountRooms] = useState(booking.total_rooms);
+    const [countBaths, setCountBaths] = useState(booking.total_bathrooms);
+    const [isChecked, setIsChecked] = useState(services);
+    console.log(isChecked)
+    const [home_type, setHome_type] = useState(booking.home_type);
+    const [description_type, setDescription_type] = useState(booking.description_type);
+    const [room_type, setRoom_type] = useState(booking.room_type);
     const [formStep, setformStep] = useState(0);
-    const [address, setAddress]=useState("");
-    const [city, setCity]=useState("");
-    const [country, setCountry]=useState("");
-    const [zipcode, setZipcode]=useState("");
-    const [title, setTitle]=useState("");
-    const [description, setDescription]= useState("");
-    const [price,setPrice]=useState(45000);
-    const [lati, setLat]=useState( 0);
-    const [lngi, setLng]=useState(0);
+    const [address, setAddress]=useState(booking.address);
+    const [city, setCity]=useState(booking.city);
+    const [country, setCountry]=useState(booking.country);
+    const [zipcode, setZipcode]=useState(booking.zipcode);
+    const [title, setTitle]=useState(booking.title);
+    const [description, setDescription]= useState(booking.description);
+    const [price,setPrice]=useState(booking.price);
+    const [lati, setLat]=useState(booking.lat);
+    const [lngi, setLng]=useState(booking.lng);
     const [image, setImage] = useState(null);
     const [file, setFile] = useState(null);
     const [map, setMap] = useState(/** @type google.maps.Map */ (null))
-    const [selected, setSelected] = useState(null)
-    const center = useMemo(() => ({ lat: 43.45, lng: -80.49 }), []);
+    const [center ,setCenter]=useState({ lat: Number(booking.lat), lng: Number(booking.lng)})
+    const [position,setPosition]=useState({ lat: Number(booking.lat), lng: Number(booking.lng)})
      /** @type React.MutableRefObject<HTMLInputElement> */
   const originRef = useRef()
   /** @type React.MutableRefObject<HTMLInputElement> */
   const destiantionRef = useRef()
   const [ libraries ] = useState(['places']);
 
-  
+  const onLoad = marker => {
+    console.log('marker: ', marker)
+  }
     //Huespedes
     const addCountGuest = () => { 
         if(countGuest === 16){
@@ -236,6 +245,25 @@ console.log(file)
         //Como no hemos seleccionado imagen aùn
         reader.readAsDataURL(file);
     }
+    const childToParent = (childdata) => {
+        setAddress(childdata.value)
+        setLat(childdata.lat)
+        setLng(childdata.lng);
+        setCity(childdata.city);
+        setCountry(childdata.country);
+        setZipcode(childdata.postal_code)
+        setPosition({lat:childdata.lat, lng:childdata.lng})
+        setCenter({lat:childdata.lat, lng:childdata.lng})
+    
+    
+    
+    }
+    const { isLoaded } = useLoadScript({
+        googleMapsApiKey: "AIzaSyCsW9trmjliEY9-Qz_uuAK8C2DRCUFzDqs",
+        libraries,
+    })
+
+    if(!isLoaded) return <div>Loading...</div>;
 
     const listItems = isChecked.map((element) =>{
     if(element==="pool"){
@@ -355,7 +383,7 @@ console.log(file)
                                         </div>
                                     </section>
                             <div className="info-1">
-                                <CheckboxGroup value={isChecked} onChange={setIsChecked}   color="violet"
+                                <CheckboxGroup   value={isChecked} onChange={setIsChecked}   color="violet"
                                                 label="¿Tienes alguna comodidad destacada?"
                                                 required
                                                 spacing="xl"
@@ -380,23 +408,25 @@ console.log(file)
                     <div className="typebooking2">
                     <h1>Paso 3: Selecciona tu ubicación</h1>
                         
-                        <h2>Ingresa la ubicación del espacio</h2>
+                    <h2>Ingresa la ubicación del espacio</h2>
                                 <section className="section-map">
+
                                     <div className="adress_content">
-                                    <TextInput label="Ingresa la dirección del sitio" required value={address} onChange={(event) => setAddress(event.currentTarget.value)}></TextInput>
-                                        <TextInput label="Ciudad" required value={city} onChange={(event) => setCity(event.currentTarget.value)}></TextInput>
-                                        <TextInput label="Pais" required value={country} onChange={(event) => setCountry(event.currentTarget.value)}></TextInput>
-                                        <TextInput label="Zipcode" value={zipcode} onChange={(event) => setZipcode(event.currentTarget.value)}></TextInput>
-
-                                                <TextInput label="Ingresa la latitud" required value={lati} onChange={(event) => setLat(event.currentTarget.value)}></TextInput>
-                                                <TextInput label="Ingresa la longitud" required value={lngi} onChange={(event) => setLng(event.currentTarget.value)}></TextInput>
-
-                                    </div>
-                                    <div>
-                                        <div className="adress_content">
-                                            <PlacesAutocomplete/>
+                                            <PlacesAutocomplete childToParent={childToParent}/>
+                                            {address}
+                                            <TextInput label="Pais" required value={country} onChange={(event) => setCountry(event.currentTarget.value)}></TextInput>
+                                            <TextInput label="Ciudad" required value={city} onChange={(event) => setCity(event.currentTarget.value)}></TextInput>
+                                            <TextInput label="Zipcode" value={zipcode} onChange={(event) => setZipcode(event.currentTarget.value)}></TextInput>
                                         </div>
-                                    </div>
+                                        <div className="coordinates">
+                                        <GoogleMap
+                                                mapContainerStyle={containerStyle}
+                                                center={center}
+                                                zoom={9}>
+                                                    <Marker  visible={true} onLoad={onLoad} position={position} />
+                                                
+                                            </GoogleMap>
+                                        </div>
                                 </section>
                                 </div>
                     </section>}
@@ -467,7 +497,7 @@ console.log(file)
                                 </div>
                                 <div>
                                     <h2>Lo que este lugar ofrece</h2>
-                                    {listItems}
+                                    
                                 </div>
 
                                 <section className="buttons">

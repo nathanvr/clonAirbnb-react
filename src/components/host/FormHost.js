@@ -58,6 +58,7 @@ const FormHost =(props)=>{
     const [countRooms, setCountRooms] = useState(0);
     const [countBaths, setCountBaths] = useState(0);
     const [isChecked, setIsChecked] = useState([]);
+    console.log(isChecked)
     const [home_type, setHome_type] = useState(null);
     const [description_type, setDescription_type] = useState(null);
     const [room_type, setRoom_type] = useState(null);
@@ -414,6 +415,10 @@ console.log(file)
 
                                     <div className="adress_content">
                                             <PlacesAutocomplete childToParent={childToParent}/>
+                                            {address}
+                                            <TextInput label="Pais" required value={country} onChange={(event) => setCountry(event.currentTarget.value)}></TextInput>
+                                            <TextInput label="Ciudad" required value={city} onChange={(event) => setCity(event.currentTarget.value)}></TextInput>
+                                            <TextInput label="Zipcode" value={zipcode} onChange={(event) => setZipcode(event.currentTarget.value)}></TextInput>
                                         </div>
                                         <div className="coordinates">
                                         <GoogleMap
