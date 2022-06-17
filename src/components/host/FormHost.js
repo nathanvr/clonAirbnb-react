@@ -1,6 +1,6 @@
 import React,{ useState, useMemo, useRef} from "react";
 import { Modal, useMantineTheme, Textarea} from '@mantine/core';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { NumberInput,Select, CheckboxGroup, Checkbox, TextInput } from '@mantine/core';
 import axios from "axios";
 import {
@@ -201,10 +201,10 @@ console.log("latitu",lati,lngi,city,country,zipcode, address)
             console.log(typeof file);
             for (let i = 0; i < file.length; i++) {
               //nombre de la propiedad, archivo y nombre del archivo
-              data.append(`file_${i}`, file[i], file[i].name);
+            data.append(`file_${i}`, file[i], file[i].name);
             }
-          }
-
+        }
+        
         const token = localStorage.getItem('token');
         const response = await axios.post("http://localhost:8080/bookingsites/post", data, {
         headers: {
@@ -216,27 +216,7 @@ console.log("latitu",lati,lngi,city,country,zipcode, address)
     });
     console.log(response)
     if(response.status===201){
-        setOpened(false);
-        setCountGuest(0);
-        setCountBeds(0);
-        setCountRooms(0);
-        setCountBaths(0);
-        setIsChecked([]);
-        setHome_type(null);
-        setDescription_type(null);
-        setRoom_type(null);
-        setformStep(0);
-        setAddress("");
-        setCity("");
-        setCountry("");
-        setZipcode("");
-        setTitle("");
-        setDescription("");
-        setPrice(0);
-        setLat( 0);
-        setLng(0);
-        setImage(null);
-        setFile(null);
+        window.location.reload();
     }
     
     }
@@ -263,7 +243,7 @@ console.log(file)
         libraries,
     })
 
-    if(!isLoaded) return <div>Loading...</div>;
+    if(!isLoaded) return;
     console.log(address)
 
     const listItems = isChecked.map((element, index) =>{

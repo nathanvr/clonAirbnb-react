@@ -43,8 +43,7 @@ const containerStyle = {
     width: '500px',
     height: '400px'
   };
-  const center = { lat: 4.570868, lng:  -74.297333 }
-  const position = {lat:3.43722, lng:-76.5225}
+
 const EditFormHost =({booking})=>{
     console.log(booking, "desde el edit")
     const { name} = useSelector((state) => state.userReducer);

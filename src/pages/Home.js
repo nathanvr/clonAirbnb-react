@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import {LoadingOverlay} from '@mantine/core';
-import { getBookingSites } from '../store/reducers/BookingSite.reducer';
+import { getBookingSites } from '../store/reducers/BookingSites.reducer';
 
 const Home = () => {
   const dispatch = useDispatch();

@@ -3,7 +3,7 @@ import { DateRangePicker } from '@mantine/dates';
 import { NumberInput } from '@mantine/core';
 
 const BookingSection = (props) => {
-  const { priceNigth } = props;
+  const { priceNigth, maxguest } = props;
   const [date, setDate] = useState([new Date(), new Date()]);
   const [numGuest, setNumGuest] = useState(0);
   return (
@@ -25,7 +25,8 @@ const BookingSection = (props) => {
             label="Viajeros"
             value={numGuest}
             onChange={(val) => setNumGuest(val)}
-            min={0}
+            min={1}
+            max={maxguest}
           />
         </div>
         <div className="bookingContainerForm__button">
