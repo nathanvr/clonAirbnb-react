@@ -54,7 +54,7 @@ const BookingRoom = () => {
     return <p>Lo sentimos, ha ocurrido un error. {error}</p>;
   } 
 
-    const photos = [...bookingSiteData.data.images];
+    const photos = [...bookingSiteData.data.images.toString().split(",")];
     console.log(photos);
     const listPhothos = [];
 

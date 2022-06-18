@@ -1,4 +1,4 @@
-import React,{ useState, useMemo, useRef} from "react";
+import React,{ useState, useMemo, useRef, useEffect} from "react";
 import { Modal, useMantineTheme, Textarea} from '@mantine/core';
 import { Link } from "react-router-dom";
 import { NumberInput,Select, CheckboxGroup, Checkbox, TextInput, Button } from '@mantine/core';
@@ -11,6 +11,7 @@ import {
     Marker,
     useLoadScript,
 } from '@react-google-maps/api'
+import { Trash } from 'tabler-icons-react';
 const options1 = [
     {value:"apartment", label:"Apartamentos"},
     {value:"house", label:"Casa"},
@@ -50,6 +51,8 @@ const EditFormHost =({booking})=>{
     const theme = useMantineTheme();
     const string = booking.services.toString();
     const services= string.split(",");
+    const cosita =booking.images.toString().split(",")
+    console.log("AQUI HOPTA",cosita, booking.images)
     const [opened, setOpened] = useState(false);
     const [countGuest, setCountGuest] = useState(booking.total_occupancy);
     const [countBeds, setCountBeds] = useState(booking.total_beds);
@@ -72,15 +75,11 @@ const EditFormHost =({booking})=>{
     const [lngi, setLng]=useState(booking.lng);
     const [image, setImage] = useState(null);
     const [file, setFile] = useState(null);
-    const [map, setMap] = useState(/** @type google.maps.Map */ (null))
     const [center ,setCenter]=useState({ lat: Number(booking.lat), lng: Number(booking.lng)})
     const [position,setPosition]=useState({ lat: Number(booking.lat), lng: Number(booking.lng)})
-     /** @type React.MutableRefObject<HTMLInputElement> */
-  const originRef = useRef()
-  /** @type React.MutableRefObject<HTMLInputElement> */
-  const destiantionRef = useRef()
-  const [ libraries ] = useState(['places']);
-
+    const [images, setImages]= useState(cosita)
+    const [ libraries ] = useState(['places']);
+ 
   const onLoad = marker => {
     console.log('marker: ', marker)
   }
@@ -190,10 +189,21 @@ const EditFormHost =({booking})=>{
         data.append("zipcode", zipcode)
         data.append("lat", lati)
         data.append("lng", lngi)
-        data.append("file",file)
+        if(images){
+            data.append("images", images)
+        }
+        
+        if (file) {
+            console.log(typeof file);
+            for (let i = 0; i < file.length; i++) {
+              //nombre de la propiedad, archivo y nombre del archivo
+            data.append(`file_${i}`, file[i], file[i].name);
+            }
+        }
+        
 
         const token = localStorage.getItem('token');
-        const response = await axios.post("http://localhost:8080/bookingsites/post", data, {
+        const response = await axios.put(`http://localhost:8080/bookingsites/update/${booking._id}`, data, {
         headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
@@ -203,38 +213,19 @@ const EditFormHost =({booking})=>{
     });
     console.log(response)
     if(response.status===201){
-        setOpened(false);
-        setCountGuest(0);
-        setCountBeds(0);
-        setCountRooms(0);
-        setCountBaths(0);
-        setIsChecked([]);
-        setHome_type(null);
-        setDescription_type(null);
-        setRoom_type(null);
-        setformStep(0);
-        setAddress("");
-        setCity("");
-        setCountry("");
-        setZipcode("");
-        setTitle("");
-        setDescription("");
-        setPrice(0);
-        setLat( 0);
-        setLng(0);
-        setImage(null);
-        setFile(null);
+
     }
     
     }
     
     function handleChange(e) {
-        if(e.target.files.length > 0 && e.target.files[0].size < 1024 * 1024 * 5){
     readFile(e.target.files[0])
-    setFile(e.target.files[0])
-    }}
+    setFile(e.target.files);
+    } 
 
-console.log(file)
+console.log("aqui las imagemes", booking.images)
+console.log("aqui las imagedfgdfs", images)
+console.log("aqui el id", booking._id)
 
     function readFile(file) {
         const reader = new FileReader();
@@ -257,6 +248,8 @@ console.log(file)
     
     
     }
+    const checkboxIcon  = ({ indeterminate, className }) =>
+  indeterminate ? <Trash className={className} /> : <Trash className={className} />;
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: "AIzaSyCsW9trmjliEY9-Qz_uuAK8C2DRCUFzDqs",
         libraries,
@@ -435,18 +428,36 @@ console.log(file)
                         <h1>Paso 4: Sube tus fotos</h1>
                             <section>
                                 <h2>Ahora, agreguemos algunas fotos de tu espacio</h2>
-                                {/*<div className="addphotos"></div>*/}
                                 <input
                                     type="file"
                                     accept="image/*"
                                     name="file"
                                     id="file"
+                                    multiple
                                     onChange={handleChange}
                                     />
                             </section>
                             <div className="addphotos">
                             {!!image && <img src={image} alt="upload preview" />}
+                            <h2>Imagenes guardadas</h2>
+                            <div className="currentphoto">
                             
+                                    
+                            {booking.images.toString().split(",").map((image, index)=>{
+                            return (
+                            <div className="currentphotomap" key={index}>
+                            <img src={image} alt="upload preview" key={index} />
+                            <CheckboxGroup   value={images} onChange={setImages}   color="violet"
+                                                required
+                                                spacing="xl"
+                                                size="md">
+                            <Checkbox  value={image} label={`Foto ${index +1}`}/>
+                            </CheckboxGroup>
+                            </div>
+                                )
+                                })}
+                                
+                            </div>
                             </div>
                     
                 </div>
@@ -482,7 +493,7 @@ console.log(file)
                 <div className="typebooking4">
                                 <h2>Revisa tu anuncio</h2>
                                 <div className="addphotos">
-                                    {!!image && <img src={image} alt="upload preview" />}
+                                    <img src={images[0]} alt="bookingphoto" loading="lazy"></img>
                                 </div>
                                 <div>
                                 <h3>{title} - Anfitrión: {name}. {price}</h3>
@@ -496,7 +507,7 @@ console.log(file)
                                 </div>
                                 <div>
                                     <h2>Lo que este lugar ofrece</h2>
-                                    
+                                    {listItems}
                                 </div>
 
                                 <section className="buttons">
