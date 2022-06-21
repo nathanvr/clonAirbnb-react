@@ -3,7 +3,9 @@ import { userChange } from '../store/reducers/User.reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfilePill from '../components/ProfilePill';
 import { getUser } from '../store/reducers/User.reducer';
+import ImageFrame from '../components/userProfile/ImageFrame';
 import '../styles/components/Profile.scss';
+import '../styles/components/ImageFrame.scss';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -15,6 +17,9 @@ const Profile = () => {
     <div className="profile">
       <div className="item-flex">
         <h1>Informacion personal</h1>
+        <div>
+          <ImageFrame />
+        </div>
         <ProfilePill />
       </div>
       <div className="item-flex">
