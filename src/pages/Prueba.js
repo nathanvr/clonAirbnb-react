@@ -8,6 +8,16 @@ import Module3vv from '../components/Module3vv';
 import Module2vv from '../components/Module2vv';
 import Module2hh from '../components/Module2hh';
 import Module1xx from '../components/Module1xx';
+<<<<<<< HEAD
+=======
+import AlbumSwiper from '../components/AlbumSwiper';
+import { useMediaQuery } from 'react-responsive';
+import Album from '../components/Album';
+import AlbumModal from '../components/AlbumModal';
+
+// Import Swiper styles
+import 'swiper/css';
+>>>>>>> 2422d41b137ca47cebcc1df4601361de39a1c643
 
 const Prueba = () => {
   const images = Loader();
@@ -19,10 +29,18 @@ const Prueba = () => {
   const images1 = images.slice(0, 5);
   const images2 = images.slice(5, 9);
 
+<<<<<<< HEAD
   console.log('images: ', images);
   return (
     <div>
       <p>{`${img} lol ${height}`}</p>
+=======
+  const lol = useMediaQuery({ query: '(min-width: 740px)' });
+  return (
+    <div>
+      {lol && <p>You are a desktop or laptop</p>}
+      <p>{`${lol} lol ${height}`}</p>
+>>>>>>> 2422d41b137ca47cebcc1df4601361de39a1c643
       <Photo src={img.src} />
       <Module5xx album={images1} />
       <Module3hv album={images2} />
@@ -30,10 +48,17 @@ const Prueba = () => {
       <Module2vv album={images2} />
       <Module2hh album={images2} />
       <Module1xx album={images2} />
+<<<<<<< HEAD
+=======
+      <AlbumSwiper album={images} />
+      <Album />
+      <AlbumModal />
+>>>>>>> 2422d41b137ca47cebcc1df4601361de39a1c643
     </div>
   );
 };
 export default Prueba;
+<<<<<<< HEAD
 
 /*
 const album = Loader('cabañita');
@@ -41,3 +66,5 @@ const album = Loader('cabañita');
     return <Photo x="200px" y="200px" src={item} />
   }))
 */
+=======
+>>>>>>> 2422d41b137ca47cebcc1df4601361de39a1c643

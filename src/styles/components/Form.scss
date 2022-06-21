@@ -31,19 +31,8 @@
     margin-bottom: 15px;
     color: #484848;
 }
-.searchContainerForm__form__where{
-    display: flex;
-    flex-direction: column;
-    font-size: 12px;
-    color: black;
-    margin-bottom: 10px;
-
-    input{
-        height: 40px;
-        border: 1px solid #E3E3E3;
-        border-radius: 2px;
-        padding-left: 10px;
-    }
+.search_place{
+    margin: 10px 0;
 }
 
 .searchContainerForm__form__schedule{
@@ -53,7 +42,6 @@
     label{
         display: flex;
         flex-direction: column;
-        font-size: 12px;
         color: black;
         
     }
@@ -65,24 +53,12 @@
         width:100%;
     }
 }
-.searchContainerForm__form__travelers{
-    display: flex;
-    flex-direction: column;
-    font-size: 12px;
-    color: black;
-    margin-bottom: 10px;
 
-    input{
-        height: 40px;
-        border: 1px solid #E3E3E3;
-        border-radius: 2px;
-        padding-left: 10px;
-    }
-}
 
 .searchContainerForm__button{
     display: flex;
     justify-content: flex-end;
+    margin-top: 10px;
     button{
         width: 50%;
         background-color: var(--red);
