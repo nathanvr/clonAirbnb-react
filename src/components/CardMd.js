@@ -11,11 +11,11 @@ const CardMd = ({ service }) => {
   return (
       <div className="bg-cardmd" key={service._id}>
         <div className="rectangle-md">
-          {service.images.length===0 && <div>
+          {service.images.toString().split(",").length===0 && <div>
             
             <img src='https://res.cloudinary.com/dhacdmuvs/image/upload/v1655420849/notavailable_d2k2w8.png' alt="nophoto" loading='lazy'></img>
             </div>}
-          {service.images.length >0 &&
+          {service.images.toString().split(",").length >0 &&
           <div>
           <Swiper
           pagination={{
@@ -24,8 +24,8 @@ const CardMd = ({ service }) => {
           modules={[Pagination]}
           className="swiper"
         >
-            {service.images.map((slide, index)=>(
-                <SwiperSlide key={slide} virtualIndex={index} className="swiper-slide">
+            {service.images.toString().split(",").map((slide, index)=>(
+                <SwiperSlide key={index} virtualIndex={index} className="swiper-slide">
                           <img
                           loading="lazy"
                           src={slide}

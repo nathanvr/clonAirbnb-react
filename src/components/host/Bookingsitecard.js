@@ -6,24 +6,26 @@ import "swiper/css";
 import "swiper/css/pagination";
 import nophoto from "../../images/notavailable.png"
 import { Icon } from '@iconify/react';
+import axios from "axios";
 
 
 const Bookingsitecard = ({booking}) => {
     const [opened, setOpened] = useState(false);
     const theme = useMantineTheme();
+    
     console.log("aqui esta",booking)
     function AccordionLabel({ label, image, description }) {
         return (
         <Group noWrap>
             
-                {booking.images.length === 0 && 
+                {booking.images.toString().split(",").length === 0 && 
                     <div className="photo-notfound">
                         <img src={nophoto} alt="notphoto" loading="lazy"></img>
                     </div>}
-                {booking.images.length > 0 && 
+                {booking.images.toString().split(",").length > 0 && 
                     <div className="photo-notfound">
                     
-                            <img src={booking.images[0]} alt="booking-photo" loading="lazy"></img>
+                            <img src={booking.images.toString().split(",")[0]} alt="booking-photo" loading="lazy"></img>
                         
                     </div>
                    
@@ -39,6 +41,24 @@ const Bookingsitecard = ({booking}) => {
         </Group>
         );
     }
+    async function handleOnclick(e){
+        e.preventDefault();
+       
+        const token = localStorage.getItem('token');
+        const response = await axios.delete(`http://localhost:8080/bookingsites/${booking._id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+        },
+        
+        
+    });
+    console.log(response)
+    if(response.status===200){
+        window.location.reload();
+    }
+    }
+    
     
     return(
         <>
@@ -66,7 +86,7 @@ const Bookingsitecard = ({booking}) => {
                 <Button color="gray">Cancelar</Button>
             </div>
             <div>
-                <Button color="red">Eliminar</Button>
+                <Button color="red" onClick={handleOnclick}>Eliminar</Button>
             </div>  
         </div>
         </Modal>

@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signOutSuccess } from '../store/reducers/User.reducer';
 import { getUser } from '../store/reducers/User.reducer';
 import { Menu, Divider, Avatar } from '@mantine/core';
+import { User, Folder, TransferOut } from 'tabler-icons-react';
 const Navbar = () => {
   const dispatch = useDispatch();
 
@@ -93,15 +94,29 @@ const Navbar = () => {
               ) : (
                 <div>
                   <Menu.Item>
-                    <Link to="/profile">Ver tu perfil</Link>
+                    <Link to="/profile"><User
+                        size={15}
+                        strokeWidth={2}
+                        color={'black'}
+                      /> Ver tu perfil</Link>
                   </Menu.Item>
                   <Menu.Item>
-                    <Link to="/host/dashboard">Ver tus sitios</Link>
+                    <Link to="/host/dashboard">
+                    <Folder
+                      size={15}
+                      strokeWidth={2}
+                      color={'black'}
+                    /> Ver tus sitios</Link>
                   </Menu.Item>
                   <Menu.Item>Mensajes</Menu.Item>
                   <Divider />
                   <Menu.Item onClick={handleSignOut}>
-                    <Link to="/">Cerrar Sesión</Link>
+                    <Link to="/"><span className='logut'>
+                    <TransferOut
+                    size={15}
+                    strokeWidth={2}
+                    color={'#FF0000'}
+                  /> Cerrar Sesión</span></Link>
                   </Menu.Item>
                 </div>
               )}

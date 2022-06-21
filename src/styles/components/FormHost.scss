@@ -104,6 +104,8 @@
 
 
         .addphotos{
+
+
             img{
                 width: 500px;
             }
@@ -144,4 +146,21 @@
 .leaflet-container{
     width: 500px;
     height: 300px;
+}
+
+.currentphoto{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.currentphotomap{
+    display: flex;
+    flex-direction: column;
+
+    img{
+        width: 150px;
+        height: 100px;
+        object-fit: cover;
+    }
 }
