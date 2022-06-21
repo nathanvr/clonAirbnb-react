@@ -1,4 +1,13 @@
 .album-modal-container {
+    padding: 20px;
+}
+.album-modal-header, .album-modal-header div{
     display: flex;
     justify-content: space-between;
+    gap: 10px;
+}
+.album-modal-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
