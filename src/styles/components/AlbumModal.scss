@@ -7,7 +7,6 @@
     gap: 10px;
 }
 .album-modal-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    display: grid;
+    place-content: center;
 }

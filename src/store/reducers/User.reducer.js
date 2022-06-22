@@ -203,8 +203,8 @@ const initialState = {
   email: null,
   birthday: null,
   password: null,
-  description: null,
   image: null,
+  description: null,
   bookingSites: [],
   booking: [],
   reviews: [],
@@ -302,15 +302,15 @@ const userReducer = (state = initialState, action) => {
         ...state,
         password: action.payload,
       };
-    case USER_DESCRIPTION:
-      return {
-        ...state,
-        description: action.payload,
-      };
     case USER_IMAGE:
       return {
         ...state,
         image: action.payload,
+      };
+    case USER_DESCRIPTION:
+      return {
+        ...state,
+        description: action.payload,
       };
     case USER_BOOKINGSITES:
       return {

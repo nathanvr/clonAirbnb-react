@@ -4,6 +4,7 @@ export const CHANGE_SHOW1 = 'CHANGE_SHOW1';
 export const CHANGE_SHOW2 = 'CHANGE_SHOW2';
 
 export function changeAlbum(value) {
+  console.log('ValueRed: ', value);
   return {
     type: CHANGE_ALBUM,
     payload: value,

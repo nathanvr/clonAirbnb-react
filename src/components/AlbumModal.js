@@ -59,7 +59,7 @@ const AlbumModal = (props) => {
             </div>
           </div>
           <div className="album-modal-main">
-            <ModuleRandom album={album} length={album.length} />
+            <ModuleRandom album={album} length={album.length + 1} />
           </div>
         </div>
       </Modal>
