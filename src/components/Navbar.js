@@ -20,7 +20,9 @@ const Navbar = () => {
   const [name, setName] = useState('');
   const [role, setRole] = useState('');*/
   //const userData = useSelector((state) => state.userReducer);
-  const { isLoggedIn, name, role } = useSelector((state) => state.userReducer);
+  const { isLoggedIn, name, role, image } = useSelector(
+    (state) => state.userReducer
+  );
   //console.log('userData_nav: ', userData);
 
   /*useEffect(() => {
@@ -32,8 +34,7 @@ const Navbar = () => {
   const handleSignOut = () => {
     console.log('!!Se lanzo el sign Out!!');
     dispatch(signOutSuccess());
-    <Navigate to="/" replace={true} />
-
+    <Navigate to="/" replace={true} />;
   };
 
   return (
@@ -73,7 +74,7 @@ const Navbar = () => {
                   className={
                     location.pathname === '/' ? 'info-user-home' : 'info-user'
                   }>
-                  <Avatar radius="xl" />
+                  <Avatar radius="xl" size="sm" src={image} />
                   <p>{name}</p>
                 </div>
               }
@@ -94,29 +95,30 @@ const Navbar = () => {
               ) : (
                 <div>
                   <Menu.Item>
-                    <Link to="/profile"><User
-                        size={15}
-                        strokeWidth={2}
-                        color={'black'}
-                      /> Ver tu perfil</Link>
+                    <Link to="/profile">
+                      <User size={15} strokeWidth={2} color={'black'} /> Ver tu
+                      perfil
+                    </Link>
                   </Menu.Item>
                   <Menu.Item>
                     <Link to="/host/dashboard">
-                    <Folder
-                      size={15}
-                      strokeWidth={2}
-                      color={'black'}
-                    /> Ver tus sitios</Link>
+                      <Folder size={15} strokeWidth={2} color={'black'} /> Ver
+                      tus sitios
+                    </Link>
                   </Menu.Item>
                   <Menu.Item>Mensajes</Menu.Item>
                   <Divider />
                   <Menu.Item onClick={handleSignOut}>
-                    <Link to="/"><span className='logut'>
-                    <TransferOut
-                    size={15}
-                    strokeWidth={2}
-                    color={'#FF0000'}
-                  /> Cerrar Sesión</span></Link>
+                    <Link to="/">
+                      <span className="logut">
+                        <TransferOut
+                          size={15}
+                          strokeWidth={2}
+                          color={'#FF0000'}
+                        />{' '}
+                        Cerrar Sesión
+                      </span>
+                    </Link>
                   </Menu.Item>
                 </div>
               )}

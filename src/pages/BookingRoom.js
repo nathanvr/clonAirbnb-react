@@ -18,6 +18,7 @@ import { getBookingSite } from '../store/reducers/BookingSite.reducer';
 import PhotoAlbum from 'react-photo-album';
 import { Icon } from '@iconify/react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+import AlbumModal from '../components/AlbumModal';
 
 const containerStyle = {
   width: '500px',
@@ -49,10 +50,9 @@ const BookingRoom = () => {
     return <p>Lo sentimos, ha ocurrido un error. {error}</p>;
   }
 
-  const photos = [...bookingSiteData.data.images.toString().split(",")];
-  console.log(photos);
+  const photos = [...bookingSiteData.data.images.toString().split(',')];
+  console.log('Photos: ', photos);
   const listPhothos = [];
-
 
   photos.forEach((element) => {
     listPhothos.push({
@@ -71,10 +71,12 @@ const BookingRoom = () => {
               <img src={photo} alt={index} />
             </div>
           ))} */}
-        <PhotoAlbum layout="rows" photos={listPhothos} />
-
+        <Album album={photos} />
         {/* <Album /> */}
       </div>
+      <button>
+        <AlbumModal site="Album" album={photos} />
+      </button>
       <div className="info-reserva">
         <div id="left">
           <section className="titulo-Host">

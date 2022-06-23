@@ -9,7 +9,6 @@ export const USER_EMAIL = 'USER_EMAIL';
 export const USER_BIRTHDAY = 'USER_BIRTHDAY';
 export const USER_PASSWORD = 'USER_PASSWORD';
 export const USER_DESCRIPTION = 'USER_DESCRIPTION';
-export const USER_IMAGE = 'USER_IMAGE';
 export const USER_BOOKINGSITES = 'USER_BOOKINGSITES';
 export const USER_BOOKINGS = 'USER_BOOKINGS';
 export const USER_REVIEWS = 'USER_REVIEWS';
@@ -52,7 +51,6 @@ export const getUser = () => {
       dispatch({ type: USER_BIRTHDAY, payload: user.birthday });
       dispatch({ type: USER_PASSWORD, payload: user.password });
       dispatch({ type: USER_DESCRIPTION, payload: user.description });
-      dispatch({ type: USER_IMAGE, payload: user.image });
       console.log('getUser1');
       dispatch({ type: USER_BOOKINGSITES, payload: user.bookingsites });
       console.log('getUser2');
@@ -168,12 +166,6 @@ export function descriptionChange(value) {
     payload: value,
   };
 }
-export function imageChange(value) {
-  return {
-    type: USER_IMAGE,
-    payload: value,
-  };
-}
 export function bookingSitesChange(value) {
   return {
     type: USER_BOOKINGSITES,
@@ -197,14 +189,13 @@ const initialState = {
   loading: false,
   isLoggedIn: false,
   error: null,
-  role: null,
-  name: null,
-  lastname: null,
-  email: null,
-  birthday: null,
-  password: null,
-  image: null,
-  description: null,
+  role: '',
+  name: '',
+  lastname: '',
+  email: '',
+  birthday: '',
+  password: '',
+  description: '',
   bookingSites: [],
   booking: [],
   reviews: [],
@@ -234,7 +225,6 @@ const userReducer = (state = initialState, action) => {
         email: null,
         birthday: null,
         password: null,
-        image: null,
         description: null,
         bookingSites: [],
         booking: [],
@@ -301,11 +291,6 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         password: action.payload,
-      };
-    case USER_IMAGE:
-      return {
-        ...state,
-        image: action.payload,
       };
     case USER_DESCRIPTION:
       return {
