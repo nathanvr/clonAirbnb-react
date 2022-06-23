@@ -46,6 +46,7 @@
     "swiper": "^8.1.4",
     "tabler-icons-react": "^1.48.1",
     "use-places-autocomplete": "^3.0.0",
+    "uuid": "^8.3.2",
     "web-vitals": "^2.1.4",
     "zod": "^3.17.3"
   },
