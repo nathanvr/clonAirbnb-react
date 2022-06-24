@@ -12,16 +12,17 @@ function ProImage() {
     if (file) {
       console.log(typeof file);
       console.log('file: ', file);
-      for (let i = 0; i < file.length; i++) {
-        data.append(`file_${i}`, file[i], file[i].name);
-      }
+     
+        data.append("file", file);
+     
     }
-    console.log('data: ', data);
-    const response = await axios.post(
-      'http://localhost:8080/users/update',
+
+    const token = localStorage.getItem('token');
+    const response = await axios.put('http://localhost:8080/users/updateImage',
       data,
       {
         headers: {
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       }
@@ -52,7 +53,6 @@ function ProImage() {
         <input
           type="file"
           accept="image/*"
-          multiple
           name="file"
           id="file"
           onChange={handleChange}

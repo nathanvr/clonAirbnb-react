@@ -1,19 +1,24 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { userUpdate } from '../../store/reducers/User.reducer';
-import { Input } from '@mantine/core';
+import { TextInput } from '@mantine/core';
+import { getUser } from '../../store/reducers/User.reducer';
 
 const ProName = () => {
-  const dispatch = useDispatch();
-  /*const { name: sName, lastname: sLastname } = useSelector(
-    (state) => state.userReducer
-  );*/
+
+const dispatch = useDispatch();
+useEffect(() => {
+  dispatch(getUser());
+}, [dispatch]);
+
+const userData = useSelector((state) => state.userReducer);
+console.log(userData.name)
   const [name, setName] = useState('');
   const [lastname, setLastname] = useState('');
-  /*useEffect(() => {
-    setName(sName);
-    setLastname(sLastname);
-  }, [sName, sLastname]);*/
+  useEffect(() => {
+    setName(userData.name);
+    setLastname(userData.lastname);
+  }, [userData]);
 
   const handleClick = () => {
     dispatch(
@@ -30,20 +35,18 @@ const ProName = () => {
         Este es el nombre que aparece en tu documento de viaje, que puede ser
         una licencia de conducir o un pasaporte.
       </p>
-      <div style={{ border: '1px solid black' }}>
-        <p>Nombre</p>
-        <Input
+      <div style={{ margin: 10 }}>
+        <TextInput
+          label="Nombre"
           value={name}
           onChange={(event) => setName(event.currentTarget.value)}
-          variant="unstyled"
         />
       </div>
-      <div style={{ border: '1px solid black' }}>
-        <p>Apellido</p>
-        <Input
+      <div style={{ margin: 10 }}>
+        <TextInput
           value={lastname}
+          label="Apellido"
           onChange={(event) => setLastname(event.currentTarget.value)}
-          variant="unstyled"
         />
       </div>
       <button onClick={handleClick}>Guardar</button>

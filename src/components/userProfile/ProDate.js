@@ -1,13 +1,24 @@
 import { DatePicker } from '@mantine/dates';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector} from 'react-redux';
 import { userUpdate } from '../../store/reducers/User.reducer';
+import { getUser } from '../../store/reducers/User.reducer';
 import dayjs from 'dayjs/locale/es';
 
 const ProDate = () => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+  
+  const userData = useSelector((state) => state.userReducer);
+  console.log("cumple", userData.birthday)
 
-  const [birthday, setBirthday] = useState('');
+  const [birthday, setBirthday] = useState(userData.birthday);
+
+  useEffect(() => {
+    setBirthday(userData.birthday);
+  }, [userData]);
 
   const handleClick = () => {
     dispatch(
@@ -20,14 +31,13 @@ const ProDate = () => {
   };
   return (
     <div>
-      <div style={{ border: '1px solid black' }}>
-        <p>Fecha de nacimineto</p>
+      <div style={{ margin: 10 }}>
+        
         <DatePicker
+          label="Fecha de nacimiento"
+          placeholder={userData.birthday}
           value={birthday}
           onChange={setBirthday}
-          locale="es"
-          variant="unstyled"
-          inputFormat="DD MMM YYYY"
         />
       </div>
       <button onClick={handleClick}>Guardar</button>
