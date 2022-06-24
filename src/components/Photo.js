@@ -2,7 +2,9 @@ import '../styles/components/Photo.scss';
 import { useDispatch } from 'react-redux';
 
 const Photo = (props) => {
+
   const { src, x, y, index } = props;
+
   return (
     <div
       style={{ width: x, height: y }}

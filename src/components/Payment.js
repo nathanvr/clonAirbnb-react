@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 
 const handler = window.ePayco.checkout.configure({
   key: '3bbadb534f44b2ae75a9574c00c30a89',
@@ -10,14 +11,15 @@ const Payment = (props) => {
   const { bookingSiteData } = useSelector((state) => state.bookingSiteReducer);
   const { name, lastname } = useSelector((state) => state.userReducer);
   const fullName = name + ' ' + lastname;
-  console.log('desde el pago se carga el user', fullName);
+  const invoiceNumber = uuidv4();
+  console.log('desde el pago se carga el user', bookingSiteData);
 
   function handleClick() {
     handler.open({
       //Parametros compra (obligatorio)
       name: bookingSiteData.data.description_type,
       description: bookingSiteData.data.title,
-      invoice: '12asdffff333asd34',
+      invoice: invoiceNumber,
       currency: 'cop',
       amount: totalPay,
       tax_base: '0',
