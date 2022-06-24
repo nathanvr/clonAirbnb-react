@@ -19,8 +19,7 @@ import { z } from 'zod';
 import { useForm, zodResolver } from '@mantine/form';
 import { useSelector, useDispatch } from 'react-redux';
 import { postLogin } from '../store/reducers/User.reducer';
-import { useNavigate } from "react-router-dom";
-import { getUser } from '../store/reducers/User.reducer';
+
 
 const schema = z.object({
   email: z.string().email({ message: 'Invalid email' }),
@@ -85,7 +84,7 @@ const LoginModal = (props) => {
             name='email'
             value={user.email}
             onChange={handleChange}
-          
+            error={error !== null && true}
           />
 
           <PasswordInput
@@ -95,6 +94,7 @@ const LoginModal = (props) => {
             name='password'
             onChange={handleChange}
             value={user.password}
+            error={error !== null && true}
           />
           {error !== null && <Alert title="Error!" color="red">Usuario o contraseña incorrectos</Alert>}
           <div className="form__button__continue">
@@ -124,58 +124,11 @@ const LoginModal = (props) => {
               </div>
             </div>
           </button>
-          <button
-            type="submit"
-            className="form__buttons__sm__g btn btn-outline-dark">
-            <div className="form__buttons__sm__g__content">
-              <div className="form__buttons__sm__g__content--icon">
-                <BrandIcon
-                  iconType={faGoogle}
-                  colorIcon="black"
-                  sizeIcon="12px"
-                />
-              </div>
-              <div className="form__buttons__sm__g__content--text">
-                <span>Continua con Google</span>
-              </div>
-            </div>
-          </button>
-          <button
-            type="submit"
-            className="form__buttons__sm__a btn btn-outline-dark">
-            <div className="form__buttons__sm__a__content">
-              <div className="form__buttons__sm__a__content--icon">
-                <BrandIcon
-                  iconType={faApple}
-                  colorIcon="black"
-                  sizeIcon="12px"
-                />
-              </div>
-              <div className="form__buttons__sm__a__content--text">
-                <span>Continua con Apple</span>
-              </div>
-            </div>
-          </button>
-          <button
-            type="submit"
-            className="form__buttons__sm__em btn btn-outline-dark">
-            <div className="form__buttons__sm__em__content">
-              <div className="form__buttons__sm__em__content--icon">
-                <BrandIcon
-                  iconType={faEnvelope}
-                  colorIcon="black"
-                  sizeIcon="12px"
-                />
-              </div>
-              <div className="form__buttons__sm__em__content--text">
-                <span>Continua con el correo electronico</span>
-              </div>
-            </div>
-          </button>
+      
         </div>
 
         <Link onClick={() => setOpened(false)} to="forgotpassword">
-          <p id="forgot-password">Olvidaste la contraseña</p>
+          <p id="forgot-password">Olvidaste la contraseña?</p>
         </Link>
       </Modal>
     </div>
