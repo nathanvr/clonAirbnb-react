@@ -9,7 +9,6 @@ import ProDate from './userProfile/ProDate';
 import ProDescription from './userProfile/ProDescription';
 import { getUser } from '../store/reducers/User.reducer';
 
-
 const ProfilePill = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -22,12 +21,12 @@ const ProfilePill = () => {
   const [email, setEmail] = useState('');
   const [birthDay, setBirthDay] = useState('');
   const [description, setDescription] = useState('');
-  
+
   console.log('userDat: ', userData);
   console.log('birthday: ', birthDay, typeof birthDay);
 
   useEffect(() => {
-    setName(userData.name)
+    setName(userData.name);
     setImage(userData.image);
     setLastName(userData.lastname);
     setEmail(userData.email);
@@ -60,6 +59,11 @@ const ProfilePill = () => {
       label: 'Descripcion',
       description: `${description}`,
       content: <ProDescription />,
+    },
+    {
+      label: 'Contraseña',
+      description: 'Modifica tu contreseña',
+      content: <ProPassword />,
     },
   ];
 
