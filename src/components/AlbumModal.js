@@ -1,5 +1,6 @@
 import '../styles/components/AlbumModal.scss';
-import Modal from 'react-modal/lib/components/Modal';
+//import Modal from 'react-modal/lib/components/Modal';
+import { Modal } from '@mantine/core';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -9,8 +10,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import BrandIcon from './BrandIcon';
 import TextIcon from './TextIcon';
+import ModuleRandom from './ModuleRandom';
+import Module2vv from './Module2vv';
 
-Modal.setAppElement('#root');
+//Modal.setAppElement('#root');
 
 const styles = {
   display: 'flex',
@@ -18,34 +21,45 @@ const styles = {
 };
 
 const AlbumModal = (props) => {
-  const { site } = props;
-  const [modalOpen, setModalOpen] = useState(true);
-
+  const { site, album } = props;
+  const [modalOpen, setModalOpen] = useState(false);
+  console.log('Album: ', album);
   return (
     <div>
       <Link to="#" onClick={() => setModalOpen(true)}>
         {site}
       </Link>
-      <Modal isOpen={modalOpen} onRequestClose={() => setModalOpen(false)}>
-        <div style={styles}>
-          <BrandIcon
-            iconType={faAngleLeft}
-            colorIcon={{ color: '#484848' }}
-            sizeIcon="16px"
-          />
-          <div style={styles}>
-            <TextIcon
-              iconType={faArrowUpFromBracket}
-              colorIcon="#222222"
+      <Modal
+        size="full"
+        withCloseButton={false}
+        opened={modalOpen}
+        onClose={() => setModalOpen(false)}
+        overlayOpacity={0.55}
+        overlayBlur={3}>
+        <div className="album-modal-container">
+          <div className="album-modal-header">
+            <BrandIcon
+              iconType={faAngleLeft}
+              colorIcon={{ color: '#484848' }}
               sizeIcon="16px"
-              text="Compartir"
             />
-            <TextIcon
-              iconType={faHeart}
-              colorIcon="#222222"
-              sizeIcon="16px"
-              text="Guardar"
-            />
+            <div>
+              <TextIcon
+                iconType={faArrowUpFromBracket}
+                colorIcon="#222222"
+                sizeIcon="16px"
+                text="Compartir"
+              />
+              <TextIcon
+                iconType={faHeart}
+                colorIcon="#222222"
+                sizeIcon="16px"
+                text="Guardar"
+              />
+            </div>
+          </div>
+          <div className="album-modal-main">
+            <ModuleRandom album={album} length={album.length + 1} />
           </div>
         </div>
       </Modal>

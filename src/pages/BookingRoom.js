@@ -20,6 +20,9 @@ import { Icon } from '@iconify/react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import { faRedRiver } from '@fortawesome/free-brands-svg-icons';
 
+import AlbumModal from '../components/AlbumModal';
+
+
 const containerStyle = {
   width: '500px',
   height: '400px',
@@ -51,7 +54,8 @@ const BookingRoom = () => {
   }
 
   const photos = [...bookingSiteData.data.images.toString().split(',')];
-  console.log(photos);
+
+  console.log('Photos: ', photos);
   const listPhothos = [];
 
   photos.forEach((element) => {
@@ -71,10 +75,13 @@ const BookingRoom = () => {
               <img src={photo} alt={index} />
             </div>
           ))} */}
-        <PhotoAlbum layout="rows" photos={listPhothos} />
-
+        <Album album={photos} />
         {/* <Album /> */}
       </div>
+
+      <button>
+        <AlbumModal site="Album" album={photos} />
+      </button>
 
       <div className="info-reserva">
         <div id="left">
