@@ -23,6 +23,7 @@ const Navbar = () => {
   const { isLoggedIn, name, role, image } = useSelector(
     (state) => state.userReducer
   );
+  console.log(image)
   //console.log('userData_nav: ', userData);
 
   /*useEffect(() => {
@@ -74,8 +75,14 @@ const Navbar = () => {
                   className={
                     location.pathname === '/' ? 'info-user-home' : 'info-user'
                   }>
-                  <Avatar radius="xl" size="sm" src={image} />
-                  <p>{name}</p>
+                    <div className='avatar1'>
+                      <div>
+                  <Avatar radius="xl" size={30} src={image === undefined ? null : image} /></div>
+                  <div>
+                  {name}
+                  </div>
+                  </div>
+                  
                 </div>
               }
               trigger="hover"

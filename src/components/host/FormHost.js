@@ -44,8 +44,8 @@ const options3 = [
     {value:"shared", label:"Una habitación compartida"},
 ]
 const containerStyle = {
-    width: '500px',
-    height: '400px'
+    width: '350px',
+    height: '250px'
   };
 
 const FormHost =(props)=>{
@@ -274,12 +274,11 @@ console.log(file)
     });
     const onLoad = marker => {
         console.log('marker: ', marker)
-      }
-      
+    }
     return (
         <div>
             <Link to="#" onClick={() => setOpened(true)}>{sitio}</Link>
-                <Modal size="90%" opened={opened}
+                <Modal size="70%" opened={opened}
                 onClose={() => setOpened(false)}
                 overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
                 overlayOpacity={0.55}
@@ -404,7 +403,7 @@ console.log(file)
                                         <GoogleMap
                                                 mapContainerStyle={containerStyle}
                                                 center={center}
-                                                zoom={9}>
+                                                zoom={15}>
                                                     <Marker  visible={true} onLoad={onLoad} position={position} />
                                                 
                                             </GoogleMap>

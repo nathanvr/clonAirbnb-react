@@ -1,28 +1,34 @@
 import { Group, Text, Accordion, Input } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ImageFrame from './userProfile/ImageFrame';
 import ProImage from './userProfile/ProImage';
 import ProName from './userProfile/ProName';
 import ProEmail from './userProfile/ProEmail';
 import ProDate from './userProfile/ProDate';
 import ProDescription from './userProfile/ProDescription';
-import { getSpaceUntilMaxLength } from '@testing-library/user-event/dist/utils';
+import { getUser } from '../store/reducers/User.reducer';
+
 
 const ProfilePill = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+  const userData = useSelector((state) => state.userReducer);
   const [image, setImage] = useState('');
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [birthDay, setBirthDay] = useState(new Date());
+  const [birthDay, setBirthDay] = useState('');
   const [description, setDescription] = useState('');
-  const userData = useSelector((state) => state.userReducer);
+  
   console.log('userDat: ', userData);
   console.log('birthday: ', birthDay, typeof birthDay);
 
   useEffect(() => {
+    setName(userData.name)
     setImage(userData.image);
-    setName(userData.name);
     setLastName(userData.lastname);
     setEmail(userData.email);
     setBirthDay(userData.birthday);
@@ -40,11 +46,11 @@ const ProfilePill = () => {
       description: `${name} ${lastName}`,
       content: <ProName />,
     },
-    {
+    /*{
       label: 'Dirección de correo electrónico',
       description: `${email}`,
       content: <ProEmail />,
-    },
+    },*/
     {
       label: 'Fecha de nacimiento',
       description: `${birthDay}`,
