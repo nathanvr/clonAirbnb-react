@@ -55,10 +55,10 @@ const BookingRoom = () => {
 
   const photos = [...bookingSiteData.data.images.toString().split(',')];
 
-  console.log('Photos: ', photos);
+  console.log('Photos: ', bookingSiteData.data);
   const listPhothos = [];
 
-  photos.forEach((element) => {
+bookingSiteData.data.images.forEach((element) => {
     listPhothos.push({
       src: element,
       width: 25,
@@ -224,7 +224,7 @@ const BookingRoom = () => {
                 lat: Number(bookingSiteData.data.lat),
                 lng: Number(bookingSiteData.data.lng),
               }}
-              zoom={9}>
+              zoom={15}>
               <Marker
                 visible={true}
                 position={{

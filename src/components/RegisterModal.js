@@ -92,7 +92,7 @@ const RegisterModal = (props) => {
           }
           overlayOpacity={0.55}
           overlayBlur={3}>
-          <form className="form-register" onSubmit={handleSubmit}>
+          <form className="form-register" onSubmit={handleSubmit}> 
             {loading === true && (
               <div className="loading" style={{ width: 400, zIndex: 1000 }}>
                 <LoadingOverlay visible={visible} />
