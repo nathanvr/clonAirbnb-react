@@ -18,6 +18,7 @@ import { getBookingSite } from '../store/reducers/BookingSite.reducer';
 import PhotoAlbum from 'react-photo-album';
 import { Icon } from '@iconify/react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+import { faRedRiver } from '@fortawesome/free-brands-svg-icons';
 
 const containerStyle = {
   width: '500px',
@@ -49,10 +50,9 @@ const BookingRoom = () => {
     return <p>Lo sentimos, ha ocurrido un error. {error}</p>;
   }
 
-  const photos = [...bookingSiteData.data.images.toString().split(",")];
+  const photos = [...bookingSiteData.data.images.toString().split(',')];
   console.log(photos);
   const listPhothos = [];
-
 
   photos.forEach((element) => {
     listPhothos.push({
@@ -75,19 +75,35 @@ const BookingRoom = () => {
 
         {/* <Album /> */}
       </div>
+
       <div className="info-reserva">
         <div id="left">
           <section className="titulo-Host">
-            <InfoHostTitulo
-              tiporeserva={bookingSiteData.data.title}
-              // Host={booking.host}
-              maxhuespedes={bookingSiteData.data.total_occupancy}
-              numbeds={bookingSiteData.data.total_beds}
-              numbath={bookingSiteData.data.total_bathrooms}
-              numrooms={bookingSiteData.data.total_rooms}
-              src={Host1}>
-              {' '}
-            </InfoHostTitulo>
+            {bookingSiteData.data.userId.image ? (
+              <InfoHostTitulo
+                tiporeserva={bookingSiteData.data.title}
+                Host={bookingSiteData.data.userId.name}
+                maxhuespedes={bookingSiteData.data.total_occupancy}
+                numbeds={bookingSiteData.data.total_beds}
+                numbath={bookingSiteData.data.total_bathrooms}
+                numrooms={bookingSiteData.data.total_rooms}
+                src={bookingSiteData.data.userId.image}>
+                {' '}
+              </InfoHostTitulo>
+            ) : (
+              <InfoHostTitulo
+                tiporeserva={bookingSiteData.data.title}
+                Host={bookingSiteData.data.userId.name}
+                maxhuespedes={bookingSiteData.data.total_occupancy}
+                numbeds={bookingSiteData.data.total_beds}
+                numbath={bookingSiteData.data.total_bathrooms}
+                numrooms={bookingSiteData.data.total_rooms}
+                src={
+                  'https://res.cloudinary.com/dhacdmuvs/image/upload/v1656033094/user_z5tc8r.jpg'
+                }>
+                {' '}
+              </InfoHostTitulo>
+            )}
           </section>
           <section className="aircover">
             <Aircoversection></Aircoversection>
@@ -227,33 +243,18 @@ const BookingRoom = () => {
       </div>
 
       <div className="footer">
-        <h2>★ 4.9 - 60 reseñas</h2>
-        <section className="Reseñas">
-          <ReseñaReserva
-            cliente="Stormy"
-            fecha="abril de 2022"
-            comentario="¡Este lugar era aún mejor que en las fotos! ¡Lo recomendaría encarecidamente!"
-            src={persona1}
-          />
-          <ReseñaReserva
-            cliente="Stormy"
-            fecha="abril de 2022"
-            comentario="¡Este lugar era aún mejor que en las fotos! ¡Lo recomendaría encarecidamente!"
-            src={persona1}
-          />
-          <ReseñaReserva
-            cliente="Stormy"
-            fecha="abril de 2022"
-            comentario="¡Este lugar era aún mejor que en las fotos! ¡Lo recomendaría encarecidamente!"
-            src={persona1}
-          />
-          <ReseñaReserva
-            cliente="Stormy"
-            fecha="abril de 2022"
-            comentario="¡Este lugar era aún mejor que en las fotos! ¡Lo recomendaría encarecidamente!"
-            src={persona1}
-          />
-        </section>
+        <h2> {bookingSiteData.data.reviews.length} reseñas</h2>
+
+        {bookingSiteData.data.reviews.map((review, index) => (
+          <section className="Reseñas" key={index}>
+            <ReseñaReserva
+              cliente={review.user}
+              fecha="abril de 2022"
+              comentario={review.comment}
+              src={persona1}
+            />
+          </section>
+        ))}
       </div>
     </div>
   );

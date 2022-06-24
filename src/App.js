@@ -17,6 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const token = localStorage.getItem('token');
   const { role } = useSelector((state) => state.userReducer);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,7 +25,7 @@ function App() {
       dispatch(getUser());
     }
   }, [dispatch]);
-  console.log(role);
+  console.log('rol del usuario', role);
 
   return (
     <div className="App">

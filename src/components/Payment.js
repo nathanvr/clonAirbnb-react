@@ -12,7 +12,7 @@ const Payment = (props) => {
   const { name, lastname } = useSelector((state) => state.userReducer);
   const fullName = name + ' ' + lastname;
   const invoiceNumber = uuidv4();
-  console.log('desde el pago se carga el user', fullName);
+  console.log('desde el pago se carga el user', bookingSiteData);
 
   function handleClick() {
     handler.open({
