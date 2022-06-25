@@ -1,7 +1,7 @@
-import { PasswordInput, Button } from '@mantine/core';
+import { PasswordInput, Button, Header } from '@mantine/core';
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { userUpdate } from '../../store/reducers/User.reducer';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import { getUser } from '../../store/reducers/User.reducer';
 
 const ProPass = () => {
@@ -127,7 +127,23 @@ const ProPass = () => {
     });
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const token = localStorage.getItem('token');
+    const response = await axios.put(
+      'http://localhost:8080/users/changepassword',
+      {
+        password: input.password,
+        newpassword: input.newPassword,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log('Response: ', response);
+  };
 
   return (
     <div>
