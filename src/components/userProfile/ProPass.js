@@ -10,9 +10,11 @@ const ProPass = () => {
     dispatch(getUser());
   }, [dispatch]);
   const [disabled, setDisabled] = useState(false);
+  const [invalidPass, setInvalidPass] = useState(false);
   const [pass, setPass] = useState({
     password: false,
     newPassword: false,
+    oldPass: '',
   });
   const [input, setInput] = useState({
     password: '',
@@ -23,13 +25,26 @@ const ProPass = () => {
     password: '',
     newPassword: '',
     confirmPassword: '',
+    invalidpass: '',
   });
 
   useEffect(() => {
     setDisabled(pass.password && pass.newPassword);
   }, [pass.password, pass.newPassword]);
 
+  useEffect(() => {
+    setError((prev) => ({
+      ...prev,
+      invalidpass: invalidPass
+        ? 'Su contraseña antigua es invalida'
+        : 'Contraseña modificada exitosamente',
+    }));
+  }, [invalidPass]);
   const onInputChange = (event) => {
+    setError((prev) => ({
+      ...prev,
+      invalidpass: '',
+    }));
     const { name, value } = event.target;
     console.log('Event: ', event.target);
     setInput((prev) => ({
@@ -62,6 +77,7 @@ const ProPass = () => {
             }));
           }
           break;
+
         case 'newPassword':
           if (!value) {
             stateObj[name] = 'Por favor ingrese una nueva contraseña';
@@ -92,6 +108,7 @@ const ProPass = () => {
               : error.confirmPassword;
           }
           break;
+
         case 'confirmPassword':
           if (!value) {
             stateObj[name] = 'Por favor confirme la nueva contraseña.';
@@ -118,6 +135,7 @@ const ProPass = () => {
             }
           }
           break;
+
         default:
           break;
       }
@@ -130,19 +148,27 @@ const ProPass = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem('token');
-    const response = await axios.put(
-      'http://localhost:8080/users/changepassword',
-      {
-        password: input.password,
-        newpassword: input.newPassword,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    if (input.password !== pass.oldPass) {
+      const response = await axios.put(
+        'http://localhost:8080/users/changepassword',
+        {
+          password: input.password,
+          newpassword: input.newPassword,
         },
-      }
-    );
-    console.log('Response: ', response);
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log('Response: ', response);
+      setInput((prev) => ({
+        password: '',
+        newPassword: '',
+        confirmPassword: '',
+      }));
+      setInvalidPass(!response.data.data);
+    }
   };
 
   return (
@@ -186,6 +212,7 @@ const ProPass = () => {
       <Button disabled={!disabled} onClick={handleSubmit}>
         Guardar
       </Button>
+      {error.invalidpass && <span className="err">{error.invalidpass}</span>}
     </div>
   );
 };
