@@ -1,54 +1,165 @@
-import { PasswordInput } from '@mantine/core';
+import { PasswordInput, Button } from '@mantine/core';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { userUpdate } from '../../store/reducers/User.reducer';
+import { getUser } from '../../store/reducers/User.reducer';
 
 const ProPass = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
+  const [disabled, setDisabled] = useState(false);
+  const [pass, setPass] = useState({
+    password: false,
+    newPassword: false,
+  });
+  const [input, setInput] = useState({
+    password: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+  const [error, setError] = useState({
+    password: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
 
-  const userData = useSelector((state) => state.userReducer);
-  console.log(userData.name);
-  const [name, setName] = useState('');
-  const [lastname, setLastname] = useState('');
   useEffect(() => {
-    setName(userData.name);
-    setLastname(userData.lastname);
-  }, [userData]);
+    setDisabled(pass.password && pass.newPassword);
+  }, [pass.password, pass.newPassword]);
 
-  const handleClick = () => {
-    dispatch(
-      userUpdate({
-        name: name,
-        lastname: lastname,
-      })
-    );
+  const onInputChange = (event) => {
+    const { name, value } = event.target;
+    console.log('Event: ', event.target);
+    setInput((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    validateInput(event);
   };
+
+  const validateInput = (event) => {
+    let { name, value } = event.target;
+
+    console.log('Disabled: ', disabled);
+    setError((prev) => {
+      console.log('Prev: ', prev);
+      const stateObj = { ...prev, [name]: '' };
+
+      switch (name) {
+        case 'password':
+          if (!value) {
+            stateObj[name] = 'Por favor ingrese su antigua contraseña';
+            setPass((prev) => ({
+              ...prev,
+              [name]: false,
+            }));
+          } else {
+            setPass((prev) => ({
+              ...prev,
+              [name]: true,
+            }));
+          }
+          break;
+        case 'newPassword':
+          if (!value) {
+            stateObj[name] = 'Por favor ingrese una nueva contraseña';
+            setPass((prev) => ({
+              ...prev,
+              [name]: false,
+            }));
+          } else if (input.confirmPassword && value !== input.confirmPassword) {
+            stateObj['confirmPassword'] = 'Las contraseñas no coinciden';
+            setPass((prev) => ({
+              ...prev,
+              [name]: false,
+            }));
+          } else if (input.confirmPassword && value === input.confirmPassword) {
+            stateObj['confirmPassword'] = '';
+            setPass((prev) => ({
+              ...prev,
+              [name]: true,
+            }));
+          } else {
+            stateObj['confirmPassword'] = input.confirmPassword
+              ? ''
+              : error.confirmPassword;
+          }
+          break;
+        case 'confirmPassword':
+          if (!value) {
+            stateObj[name] = 'Por favor confirme la nueva contraseña.';
+            setPass((prev) => ({
+              ...prev,
+              newPassword: false,
+            }));
+          } else if (input.newPassword && value !== input.newPassword) {
+            stateObj[name] = 'Las contraseñas no coinciden.';
+            setPass((prev) => ({
+              ...prev,
+              newPassword: false,
+            }));
+          } else if (input.newPassword && value === input.newPassword) {
+            stateObj[name] = '';
+            setPass((prev) => ({
+              ...prev,
+              newPassword: true,
+            }));
+          }
+          break;
+        default:
+          break;
+      }
+
+      console.log('stateObj: ', stateObj);
+      return stateObj;
+    });
+  };
+
+  const handleSubmit = () => {};
 
   return (
     <div>
       <p>Modifica tu contraseña de ingreso</p>
       <div style={{ margin: 10 }}>
         <PasswordInput
-          label="Nombre"
-          value={name}
-          onChange={(event) => setName(event.currentTarget.value)}
+          type="password"
+          name="password"
+          value={input.password}
+          placeholder="Password"
+          label="Contraseña actual"
+          onChange={onInputChange}
         />
+        {error.password && <span className="err">{error.password}</span>}
       </div>
       <div style={{ margin: 10 }}>
         <PasswordInput
-          value={lastname}
-          label="Apellido"
-          onChange={(event) => setLastname(event.currentTarget.value)}
+          type="password"
+          name="newPassword"
+          value={input.newPassword}
+          label="Nueva contraseña"
+          onChange={onInputChange}
+          onBlur={validateInput}
         />
+        {error.newPassword && <span className="err">{error.newPassword}</span>}
       </div>
       <div style={{ margin: 10 }}>
         <PasswordInput
-          value={lastname}
-          label="Apellido"
-          onChange={(event) => setLastname(event.currentTarget.value)}
+          type="password"
+          name="confirmPassword"
+          value={input.confirmPassword}
+          label="Confirma la contraseña"
+          onChange={onInputChange}
+          onBlur={validateInput}
         />
+        {error.confirmPassword && (
+          <span className="err">{error.confirmPassword}</span>
+        )}
       </div>
-      <button onClick={handleClick}>Guardar</button>
+      <Button disabled={!disabled} onClick={handleSubmit}>
+        Guardar
+      </Button>
     </div>
   );
 };

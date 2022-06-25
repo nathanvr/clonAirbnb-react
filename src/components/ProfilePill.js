@@ -7,6 +7,7 @@ import ProName from './userProfile/ProName';
 import ProEmail from './userProfile/ProEmail';
 import ProDate from './userProfile/ProDate';
 import ProDescription from './userProfile/ProDescription';
+import ProPass from './userProfile/ProPass';
 import { getUser } from '../store/reducers/User.reducer';
 
 const ProfilePill = () => {
@@ -63,7 +64,7 @@ const ProfilePill = () => {
     {
       label: 'Contraseña',
       description: 'Modifica tu contreseña',
-      content: <ProPassword />,
+      content: <ProPass />,
     },
   ];
 
