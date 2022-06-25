@@ -76,11 +76,16 @@ const ProPass = () => {
               [name]: false,
             }));
           } else if (input.confirmPassword && value === input.confirmPassword) {
-            stateObj['confirmPassword'] = '';
-            setPass((prev) => ({
-              ...prev,
-              [name]: true,
-            }));
+            if (input.password === input.newPassword) {
+              stateObj.confirmPassword =
+                'La nueva contraseña no puede ser igual a la antigua.';
+            } else {
+              stateObj['confirmPassword'] = '';
+              setPass((prev) => ({
+                ...prev,
+                [name]: true,
+              }));
+            }
           } else {
             stateObj['confirmPassword'] = input.confirmPassword
               ? ''
@@ -101,11 +106,16 @@ const ProPass = () => {
               newPassword: false,
             }));
           } else if (input.newPassword && value === input.newPassword) {
-            stateObj[name] = '';
-            setPass((prev) => ({
-              ...prev,
-              newPassword: true,
-            }));
+            if (input.password === input.newPassword) {
+              stateObj.confirmPassword =
+                'La nueva contraseña no puede ser igual a la antigua.';
+            } else {
+              stateObj[name] = '';
+              setPass((prev) => ({
+                ...prev,
+                newPassword: true,
+              }));
+            }
           }
           break;
         default:
