@@ -1,7 +1,7 @@
 import React,{ useState, useMemo, useRef, useEffect} from "react";
-import { Modal, useMantineTheme, Textarea} from '@mantine/core';
-import { Link } from "react-router-dom";
-import { NumberInput,Select, CheckboxGroup, Checkbox, TextInput, Button } from '@mantine/core';
+import { Modal, useMantineTheme, Textarea, LoadingOverlay} from '@mantine/core';
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { NumberInput,Select, CheckboxGroup, Checkbox, TextInput, Button , ScrollArea } from '@mantine/core';
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Icon } from '@iconify/react';
@@ -12,6 +12,8 @@ import {
     useLoadScript,
 } from '@react-google-maps/api'
 import { Trash } from 'tabler-icons-react';
+import { toast } from 'react-toastify';
+
 const options1 = [
     {value:"apartment", label:"Apartamentos"},
     {value:"house", label:"Casa"},
@@ -41,13 +43,13 @@ const options3 = [
     {value:"shared", label:"Una habitación compartida"},
 ]
 const containerStyle = {
-    width: '500px',
-    height: '400px'
+    width: '350px',
+    height: '250px'
   };
 
 const EditFormHost =({booking})=>{
-    console.log(booking, "desde el edit")
     const { name} = useSelector((state) => state.userReducer);
+    const navigate=useNavigate()
     const theme = useMantineTheme();
     const string = booking.services.toString();
     const services= string.split(",");
@@ -78,6 +80,9 @@ const EditFormHost =({booking})=>{
     const [center ,setCenter]=useState({ lat: Number(booking.lat), lng: Number(booking.lng)})
     const [position,setPosition]=useState({ lat: Number(booking.lat), lng: Number(booking.lng)})
     const [images, setImages]= useState(cosita)
+    const [loading, setLoading] = useState(false);
+    const [visible, setVisible] = useState(false);
+    const [error, setError] = useState(null);
     const [ libraries ] = useState(['places']);
  
   const onLoad = marker => {
@@ -171,6 +176,8 @@ const EditFormHost =({booking})=>{
     
     async function handleSubmit(e) {
         e.preventDefault();
+        setLoading(true);
+        setVisible(true);
         const data = new FormData();
         data.append("home_type", home_type)
         data.append("description_type", description_type)
@@ -201,7 +208,7 @@ const EditFormHost =({booking})=>{
             }
         }
         
-
+        try{
         const token = localStorage.getItem('token');
         const response = await axios.put(`http://localhost:8080/bookingsites/update/${booking._id}`, data, {
         headers: {
@@ -212,10 +219,37 @@ const EditFormHost =({booking})=>{
         
     });
     console.log(response)
-    if(response.status===201){
-
+    if(response.status===200){
+        setLoading(false)
+        setVisible(false);
+        toast.success('Se actualizó tu sitio', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+        
+        
     }
-    
+    }catch(error){
+        setError(error);
+        setLoading(false);
+        setVisible(false);
+        toast.error('No se pudo actualizar tu sitio', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+    }finally{
+        window.location.reload();
+    }
     }
     
     function handleChange(e) {
@@ -223,9 +257,7 @@ const EditFormHost =({booking})=>{
     setFile(e.target.files);
     } 
 
-console.log("aqui las imagemes", booking.images)
-console.log("aqui las imagedfgdfs", images)
-console.log("aqui el id", booking._id)
+
 
     function readFile(file) {
         const reader = new FileReader();
@@ -257,36 +289,40 @@ console.log("aqui el id", booking._id)
 
     if(!isLoaded) return <div>Loading...</div>;
 
-    const listItems = isChecked.map((element) =>{
-    if(element==="pool"){
-    return <p><Icon icon="cil:pool"/>Piscina</p>}else if (element==="jacuzzi")
-    {
-        return <p><Icon icon="emojione-monotone:bathtub"/>Jacuzzi</p>}else if (element==="bbq")
-        {
-            return <p><Icon icon="iconoir:bbq"/>Parrila</p>}else if (element==="woodfire")
-            {
-                return <p><Icon icon="icon-park-outline:fire-two"/>Fogata</p>}else if (element==="essentialservices")
-                {
-                    return <p><Icon icon="ep:toilet-paper"/>Servicios esenciales</p>}else if (element==="hotwater")
-                    {
-                        return <p><Icon icon="ph:thermometer-hot"/>Agua caliente</p>}else if (element==="wifi")
-                        {
-                            return <p><Icon icon="clarity:wifi-line"/>Wifi</p>}else if (element==="tv")
-                            {
-                                return <p><Icon icon="arcticons:hanju-tv"/>Tv</p>}else if (element==="kitchen")
-                                {
-                                    return <p><Icon icon="tabler:tools-kitchen-2"/>Cocina</p>}else if (element==="washer")
-                                    {
-                                        return <p><Icon icon="bxs:washer"/>Lavadora</p>}else if (element==="airconditioner")
-                                        {
-                                            return <p><Icon icon="iconoir:air-conditioner"/>Aire acondicionado</p>}else if (element==="firstaidkit")
-                                            {
-                                                return <p><Icon icon="clarity:first-aid-kit-line"/>Botiquín</p>}
+    const listItems = isChecked.map((element, index) =>{
+        switch(element){
+            case "pool":
+                return <p key={element}><Icon icon="cil:pool"/>Piscina</p>;
+            case "jacuzzi":
+                return <p key={element}><Icon icon="emojione-monotone:bathtub"/>Jacuzzi</p>
+            case "bbq":
+                return <p key={element}> <Icon icon="iconoir:bbq"/>Parrila</p>;
+            case "woodfire":
+                return <p key={element}><Icon icon="icon-park-outline:fire-two"/>Fogata</p>
+            case "essentialservices":
+                return <p key={element}><Icon icon="ep:toilet-paper"/>Servicios esenciales</p>;
+            case "hotwater":
+                return <p key={element}><Icon icon="ph:thermometer-hot"/>Agua caliente</p>
+            case "wifi":
+                return <p key={element}><Icon icon="clarity:wifi-line"/>Wifi</p>;
+            case "tv":
+                return <p key={element}><Icon icon="arcticons:hanju-tv"/>Tv</p>
+            case "kitchen":
+                return <p key={element}><Icon icon="tabler:tools-kitchen-2"/>Cocina</p>
+            case "washer":
+                return <p key={element}><Icon icon="bxs:washer"/>Lavadora</p>
+            case "airconditioner":
+                return <p key={element}><Icon icon="iconoir:air-conditioner"/>Aire acondicionado</p>
+            case "firstaidkit":
+                return <p key={element}><Icon icon="clarity:first-aid-kit-line"/>Botiquín</p>
+            
+                
+        }
     });
     return (
         <div>
             <Button color="violet" onClick={() => setOpened(true)}>Editar</Button>
-                <Modal size="90%" opened={opened}
+                <Modal size="70%" opened={opened}
                 onClose={() => setOpened(false)}
                 overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
                 overlayOpacity={0.55}
@@ -294,6 +330,11 @@ console.log("aqui el id", booking._id)
             
             <div className="container-form">
                 <form onSubmit={handleSubmit}>
+                {loading ===true && 
+                <div className='loading' style={{ width: 400}}>
+                <LoadingOverlay loaderProps={{ size: 'sm', color: 'pink', variant: 'bars' }} visible={visible} />
+                {/* ...other content */}
+                </div>}
                 {formStep===0 && 
                 <section>
                     <div className="typebooking">
@@ -399,22 +440,21 @@ console.log("aqui el id", booking._id)
                 {formStep===2 &&<section>
                     <div className="typebooking2">
                     <h1>Paso 3: Selecciona tu ubicación</h1>
-                        
-                    <h2>Ingresa la ubicación del espacio</h2>
                                 <section className="section-map">
 
                                     <div className="adress_content">
                                             <PlacesAutocomplete childToParent={childToParent}/>
-                                            {address}
+                                            
                                             <TextInput label="Pais" required value={country} onChange={(event) => setCountry(event.currentTarget.value)}></TextInput>
                                             <TextInput label="Ciudad" required value={city} onChange={(event) => setCity(event.currentTarget.value)}></TextInput>
                                             <TextInput label="Zipcode" value={zipcode} onChange={(event) => setZipcode(event.currentTarget.value)}></TextInput>
                                         </div>
                                         <div className="coordinates">
+                                        {address}
                                         <GoogleMap
                                                 mapContainerStyle={containerStyle}
                                                 center={center}
-                                                zoom={9}>
+                                                zoom={15}>
                                                     <Marker  visible={true} onLoad={onLoad} position={position} />
                                                 
                                             </GoogleMap>
@@ -490,10 +530,11 @@ console.log("aqui el id", booking._id)
                 </div>
                 </section>}
                 {formStep===5 &&    <section>
-                <div className="typebooking4">
+                    <div className="typebooking5">
+                <ScrollArea style={{ height: 350 }}>
                                 <h2>Revisa tu anuncio</h2>
                                 <div className="addphotos">
-                                    <img src={images[0]} alt="bookingphoto" loading="lazy"></img>
+                                    {!!image && <img src={image} alt="upload preview" />}
                                 </div>
                                 <div>
                                 <h3>{title} - Anfitrión: {name}. {price}</h3>
@@ -510,9 +551,9 @@ console.log("aqui el id", booking._id)
                                     {listItems}
                                 </div>
 
-                                <section className="buttons">
-                                <button>Enviar</button>
-                                </section>
+
+                                <button className="send-form">Enviar</button>
+                </ScrollArea>
                 </div>
                 </section>}
                 </form>
