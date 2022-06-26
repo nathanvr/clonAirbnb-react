@@ -218,6 +218,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loading: true,
         isLoggedIn: false,
+        error:null
       };
 
     case USER_LOGIN_ERROR:
@@ -333,6 +334,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         isLoggedIn: true,
         loading: false,
+        error:null,
       };
     default:
       return state;
