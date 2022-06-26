@@ -10,11 +10,10 @@ const ProPass = () => {
     dispatch(getUser());
   }, [dispatch]);
   const [disabled, setDisabled] = useState(false);
-  const [invalidPass, setInvalidPass] = useState(false);
+  const [invalidPass, setInvalidPass] = useState(null);
   const [pass, setPass] = useState({
     password: false,
     newPassword: false,
-    oldPass: '',
   });
   const [input, setInput] = useState({
     password: '',
@@ -39,12 +38,14 @@ const ProPass = () => {
         ? 'Su contraseña antigua es invalida'
         : 'Contraseña modificada exitosamente',
     }));
+    console.log('InPass: ', invalidPass, 'ObjinPass: ', error.invalidpass);
   }, [invalidPass]);
   const onInputChange = (event) => {
     setError((prev) => ({
       ...prev,
       invalidpass: '',
     }));
+    setInvalidPass(null);
     const { name, value } = event.target;
     console.log('Event: ', event.target);
     setInput((prev) => ({
@@ -148,27 +149,30 @@ const ProPass = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem('token');
-    if (input.password !== pass.oldPass) {
-      const response = await axios.put(
-        'http://localhost:8080/users/changepassword',
-        {
-          password: input.password,
-          newpassword: input.newPassword,
+    const response = await axios.put(
+      'http://localhost:8080/users/changepassword',
+      {
+        password: input.password,
+        newpassword: input.newPassword,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log('Response: ', response);
-      setInput((prev) => ({
-        password: '',
-        newPassword: '',
-        confirmPassword: '',
-      }));
-      setInvalidPass(!response.data.data);
-    }
+      }
+    );
+    console.log('Response: ', response);
+    setInput((prev) => ({
+      password: '',
+      newPassword: '',
+      confirmPassword: '',
+    }));
+    console.log('Response:', response.data.data);
+    setInvalidPass(!response.data.data);
+    setPass((prev) => ({
+      password: false,
+      newpassword: false,
+    }));
   };
 
   return (
