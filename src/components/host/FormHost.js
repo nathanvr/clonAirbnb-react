@@ -1,7 +1,7 @@
 import React,{ useState, useMemo, useRef} from "react";
-import { Modal, useMantineTheme, Textarea} from '@mantine/core';
+import { Modal, useMantineTheme, Textarea, LoadingOverlay} from '@mantine/core';
 import { Link, useNavigate } from "react-router-dom";
-import { NumberInput,Select, CheckboxGroup, Checkbox, TextInput } from '@mantine/core';
+import { NumberInput,Select, CheckboxGroup, Checkbox, TextInput, ScrollArea } from '@mantine/core';
 import axios from "axios";
 import {
     GoogleMap,
@@ -11,7 +11,8 @@ import {
 import { useSelector } from "react-redux";
 import { Icon } from '@iconify/react';
 import PlacesAutocomplete from "../Maps/PlacesAutocomplete";
-import { set } from "zod";
+import { toast } from 'react-toastify';
+
 
 
 
@@ -50,6 +51,7 @@ const containerStyle = {
 
 const FormHost =(props)=>{
     const { sitio } = props;
+    const navigate = useNavigate();
     const { name} = useSelector((state) => state.userReducer);
     const theme = useMantineTheme();
     const [opened, setOpened] = useState(false);
@@ -58,7 +60,6 @@ const FormHost =(props)=>{
     const [countRooms, setCountRooms] = useState(0);
     const [countBaths, setCountBaths] = useState(0);
     const [isChecked, setIsChecked] = useState([]);
-    console.log(isChecked)
     const [home_type, setHome_type] = useState(null);
     const [description_type, setDescription_type] = useState(null);
     const [room_type, setRoom_type] = useState(null);
@@ -77,12 +78,11 @@ const FormHost =(props)=>{
     const [selected, setSelected] = useState(null)
     const [center ,setCenter]=useState({ lat: 4.570868, lng: -74.297333})
     const [position,setPosition]=useState({ lat: 4.570868, lng: -74.297333})
-     /** @type React.MutableRefObject<HTMLInputElement> */
-  const originRef = useRef()
-  /** @type React.MutableRefObject<HTMLInputElement> */
-    const destiantionRef = useRef()
     const [ libraries ] = useState(['places']);
     const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [visible, setVisible] = useState(false);
+    const [error, setError] = useState(null);
     const childToParent = (childdata) => {
     setAddress(childdata.value)
     setLat(childdata.lat)
@@ -178,6 +178,8 @@ console.log("latitu",lati,lngi,city,country,zipcode, address)
     
     async function handleSubmit(e) {
         e.preventDefault();
+        setLoading(true);
+        setVisible(true);
         const data = new FormData();
         data.append("home_type", home_type)
         data.append("description_type", description_type)
@@ -196,46 +198,62 @@ console.log("latitu",lati,lngi,city,country,zipcode, address)
         data.append("zipcode", zipcode)
         data.append("lat", lati)
         data.append("lng", lngi)
-        //data.append("file",file)
         if (file) {
             console.log(typeof file);
             for (let i = 0; i < file.length; i++) {
-              //nombre de la propiedad, archivo y nombre del archivo
             data.append(`file_${i}`, file[i], file[i].name);
             }
         }
-        
+        try{
         const token = localStorage.getItem('token');
         const response = await axios.post("http://localhost:8080/bookingsites/post", data, {
         headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
-        },
-        
-        
-    });
-    console.log(response)
-    if(response.status===201){
-        window.location.reload();
+        },        
+        });
+        console.log(response)
+        if(response.status===201){
+            setLoading(false)
+            setVisible(false);
+            toast.success('Se creó tu sitio', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
+
+            window.location.reload();
+            
+        }
+        }catch(error){
+            setError(error);
+            setLoading(false);
+            setVisible(false);
+            toast.error('No se pudo crear tu sitio', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
     }
     
     }
     
     function handleChange(e) {
-    /*    if(e.target.files.length > 0 && e.target.files[0].size < 1024 * 1024 * 5){
-    setFile(e.target.files[0])*/
     readFile(e.target.files[0])
     setFile(e.target.files);
     }
 
-console.log(file)
-
     function readFile(file) {
         const reader = new FileReader();
-        //Result tiene el resultado de la imagen
         reader.onload = (e) => setImage(e.target.result);
-        // reader.onload = e => console.log(e.target.result)
-        //Como no hemos seleccionado imagen aùn
         reader.readAsDataURL(file);
     }
     const { isLoaded } = useLoadScript({
@@ -244,33 +262,37 @@ console.log(file)
     })
 
     if(!isLoaded) return;
-    console.log(address)
+
 
     const listItems = isChecked.map((element, index) =>{
-    if(element==="pool"){
-    return <p key={index}><Icon icon="cil:pool"/>Piscina</p>}else if (element==="jacuzzi")
-    {
-        return <p key={index}><Icon icon="emojione-monotone:bathtub"/>Jacuzzi</p>}else if (element==="bbq")
-        {
-            return <p key={index}> <Icon icon="iconoir:bbq"/>Parrila</p>}else if (element==="woodfire")
-            {
-                return <p key={index}><Icon icon="icon-park-outline:fire-two"/>Fogata</p>}else if (element==="essentialservices")
-                {
-                    return <p key={index}><Icon icon="ep:toilet-paper"/>Servicios esenciales</p>}else if (element==="hotwater")
-                    {
-                        return <p key={index}><Icon icon="ph:thermometer-hot"/>Agua caliente</p>}else if (element==="wifi")
-                        {
-                            return <p key={index}><Icon icon="clarity:wifi-line"/>Wifi</p>}else if (element==="tv")
-                            {
-                                return <p key={index}><Icon icon="arcticons:hanju-tv"/>Tv</p>}else if (element==="kitchen")
-                                {
-                                    return <p key={index}><Icon icon="tabler:tools-kitchen-2"/>Cocina</p>}else if (element==="washer")
-                                    {
-                                        return <p key={index}><Icon icon="bxs:washer"/>Lavadora</p>}else if (element==="airconditioner")
-                                        {
-                                            return <p key={index}><Icon icon="iconoir:air-conditioner"/>Aire acondicionado</p>}else if (element==="firstaidkit")
-                                            {
-                                                return <p key={index}><Icon icon="clarity:first-aid-kit-line"/>Botiquín</p>}
+        switch(element){
+            case "pool":
+                return <p key={element}><Icon icon="cil:pool"/>Piscina</p>;
+            case "jacuzzi":
+                return <p key={element}><Icon icon="emojione-monotone:bathtub"/>Jacuzzi</p>
+            case "bbq":
+                return <p key={element}> <Icon icon="iconoir:bbq"/>Parrila</p>;
+            case "woodfire":
+                return <p key={element}><Icon icon="icon-park-outline:fire-two"/>Fogata</p>
+            case "essentialservices":
+                return <p key={element}><Icon icon="ep:toilet-paper"/>Servicios esenciales</p>;
+            case "hotwater":
+                return <p key={element}><Icon icon="ph:thermometer-hot"/>Agua caliente</p>
+            case "wifi":
+                return <p key={element}><Icon icon="clarity:wifi-line"/>Wifi</p>;
+            case "tv":
+                return <p key={element}><Icon icon="arcticons:hanju-tv"/>Tv</p>
+            case "kitchen":
+                return <p key={element}><Icon icon="tabler:tools-kitchen-2"/>Cocina</p>
+            case "washer":
+                return <p key={element}><Icon icon="bxs:washer"/>Lavadora</p>
+            case "airconditioner":
+                return <p key={element}><Icon icon="iconoir:air-conditioner"/>Aire acondicionado</p>
+            case "firstaidkit":
+                return <p key={element}><Icon icon="clarity:first-aid-kit-line"/>Botiquín</p>
+            
+                
+        }
     });
     const onLoad = marker => {
         console.log('marker: ', marker)
@@ -286,6 +308,11 @@ console.log(file)
             
                 <div className="container-form">
                 <form onSubmit={handleSubmit}>
+                {loading ===true && 
+                <div className='loading' style={{ width: 400}}>
+                <LoadingOverlay loaderProps={{ size: 'sm', color: 'pink', variant: 'bars' }} visible={visible} />
+                {/* ...other content */}
+                </div>}
                 {formStep===0 && 
                 <section>
                     <div className="typebooking">
@@ -389,17 +416,17 @@ console.log(file)
                     <div className="typebooking2">
                     <h1>Paso 3: Selecciona tu ubicación</h1>
                         
-                        <h2>Ingresa la ubicación del espacio</h2>
                                 <section className="section-map">
 
                                     <div className="adress_content">
                                             <PlacesAutocomplete childToParent={childToParent}/>
-                                            {address}
+                                            
                                             <TextInput label="Pais" required value={country} onChange={(event) => setCountry(event.currentTarget.value)}></TextInput>
                                             <TextInput label="Ciudad" required value={city} onChange={(event) => setCity(event.currentTarget.value)}></TextInput>
                                             <TextInput label="Zipcode" value={zipcode} onChange={(event) => setZipcode(event.currentTarget.value)}></TextInput>
                                         </div>
                                         <div className="coordinates">
+                                        {address}
                                         <GoogleMap
                                                 mapContainerStyle={containerStyle}
                                                 center={center}
@@ -417,7 +444,6 @@ console.log(file)
                         <h1>Paso 4: Sube tus fotos</h1>
                             <section>
                                 <h2>Ahora, agreguemos algunas fotos de tu espacio</h2>
-                                {/*<div className="addphotos"></div>*/}
                                 <input
                                     type="file"
                                     multiple
@@ -440,7 +466,7 @@ console.log(file)
                         <h1>Paso 4: Agrega los últimos detalles</h1>
                             <section>
                                 <TextInput label="Ponle un nombre a tu espacio" placeholder="Añade un titulo" required value={title} onChange={(event) => setTitle(event.currentTarget.value)}></TextInput>
-                                <Textarea label="Ahora vamos a describir tu espacio" placeholder="Añade una descripción"  required  value={description} onChange={(event) => setDescription(event.currentTarget.value)}/>
+                                <Textarea  label="Ahora vamos a describir tu espacio" placeholder="Añade una descripción"  required  value={description} onChange={(event) => setDescription(event.currentTarget.value)}/>
                                 <NumberInput
                                                 label="Ahora viene la mejor parte: define el precio"
                                                 required
@@ -462,7 +488,8 @@ console.log(file)
                 </div>
                 </section>}
                 {formStep===5 &&    <section>
-                <div className="typebooking4">
+                <div className="typebooking5">
+                <ScrollArea style={{ height: 350 }}>
                                 <h2>Revisa tu anuncio</h2>
                                 <div className="addphotos">
                                     {!!image && <img src={image} alt="upload preview" />}
@@ -482,9 +509,9 @@ console.log(file)
                                     {listItems}
                                 </div>
 
-                                <section className="buttons">
-                                <button>Enviar</button>
-                                </section>
+
+                                <button className="send-form">Enviar</button>
+                </ScrollArea>
                 </div>
                 </section>}
                 </form>

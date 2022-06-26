@@ -29,7 +29,7 @@ const handleSubmit=async(e)=> {
         toast.success('Se ha envíado el correo de recuperación', {
             position: "top-center",
             autoClose: 5000,
-            hideProgressBar: false,
+            hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,

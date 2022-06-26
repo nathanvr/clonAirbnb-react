@@ -13,6 +13,7 @@ const[newPassword, setnewPassword]=useState("");
 const [confirmPass, setConfirmPassword]=useState("");
 const [loading, setLoading] = useState(false);
 const [visible, setVisible] = useState(false);
+
     const data = {
         newpassword: newPassword,
     };
@@ -39,7 +40,7 @@ const [visible, setVisible] = useState(false);
                 toast.success('Contraseña reestablecida', {
                     position: "top-center",
                     autoClose: 5000,
-                    hideProgressBar: false,
+                    hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: true,
                     draggable: true,
@@ -93,7 +94,7 @@ const [visible, setVisible] = useState(false);
                     error={!validatePassword()}
                     />
                 </div>
-                {validatePassword() === false && <Alert title="Error!" color="red">Las contraseñas no coinciden</Alert>}
+                {validatePassword() === false && <Alert color="red">Las contraseñas no coinciden</Alert>}
                 <div>
                 <button className="send">Cambiar contraseña</button>
                 </div>

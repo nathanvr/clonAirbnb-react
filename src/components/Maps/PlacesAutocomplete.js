@@ -79,7 +79,7 @@ import useOnclickOutside from "react-cool-onclickoutside";
     } = suggestion;
 
       return (
-        <li key={place_id} onClick={handleSelect(suggestion)}>
+        <li className="places-list1" key={place_id} onClick={handleSelect(suggestion)}>
           <strong>{main_text}</strong> <small>{secondary_text}</small>
         </li>
       );
@@ -94,7 +94,7 @@ import useOnclickOutside from "react-cool-onclickoutside";
         disabled={!ready}
         placeholder="Where are you going?"></TextInput>
       {/* We can use the "status" to decide whether we should display the dropdown or not */}
-      {status === "OK" && <ul>{renderSuggestions()}</ul>}
+      {status === "OK" && <ul className="places-list">{renderSuggestions()}</ul>}
 
       
       <div>
@@ -103,5 +103,4 @@ import useOnclickOutside from "react-cool-onclickoutside";
   );
 };
 
-                                        
 export default PlacesAutocomplete ;
