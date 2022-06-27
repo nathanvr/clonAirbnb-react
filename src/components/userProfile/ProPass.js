@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { getUser } from '../../store/reducers/User.reducer';
+import { EyeCheck, EyeOff } from 'tabler-icons-react';
 
 const ProPass = () => {
   const dispatch = useDispatch();
@@ -10,7 +11,8 @@ const ProPass = () => {
     dispatch(getUser());
   }, [dispatch]);
   const [disabled, setDisabled] = useState(false);
-  const [invalidPass, setInvalidPass] = useState(null);
+  const [invalidPass, setInvalidPass] = useState(false);
+  const [submit, setSubmit] = useState(false);
   const [pass, setPass] = useState({
     password: false,
     newPassword: false,
@@ -32,14 +34,18 @@ const ProPass = () => {
   }, [pass.password, pass.newPassword]);
 
   useEffect(() => {
+    console.log('Inpuuuuut', submit);
     setError((prev) => ({
       ...prev,
       invalidpass: invalidPass
         ? 'Su contraseña antigua es invalida'
-        : 'Contraseña modificada exitosamente',
+        : submit
+        ? 'Contraseña modificada exitosamente'
+        : '',
     }));
     console.log('InPass: ', invalidPass, 'ObjinPass: ', error.invalidpass);
-  }, [invalidPass]);
+  }, [submit, invalidPass]);
+
   const onInputChange = (event) => {
     setError((prev) => ({
       ...prev,
@@ -173,6 +179,7 @@ const ProPass = () => {
       password: false,
       newpassword: false,
     }));
+    setSubmit(true);
   };
 
   return (
@@ -183,7 +190,6 @@ const ProPass = () => {
           type="password"
           name="password"
           value={input.password}
-          placeholder="Password"
           label="Contraseña actual"
           onChange={onInputChange}
         />
