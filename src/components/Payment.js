@@ -7,13 +7,13 @@ const handler = window.ePayco.checkout.configure({
 });
 
 const Payment = (props) => {
-  const { totalPay } = props;
+  const { totalPay, startDate, finishDate, totalNigths } = props;
   const { bookingSiteData } = useSelector((state) => state.bookingSiteReducer);
   const { name, lastname } = useSelector((state) => state.userReducer);
   const fullName = name + ' ' + lastname;
   const invoiceNumber = uuidv4();
-  console.log('desde el pago se carga el user', bookingSiteData);
 
+  console.log(bookingSiteData.data._id);
   function handleClick() {
     handler.open({
       //Parametros compra (obligatorio)
@@ -31,15 +31,17 @@ const Payment = (props) => {
       external: 'false',
 
       //Atributos opcionales
-      extra1: 'extra1',
-      extra2: 'extra2',
-      extra3: 'extra3',
+      extra1: startDate, //fecha inicio
+      extra2: finishDate, //fecha fin
+      extra3: totalNigths, //total de noches
+      extra4: bookingSiteData.data._id, //id del bookingsite
+
       // confirmation: 'http://secure2.payco.co/prueba_curl.php',
       response: `http://localhost:3000/response`,
 
       //Atributos cliente
       name_billing: fullName,
-      address_billing: 'Carrera 19 numero 14 91',
+      address_billing: '',
       type_doc_billing: 'cc',
       mobilephone_billing: '3050000000',
       number_doc_billing: '100000000',

@@ -14,6 +14,8 @@ import { getUser } from './store/reducers/User.reducer';
 import RecoveryPassword from './pages/RecoveryPassword';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PaymentRes from './pages/PaymentRes';
+
 function App() {
   const token = localStorage.getItem('token');
   const { role } = useSelector((state) => state.userReducer);
@@ -57,6 +59,7 @@ function App() {
             path="/host/messages"
             element={<MessagesHost></MessagesHost>}
           />
+          <Route exact path="/response" element={<PaymentRes></PaymentRes>} />
           <Route exact path="/room/:id" element={<BookingRoom></BookingRoom>} />
           <Route
             exact
