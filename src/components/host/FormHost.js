@@ -21,9 +21,12 @@ import { useSelector } from 'react-redux';
 import { Icon } from '@iconify/react';
 import PlacesAutocomplete from '../Maps/PlacesAutocomplete';
 import { toast } from 'react-toastify';
+import { getUser } from "../../store/reducers/User.reducer";
+import { useDispatch } from "react-redux";
 import dayjs from 'dayjs';
 import dayjsLocal from 'dayjs/locale/es';
 import 'dayjs/locale/es';
+
 
 const options1 = [
   { value: 'apartment', label: 'Apartamentos' },
@@ -79,9 +82,10 @@ const options3 = [
   { value: 'shared', label: 'Una habitación compartida' },
 ];
 const containerStyle = {
-  width: '350px',
-  height: '250px',
-};
+
+    width: '350px',
+    height: '250px'
+    };
 
 const FormHost = (props) => {
   const { sitio } = props;
@@ -272,7 +276,8 @@ const FormHost = (props) => {
           progress: undefined,
         });
 
-        window.location.reload();
+        dispatch(getUser())
+        setOpened(false)
       }
     } catch (error) {
       setError(error);
@@ -585,55 +590,36 @@ const FormHost = (props) => {
                     </CheckboxGroup>
                   </div>
                 </div>
+                </section>}
+                {formStep===2 &&<section>
+                    <div className="typebooking2">
+                    <h1>Paso 3: Selecciona tu ubicación</h1>
+                        
+                                <section className="section-map">
+                                    <div className="adress_content">
+                                            <PlacesAutocomplete childToParent={childToParent}/>
+                                            
+                                            <TextInput label="Pais" required value={country} onChange={(event) => setCountry(event.currentTarget.value)}></TextInput>
+                                            <TextInput label="Ciudad" required value={city} onChange={(event) => setCity(event.currentTarget.value)}></TextInput>
+                                            <TextInput label="Zipcode" value={zipcode} onChange={(event) => setZipcode(event.currentTarget.value)}></TextInput>
+                                        </div>
+                                        <div className="coordinates">
+                                        {address}
+                                        <GoogleMap
+                                                mapContainerStyle={containerStyle}
+                                                center={center}
+                                                zoom={15}>
+                                                    <Marker  visible={true} onLoad={onLoad} position={position} />
+                                                
+                                            </GoogleMap>
+                                        </div>
+                                </section>
+                                </div>
+                    </section>}
+                {formStep===3 &&    <section>
               </section>
             )}
-            {formStep === 2 && (
-              <section>
-                <div className="typebooking2">
-                  <h1>Paso 3: Selecciona tu ubicación</h1>
 
-                  <section className="section-map">
-                    <div className="adress_content">
-                      <PlacesAutocomplete childToParent={childToParent} />
-
-                      <TextInput
-                        label="Pais"
-                        required
-                        value={country}
-                        onChange={(event) =>
-                          setCountry(event.currentTarget.value)
-                        }></TextInput>
-                      <TextInput
-                        label="Ciudad"
-                        required
-                        value={city}
-                        onChange={(event) =>
-                          setCity(event.currentTarget.value)
-                        }></TextInput>
-                      <TextInput
-                        label="Zipcode"
-                        value={zipcode}
-                        onChange={(event) =>
-                          setZipcode(event.currentTarget.value)
-                        }></TextInput>
-                    </div>
-                    <div className="coordinates">
-                      {address}
-                      <GoogleMap
-                        mapContainerStyle={containerStyle}
-                        center={center}
-                        zoom={15}>
-                        <Marker
-                          visible={true}
-                          onLoad={onLoad}
-                          position={position}
-                        />
-                      </GoogleMap>
-                    </div>
-                  </section>
-                </div>
-              </section>
-            )}
             {formStep === 3 && (
               <section>
                 <div className="typebooking2">

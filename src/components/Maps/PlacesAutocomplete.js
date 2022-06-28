@@ -57,8 +57,6 @@ import useOnclickOutside from "react-cool-onclickoutside";
         const city = cityArray[0].long_name;
         const postal_code = getZipCode(results[0])
         const country = countryArray[0].long_name;
-        console.log("ciudad",city, "pais", country, postal_code)
-        //console.log("📍 Coordinates: ", { lat, lng });
         setLat(lat);
         setLng(lng);
         setCity(city);

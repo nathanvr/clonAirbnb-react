@@ -1,27 +1,48 @@
 import '../styles/components/Form.scss';
 import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { DateRangePicker} from '@mantine/dates';
 import { NumberInput, TextInput,Popper } from '@mantine/core';
 import dayjs from 'dayjs';
+import { useSelector, useDispatch } from 'react-redux';
+import { getBookingSitesFilter } from '../store/reducers/Filter.reducer';
+import PlacesAutocomplete from './Maps/PlacesAutocomplete';
+
 
 
 const FormSearchDates = () => {
+  const location = useLocation();
+  const navigate=useNavigate();
   const [place, setPlace] = useState("");
+  const dispatch = useDispatch();
   const [value, setValue] = useState([
     new Date(),
     dayjs(new Date()).add(5, 'days').toDate(),
   ]);
-  const [visible, setVisible] = useState(false);
-  const [referenceElement, setReferenceElement] = useState(null);
-  const [numGuest, setNumGuest] = useState(0);
+  const [numGuest, setNumGuest] = useState(undefined);
+  const filterdata ={
+    city:place,
+    total_occupancy:numGuest,
+
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(getBookingSitesFilter(filterdata));
+    navigate("/filter-bookings")
+  };
+  const childToParent = (childdata) => {
+    setPlace(childdata.city);
+}
   return (
-    <div className="searchContainerForm">
-      <h2 className="searchContainerForm__title">
+    <div className={location.pathname === '/' ? "searchContainerForm"
+                    : "searchContainerFormFilter"}>
+      <h2 className={location.pathname === '/' ? "searchContainerForm__title"
+                    : "searchContainerFormFilter__title"}>
         Reserva alojamientos y actividades únicas.
       </h2>
-      <form className="searchContainerForm__form">
+      <form className={location.pathname === '/' ? "searchContainerForm__form" : "searchContainerForm__formFilter"}  onSubmit={handleSubmit}>
         <div className="search_place">
-          <TextInput value={place} onChange={(event) => setPlace(event.currentTarget.value)} label="Destino" placeholder='Ingresa tu destino'/>
+        <PlacesAutocomplete childToParent={childToParent}/>
         </div>
 
         <div className="e">
@@ -35,22 +56,10 @@ const FormSearchDates = () => {
 
         </div>
         <div>
-        <NumberInput placeholder="¿Cuántos viajan? "label="Viajeros" value={numGuest} onChange={(val) => setNumGuest(val)}  min={0} ref={setReferenceElement}  onClick={() => setVisible((m) => !m)}  />
-        <Popper
-        position='bottom'
-        arrowSize={5}
-        withArrow
-        mounted={visible}
-        referenceElement={referenceElement}
-        transition="pop-top-left"
-        transitionDuration={200}
-    
-      >
-        HOLA
-        </Popper>
+        <NumberInput required placeholder="¿Cuántos viajan? "label="Viajeros" value={numGuest} onChange={(val) => setNumGuest(val)}  min={1} />
         </div>
-        <div className="searchContainerForm__button">
-          <button onClick={() => alert('UwU')}> Buscar</button>
+        <div className={location.pathname === '/' ? "searchContainerForm__button" : "searchContainerFormFilter__button" }>
+          <button>Buscar</button>
         </div>
       </form>
     </div>

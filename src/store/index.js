@@ -6,7 +6,7 @@ import albumReducer from './reducers/Album.reducer';
 import albumsReducer from './reducers/Albums.reducer';
 import bookingSitesReducer from './reducers/BookingSites.reducer';
 import bookingSiteReducer from './reducers/BookingSite.reducer';
-
+import FilterReducer from './reducers/Filter.reducer';
 const rootReducer = combineReducers({
   bookingReducer,
   albumReducer,
@@ -14,15 +14,9 @@ const rootReducer = combineReducers({
   userReducer,
   bookingSitesReducer,
   bookingSiteReducer,
+  FilterReducer
 });
 
-// const state = {
-//   textReducer:{
-//     text: ""
-//   },
-//   countReducer:{
-//     count: 0
-//   }
-// }
+
 const middleware = applyMiddleware(thunk);
 export const store = createStore(rootReducer, middleware);
