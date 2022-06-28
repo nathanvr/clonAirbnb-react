@@ -5,20 +5,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { Icon } from '@iconify/react';
 import PlacesAutocomplete from "../Maps/PlacesAutocomplete";
-import {
-  NumberInput,
-  Select,
-  CheckboxGroup,
-  Checkbox,
-  TextInput,
-  Button,
-  ScrollArea,
-} from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { Icon } from '@iconify/react';
-import PlacesAutocomplete from '../Maps/PlacesAutocomplete';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import { Trash } from 'tabler-icons-react';
 import { toast } from 'react-toastify';
@@ -133,9 +120,6 @@ const EditFormHost =({booking})=>{
 
 
   console.log('Availability: ', availability);
-  const onLoad = (marker) => {
-    console.log('marker: ', marker);
-  };
   //Current date
   const now = dayjs(new Date());
   

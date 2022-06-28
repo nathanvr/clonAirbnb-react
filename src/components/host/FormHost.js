@@ -90,6 +90,7 @@ const containerStyle = {
 const FormHost = (props) => {
   const { sitio } = props;
   const navigate = useNavigate();
+  const dispatch =useDispatch();
   const { name } = useSelector((state) => state.userReducer);
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
@@ -590,8 +591,8 @@ const FormHost = (props) => {
                     </CheckboxGroup>
                   </div>
                 </div>
-                </section>}
-                {formStep===2 &&<section>
+                </section>)}
+                {formStep===2 && (<section>
                     <div className="typebooking2">
                     <h1>Paso 3: Selecciona tu ubicación</h1>
                         
@@ -615,16 +616,12 @@ const FormHost = (props) => {
                                         </div>
                                 </section>
                                 </div>
-                    </section>}
-                {formStep===3 &&    <section>
-              </section>
-            )}
-
+                    </section>)}
             {formStep === 3 && (
-              <section>
+            <section>
                 <div className="typebooking2">
-                  <h1>Paso 4: Sube tus fotos</h1>
-                  <section>
+                <h1>Paso 4: Sube tus fotos</h1>
+                <section>
                     <h2>Ahora, agreguemos algunas fotos de tu espacio</h2>
                     <input
                       type="file"
@@ -689,18 +686,18 @@ const FormHost = (props) => {
             {formStep === 5 && (
               <section>
                 <div className="typebookingNew">
-                  <h1>Paso 5: Disponibilidad de fechas</h1>
-                  <section>
+                    <h1>Paso 5: Disponibilidad de fechas</h1>
+                    <section>
                     <DateRangePicker
-                      locale="es"
-                      label="Fecha de inicio de disponibilidad"
-                      placeholder="Inicio - Fin"
-                      minDate={dayjs(new Date())
+                        locale="es"
+                        label="Fecha de inicio de disponibilidad"
+                        placeholder="Inicio - Fin"
+                        minDate={dayjs(new Date())
                         .startOf('month')
                         .add(now.date(), 'days')
                         .toDate()}
-                      value={availability}
-                      onChange={setAvailability}
+                        value={availability}
+                        onChange={setAvailability}
                     />
                   </section>
                 </div>
