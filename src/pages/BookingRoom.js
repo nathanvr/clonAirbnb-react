@@ -19,9 +19,7 @@ import PhotoAlbum from 'react-photo-album';
 import { Icon } from '@iconify/react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import { faRedRiver } from '@fortawesome/free-brands-svg-icons';
-
 import AlbumModal from '../components/AlbumModal';
-
 
 const containerStyle = {
   width: '500px',
@@ -35,6 +33,8 @@ const BookingRoom = () => {
   const { error, loading, bookingSiteData } = useSelector(
     (state) => state.bookingSiteReducer
   );
+
+  console.log('BookingSideData:', bookingSiteData);
 
   useEffect(() => {
     dispatch(getBookingSite(id));
