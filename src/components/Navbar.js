@@ -19,11 +19,9 @@ const Navbar = () => {
   const { isLoggedIn, name, role, image} = useSelector(
     (state) => state.userReducer
   );
-  console.log(image)
 
 
   const handleSignOut = () => {
-    console.log('!!Se lanzo el sign Out!!');
     dispatch(signOutSuccess());
     <Navigate to="/" replace={true} />;
   };
@@ -120,7 +118,7 @@ const Navbar = () => {
                 </div>
               ) : (
                 <div>
-                   <Link to="/profile">
+                  <Link to="/profile">
                   <Menu.Item>
                   <Group>
                   <User size={17} strokeWidth={2} color={'black'} /> 

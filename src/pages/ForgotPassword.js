@@ -35,7 +35,6 @@ const handleSubmit=async(e)=> {
             draggable: true,
             progress: undefined,
             });
-            console.log(response)
             setLoading(false)
             setVisible(false);
             navigate("/");

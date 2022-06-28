@@ -1,6 +1,6 @@
-import React,{ useState, useMemo, useRef} from "react";
+import React,{ useState} from "react";
 import { Modal, useMantineTheme, Textarea, LoadingOverlay} from '@mantine/core';
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { NumberInput,Select, CheckboxGroup, Checkbox, TextInput, ScrollArea } from '@mantine/core';
 import axios from "axios";
 import {
@@ -12,6 +12,8 @@ import { useSelector } from "react-redux";
 import { Icon } from '@iconify/react';
 import PlacesAutocomplete from "../Maps/PlacesAutocomplete";
 import { toast } from 'react-toastify';
+import { getUser } from "../../store/reducers/User.reducer";
+import { useDispatch } from "react-redux";
 
 
 
@@ -47,11 +49,11 @@ const options3 = [
 const containerStyle = {
     width: '350px',
     height: '250px'
-  };
+    };
 
 const FormHost =(props)=>{
     const { sitio } = props;
-    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { name} = useSelector((state) => state.userReducer);
     const theme = useMantineTheme();
     const [opened, setOpened] = useState(false);
@@ -75,11 +77,9 @@ const FormHost =(props)=>{
     const [lngi, setLng]=useState(0);
     const [image, setImage] = useState(null);
     const [file, setFile] = useState(null);
-    const [selected, setSelected] = useState(null)
     const [center ,setCenter]=useState({ lat: 4.570868, lng: -74.297333})
     const [position,setPosition]=useState({ lat: 4.570868, lng: -74.297333})
     const [ libraries ] = useState(['places']);
-    const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [visible, setVisible] = useState(false);
     const [error, setError] = useState(null);
@@ -96,8 +96,7 @@ const FormHost =(props)=>{
 
 
 }
-console.log(data)
-console.log("latitu",lati,lngi,city,country,zipcode, address)
+
     //Huespedes
     const addCountGuest = () => { 
         if(countGuest === 16){
@@ -199,7 +198,6 @@ console.log("latitu",lati,lngi,city,country,zipcode, address)
         data.append("lat", lati)
         data.append("lng", lngi)
         if (file) {
-            console.log(typeof file);
             for (let i = 0; i < file.length; i++) {
             data.append(`file_${i}`, file[i], file[i].name);
             }
@@ -212,7 +210,6 @@ console.log("latitu",lati,lngi,city,country,zipcode, address)
             "Content-Type": "multipart/form-data",
         },        
         });
-        console.log(response)
         if(response.status===201){
             setLoading(false)
             setVisible(false);
@@ -226,7 +223,8 @@ console.log("latitu",lati,lngi,city,country,zipcode, address)
                 progress: undefined,
                 });
 
-            window.location.reload();
+                dispatch(getUser())
+                setOpened(false)
             
         }
         }catch(error){
@@ -417,7 +415,6 @@ console.log("latitu",lati,lngi,city,country,zipcode, address)
                     <h1>Paso 3: Selecciona tu ubicación</h1>
                         
                                 <section className="section-map">
-
                                     <div className="adress_content">
                                             <PlacesAutocomplete childToParent={childToParent}/>
                                             

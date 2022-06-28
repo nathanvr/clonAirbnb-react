@@ -10,6 +10,7 @@ import HostDashboard from './pages/HostDashboard';
 import MessagesHost from './pages/MessagesHost';
 import ForgotPassword from './pages/ForgotPassword';
 import Profile from './pages/Profile';
+import FilterBooking from './pages/FilterBookings';
 import { getUser } from './store/reducers/User.reducer';
 import RecoveryPassword from './pages/RecoveryPassword';
 import { ToastContainer, toast } from 'react-toastify';
@@ -25,7 +26,7 @@ function App() {
       dispatch(getUser());
     }
   }, [dispatch]);
-  console.log('rol del usuario', role);
+
 
   return (
     <div className="App">
@@ -46,6 +47,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route exact path="/" element={<Home />} />
+          <Route exact path="/filter-bookings" element={<FilterBooking/>} />
           <Route exact path="/host" element={<Host></Host>} />
           <Route
             exact

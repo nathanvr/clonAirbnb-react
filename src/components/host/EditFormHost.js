@@ -1,6 +1,5 @@
-import React,{ useState, useMemo, useRef, useEffect} from "react";
+import React,{ useState,} from "react";
 import { Modal, useMantineTheme, Textarea, LoadingOverlay} from '@mantine/core';
-import { Link, Navigate, useNavigate } from "react-router-dom";
 import { NumberInput,Select, CheckboxGroup, Checkbox, TextInput, Button , ScrollArea } from '@mantine/core';
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -13,6 +12,9 @@ import {
 } from '@react-google-maps/api'
 import { Trash } from 'tabler-icons-react';
 import { toast } from 'react-toastify';
+import { getUser } from "../../store/reducers/User.reducer";
+import { useDispatch } from "react-redux";
+
 
 const options1 = [
     {value:"apartment", label:"Apartamentos"},
@@ -49,19 +51,17 @@ const containerStyle = {
 
 const EditFormHost =({booking})=>{
     const { name} = useSelector((state) => state.userReducer);
-    const navigate=useNavigate()
+    const dispatch = useDispatch();
     const theme = useMantineTheme();
     const string = booking.services.toString();
     const services= string.split(",");
-    const cosita =booking.images.toString().split(",")
-    console.log("AQUI HOPTA",cosita, booking.images)
+    const arrayImages =booking.images.toString().split(",")
     const [opened, setOpened] = useState(false);
     const [countGuest, setCountGuest] = useState(booking.total_occupancy);
     const [countBeds, setCountBeds] = useState(booking.total_beds);
     const [countRooms, setCountRooms] = useState(booking.total_rooms);
     const [countBaths, setCountBaths] = useState(booking.total_bathrooms);
     const [isChecked, setIsChecked] = useState(services);
-    console.log(isChecked)
     const [home_type, setHome_type] = useState(booking.home_type);
     const [description_type, setDescription_type] = useState(booking.description_type);
     const [room_type, setRoom_type] = useState(booking.room_type);
@@ -79,7 +79,7 @@ const EditFormHost =({booking})=>{
     const [file, setFile] = useState(null);
     const [center ,setCenter]=useState({ lat: Number(booking.lat), lng: Number(booking.lng)})
     const [position,setPosition]=useState({ lat: Number(booking.lat), lng: Number(booking.lng)})
-    const [images, setImages]= useState(cosita)
+    const [images, setImages]= useState(arrayImages)
     const [loading, setLoading] = useState(false);
     const [visible, setVisible] = useState(false);
     const [error, setError] = useState(null);
@@ -165,14 +165,6 @@ const EditFormHost =({booking})=>{
             )
         }
     }
-    const renderButtonSubmit =()=>{
-        if(formStep===5){
-        return( <button type="button" id ="button" onClick={handleSubmit}>Enviar</button>)
-        } else{
-            return undefined;
-            
-        }
-    }
     
     async function handleSubmit(e) {
         e.preventDefault();
@@ -201,7 +193,6 @@ const EditFormHost =({booking})=>{
         }
         
         if (file) {
-            console.log(typeof file);
             for (let i = 0; i < file.length; i++) {
               //nombre de la propiedad, archivo y nombre del archivo
             data.append(`file_${i}`, file[i], file[i].name);
@@ -218,7 +209,6 @@ const EditFormHost =({booking})=>{
         
         
     });
-    console.log(response)
     if(response.status===200){
         setLoading(false)
         setVisible(false);
@@ -231,6 +221,8 @@ const EditFormHost =({booking})=>{
             draggable: true,
             progress: undefined,
             });
+        dispatch(getUser())
+        setOpened(false)
         
         
     }
@@ -247,8 +239,6 @@ const EditFormHost =({booking})=>{
             draggable: true,
             progress: undefined,
             });
-    }finally{
-        window.location.reload();
     }
     }
     
@@ -261,10 +251,7 @@ const EditFormHost =({booking})=>{
 
     function readFile(file) {
         const reader = new FileReader();
-        //Result tiene el resultado de la imagen
         reader.onload = (e) => setImage(e.target.result);
-        // reader.onload = e => console.log(e.target.result)
-        //Como no hemos seleccionado imagen aùn
         reader.readAsDataURL(file);
     }
     const childToParent = (childdata) => {
@@ -276,12 +263,8 @@ const EditFormHost =({booking})=>{
         setZipcode(childdata.postal_code)
         setPosition({lat:childdata.lat, lng:childdata.lng})
         setCenter({lat:childdata.lat, lng:childdata.lng})
-    
-    
-    
     }
-    const checkboxIcon  = ({ indeterminate, className }) =>
-  indeterminate ? <Trash className={className} /> : <Trash className={className} />;
+
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: "AIzaSyCsW9trmjliEY9-Qz_uuAK8C2DRCUFzDqs",
         libraries,

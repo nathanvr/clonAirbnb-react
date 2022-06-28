@@ -1,6 +1,4 @@
-import { ACTION_ICON_SIZES } from '@mantine/core';
 import axios from 'axios';
-import { Flag } from 'tabler-icons-react';
 export const USER_ID = 'USER_ID';
 export const USER_ROLE = 'USER_ROLE';
 export const USER_NAME = 'USER_NAME';
