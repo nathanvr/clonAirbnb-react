@@ -224,8 +224,6 @@ const EditFormHost =({booking})=>{
     data.append('zipcode', zipcode);
     data.append('lat', lati);
     data.append('lng', lngi);
-    data.append('availabilitybegin', availability[0].toISOString());
-    data.append('availabilityend', availability[1].toISOString());
     if (images) {
       data.append('images', images);
     }
@@ -733,28 +731,6 @@ const EditFormHost =({booking})=>{
 
             {formStep === 5 && (
               <section>
-                {console.log('Date: ', availability)}
-                <div className="typebookingNew">
-                  <h1>Paso 5: Disponibilidad de fechas</h1>
-                  <section>
-                    <DateRangePicker
-                      locale="es"
-                      label="Fecha de inicio de disponibilidad"
-                      placeholder="Inicio - Fin"
-                      minDate={dayjs(new Date())
-                        .startOf('month')
-                        .add(now.date(), 'days')
-                        .toDate()}
-                      value={availability}
-                      onChange={setAvailability}
-                    />
-                  </section>
-                </div>
-              </section>
-            )}
-
-            {formStep === 6 && (
-              <section>
                 <div className="typebooking5">
                   <ScrollArea style={{ height: 350 }}>
                     <h2>Revisa tu anuncio</h2>
@@ -780,20 +756,12 @@ const EditFormHost =({booking})=>{
                       <h2>Lo que este lugar ofrece</h2>
                       {listItems}
                     </div>
-                    <div>
-                      <h2>Disponibilidad</h2>
-                      {`Desde el ${availability[0].getDate()} de ${
-                        dayjsLocal.months[availability[0].getMonth()]
-                      } de ${availability[0].getFullYear()}, hasta el ${availability[1].getDate()} de ${
-                        dayjsLocal.months[availability[1].getMonth()]
-                      } de ${availability[1].getFullYear()}`}
-                    </div>
                     <button className="send-form">Enviar</button>
                   </ScrollArea>
                 </div>
               </section>
             )}
-          </form>
+           </form>
           <section className="buttons">
             {renderButtonPrev()}
             {renderButtonNext()}

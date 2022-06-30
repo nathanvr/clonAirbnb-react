@@ -31,10 +31,6 @@ function App() {
     }
   }, [dispatch]);
 
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyCsW9trmjliEY9-Qz_uuAK8C2DRCUFzDqs',
-    libraries,
-  });
 
 
   return (
