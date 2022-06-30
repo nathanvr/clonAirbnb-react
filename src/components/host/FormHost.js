@@ -5,10 +5,6 @@ import {
   Textarea,
   LoadingOverlay,
 } from '@mantine/core';
-<<<<<<< Updated upstream
-import { DateRangePicker } from '@mantine/dates';
-=======
->>>>>>> Stashed changes
 import { Link, useNavigate } from 'react-router-dom';
 import {
   NumberInput,
@@ -24,15 +20,6 @@ import { useSelector } from 'react-redux';
 import { Icon } from '@iconify/react';
 import PlacesAutocomplete from '../Maps/PlacesAutocomplete';
 import { toast } from 'react-toastify';
-<<<<<<< Updated upstream
-import { getUser } from "../../store/reducers/User.reducer";
-import { useDispatch } from "react-redux";
-import dayjs from 'dayjs';
-import dayjsLocal from 'dayjs/locale/es';
-import 'dayjs/locale/es';
-
-=======
->>>>>>> Stashed changes
 
 const options1 = [
   { value: 'apartment', label: 'Apartamentos' },
@@ -88,24 +75,13 @@ const options3 = [
   { value: 'shared', label: 'Una habitación compartida' },
 ];
 const containerStyle = {
-<<<<<<< Updated upstream
-
-    width: '350px',
-    height: '250px'
-    };
-=======
   width: '350px',
   height: '250px',
 };
->>>>>>> Stashed changes
 
 const FormHost = (props) => {
   const { sitio } = props;
   const navigate = useNavigate();
-<<<<<<< Updated upstream
-  const dispatch =useDispatch();
-=======
->>>>>>> Stashed changes
   const { name } = useSelector((state) => state.userReducer);
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
@@ -136,10 +112,6 @@ const FormHost = (props) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
-<<<<<<< Updated upstream
-  const [availability, setAvailability] = useState([new Date(), new Date()]);
-=======
->>>>>>> Stashed changes
   const [error, setError] = useState(null);
   const childToParent = (childdata) => {
     setAddress(childdata.value);
@@ -151,14 +123,6 @@ const FormHost = (props) => {
     setPosition({ lat: childdata.lat, lng: childdata.lng });
     setCenter({ lat: childdata.lat, lng: childdata.lng });
   };
-<<<<<<< Updated upstream
-  console.log(data);
-  console.log('latitu', lati, lngi, city, country, zipcode, address);
-  //Current time
-  const now = dayjs(new Date());
-  console.log('CurrentDate: ', now, 'Day', now.date());
-=======
->>>>>>> Stashed changes
   //Huespedes
   const addCountGuest = () => {
     if (countGuest === 16) {
@@ -208,134 +172,6 @@ const FormHost = (props) => {
   const removeCountBaths = () => {
     if (countBaths === 0) {
       return;
-<<<<<<< Updated upstream
-    }
-    setCountBaths(countBaths - 1);
-  };
-  const completeFormStep = () => {
-    setformStep((cur) => cur + 1);
-  };
-  const backFormStep = () => {
-    setformStep((cur) => cur - 1);
-  };
-  const renderButtonPrev = () => {
-    if (formStep === 0) {
-      return undefined;
-    } else {
-      return (
-        <button type="button" id="button" onClick={backFormStep}>
-          Anterior
-        </button>
-      );
-    }
-  };
-  const renderButtonNext = () => {
-    if (formStep === 6) {
-      return undefined;
-    } else {
-      return (
-        <button type="button" id="button" onClick={completeFormStep}>
-          Siguiente
-        </button>
-      );
-    }
-  };
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setLoading(true);
-    setVisible(true);
-    console.log(availability);
-    const data = new FormData();
-    data.append('home_type', home_type);
-    data.append('description_type', description_type);
-    data.append('room_type', room_type);
-    data.append('total_occupancy', countGuest);
-    data.append('total_rooms', countRooms);
-    data.append('total_beds', countBeds);
-    data.append('total_bathrooms', countBaths);
-    data.append('services', isChecked);
-    data.append('title', title);
-    data.append('description', description);
-    data.append('price', price);
-    data.append('address', address);
-    data.append('city', city);
-    data.append('country', country);
-    data.append('zipcode', zipcode);
-    data.append('lat', lati);
-    data.append('lng', lngi);
-    data.append('availabilitybegin', availability[0].toISOString());
-    data.append('availabilityend', availability[1].toISOString());
-    if (file) {
-      console.log(typeof file);
-      for (let i = 0; i < file.length; i++) {
-        data.append(`file_${i}`, file[i], file[i].name);
-      }
-    }
-    console.log('DataBooking: ', availability);
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.post(
-        'http://localhost:8080/bookingsites/post',
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-      console.log(response);
-      if (response.status === 201) {
-        setLoading(false);
-        setVisible(false);
-        toast.success('Se creó tu sitio', {
-          position: 'bottom-right',
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-
-        dispatch(getUser())
-        setOpened(false)
-      }
-    } catch (error) {
-      setError(error);
-      setLoading(false);
-      setVisible(false);
-      toast.error('No se pudo crear tu sitio', {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-  }
-
-  function handleChange(e) {
-    readFile(e.target.files[0]);
-    setFile(e.target.files);
-  }
-
-  function readFile(file) {
-    const reader = new FileReader();
-    reader.onload = (e) => setImage(e.target.result);
-    reader.readAsDataURL(file);
-  }
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyCsW9trmjliEY9-Qz_uuAK8C2DRCUFzDqs',
-    libraries,
-  });
-
-  if (!isLoaded) return;
-
-=======
     }
     setCountBaths(countBaths - 1);
   };
@@ -455,7 +291,6 @@ const FormHost = (props) => {
 
   if (!isLoaded) return;
 
->>>>>>> Stashed changes
   const listItems = isChecked.map((element, index) => {
     switch (element) {
       case 'pool':
@@ -545,13 +380,7 @@ const FormHost = (props) => {
         );
     }
   });
-<<<<<<< Updated upstream
-  const onLoad = (marker) => {
-    console.log('marker: ', marker);
-  };
-=======
   const onLoad = (marker) => {};
->>>>>>> Stashed changes
   return (
     <div>
       <Link to="#" onClick={() => setOpened(true)}>
@@ -738,39 +567,6 @@ const FormHost = (props) => {
                     </CheckboxGroup>
                   </div>
                 </div>
-<<<<<<< Updated upstream
-                </section>)}
-                {formStep===2 && (<section>
-                    <div className="typebooking2">
-                    <h1>Paso 3: Selecciona tu ubicación</h1>
-                        
-                                <section className="section-map">
-                                    <div className="adress_content">
-                                            <PlacesAutocomplete childToParent={childToParent}/>
-                                            
-                                            <TextInput label="Pais" required value={country} onChange={(event) => setCountry(event.currentTarget.value)}></TextInput>
-                                            <TextInput label="Ciudad" required value={city} onChange={(event) => setCity(event.currentTarget.value)}></TextInput>
-                                            <TextInput label="Zipcode" value={zipcode} onChange={(event) => setZipcode(event.currentTarget.value)}></TextInput>
-                                        </div>
-                                        <div className="coordinates">
-                                        {address}
-                                        <GoogleMap
-                                                mapContainerStyle={containerStyle}
-                                                center={center}
-                                                zoom={15}>
-                                                    <Marker  visible={true} onLoad={onLoad} position={position} />
-                                                
-                                            </GoogleMap>
-                                        </div>
-                                </section>
-                                </div>
-                    </section>)}
-            {formStep === 3 && (
-            <section>
-                <div className="typebooking2">
-                <h1>Paso 4: Sube tus fotos</h1>
-                <section>
-=======
               </section>
             )}
             {formStep === 2 && (
@@ -825,7 +621,6 @@ const FormHost = (props) => {
                 <div className="typebooking2">
                   <h1>Paso 4: Sube tus fotos</h1>
                   <section>
->>>>>>> Stashed changes
                     <h2>Ahora, agreguemos algunas fotos de tu espacio</h2>
                     <input
                       type="file"
@@ -886,71 +681,6 @@ const FormHost = (props) => {
                 </div>
               </section>
             )}
-<<<<<<< Updated upstream
-
-            {formStep === 5 && (
-              <section>
-                <div className="typebookingNew">
-                    <h1>Paso 5: Disponibilidad de fechas</h1>
-                    <section>
-                    <DateRangePicker
-                        locale="es"
-                        label="Fecha de inicio de disponibilidad"
-                        placeholder="Inicio - Fin"
-                        minDate={dayjs(new Date())
-                        .startOf('month')
-                        .add(now.date(), 'days')
-                        .toDate()}
-                        value={availability}
-                        onChange={setAvailability}
-                    />
-                  </section>
-                </div>
-              </section>
-            )}
-
-            {formStep === 6 && (
-              <section>
-                <div className="typebooking5">
-                  <ScrollArea style={{ height: 350 }}>
-                    <h2>Revisa tu anuncio</h2>
-                    <div className="addphotos">
-                      {!!image && <img src={image} alt="upload preview" />}
-                    </div>
-                    <div>
-                      <h3>
-                        {title} - Anfitrión: {name}. {price}
-                      </h3>
-                    </div>
-                    <div>
-                      <h5>
-                        {countGuest} huespedes - {countRooms} habitaciones -{' '}
-                        {countBeds} camas- {countBaths} baños
-                      </h5>
-                    </div>
-                    <div>
-                      <h2>Descripcion del lugar</h2>
-                      <p>{description}</p>
-                    </div>
-                    <div>
-                      <h2>Lo que este lugar ofrece</h2>
-                      {listItems}
-                    </div>
-                    <div>
-                      <h2>Disponibilidad</h2>
-                      {`Desde el ${availability[0].getDate()} de ${
-                        dayjsLocal.months[availability[0].getMonth()]
-                      } de ${availability[0].getFullYear()}, hasta el ${availability[1].getDate()} de ${
-                        dayjsLocal.months[availability[1].getMonth()]
-                      } de ${availability[1].getFullYear()}`}
-                    </div>
-
-                    <button className="send-form">Enviar</button>
-                  </ScrollArea>
-                </div>
-              </section>
-            )}
-=======
             {formStep === 5 && (
               <section>
                 <div className="typebooking5">
@@ -984,7 +714,6 @@ const FormHost = (props) => {
                 </div>
               </section>
             )}
->>>>>>> Stashed changes
           </form>
           <section className="buttons">
             {renderButtonPrev()}

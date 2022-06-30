@@ -16,6 +16,7 @@ import 'swiper/css/pagination';
 import nophoto from '../../images/notavailable.png';
 import { Icon } from '@iconify/react';
 import axios from 'axios';
+import '../../styles/components/ReviewCard.scss';
 
 const ReviewCard = ({ booking }) => {
   const [opened, setOpened] = useState(false);
@@ -55,7 +56,7 @@ const ReviewCard = ({ booking }) => {
     }
   }
   const reservations = booking.bookings;
-  // console.log('reservaciones', reservations);
+  console.log('reservaciones:', reservations);
 
   return (
     <>
@@ -80,14 +81,40 @@ const ReviewCard = ({ booking }) => {
                 <p>No tienes reservas en este momento.</p>
               </div>
             )}
-            {/* {reservations.map((item, index) => (
-              <div key={index}>
-                <p>{item}</p>
-                <p>User name</p>
-                <p>start date</p>
-                <p>end date</p>
-              </div> */}
-            {/* ))} */}
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Start date</th>
+                  <th>End date</th>
+                </tr>
+              </thead>
+              {reservations.map((item, index) => (
+                <tbody key={index}>
+                  <tr>
+                    <td>
+                      {item.userId.name} {item.userId.lastname}
+                    </td>
+                    <td>
+                      {new Date(item.date[0]).getDate()}/
+                      {new Date(item.date[0]).getMonth() + 1}/
+                      {new Date(item.date[0]).getFullYear()}
+                    </td>
+                    <td>
+                      {new Date(item.date[1]).getDate()}/
+                      {new Date(item.date[1]).getMonth() + 1}/
+                      {new Date(item.date[1]).getFullYear()}
+                    </td>
+                  </tr>
+                </tbody>
+
+                // <div key={index}>
+                //   <p>{item.userId.name}</p>
+                //   <p>{item.date[0]}</p>
+                //   <p>{item.date[1]}</p>
+                // </div>
+              ))}
+            </table>
           </div>
         </Accordion.Item>
       </Accordion>

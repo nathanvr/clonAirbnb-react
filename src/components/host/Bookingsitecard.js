@@ -26,31 +26,6 @@ const Bookingsitecard = ({ booking }) => {
   const [visible, setVisible] = useState(false);
   const [error, setError] = useState(null);
 
-<<<<<<< Updated upstream
-const Bookingsitecard = ({booking}) => {
-    const [opened, setOpened] = useState(false);
-    const theme = useMantineTheme();
-    const [loading, setLoading] = useState(false);
-    const [visible, setVisible] = useState(false);
-    const [error, setError] = useState(null);
-    
-    function AccordionLabel({ label, image, description }) {
-        return (
-        <Group noWrap>
-            
-                {booking.images.toString().split(",").length === 0 && 
-                    <div className="photo-notfound">
-                        <img src={nophoto} alt="notphoto" loading="lazy"></img>
-                    </div>}
-                {booking.images.toString().split(",").length > 0 && 
-                    <div className="photo-notfound">
-                    
-                            <img src={booking.images.toString().split(",")[0]} alt="booking-photo" loading="lazy"></img>
-                        
-                    </div>
-                   
-                }
-=======
   // console.log("aqui esta",booking)
   function AccordionLabel({ label, image, description }) {
     return (
@@ -68,7 +43,6 @@ const Bookingsitecard = ({booking}) => {
               loading="lazy"></img>
           </div>
         )}
->>>>>>> Stashed changes
 
         <div>
           <Text size="xl">{booking.title}</Text>
