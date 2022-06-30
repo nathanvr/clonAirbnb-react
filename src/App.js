@@ -28,11 +28,7 @@ function App() {
       dispatch(getUser());
     }
   }, [dispatch]);
-<<<<<<< Updated upstream
-
-=======
   // console.log('rol del usuario', role);
->>>>>>> Stashed changes
 
   return (
     <div className="App">
@@ -53,7 +49,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/filter-bookings" element={<FilterBooking/>} />
+          <Route exact path="/filter-bookings" element={<FilterBooking />} />
           <Route exact path="/host" element={<Host></Host>} />
           <Route
             exact
