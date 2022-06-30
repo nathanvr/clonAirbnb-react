@@ -65,6 +65,10 @@ const BookingRoom = () => {
       height: 25,
     });
   });
+  const arr = [
+    [new Date(2022, 7, 10).toISOString(), new Date(2022, 7, 18).toISOString()],
+    [new Date(2022, 7, 10).toISOString(), new Date(2022, 8, 10).toISOString()],
+  ];
 
   return (
     <div className="container-total">
@@ -245,6 +249,7 @@ const BookingRoom = () => {
             <BookingSection
               priceNigth={bookingSiteData.data.price}
               maxguest={bookingSiteData.data.total_occupancy}
+              dates={arr}
             />
           </div>
         </div>
