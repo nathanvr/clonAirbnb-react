@@ -8,8 +8,7 @@ import nophoto from "../../images/notavailable.png"
 import { Icon } from '@iconify/react';
 import axios from "axios";
 import { toast } from "react-toastify";
-import { getUser } from "../../store/reducers/User.reducer";
-import { useDispatch } from "react-redux";
+
 
 const Bookingsitecard = ({booking}) => {
     const [opened, setOpened] = useState(false);
@@ -17,7 +16,7 @@ const Bookingsitecard = ({booking}) => {
     const [loading, setLoading] = useState(false);
     const [visible, setVisible] = useState(false);
     const [error, setError] = useState(null);
-    const dispatch=useDispatch();
+    
     function AccordionLabel({ label, image, description }) {
         return (
         <Group noWrap>
@@ -61,7 +60,7 @@ const Bookingsitecard = ({booking}) => {
     });
     console.log(response)
     if(response.status===200){
-        dispatch(getUser())
+        window.location.reload();
         toast.success('Se eliminó tu sitio', {
             position: "bottom-right",
             autoClose: 5000,
@@ -71,9 +70,6 @@ const Bookingsitecard = ({booking}) => {
             draggable: true,
             progress: undefined,
             });
-            setLoading(false);
-            setVisible(false);
-            setOpened(false)
     }
     }catch(error){
         setError(error);

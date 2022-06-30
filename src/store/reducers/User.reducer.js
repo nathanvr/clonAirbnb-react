@@ -103,9 +103,7 @@ export const postRegister = (registerState) => {
       dispatch({ type: USER_REGISTER_SUCCESS, payload: res });
       dispatch(getUser());
     } catch (error) {
-      console.log(error)
-      if(error.response.data.data.errors.email.message === "email already exist"){
-      dispatch({ type: USER_REGISTER_ERROR, payload: error.response.data.data.errors.email.message });}
+      dispatch({ type: USER_REGISTER_ERROR, payload: error });
     }
   };
 };
