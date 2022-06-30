@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from './components/Navbar';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
@@ -22,7 +22,7 @@ import PaymentRes from './pages/PaymentRes';
 function App() {
   const token = localStorage.getItem('token');
   const { role } = useSelector((state) => state.userReducer);
-  const [libraries] = useState(['places']);
+
   const dispatch = useDispatch();
 
   useEffect(() => {

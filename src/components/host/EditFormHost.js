@@ -75,7 +75,7 @@ const containerStyle = {
 };
 
 const EditFormHost =({booking})=>{
-    const {name} = useSelector((state) => state.userReducer);
+    const { name} = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
     const theme = useMantineTheme();
     const string = booking.services.toString();
@@ -86,22 +86,22 @@ const EditFormHost =({booking})=>{
     const [countBeds, setCountBeds] = useState(booking.total_beds);
     const [countRooms, setCountRooms] = useState(booking.total_rooms);
     const [countBaths, setCountBaths] = useState(booking.total_bathrooms);
-    const [isChecked , setIsChecked] = useState(services);
-    const [home_type , setHome_type] = useState(booking.home_type);
-    const [description_type , setDescription_type] = useState(booking.description_type);
-    const [room_type , setRoom_type] = useState(booking.room_type);
-    const [formStep , setformStep] = useState(0);
-    const [address , setAddress]=useState(booking.address);
-    const [city , setCity]=useState(booking.city);
-    const [country , setCountry]=useState(booking.country);
-    const [zipcode , setZipcode]=useState(booking.zipcode);
-    const [title , setTitle]=useState(booking.title);
-    const [description , setDescription]= useState(booking.description);
-    const [price ,setPrice]=useState(booking.price);
-    const [lati , setLat]=useState(booking.lat);
-    const [lngi , setLng]=useState(booking.lng);
-    const [image , setImage] = useState(null);
-    const [file , setFile] = useState(null);
+    const [isChecked, setIsChecked] = useState(services);
+    const [home_type, setHome_type] = useState(booking.home_type);
+    const [description_type, setDescription_type] = useState(booking.description_type);
+    const [room_type, setRoom_type] = useState(booking.room_type);
+    const [formStep, setformStep] = useState(0);
+    const [address, setAddress]=useState(booking.address);
+    const [city, setCity]=useState(booking.city);
+    const [country, setCountry]=useState(booking.country);
+    const [zipcode, setZipcode]=useState(booking.zipcode);
+    const [title, setTitle]=useState(booking.title);
+    const [description, setDescription]= useState(booking.description);
+    const [price,setPrice]=useState(booking.price);
+    const [lati, setLat]=useState(booking.lat);
+    const [lngi, setLng]=useState(booking.lng);
+    const [image, setImage] = useState(null);
+    const [file, setFile] = useState(null);
     const [center ,setCenter]=useState({ lat: Number(booking.lat), lng: Number(booking.lng)})
     const [position,setPosition]=useState({ lat: Number(booking.lat), lng: Number(booking.lng)})
     const [images, setImages]= useState(arrayImages)
@@ -178,27 +178,30 @@ const EditFormHost =({booking})=>{
     const completeFormStep =() =>{
         setformStep(cur=>cur+1);
     }
-    setCountGuest(countGuest + 1);
-  };
-  const removeCountGuest = () => {
-    if (countGuest === 0) {
-      return;
+    const backFormStep =() =>{
+        setformStep(cur=>cur-1);
     }
-    setCountGuest(countGuest - 1);
-  };
-  //Camas
-  const addCountBeds = () => {
-    if (countBeds === 50) {
-      return;
+    const renderButtonPrev =()=>{
+        if(formStep===0){
+            return undefined;
+        } 
+        else{
+            return(
+                <button type="button"  id="button" onClick={backFormStep}>Anterior</button>
+            )
+        }
     }
-    setCountBeds(countBeds + 1);
-  };
-  const removeCountBeds = () => {
-    if (countBeds === 0) {
-      return;
+    const renderButtonNext =()=>{
+        if(formStep===5){
+            return undefined;
+        } else{
+            return(
+                <button type="button" id ="button" onClick={completeFormStep}>Siguiente</button>
+            )
+        }
     }
     
-  
+   
    async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
@@ -221,6 +224,8 @@ const EditFormHost =({booking})=>{
     data.append('zipcode', zipcode);
     data.append('lat', lati);
     data.append('lng', lngi);
+    data.append('availabilitybegin', availability[0].toISOString());
+    data.append('availabilityend', availability[1].toISOString());
     if (images) {
       data.append('images', images);
     }
@@ -279,7 +284,7 @@ const EditFormHost =({booking})=>{
 
   function handleChange(e) {
     readFile(e.target.files[0]);
-    setFile(e.target.files); 
+    setFile(e.target.files);
   }
 
   function readFile(file) {
@@ -728,6 +733,28 @@ const EditFormHost =({booking})=>{
 
             {formStep === 5 && (
               <section>
+                {console.log('Date: ', availability)}
+                <div className="typebookingNew">
+                  <h1>Paso 5: Disponibilidad de fechas</h1>
+                  <section>
+                    <DateRangePicker
+                      locale="es"
+                      label="Fecha de inicio de disponibilidad"
+                      placeholder="Inicio - Fin"
+                      minDate={dayjs(new Date())
+                        .startOf('month')
+                        .add(now.date(), 'days')
+                        .toDate()}
+                      value={availability}
+                      onChange={setAvailability}
+                    />
+                  </section>
+                </div>
+              </section>
+            )}
+
+            {formStep === 6 && (
+              <section>
                 <div className="typebooking5">
                   <ScrollArea style={{ height: 350 }}>
                     <h2>Revisa tu anuncio</h2>
@@ -753,7 +780,14 @@ const EditFormHost =({booking})=>{
                       <h2>Lo que este lugar ofrece</h2>
                       {listItems}
                     </div>
-
+                    <div>
+                      <h2>Disponibilidad</h2>
+                      {`Desde el ${availability[0].getDate()} de ${
+                        dayjsLocal.months[availability[0].getMonth()]
+                      } de ${availability[0].getFullYear()}, hasta el ${availability[1].getDate()} de ${
+                        dayjsLocal.months[availability[1].getMonth()]
+                      } de ${availability[1].getFullYear()}`}
+                    </div>
                     <button className="send-form">Enviar</button>
                   </ScrollArea>
                 </div>
