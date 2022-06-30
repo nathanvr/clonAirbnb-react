@@ -13,7 +13,7 @@ const Payment = (props) => {
   const fullName = name + ' ' + lastname;
   const invoiceNumber = uuidv4();
 
-  console.log(bookingSiteData.data._id);
+  // console.log(bookingSiteData.data._id);
   function handleClick() {
     handler.open({
       //Parametros compra (obligatorio)

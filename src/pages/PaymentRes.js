@@ -52,8 +52,6 @@ const PaymentRes = () => {
       }
     };
 
-    console.log(dataRes);
-
     payRes();
   }, []);
 
@@ -62,33 +60,33 @@ const PaymentRes = () => {
   dates.push(dataRes.x_extra2);
   console.log(dataRes.x_cod_response);
 
-  useEffect(() => {
-    const bookingSave = async () => {
-      if (dataRes.x_cod_response === 1) {
-        const token = localStorage.getItem('token');
-        const body = {
-          bookingSiteId: dataRes.x_extra4,
-          date: dates,
-        };
+  // useEffect(() => {
+  //   const bookingSave = async () => {
+  //     if (dataRes.x_cod_response === 1) {
+  //       const token = localStorage.getItem('token');
+  //       const body = {
+  //         bookingSiteId: dataRes.x_extra4,
+  //         date: dates,
+  //       };
 
-        try {
-          const response = await axios.post(
-            'http://localhost:8080/bookings',
-            body,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          console.log('respuesta', response);
-        } catch (error) {
-          console.log('Error', error);
-        }
-      }
-    };
-    bookingSave();
-  }, []);
+  //       try {
+  //         const response = await axios.post(
+  //           'http://localhost:8080/bookings',
+  //           body,
+  //           {
+  //             headers: {
+  //               Authorization: `Bearer ${token}`,
+  //             },
+  //           }
+  //         );
+  //         console.log('respuesta', response);
+  //       } catch (error) {
+  //         console.log('Error', error);
+  //       }
+  //     }
+  //   };
+  //   bookingSave();
+  // }, []);
 
   console.log(dataRes);
 

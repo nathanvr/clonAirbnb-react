@@ -19,8 +19,11 @@ const HostDashboard = () => {
     dispatch(getUser());
   }, [dispatch]);
 
-  const { bookingSites } = useSelector((state) => state.userReducer);
-  console.log(bookingSites);
+  const { bookingSites, bookings } = useSelector((state) => state.userReducer);
+  const rbookingsite = useSelector((state) => state.bookingSiteReducer);
+  console.log('bookingsites del user', bookingSites[0]);
+  console.log('bookings del user', bookings);
+  console.log('bookingsite desde el estado', rbookingsite);
 
   return (
     <div className="dashboard-container">

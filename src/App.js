@@ -28,7 +28,11 @@ function App() {
       dispatch(getUser());
     }
   }, [dispatch]);
+<<<<<<< Updated upstream
 
+=======
+  // console.log('rol del usuario', role);
+>>>>>>> Stashed changes
 
   return (
     <div className="App">

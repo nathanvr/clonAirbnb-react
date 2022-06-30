@@ -42,7 +42,7 @@ export const getUser = () => {
         },
       });
       const user = data.data;
-      console.log('usuario desde el user reducer', user);
+      // console.log('usuario desde el user reducer', user);
       dispatch({ type: USER_ROLE, payload: user.role });
       dispatch({ type: USER_NAME, payload: user.name });
       dispatch({ type: USER_LASTNAME, payload: user.lastname });
@@ -54,7 +54,7 @@ export const getUser = () => {
       // console.log('getUser1');
       dispatch({ type: USER_BOOKINGSITES, payload: user.bookingsites });
       // console.log('getUser2');
-      dispatch({ type: USER_BOOKINGS, payload: user.booking });
+      dispatch({ type: USER_BOOKINGS, payload: user.bookings });
       // console.log('getUser3');
       dispatch({ type: USER_REVIEWS, payload: user.reviews });
       // console.log('getUser4');
@@ -204,7 +204,7 @@ const initialState = {
   image: null,
   description: null,
   bookingSites: [],
-  booking: [],
+  bookings: [],
   reviews: [],
 };
 
@@ -236,7 +236,7 @@ const userReducer = (state = initialState, action) => {
         image: null,
         description: null,
         bookingSites: [],
-        booking: [],
+        bookings: [],
         reviews: [],
         signed: false,
       };
@@ -319,7 +319,7 @@ const userReducer = (state = initialState, action) => {
     case USER_BOOKINGS:
       return {
         ...state,
-        booking: action.payload,
+        bookings: action.payload,
       };
     case USER_REVIEWS:
       return {
