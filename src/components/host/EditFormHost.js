@@ -9,12 +9,11 @@ import { DateRangePicker } from '@mantine/dates';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import { Trash } from 'tabler-icons-react';
 import { toast } from 'react-toastify';
-import { getUser } from "../../store/reducers/User.reducer";
-import { useDispatch } from "react-redux";
+import { getUser } from '../../store/reducers/User.reducer';
+import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import dayjsLocal from 'dayjs/locale/es';
 import 'dayjs/locale/es';
-
 
 const options1 = [
   { value: 'apartment', label: 'Apartamentos' },
@@ -200,7 +199,7 @@ const EditFormHost =({booking})=>{
             )
         }
     }
-    
+   
    
    async function handleSubmit(e) {
     e.preventDefault();
@@ -228,7 +227,6 @@ const EditFormHost =({booking})=>{
       data.append('images', images);
     }
     if (file) {
-      console.log(typeof file);
       for (let i = 0; i < file.length; i++) {
         //nombre de la propiedad, archivo y nombre del archivo
         data.append(`file_${i}`, file[i], file[i].name);
@@ -247,7 +245,6 @@ const EditFormHost =({booking})=>{
           },
         }
       );
-      console.log(response);
       if (response.status === 200) {
         setLoading(false);
         setVisible(false);
@@ -762,6 +759,7 @@ const EditFormHost =({booking})=>{
               </section>
             )}
            </form>
+
           <section className="buttons">
             {renderButtonPrev()}
             {renderButtonNext()}

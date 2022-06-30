@@ -28,7 +28,6 @@ const Navbar = () => {
     (state) => state.userReducer
   );
 
-
   const handleSignOut = () => {
     dispatch(signOutSuccess());
     <Navigate to="/" replace={true} />;

@@ -31,8 +31,6 @@ function App() {
     }
   }, [dispatch]);
 
-
-
   return (
     <div className="App">
       <ToastContainer
@@ -52,7 +50,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/filter-bookings" element={<FilterBooking/>} />
+          <Route exact path="/filter-bookings" element={<FilterBooking />} />
           <Route exact path="/host" element={<Host></Host>} />
           <Route
             exact

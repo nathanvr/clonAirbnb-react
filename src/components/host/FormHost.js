@@ -28,7 +28,6 @@ import dayjs from 'dayjs';
 import dayjsLocal from 'dayjs/locale/es';
 import 'dayjs/locale/es';
 
-
 const options1 = [
   { value: 'apartment', label: 'Apartamentos' },
   { value: 'house', label: 'Casa' },
@@ -83,7 +82,6 @@ const options3 = [
   { value: 'shared', label: 'Una habitación compartida' },
 ];
 const containerStyle = {
-
     width: '350px',
     height: '250px'
     };
@@ -122,7 +120,9 @@ const FormHost = (props) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
+
   const [availability, setAvailability] = useState([new Date(), new Date()]);
+
   const [error, setError] = useState(null);
   const [errorValidate, setErrorValidate]= useState({
     formstep0: null,
@@ -146,6 +146,7 @@ const FormHost = (props) => {
   //Current time
   const now = dayjs(new Date());
   console.log('CurrentDate: ', now, 'Day', now.date());
+
   //Huespedes
   const addCountGuest = () => {
     if (countGuest === 16) {
@@ -483,9 +484,11 @@ const FormHost = (props) => {
         );
     }
   });
+
   const onLoad = (marker) => {
     console.log('marker: ', marker);
   };
+
   return (
     <div>
       <Link to="#" onClick={() => setOpened(true)}>
@@ -797,8 +800,6 @@ const FormHost = (props) => {
                       <h2>Lo que este lugar ofrece</h2>
                       {listItems}
                     </div>
-
-
                     <button className="send-form">Enviar</button>
                   </ScrollArea>
                 </div>
