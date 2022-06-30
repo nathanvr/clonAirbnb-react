@@ -8,7 +8,15 @@ import RegisterModal from './RegisterModal';
 import LoginModal from './LoginModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { signOutSuccess } from '../store/reducers/User.reducer';
-import { Menu, Divider, Avatar, UnstyledButton, Text, Group, createStyles} from '@mantine/core';
+import {
+  Menu,
+  Divider,
+  Avatar,
+  UnstyledButton,
+  Text,
+  Group,
+  createStyles,
+} from '@mantine/core';
 import { User, Folder, TransferOut } from 'tabler-icons-react';
 
 const Navbar = () => {
@@ -16,10 +24,14 @@ const Navbar = () => {
 
   const location = useLocation();
   const [show, setShow] = useState(false);
-  const { isLoggedIn, name, role, image} = useSelector(
+  const { isLoggedIn, name, role, image } = useSelector(
     (state) => state.userReducer
   );
+<<<<<<< HEAD
+  // console.log('imagen', image);
+=======
 
+>>>>>>> e29b08b3b0c2047d15bf6a4faa558c9af5409a88
 
   const handleSignOut = () => {
     dispatch(signOutSuccess());
@@ -63,22 +75,26 @@ const Navbar = () => {
                   className={
                     location.pathname === '/' ? 'info-user-home' : 'info-user'
                   }>
-                      <UnstyledButton
-                      >
-                      <Group>
-                      <Avatar radius="xl" size={30} src={image === undefined ? null : image} />
+                  <UnstyledButton>
+                    <Group>
+                      <Avatar
+                        radius="xl"
+                        size={30}
+                        src={image === undefined ? null : image}
+                      />
                       <div>
-                      <Text
-                        component="span"
-                        align="center"
-                        color={location.pathname === '/' ? 'white' : 'gray'}
-                        size="md"
-                        weight={400}
-                        style={{ fontFamily: 'Roboto, sans-serif' }}>{name} {}</Text>
+                        <Text
+                          component="span"
+                          align="center"
+                          color={location.pathname === '/' ? 'white' : 'gray'}
+                          size="md"
+                          weight={400}
+                          style={{ fontFamily: 'Roboto, sans-serif' }}>
+                          {name} {}
+                        </Text>
                       </div>
-                      </Group>
-                      </UnstyledButton>
-                  
+                    </Group>
+                  </UnstyledButton>
                 </div>
               }
               trigger="hover"
@@ -86,14 +102,14 @@ const Navbar = () => {
               {role === 'guest' ? (
                 <div>
                   <Link to="/profile">
-                  <Menu.Item>
-                  <Group>
-                  <User size={15} strokeWidth={2} color={'black'} /> 
-                  <div>
-                    <Text>Ver tu perfil</Text>
-                  </div>
-                  </Group>
-                  </Menu.Item>
+                    <Menu.Item>
+                      <Group>
+                        <User size={15} strokeWidth={2} color={'black'} />
+                        <div>
+                          <Text>Ver tu perfil</Text>
+                        </div>
+                      </Group>
+                    </Menu.Item>
                   </Link>
                   <Menu.Item>
                     <Link to="/host/dashboard">
@@ -119,6 +135,16 @@ const Navbar = () => {
               ) : (
                 <div>
                   <Link to="/profile">
+<<<<<<< HEAD
+                    <Menu.Item>
+                      <Group>
+                        <User size={17} strokeWidth={2} color={'black'} />
+                        <div>
+                          <Text size="sm">Ver tu perfil</Text>
+                        </div>
+                      </Group>
+                    </Menu.Item>
+=======
                   <Menu.Item>
                   <Group>
                   <User size={17} strokeWidth={2} color={'black'} /> 
@@ -127,33 +153,34 @@ const Navbar = () => {
                   </div>
                   </Group>
                   </Menu.Item>
+>>>>>>> e29b08b3b0c2047d15bf6a4faa558c9af5409a88
                   </Link>
                   <Link to="/host/dashboard">
-                  <Menu.Item>
-                  <Group>
-                      <Folder size={17} strokeWidth={2} color={'black'} />  <div>
-                    <Text size="sm">Ver tus sitios</Text>
-                  </div>
-                  </Group>
-                  </Menu.Item> 
+                    <Menu.Item>
+                      <Group>
+                        <Folder size={17} strokeWidth={2} color={'black'} />{' '}
+                        <div>
+                          <Text size="sm">Ver tus sitios</Text>
+                        </div>
+                      </Group>
+                    </Menu.Item>
                   </Link>
                   <Divider />
                   <Link to="/">
-                  <Menu.Item onClick={handleSignOut}>
-                  <Group>
-
+                    <Menu.Item onClick={handleSignOut}>
+                      <Group>
                         <TransferOut
                           size={15}
                           strokeWidth={2}
                           color={'#FF0000'}
                         />{' '}
                         <div>
-                    <Text  color="red" size="sm">Cerrar sesión</Text>
+                          <Text color="red" size="sm">
+                            Cerrar sesión
+                          </Text>
                         </div>
-                  </Group>
-
-                    
-                  </Menu.Item>
+                      </Group>
+                    </Menu.Item>
                   </Link>
                 </div>
               )}

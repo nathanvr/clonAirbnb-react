@@ -11,10 +11,11 @@ const BookingSection = (props) => {
   const [date, setDate] = useState([new Date(), new Date()]);
   const [numGuest, setNumGuest] = useState(0);
   const totalDays = (date[1] - date[0]) / (1000 * 60 * 60 * 24);
-  const totalNigths = totalDays * priceNigth;
-  const taxService = totalNigths * 0.203;
-  const taxClean = totalNigths * 0.042;
-  const Total = totalNigths + taxService + taxClean;
+  const totalNigth = totalDays * priceNigth;
+  const taxService = totalNigth * 0.203;
+  const taxClean = totalNigth * 0.042;
+  const Total = totalNigth + taxService + taxClean;
+
   return (
     <div className="bookingContainerForm">
       <h2 className="bookingContainerForm__title">${priceNigth} COP / noche</h2>
@@ -39,11 +40,12 @@ const BookingSection = (props) => {
           />
         </div>
         <div className="bookingContainerForm__button">
-          {/* <button onClick={() => {}}>
-            <h3>Reserva</h3>
-          </button> */}
           {isLoggedIn ? (
-            <Payment totalPay={Total}></Payment>
+            <Payment
+              totalPay={Total}
+              startDate={date[0]}
+              finishDate={date[1]}
+              totalNigths={totalDays}></Payment>
           ) : (
             <LoginModal sitio="Inicia Sesion" />
           )}
@@ -54,7 +56,7 @@ const BookingSection = (props) => {
             <p>
               {priceNigth} x {totalDays} noches
             </p>
-            <p> ${totalNigths} COP</p>
+            <p> ${totalNigth} COP</p>
           </div>
           <div className="price-box">
             <p>Tarifa por servicio</p>

@@ -55,10 +55,10 @@ const BookingRoom = () => {
 
   const photos = [...bookingSiteData.data.images.toString().split(',')];
 
-  console.log('Photos: ', bookingSiteData.data);
+  // console.log('Photos: ', bookingSiteData.data);
   const listPhothos = [];
 
-bookingSiteData.data.images.forEach((element) => {
+  bookingSiteData.data.images.forEach((element) => {
     listPhothos.push({
       src: element,
       width: 25,
