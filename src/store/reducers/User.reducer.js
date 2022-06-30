@@ -30,7 +30,7 @@ export const USER_LOGOUT_SUCCESS = 'USER_LOGOUT_SUCCESS';
 //action creator: login
 
 export const getUser = () => {
-  console.log('getUserini');
+  // console.log('getUserini');
   return async (dispatch) => {
     const token = localStorage.getItem('token');
     try {
@@ -42,7 +42,7 @@ export const getUser = () => {
         },
       });
       const user = data.data;
-      console.log(user);
+      // console.log('usuario desde el user reducer', user);
       dispatch({ type: USER_ROLE, payload: user.role });
       dispatch({ type: USER_NAME, payload: user.name });
       dispatch({ type: USER_LASTNAME, payload: user.lastname });
@@ -51,17 +51,17 @@ export const getUser = () => {
       dispatch({ type: USER_PASSWORD, payload: user.password });
       dispatch({ type: USER_DESCRIPTION, payload: user.description });
       dispatch({ type: USER_IMAGE, payload: user.image });
-      console.log('getUser1');
+      // console.log('getUser1');
       dispatch({ type: USER_BOOKINGSITES, payload: user.bookingsites });
-      console.log('getUser2');
-      dispatch({ type: USER_BOOKINGS, payload: user.booking });
-      console.log('getUser3');
+      // console.log('getUser2');
+      dispatch({ type: USER_BOOKINGS, payload: user.bookings });
+      // console.log('getUser3');
       dispatch({ type: USER_REVIEWS, payload: user.reviews });
-      console.log('getUser4');
+      // console.log('getUser4');
       dispatch({ type: USER_LOGIN_SUCCESS });
-      console.log('getUser5');
+      // console.log('getUser5');
     } catch (err) {
-      console.log('getUserFail', err);
+      // console.log('getUserFail', err);
       dispatch({ type: SIGNIN_FAILURE, payload: err });
     }
   };
@@ -206,23 +206,23 @@ const initialState = {
   image: null,
   description: null,
   bookingSites: [],
-  booking: [],
+  bookings: [],
   reviews: [],
 };
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
-      console.log('Se lanzo USER_LOGIN_REQUEST');
+      // console.log('Se lanzo USER_LOGIN_REQUEST');
       return {
         ...state,
         loading: true,
         isLoggedIn: false,
-        error:null
+        error: null,
       };
 
     case USER_LOGIN_ERROR:
-      console.log('Se lanzo USER_LOGIN_ERROR');
+      // console.log('Se lanzo USER_LOGIN_ERROR');
       return {
         ...state,
         error: action.payload,
@@ -238,12 +238,12 @@ const userReducer = (state = initialState, action) => {
         image: null,
         description: null,
         bookingSites: [],
-        booking: [],
+        bookings: [],
         reviews: [],
         signed: false,
       };
     case USER_LOGOUT_SUCCESS:
-      console.log('Se lanzo USER_LOGOUT_SUCCESS');
+      // console.log('Se lanzo USER_LOGOUT_SUCCESS');
       localStorage.removeItem('token');
       return {
         ...state,
@@ -252,21 +252,21 @@ const userReducer = (state = initialState, action) => {
         error: null,
       };
     case USER_REGISTER_REQUEST:
-      console.log('Se lanzo USER_REGISTER_REQUEST');
+      // console.log('Se lanzo USER_REGISTER_REQUEST');
       return {
         ...state,
         loading: true,
         isLoggedIn: false,
       };
     case USER_REGISTER_SUCCESS:
-      console.log('Se lanzo USER_REGISTER_SUCCESS');
+      // console.log('Se lanzo USER_REGISTER_SUCCESS');
       return {
         ...state,
         isLoggedIn: true,
         loading: false,
       };
     case USER_REGISTER_ERROR:
-      console.log('Se lanzo USER_REGISTER_ERROR');
+      // console.log('Se lanzo USER_REGISTER_ERROR');
       return {
         ...state,
         error: action.payload,
@@ -321,7 +321,7 @@ const userReducer = (state = initialState, action) => {
     case USER_BOOKINGS:
       return {
         ...state,
-        booking: action.payload,
+        bookings: action.payload,
       };
     case USER_REVIEWS:
       return {
@@ -329,12 +329,12 @@ const userReducer = (state = initialState, action) => {
         reviews: action.payload,
       };
     case USER_LOGIN_SUCCESS:
-      console.log('Se lanzo USER_LOGIN_SUCCESS');
+      // console.log('Se lanzo USER_LOGIN_SUCCESS');
       return {
         ...state,
         isLoggedIn: true,
         loading: false,
-        error:null,
+        error: null,
       };
     default:
       return state;

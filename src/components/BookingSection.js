@@ -69,7 +69,11 @@ const BookingSection = (props) => {
         </div>
         <div className="bookingContainerForm__button">
           {isLoggedIn ? (
-            <Payment totalPay={Total}></Payment>
+            <Payment
+              totalPay={Total}
+              startDate={date[0]}
+              finishDate={date[1]}
+              totalNigths={totalDays}></Payment>
           ) : (
             <LoginModal sitio="Inicia Sesion" />
           )}
@@ -80,7 +84,7 @@ const BookingSection = (props) => {
             <p>
               {priceNigth} x {totalDays} noches
             </p>
-            <p> ${totalNigths} COP</p>
+            <p> ${totalNigth} COP</p>
           </div>
           <div className="price-box">
             <p>Tarifa por servicio</p>

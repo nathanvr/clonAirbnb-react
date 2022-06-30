@@ -16,6 +16,9 @@ import RecoveryPassword from './pages/RecoveryPassword';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+import PaymentRes from './pages/PaymentRes';
+
+
 function App() {
   const token = localStorage.getItem('token');
   const { role } = useSelector((state) => state.userReducer);
@@ -27,6 +30,7 @@ function App() {
       dispatch(getUser());
     }
   }, [dispatch]);
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyCsW9trmjliEY9-Qz_uuAK8C2DRCUFzDqs',
     libraries,
@@ -64,6 +68,7 @@ function App() {
             path="/host/messages"
             element={<MessagesHost></MessagesHost>}
           />
+          <Route exact path="/response" element={<PaymentRes></PaymentRes>} />
           <Route exact path="/room/:id" element={<BookingRoom></BookingRoom>} />
           <Route
             exact

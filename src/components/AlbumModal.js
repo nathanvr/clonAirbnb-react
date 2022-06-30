@@ -23,7 +23,7 @@ const styles = {
 const AlbumModal = (props) => {
   const { site, album } = props;
   const [modalOpen, setModalOpen] = useState(false);
-  console.log('Album: ', album);
+  // console.log('Album: ', album);
   return (
     <div>
       <Link to="#" onClick={() => setModalOpen(true)}>

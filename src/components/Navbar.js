@@ -8,7 +8,15 @@ import RegisterModal from './RegisterModal';
 import LoginModal from './LoginModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { signOutSuccess } from '../store/reducers/User.reducer';
-import { Menu, Divider, Avatar, UnstyledButton, Text, Group, createStyles} from '@mantine/core';
+import {
+  Menu,
+  Divider,
+  Avatar,
+  UnstyledButton,
+  Text,
+  Group,
+  createStyles,
+} from '@mantine/core';
 import { User, Folder, TransferOut } from 'tabler-icons-react';
 
 const Navbar = () => {
@@ -16,7 +24,7 @@ const Navbar = () => {
 
   const location = useLocation();
   const [show, setShow] = useState(false);
-  const { isLoggedIn, name, role, image} = useSelector(
+  const { isLoggedIn, name, role, image } = useSelector(
     (state) => state.userReducer
   );
 
@@ -193,3 +201,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
