@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from './components/Navbar';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
@@ -15,10 +15,11 @@ import { getUser } from './store/reducers/User.reducer';
 import RecoveryPassword from './pages/RecoveryPassword';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 function App() {
   const token = localStorage.getItem('token');
   const { role } = useSelector((state) => state.userReducer);
-
+  const [libraries] = useState(['places']);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,6 +27,10 @@ function App() {
       dispatch(getUser());
     }
   }, [dispatch]);
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: 'AIzaSyCsW9trmjliEY9-Qz_uuAK8C2DRCUFzDqs',
+    libraries,
+  });
 
 
   return (

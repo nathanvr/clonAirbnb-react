@@ -5,6 +5,7 @@ import Payment from './Payment';
 import { useSelector } from 'react-redux';
 import LoginModal from './LoginModal';
 
+
 const BookingSection = (props) => {
   const { isLoggedIn } = useSelector((state) => state.userReducer);
   const { priceNigth, maxguest } = props;
@@ -15,6 +16,32 @@ const BookingSection = (props) => {
   const taxService = totalNigths * 0.203;
   const taxClean = totalNigths * 0.042;
   const Total = totalNigths + taxService + taxClean;
+  const example = [
+    {date:[ "2022-06-29T05:00:00.000Z", "2022-07-06T05:00:00.000Z"]},
+    {date:["2022-07-20T05:00:00.000Z", "2022-07-25T05:00:00.000Z"]}
+  ]
+  function getDates (startDate, endDate) {
+    const dates = []
+    let currentDate = startDate
+    const addDays = function (days) {
+      const date = new Date(this.valueOf())
+      date.setDate(date.getDate() + days)
+      return date
+    }
+    while (currentDate <= endDate) {
+      dates.push(currentDate)
+      currentDate = addDays.call(currentDate, 1)
+    }
+    return dates
+  }
+
+  let BookingDates=[]
+  const datesf= example.forEach((index)=>{
+    BookingDates.push(getDates(new Date(index.date[0]),new Date(index.date[1])))
+  })
+
+  console.log("hola",BookingDates.toString().split(","))  
+  
   return (
     <div className="bookingContainerForm">
       <h2 className="bookingContainerForm__title">${priceNigth} COP / noche</h2>
@@ -26,6 +53,8 @@ const BookingSection = (props) => {
             value={date}
             onChange={setDate}
             amountOfMonths={2}
+            excludeDate={(date) => BookingDates.toString().split(",").some((dates)=> date.getTime() === new Date(dates).getTime()) }
+            minDate={new Date()} 
           />
         </div>
         <div>
@@ -39,9 +68,6 @@ const BookingSection = (props) => {
           />
         </div>
         <div className="bookingContainerForm__button">
-          {/* <button onClick={() => {}}>
-            <h3>Reserva</h3>
-          </button> */}
           {isLoggedIn ? (
             <Payment totalPay={Total}></Payment>
           ) : (

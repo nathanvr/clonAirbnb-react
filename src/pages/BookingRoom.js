@@ -1,6 +1,5 @@
 import React from 'react';
 import InfoHostTitulo from '../components/InfoHostTitulo';
-import Host1 from '../images/Hostes/Host1.jpg';
 import Aircoversection from '../components/Aircoversection';
 import DescripcionReserva from '../components/DescripcionReserva';
 import 'swiper/css';
@@ -15,10 +14,8 @@ import BookingSection from '../components/BookingSection';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getBookingSite } from '../store/reducers/BookingSite.reducer';
-import PhotoAlbum from 'react-photo-album';
 import { Icon } from '@iconify/react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
-import { faRedRiver } from '@fortawesome/free-brands-svg-icons';
 import AlbumModal from '../components/AlbumModal';
 
 const containerStyle = {
@@ -67,7 +64,7 @@ bookingSiteData.data.images.forEach((element) => {
   });
 
   return (
-    <div className="container-total">
+    <div className="container-total-booking">
       <div className="titulo-anfitrion"></div>
       <div className="albumreser">
         {/* {photos.map((photo, index) => (
