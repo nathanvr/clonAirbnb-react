@@ -9,31 +9,34 @@ import ProDate from './userProfile/ProDate';
 import ProDescription from './userProfile/ProDescription';
 import ProPass from './userProfile/ProPass';
 import { getUser } from '../store/reducers/User.reducer';
+import dayjs from 'dayjs/locale/es';
 
 const ProfilePill = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
+
   const userData = useSelector((state) => state.userReducer);
   const [image, setImage] = useState('');
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [birthDay, setBirthDay] = useState('');
+  const [birthday, setBirthday] = useState(new Date(userData.birthday));
   const [description, setDescription] = useState('');
 
-  console.log('userDat: ', userData);
-  console.log('birthday: ', birthDay, typeof birthDay);
+  console.log('userDat: ', userData.birthday);
 
   useEffect(() => {
     setName(userData.name);
     setImage(userData.image);
     setLastName(userData.lastname);
     setEmail(userData.email);
-    setBirthDay(userData.birthday);
+    setBirthday(new Date(userData.birthday));
     setDescription(userData.description);
   }, [userData]);
+
+  console.log('Birthday: ', birthday);
 
   const list = [
     {
@@ -53,7 +56,9 @@ const ProfilePill = () => {
     },*/
     {
       label: 'Fecha de nacimiento',
-      description: `${birthDay}`,
+      description: `${birthday.getDate()} de ${
+        dayjs.months[birthday.getMonth()]
+      } de ${birthday.getFullYear()}`,
       content: <ProDate />,
     },
     {

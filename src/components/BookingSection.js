@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import LoginModal from './LoginModal';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
-
+import { object } from 'zod';
 
 const BookingSection = (props) => {
   const now = dayjs(new Date());
@@ -19,34 +19,34 @@ const BookingSection = (props) => {
   const taxService = totalNigths * 0.203;
   const taxClean = totalNigths * 0.042;
   const Total = totalNigths + taxService + taxClean;
-<<<<<<< Updated upstream
   const example = [
-    {date:[ "2022-06-29T05:00:00.000Z", "2022-07-06T05:00:00.000Z"]},
-    {date:["2022-07-20T05:00:00.000Z", "2022-07-25T05:00:00.000Z"]}
-  ]
-  function getDates (startDate, endDate) {
-    const dates = []
-    let currentDate = startDate
+    { date: ['2022-06-29T05:00:00.000Z', '2022-07-06T05:00:00.000Z'] },
+    { date: ['2022-07-20T05:00:00.000Z', '2022-07-25T05:00:00.000Z'] },
+  ];
+  function getDates(startDate, endDate) {
+    const dates = [];
+    let currentDate = startDate;
     const addDays = function (days) {
-      const date = new Date(this.valueOf())
-      date.setDate(date.getDate() + days)
-      return date
-    }
+      const date = new Date(this.valueOf());
+      date.setDate(date.getDate() + days);
+      return date;
+    };
     while (currentDate <= endDate) {
-      dates.push(currentDate)
-      currentDate = addDays.call(currentDate, 1)
+      dates.push(currentDate);
+      currentDate = addDays.call(currentDate, 1);
     }
-    return dates
+    return dates;
   }
 
-  let BookingDates=[]
-  const datesf= example.forEach((index)=>{
-    BookingDates.push(getDates(new Date(index.date[0]),new Date(index.date[1])))
-  })
+  let BookingDates = [];
+  const datesf = example.forEach((index) => {
+    BookingDates.push(
+      getDates(new Date(index.date[0]), new Date(index.date[1]))
+    );
+  });
 
-  console.log("hola",BookingDates.toString().split(","))  
-  
-=======
+  console.log('hola', BookingDates.toString().split(','));
+
   const datesArr = (dates) => {
     return dates.map((item) => {
       const diff =
@@ -58,7 +58,6 @@ const BookingSection = (props) => {
     });
   };
   datesArr(dates);
->>>>>>> Stashed changes
   return (
     <div className="bookingContainerForm">
       <h2 className="bookingContainerForm__title">${priceNigth} COP / noche</h2>
@@ -74,20 +73,12 @@ const BookingSection = (props) => {
               .toDate()}
             value={date}
             onChange={setDate}
-<<<<<<< Updated upstream
             amountOfMonths={2}
-            excludeDate={(date) => BookingDates.toString().split(",").some((dates)=> date.getTime() === new Date(dates).getTime()) } 
-=======
-            excludeDate={(date) => {
-              console.log('Dates: ', date.toISOString());
-              console.log('Dates2: ', dates);
-              return [
-                new Date(2022, 7, 24).toISOString(),
-                new Date(2022, 7, 25),
-                dates,
-              ].includes(date.toISOString());
-            }}
->>>>>>> Stashed changes
+            excludeDate={(date) =>
+              BookingDates.toString()
+                .split(',')
+                .some((dates) => date.getTime() === new Date(dates).getTime())
+            }
           />
         </div>
         <div>

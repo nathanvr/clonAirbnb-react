@@ -1,10 +1,23 @@
-import React,{ useState,} from "react";
-import { Modal, useMantineTheme, Textarea, LoadingOverlay} from '@mantine/core';
-import { NumberInput,Select, CheckboxGroup, Checkbox, TextInput, Button , ScrollArea } from '@mantine/core';
-import axios from "axios";
-import { useSelector } from "react-redux";
+import React, { useState } from 'react';
+import {
+  Modal,
+  useMantineTheme,
+  Textarea,
+  LoadingOverlay,
+} from '@mantine/core';
+import {
+  NumberInput,
+  Select,
+  CheckboxGroup,
+  Checkbox,
+  TextInput,
+  Button,
+  ScrollArea,
+} from '@mantine/core';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 import { Icon } from '@iconify/react';
-import PlacesAutocomplete from "../Maps/PlacesAutocomplete";
+import PlacesAutocomplete from '../Maps/PlacesAutocomplete';
 import { DateRangePicker } from '@mantine/dates';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import { Trash } from 'tabler-icons-react';
@@ -73,135 +86,144 @@ const containerStyle = {
   height: '250px',
 };
 
-const EditFormHost =({booking})=>{
-    const { name} = useSelector((state) => state.userReducer);
-    const dispatch = useDispatch();
-    const theme = useMantineTheme();
-    const string = booking.services.toString();
-    const services= string.split(",");
-    const arrayImages =booking.images.toString().split(",")
-    const [opened, setOpened] = useState(false);
-    const [countGuest, setCountGuest] = useState(booking.total_occupancy);
-    const [countBeds, setCountBeds] = useState(booking.total_beds);
-    const [countRooms, setCountRooms] = useState(booking.total_rooms);
-    const [countBaths, setCountBaths] = useState(booking.total_bathrooms);
-    const [isChecked, setIsChecked] = useState(services);
-    const [home_type, setHome_type] = useState(booking.home_type);
-    const [description_type, setDescription_type] = useState(booking.description_type);
-    const [room_type, setRoom_type] = useState(booking.room_type);
-    const [formStep, setformStep] = useState(0);
-    const [address, setAddress]=useState(booking.address);
-    const [city, setCity]=useState(booking.city);
-    const [country, setCountry]=useState(booking.country);
-    const [zipcode, setZipcode]=useState(booking.zipcode);
-    const [title, setTitle]=useState(booking.title);
-    const [description, setDescription]= useState(booking.description);
-    const [price,setPrice]=useState(booking.price);
-    const [lati, setLat]=useState(booking.lat);
-    const [lngi, setLng]=useState(booking.lng);
-    const [image, setImage] = useState(null);
-    const [file, setFile] = useState(null);
-    const [center ,setCenter]=useState({ lat: Number(booking.lat), lng: Number(booking.lng)})
-    const [position,setPosition]=useState({ lat: Number(booking.lat), lng: Number(booking.lng)})
-    const [images, setImages]= useState(arrayImages)
-    const [loading, setLoading] = useState(false);
-    const [visible, setVisible] = useState(false);
-    const [error, setError] = useState(null);
-    const [ libraries ] = useState(['places']);
-    
-  const onLoad = marker => {
-    console.log('marker: ', marker)
-  }  
+const EditFormHost = ({ booking }) => {
+  const { name } = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
+  const theme = useMantineTheme();
+  const string = booking.services.toString();
+  const services = string.split(',');
+  const arrayImages = booking.images.toString().split(',');
+  const [opened, setOpened] = useState(false);
+  const [countGuest, setCountGuest] = useState(booking.total_occupancy);
+  const [countBeds, setCountBeds] = useState(booking.total_beds);
+  const [countRooms, setCountRooms] = useState(booking.total_rooms);
+  const [countBaths, setCountBaths] = useState(booking.total_bathrooms);
+  const [isChecked, setIsChecked] = useState(services);
+  const [home_type, setHome_type] = useState(booking.home_type);
+  const [description_type, setDescription_type] = useState(
+    booking.description_type
+  );
+  const [room_type, setRoom_type] = useState(booking.room_type);
+  const [formStep, setformStep] = useState(0);
+  const [address, setAddress] = useState(booking.address);
+  const [city, setCity] = useState(booking.city);
+  const [country, setCountry] = useState(booking.country);
+  const [zipcode, setZipcode] = useState(booking.zipcode);
+  const [title, setTitle] = useState(booking.title);
+  const [description, setDescription] = useState(booking.description);
+  const [price, setPrice] = useState(booking.price);
+  const [lati, setLat] = useState(booking.lat);
+  const [lngi, setLng] = useState(booking.lng);
+  const [image, setImage] = useState(null);
+  const [file, setFile] = useState(null);
+  const [center, setCenter] = useState({
+    lat: Number(booking.lat),
+    lng: Number(booking.lng),
+  });
+  const [position, setPosition] = useState({
+    lat: Number(booking.lat),
+    lng: Number(booking.lng),
+  });
+  const [images, setImages] = useState(arrayImages);
+  const [loading, setLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [error, setError] = useState(null);
+  const [libraries] = useState(['places']);
+
+  const onLoad = (marker) => {
+    console.log('marker: ', marker);
+  };
   const [availability, setAvailability] = useState([
     new Date(booking.availabilitybegin),
     new Date(booking.availabilityend),
   ]);
 
-
   console.log('Availability: ', availability);
   //Current date
   const now = dayjs(new Date());
-  
-    //Huespedes
-    const addCountGuest = () => { 
-        if(countGuest === 16){
-            return;  
-            }
-            setCountGuest(countGuest + 1);
-    };
-    const removeCountGuest = () => {
-        if(countGuest === 0){
-        return;  
-        }
-        setCountGuest(countGuest - 1);
-    };
-    //Camas
-    const addCountBeds = () => {
-        if(countBeds === 50){
-            return;  
-            }
-            setCountBeds(countBeds + 1);
-    };
-    const removeCountBeds = () => {
-        if(countBeds === 0){
-        return;  
-        }
-        setCountBeds(countBeds - 1);
-    };
-    //Habitaciones
-    const addCountRooms = () => {
-        if(countRooms === 50){
-            return;  
-            }
-            setCountRooms(countRooms + 1);
-    };
-    const removeCountRooms = () => {
-        if(countRooms === 0){
-        return;  
-        }
-        setCountRooms(countRooms - 1);
-    };
-    //Baños
-    const addCountBaths = () => {
-        if(countBaths=== 50){
-            return;  
-            }
-            setCountBaths(countBaths + 1);
-    };
-    const removeCountBaths = () => {
-        if(countBaths === 0){
-        return;  
-        }
-        setCountBaths(countBaths - 1);
-    };
-    const completeFormStep =() =>{
-        setformStep(cur=>cur+1);
+
+  //Huespedes
+  const addCountGuest = () => {
+    if (countGuest === 16) {
+      return;
     }
-    const backFormStep =() =>{
-        setformStep(cur=>cur-1);
+    setCountGuest(countGuest + 1);
+  };
+  const removeCountGuest = () => {
+    if (countGuest === 0) {
+      return;
     }
-    const renderButtonPrev =()=>{
-        if(formStep===0){
-            return undefined;
-        } 
-        else{
-            return(
-                <button type="button"  id="button" onClick={backFormStep}>Anterior</button>
-            )
-        }
+    setCountGuest(countGuest - 1);
+  };
+  //Camas
+  const addCountBeds = () => {
+    if (countBeds === 50) {
+      return;
     }
-    const renderButtonNext =()=>{
-        if(formStep===5){
-            return undefined;
-        } else{
-            return(
-                <button type="button" id ="button" onClick={completeFormStep}>Siguiente</button>
-            )
-        }
+    setCountBeds(countBeds + 1);
+  };
+  const removeCountBeds = () => {
+    if (countBeds === 0) {
+      return;
     }
-   
-   
-   async function handleSubmit(e) {
+    setCountBeds(countBeds - 1);
+  };
+  //Habitaciones
+  const addCountRooms = () => {
+    if (countRooms === 50) {
+      return;
+    }
+    setCountRooms(countRooms + 1);
+  };
+  const removeCountRooms = () => {
+    if (countRooms === 0) {
+      return;
+    }
+    setCountRooms(countRooms - 1);
+  };
+  //Baños
+  const addCountBaths = () => {
+    if (countBaths === 50) {
+      return;
+    }
+    setCountBaths(countBaths + 1);
+  };
+  const removeCountBaths = () => {
+    if (countBaths === 0) {
+      return;
+    }
+    setCountBaths(countBaths - 1);
+  };
+  const completeFormStep = () => {
+    setformStep((cur) => cur + 1);
+  };
+  const backFormStep = () => {
+    setformStep((cur) => cur - 1);
+  };
+  const renderButtonPrev = () => {
+    if (formStep === 0) {
+      return undefined;
+    } else {
+      return (
+        <button type="button" id="button" onClick={backFormStep}>
+          Anterior
+        </button>
+      );
+    }
+  };
+  const renderButtonNext = () => {
+    if (formStep === 6) {
+      return undefined;
+    } else {
+      return (
+        <button type="button" id="button" onClick={completeFormStep}>
+          Siguiente
+        </button>
+      );
+    }
+  };
+
+  async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
     setVisible(true);
@@ -257,8 +279,8 @@ const EditFormHost =({booking})=>{
           draggable: true,
           progress: undefined,
         });
-         dispatch(getUser())
-        setOpened(false)
+        dispatch(getUser());
+        setOpened(false);
       }
     } catch (error) {
       setError(error);
@@ -273,9 +295,8 @@ const EditFormHost =({booking})=>{
         draggable: true,
         progress: undefined,
       });
-    } 
+    }
   }
-
 
   function handleChange(e) {
     readFile(e.target.files[0]);
@@ -758,7 +779,7 @@ const EditFormHost =({booking})=>{
                 </div>
               </section>
             )}
-           </form>
+          </form>
 
           <section className="buttons">
             {renderButtonPrev()}
@@ -771,5 +792,3 @@ const EditFormHost =({booking})=>{
 };
 
 export default EditFormHost;
-
-
