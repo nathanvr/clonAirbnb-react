@@ -17,7 +17,6 @@ const Bookingsitecard = ({booking}) => {
     const [visible, setVisible] = useState(false);
     const [error, setError] = useState(null);
     
-    console.log("aqui esta",booking)
     function AccordionLabel({ label, image, description }) {
         return (
         <Group noWrap>

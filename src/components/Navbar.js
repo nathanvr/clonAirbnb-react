@@ -27,10 +27,13 @@ const Navbar = () => {
   const { isLoggedIn, name, role, image } = useSelector(
     (state) => state.userReducer
   );
+<<<<<<< HEAD
   // console.log('imagen', image);
+=======
+
+>>>>>>> e29b08b3b0c2047d15bf6a4faa558c9af5409a88
 
   const handleSignOut = () => {
-    console.log('!!Se lanzo el sign Out!!');
     dispatch(signOutSuccess());
     <Navigate to="/" replace={true} />;
   };
@@ -132,6 +135,7 @@ const Navbar = () => {
               ) : (
                 <div>
                   <Link to="/profile">
+<<<<<<< HEAD
                     <Menu.Item>
                       <Group>
                         <User size={17} strokeWidth={2} color={'black'} />
@@ -140,6 +144,16 @@ const Navbar = () => {
                         </div>
                       </Group>
                     </Menu.Item>
+=======
+                  <Menu.Item>
+                  <Group>
+                  <User size={17} strokeWidth={2} color={'black'} /> 
+                  <div>
+                    <Text size="sm">Ver tu perfil</Text>
+                  </div>
+                  </Group>
+                  </Menu.Item>
+>>>>>>> e29b08b3b0c2047d15bf6a4faa558c9af5409a88
                   </Link>
                   <Link to="/host/dashboard">
                     <Menu.Item>

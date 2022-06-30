@@ -6,9 +6,9 @@ import usePlacesAutocomplete, {
     getZipCode
 } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
-
+import { useLocation } from "react-router-dom";
   const PlacesAutocomplete = ({childToParent}) => {
-  
+    const location = useLocation()
     const[lati, setLat]=useState(0);
     const[lngi, setLng]=useState(0);
     const [city, setCity]=useState("");
@@ -57,8 +57,6 @@ import useOnclickOutside from "react-cool-onclickoutside";
         const city = cityArray[0].long_name;
         const postal_code = getZipCode(results[0])
         const country = countryArray[0].long_name;
-        console.log("ciudad",city, "pais", country, postal_code)
-        //console.log("📍 Coordinates: ", { lat, lng });
         setLat(lat);
         setLng(lng);
         setCity(city);
@@ -94,7 +92,7 @@ import useOnclickOutside from "react-cool-onclickoutside";
         disabled={!ready}
         placeholder="Where are you going?"></TextInput>
       {/* We can use the "status" to decide whether we should display the dropdown or not */}
-      {status === "OK" && <ul className="places-list">{renderSuggestions()}</ul>}
+      {status === "OK" && <ul className={location.pathname === "/" ? "places-listHome":  "places-list"}>{renderSuggestions()}</ul>}
 
       
       <div>

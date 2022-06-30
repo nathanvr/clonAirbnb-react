@@ -17,7 +17,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { postRegister } from '../store/reducers/User.reducer';
 import dayjs from 'dayjs/locale/es';
 
-import { getUser } from '../store/reducers/User.reducer';
+
 
 const schema = z.object({
   name: z.string().min(2, { message: 'Name should have at least 2 letters' }),
@@ -71,7 +71,6 @@ const RegisterModal = (props) => {
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Reg_date: ', registerData, typeof registerData.birthday);
     dispatch(postRegister(registerData));
   };
 
