@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 import React,{ useState,} from "react";
 import { Modal, useMantineTheme, Textarea, LoadingOverlay} from '@mantine/core';
 import { NumberInput,Select, CheckboxGroup, Checkbox, TextInput, Button , ScrollArea } from '@mantine/core';
@@ -7,29 +6,6 @@ import { useSelector } from "react-redux";
 import { Icon } from '@iconify/react';
 import PlacesAutocomplete from "../Maps/PlacesAutocomplete";
 import { DateRangePicker } from '@mantine/dates';
-=======
-import React, { useState, useMemo, useRef, useEffect } from 'react';
-import {
-  Modal,
-  useMantineTheme,
-  Textarea,
-  LoadingOverlay,
-} from '@mantine/core';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import {
-  NumberInput,
-  Select,
-  CheckboxGroup,
-  Checkbox,
-  TextInput,
-  Button,
-  ScrollArea,
-} from '@mantine/core';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { Icon } from '@iconify/react';
-import PlacesAutocomplete from '../Maps/PlacesAutocomplete';
->>>>>>> Stashed changes
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import { Trash } from 'tabler-icons-react';
 import { toast } from 'react-toastify';
@@ -98,7 +74,6 @@ const containerStyle = {
   height: '250px',
 };
 
-<<<<<<< Updated upstream
 const EditFormHost =({booking})=>{
     const { name} = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
@@ -202,82 +177,29 @@ const EditFormHost =({booking})=>{
     };
     const completeFormStep =() =>{
         setformStep(cur=>cur+1);
-=======
-const EditFormHost = ({ booking }) => {
-  const { name } = useSelector((state) => state.userReducer);
-  const navigate = useNavigate();
-  const theme = useMantineTheme();
-  const string = booking.services.toString();
-  const services = string.split(',');
-  const cosita = booking.images.toString().split(',');
-  // console.log("AQUI HOPTA",cosita, booking.images)
-  const [opened, setOpened] = useState(false);
-  const [countGuest, setCountGuest] = useState(booking.total_occupancy);
-  const [countBeds, setCountBeds] = useState(booking.total_beds);
-  const [countRooms, setCountRooms] = useState(booking.total_rooms);
-  const [countBaths, setCountBaths] = useState(booking.total_bathrooms);
-  const [isChecked, setIsChecked] = useState(services);
-  // console.log(isChecked)
-  const [home_type, setHome_type] = useState(booking.home_type);
-  const [description_type, setDescription_type] = useState(
-    booking.description_type
-  );
-  const [room_type, setRoom_type] = useState(booking.room_type);
-  const [formStep, setformStep] = useState(0);
-  const [address, setAddress] = useState(booking.address);
-  const [city, setCity] = useState(booking.city);
-  const [country, setCountry] = useState(booking.country);
-  const [zipcode, setZipcode] = useState(booking.zipcode);
-  const [title, setTitle] = useState(booking.title);
-  const [description, setDescription] = useState(booking.description);
-  const [price, setPrice] = useState(booking.price);
-  const [lati, setLat] = useState(booking.lat);
-  const [lngi, setLng] = useState(booking.lng);
-  const [image, setImage] = useState(null);
-  const [file, setFile] = useState(null);
-  const [center, setCenter] = useState({
-    lat: Number(booking.lat),
-    lng: Number(booking.lng),
-  });
-  const [position, setPosition] = useState({
-    lat: Number(booking.lat),
-    lng: Number(booking.lng),
-  });
-  const [images, setImages] = useState(cosita);
-  const [loading, setLoading] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [error, setError] = useState(null);
-  const [libraries] = useState(['places']);
-
-  const onLoad = (marker) => {
-    console.log('marker: ', marker);
-  };
-  //Huespedes
-  const addCountGuest = () => {
-    if (countGuest === 16) {
-      return;
->>>>>>> Stashed changes
     }
-    setCountGuest(countGuest + 1);
-  };
-  const removeCountGuest = () => {
-    if (countGuest === 0) {
-      return;
+    const backFormStep =() =>{
+        setformStep(cur=>cur-1);
     }
-    setCountGuest(countGuest - 1);
-  };
-  //Camas
-  const addCountBeds = () => {
-    if (countBeds === 50) {
-      return;
+    const renderButtonPrev =()=>{
+        if(formStep===0){
+            return undefined;
+        } 
+        else{
+            return(
+                <button type="button"  id="button" onClick={backFormStep}>Anterior</button>
+            )
+        }
     }
-    setCountBeds(countBeds + 1);
-  };
-  const removeCountBeds = () => {
-    if (countBeds === 0) {
-      return;
+    const renderButtonNext =()=>{
+        if(formStep===5){
+            return undefined;
+        } else{
+            return(
+                <button type="button" id ="button" onClick={completeFormStep}>Siguiente</button>
+            )
+        }
     }
-<<<<<<< Updated upstream
     
    
    async function handleSubmit(e) {
@@ -302,6 +224,8 @@ const EditFormHost = ({ booking }) => {
     data.append('zipcode', zipcode);
     data.append('lat', lati);
     data.append('lng', lngi);
+    data.append('availabilitybegin', availability[0].toISOString());
+    data.append('availabilityend', availability[1].toISOString());
     if (images) {
       data.append('images', images);
     }
@@ -363,159 +287,6 @@ const EditFormHost = ({ booking }) => {
     setFile(e.target.files);
   }
 
-=======
-    setCountBeds(countBeds - 1);
-  };
-  //Habitaciones
-  const addCountRooms = () => {
-    if (countRooms === 50) {
-      return;
-    }
-    setCountRooms(countRooms + 1);
-  };
-  const removeCountRooms = () => {
-    if (countRooms === 0) {
-      return;
-    }
-    setCountRooms(countRooms - 1);
-  };
-  //Baños
-  const addCountBaths = () => {
-    if (countBaths === 50) {
-      return;
-    }
-    setCountBaths(countBaths + 1);
-  };
-  const removeCountBaths = () => {
-    if (countBaths === 0) {
-      return;
-    }
-    setCountBaths(countBaths - 1);
-  };
-  const completeFormStep = () => {
-    setformStep((cur) => cur + 1);
-  };
-  const backFormStep = () => {
-    setformStep((cur) => cur - 1);
-  };
-  const renderButtonPrev = () => {
-    if (formStep === 0) {
-      return undefined;
-    } else {
-      return (
-        <button type="button" id="button" onClick={backFormStep}>
-          Anterior
-        </button>
-      );
-    }
-  };
-  const renderButtonNext = () => {
-    if (formStep === 5) {
-      return undefined;
-    } else {
-      return (
-        <button type="button" id="button" onClick={completeFormStep}>
-          Siguiente
-        </button>
-      );
-    }
-  };
-  const renderButtonSubmit = () => {
-    if (formStep === 5) {
-      return (
-        <button type="button" id="button" onClick={handleSubmit}>
-          Enviar
-        </button>
-      );
-    } else {
-      return undefined;
-    }
-  };
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setLoading(true);
-    setVisible(true);
-    const data = new FormData();
-    data.append('home_type', home_type);
-    data.append('description_type', description_type);
-    data.append('room_type', room_type);
-    data.append('total_occupancy', countGuest);
-    data.append('total_rooms', countRooms);
-    data.append('total_beds', countBeds);
-    data.append('total_bathrooms', countBaths);
-    data.append('services', isChecked);
-    data.append('title', title);
-    data.append('description', description);
-    data.append('price', price);
-    data.append('address', address);
-    data.append('city', city);
-    data.append('country', country);
-    data.append('zipcode', zipcode);
-    data.append('lat', lati);
-    data.append('lng', lngi);
-    if (images) {
-      data.append('images', images);
-    }
-
-    if (file) {
-      // console.log(typeof file);
-      for (let i = 0; i < file.length; i++) {
-        //nombre de la propiedad, archivo y nombre del archivo
-        data.append(`file_${i}`, file[i], file[i].name);
-      }
-    }
-
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.put(
-        `http://localhost:8080/bookingsites/update/${booking._id}`,
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-      // console.log(response)
-      if (response.status === 200) {
-        setLoading(false);
-        setVisible(false);
-        toast.success('Se actualizó tu sitio', {
-          position: 'bottom-right',
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      }
-    } catch (error) {
-      setError(error);
-      setLoading(false);
-      setVisible(false);
-      toast.error('No se pudo actualizar tu sitio', {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    } finally {
-      window.location.reload();
-    }
-  }
-
-  function handleChange(e) {
-    readFile(e.target.files[0]);
-    setFile(e.target.files);
-  }
-
->>>>>>> Stashed changes
   function readFile(file) {
     const reader = new FileReader();
     //Result tiene el resultado de la imagen
@@ -534,16 +305,7 @@ const EditFormHost = ({ booking }) => {
     setPosition({ lat: childdata.lat, lng: childdata.lng });
     setCenter({ lat: childdata.lat, lng: childdata.lng });
   };
-<<<<<<< Updated upstream
 
-=======
-  const checkboxIcon = ({ indeterminate, className }) =>
-    indeterminate ? (
-      <Trash className={className} />
-    ) : (
-      <Trash className={className} />
-    );
->>>>>>> Stashed changes
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyCsW9trmjliEY9-Qz_uuAK8C2DRCUFzDqs',
     libraries,
@@ -968,9 +730,30 @@ const EditFormHost = ({ booking }) => {
                 </div>
               </section>
             )}
-<<<<<<< Updated upstream
 
             {formStep === 5 && (
+              <section>
+                {console.log('Date: ', availability)}
+                <div className="typebookingNew">
+                  <h1>Paso 5: Disponibilidad de fechas</h1>
+                  <section>
+                    <DateRangePicker
+                      locale="es"
+                      label="Fecha de inicio de disponibilidad"
+                      placeholder="Inicio - Fin"
+                      minDate={dayjs(new Date())
+                        .startOf('month')
+                        .add(now.date(), 'days')
+                        .toDate()}
+                      value={availability}
+                      onChange={setAvailability}
+                    />
+                  </section>
+                </div>
+              </section>
+            )}
+
+            {formStep === 6 && (
               <section>
                 <div className="typebooking5">
                   <ScrollArea style={{ height: 350 }}>
@@ -997,47 +780,19 @@ const EditFormHost = ({ booking }) => {
                       <h2>Lo que este lugar ofrece</h2>
                       {listItems}
                     </div>
-
+                    <div>
+                      <h2>Disponibilidad</h2>
+                      {`Desde el ${availability[0].getDate()} de ${
+                        dayjsLocal.months[availability[0].getMonth()]
+                      } de ${availability[0].getFullYear()}, hasta el ${availability[1].getDate()} de ${
+                        dayjsLocal.months[availability[1].getMonth()]
+                      } de ${availability[1].getFullYear()}`}
+                    </div>
                     <button className="send-form">Enviar</button>
                   </ScrollArea>
                 </div>
               </section>
             )}
-=======
-            {formStep === 5 && (
-              <section>
-                <div className="typebooking5">
-                  <ScrollArea style={{ height: 350 }}>
-                    <h2>Revisa tu anuncio</h2>
-                    <div className="addphotos">
-                      {!!image && <img src={image} alt="upload preview" />}
-                    </div>
-                    <div>
-                      <h3>
-                        {title} - Anfitrión: {name}. {price}
-                      </h3>
-                    </div>
-                    <div>
-                      <h5>
-                        {countGuest} huespedes - {countRooms} habitaciones -{' '}
-                        {countBeds} camas- {countBaths} baños
-                      </h5>
-                    </div>
-                    <div>
-                      <h2>Descripcion del lugar</h2>
-                      <p>{description}</p>
-                    </div>
-                    <div>
-                      <h2>Lo que este lugar ofrece</h2>
-                      {listItems}
-                    </div>
-
-                    <button className="send-form">Enviar</button>
-                  </ScrollArea>
-                </div>
-              </section>
-            )}
->>>>>>> Stashed changes
           </form>
           <section className="buttons">
             {renderButtonPrev()}
@@ -1050,3 +805,5 @@ const EditFormHost = ({ booking }) => {
 };
 
 export default EditFormHost;
+
+
