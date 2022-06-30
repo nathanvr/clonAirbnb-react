@@ -68,6 +68,7 @@ const BookingRoom = () => {
 
   return (
     <div className="container-total">
+      <div className="container-total-booking">
       <div className="titulo-anfitrion"></div>
       <div className="albumreser">
         {/* {photos.map((photo, index) => (
@@ -262,6 +263,7 @@ const BookingRoom = () => {
             />
           </section>
         ))}
+      </div>
       </div>
     </div>
   );

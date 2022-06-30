@@ -6,6 +6,7 @@ import {
   RadioGroup,
   Radio,
   LoadingOverlay,
+  Text
 } from '@mantine/core';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -19,24 +20,12 @@ import dayjs from 'dayjs/locale/es';
 
 
 
-const schema = z.object({
-  name: z.string().min(2, { message: 'Name should have at least 2 letters' }),
-  lastname: z
-    .string()
-    .min(2, { message: 'Name should have at least 2 letters' }),
-  email: z.string().email({ message: 'Invalid email' }),
-  password: z
-    .string()
-    .regex(
-      new RegExp(
-        '^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$'
-      ),
-      'La contraseña debe tener al menos 1 número, 1 caracter especial y una mayuscula'
-    ),
-});
-
 const RegisterModal = (props) => {
   const { sitio } = props;
+  let passwordregex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+  let namelastnameregex = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/g;
+  let lastnameregex = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/g;
+  let emailregex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
   const [password, setPassword] = useState('');
@@ -48,15 +37,14 @@ const RegisterModal = (props) => {
   const [visible, setVisible] = useState(false);
   const {error, loading}=useSelector((state)=>state.userReducer)
 
-  const form = useForm({
-    schema: zodResolver(schema),
-    initialValues: {
-      name: '',
-      lastName: '',
-      email: '',
-      password: '',
-    },
-  });
+  const [errorvalidate, setErrorValidate]=useState({
+    name :null,
+    lastname:null,
+    email:null,
+    birthday:null,
+    password:null,
+  })
+  const nowDate =new Date().getFullYear();
   const registerData = {
     email: email,
     password: password,
@@ -68,10 +56,44 @@ const RegisterModal = (props) => {
     } de ${birthday.getFullYear()}`,
     role: role,
   };
+  const validatePassword =()=>{
+    if (passwordregex.test(password)){
+      return true;
+    }else{
+      setErrorValidate({password:"La contraseña no cumple con los criterios de seguridad"})}
+  }
+  const validateEmail =()=>{
+    if (emailregex.test(email)){
+      return true;
+    }else{
+      setErrorValidate({email:"Correo inválido"})}
+  }
+  const validateName =()=>{
+    if (namelastnameregex.test(name)){
+      return true;
+    }else{
+      setErrorValidate({name:"El nombre debe tener más caracteres"})}
+  }
+  const validateLastname =()=>{
+    if (lastnameregex.test(lastname)){
+      return true;
+    }else{
+      setErrorValidate({lastname:"El apellido debe tener más caracteres"})}
+  }
+  const validateBirthday =()=>{
+    if ((nowDate - birthday.getFullYear() >= 18)){
+      setErrorValidate({birthday:null})
+      return true;
+    }else{
+      setErrorValidate({birthday:"Debes ser mayor de 18 años"})}
+  }
+
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(postRegister(registerData));
+    if(validateName() && validateLastname() && validateEmail() && validatePassword() && validateBirthday()){
+      dispatch(postRegister(registerData));
+      } 
   };
 
   return (
@@ -105,8 +127,10 @@ const RegisterModal = (props) => {
                 name="name"
                 required
                 value={name}
-                onChange={(event) => setName(event.currentTarget.value)}
+                onChange={(event) => (setName(event.currentTarget.value),
+                  setErrorValidate({name:null}))}
               />
+              {errorvalidate.name !== null && <Text color="red" >{errorvalidate.name}</Text> }
             </div>
             <div className="box-register">
               <TextInput
@@ -115,8 +139,10 @@ const RegisterModal = (props) => {
                 name="lastName"
                 required
                 value={lastname}
-                onChange={(event) => setLastName(event.currentTarget.value)}
+                onChange={(event) => (setLastName(event.currentTarget.value),
+                  setErrorValidate({lastname:null}))}
               />
+              {errorvalidate.lastname !== null && <Text color="red" >{errorvalidate.lastname}</Text> }
             </div>
             <div className="box-register">
               <TextInput
@@ -125,8 +151,11 @@ const RegisterModal = (props) => {
                 name="email"
                 required
                 value={email}
-                onChange={(event) => setEmail(event.currentTarget.value)}
+                onChange={(event) => (setEmail(event.currentTarget.value),
+                  setErrorValidate({email:null}))}
               />
+              {errorvalidate.email !== null && <Text color="red" >{errorvalidate.email}</Text> }
+              {error === "email already exist" &&  <Text color="red" >Ya existe una cuenta con el correo ingresado</Text> }
             </div>
             <div className="box-register">
               <DatePicker
@@ -137,6 +166,7 @@ const RegisterModal = (props) => {
                 value={birthday}
                 onChange={setBirthday}
               />
+                {errorvalidate.birthday !== null && <Text color="red" >{errorvalidate.birthday}</Text> }
             </div>
             <div className="box-register">
               <PasswordInput
@@ -145,8 +175,11 @@ const RegisterModal = (props) => {
                 name="password"
                 required
                 value={password}
-                onChange={(event) => setPassword(event.currentTarget.value)}
+                description="La contraseña debe tener mínimo 8 caracteres, una miniscula, una mayuscula, un numero o un caracter especial"
+                onChange={(event) => (setPassword(event.currentTarget.value),
+                  setErrorValidate({password:null}))}
               />
+              {errorvalidate.password !== null && <Text color="red" >{errorvalidate.password}</Text> }
             </div>
             <div className="box-register">
               <RadioGroup

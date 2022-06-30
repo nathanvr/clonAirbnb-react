@@ -15,7 +15,9 @@ import { getUser } from './store/reducers/User.reducer';
 import RecoveryPassword from './pages/RecoveryPassword';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import PaymentRes from './pages/PaymentRes';
+
 
 function App() {
   const token = localStorage.getItem('token');
@@ -28,7 +30,6 @@ function App() {
       dispatch(getUser());
     }
   }, [dispatch]);
-  // console.log('rol del usuario', role);
 
   return (
     <div className="App">
