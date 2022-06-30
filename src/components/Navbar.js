@@ -93,37 +93,44 @@ const Navbar = () => {
               delay={500}>
               {role === 'guest' ? (
                 <div>
-                  <Link to="/profile">
-                  <Menu.Item>
-                  <Group>
-                  <User size={15} strokeWidth={2} color={'black'} /> 
-                  <div>
-                    <Text>Ver tu perfil</Text>
-                  </div>
-                  </Group>
-                  </Menu.Item>
-                  </Link>
-                  <Menu.Item>
-                    <Link to="/host/dashboard">
-                      <Folder size={15} strokeWidth={2} color={'black'} /> Ver
-                      tus sitios
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item>Mensajes</Menu.Item>
-                  <Divider />
-                  <Menu.Item onClick={handleSignOut}>
-                    <Link to="/">
-                      <span className="logut">
-                        <TransferOut
-                          size={15}
-                          strokeWidth={2}
-                          color={'#FF0000'}
-                        />{' '}
-                        Cerrar Sesión
-                      </span>
-                    </Link>
-                  </Menu.Item>
+                <Link to="/profile">
+                <Menu.Item>
+                <Group>
+                <User size={17} strokeWidth={2} color={'black'} /> 
+                <div>
+                  <Text size="sm">Ver tu perfil</Text>
                 </div>
+                </Group>
+                </Menu.Item>
+                </Link>
+                <Link to="/host/dashboard">
+                <Menu.Item>
+                <Group>
+                    <Folder size={17} strokeWidth={2} color={'black'} />  <div>
+                  <Text size="sm">Ver tus reservas</Text>
+                </div>
+                </Group>
+                </Menu.Item> 
+                </Link>
+                <Divider />
+                <Link to="/">
+                <Menu.Item onClick={handleSignOut}>
+                <Group>
+
+                      <TransferOut
+                        size={15}
+                        strokeWidth={2}
+                        color={'#FF0000'}
+                      />{' '}
+                      <div>
+                  <Text  color="red" size="sm">Cerrar sesión</Text>
+                      </div>
+                </Group>
+
+                  
+                </Menu.Item>
+                </Link>
+              </div>
               ) : (
                 <div>
                   <Link to="/profile">
