@@ -187,7 +187,7 @@ const ProPass = () => {
       <p>Modifica tu contraseña de ingreso</p>
       <div style={{ margin: 10 }}>
         <PasswordInput
-          type="password"
+
           name="password"
           value={input.password}
           label="Contraseña actual"
@@ -197,7 +197,7 @@ const ProPass = () => {
       </div>
       <div style={{ margin: 10 }}>
         <PasswordInput
-          type="password"
+
           name="newPassword"
           value={input.newPassword}
           label="Nueva contraseña"
@@ -208,7 +208,7 @@ const ProPass = () => {
       </div>
       <div style={{ margin: 10 }}>
         <PasswordInput
-          type="password"
+
           name="confirmPassword"
           value={input.confirmPassword}
           label="Confirma la contraseña"

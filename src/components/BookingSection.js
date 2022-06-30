@@ -5,17 +5,43 @@ import Payment from './Payment';
 import { useSelector } from 'react-redux';
 import LoginModal from './LoginModal';
 
+
 const BookingSection = (props) => {
   const { isLoggedIn } = useSelector((state) => state.userReducer);
   const { priceNigth, maxguest } = props;
   const [date, setDate] = useState([new Date(), new Date()]);
   const [numGuest, setNumGuest] = useState(0);
   const totalDays = (date[1] - date[0]) / (1000 * 60 * 60 * 24);
-  const totalNigth = totalDays * priceNigth;
-  const taxService = totalNigth * 0.203;
-  const taxClean = totalNigth * 0.042;
-  const Total = totalNigth + taxService + taxClean;
+  const totalNigths = totalDays * priceNigth;
+  const taxService = totalNigths * 0.203;
+  const taxClean = totalNigths * 0.042;
+  const Total = totalNigths + taxService + taxClean;
+  const example = [
+    {date:[ "2022-06-29T05:00:00.000Z", "2022-07-06T05:00:00.000Z"]},
+    {date:["2022-07-20T05:00:00.000Z", "2022-07-25T05:00:00.000Z"]}
+  ]
+  function getDates (startDate, endDate) {
+    const dates = []
+    let currentDate = startDate
+    const addDays = function (days) {
+      const date = new Date(this.valueOf())
+      date.setDate(date.getDate() + days)
+      return date
+    }
+    while (currentDate <= endDate) {
+      dates.push(currentDate)
+      currentDate = addDays.call(currentDate, 1)
+    }
+    return dates
+  }
 
+  let BookingDates=[]
+  const datesf= example.forEach((index)=>{
+    BookingDates.push(getDates(new Date(index.date[0]),new Date(index.date[1])))
+  })
+
+  console.log("hola",BookingDates.toString().split(","))  
+  
   return (
     <div className="bookingContainerForm">
       <h2 className="bookingContainerForm__title">${priceNigth} COP / noche</h2>
@@ -27,6 +53,8 @@ const BookingSection = (props) => {
             value={date}
             onChange={setDate}
             amountOfMonths={2}
+            excludeDate={(date) => BookingDates.toString().split(",").some((dates)=> date.getTime() === new Date(dates).getTime()) }
+            minDate={new Date()} 
           />
         </div>
         <div>

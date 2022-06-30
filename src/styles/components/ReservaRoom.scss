@@ -1,4 +1,9 @@
-
+.container-total-booking{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 .info_Host_container{
 
     display: flex;
@@ -18,7 +23,7 @@
     }
 }
 .albumreser {
-    width: 100%;
+    width: 90%;
     margin-top: 30px;
     //justify-content: center;
     //z-index: -1;
