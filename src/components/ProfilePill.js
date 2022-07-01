@@ -25,8 +25,6 @@ const ProfilePill = () => {
   const [birthday, setBirthday] = useState(new Date(userData.birthday));
   const [description, setDescription] = useState('');
 
-  console.log('userDat: ', userData.birthday);
-
   useEffect(() => {
     setName(userData.name);
     setImage(userData.image);
@@ -35,8 +33,6 @@ const ProfilePill = () => {
     setBirthday(new Date(userData.birthday));
     setDescription(userData.description);
   }, [userData]);
-
-  console.log('Birthday: ', birthday);
 
   const list = [
     {

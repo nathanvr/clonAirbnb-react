@@ -12,7 +12,6 @@ const ProDate = () => {
   }, [dispatch]);
 
   const userData = useSelector((state) => state.userReducer);
-  console.log('cumple', userData.birthday);
 
   const [birthday, setBirthday] = useState(new Date(userData.birthday));
   const [birthdayFormat, setBirthdayFormat] = useState('');
