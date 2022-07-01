@@ -32,7 +32,6 @@ const Bookingsitecard = ({booking}) => {
                             <img src={booking.images.toString().split(",")[0]} alt="booking-photo" loading="lazy"></img>
                         
                     </div>
-                   
                 }
 
             <div>
