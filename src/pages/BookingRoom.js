@@ -20,6 +20,7 @@ import { Icon } from '@iconify/react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import { faRedRiver } from '@fortawesome/free-brands-svg-icons';
 import AlbumModal from '../components/AlbumModal';
+//import '../styles/components/ReservaRoom';
 
 const containerStyle = {
   width: '500px',
@@ -72,7 +73,6 @@ const BookingRoom = () => {
 
   return (
     <div className="container-total">
-      <div className="container-total-booking">
       <div className="titulo-anfitrion"></div>
       <div className="albumreser">
         {/* {photos.map((photo, index) => (
@@ -268,7 +268,6 @@ const BookingRoom = () => {
             />
           </section>
         ))}
-      </div>
       </div>
     </div>
   );
