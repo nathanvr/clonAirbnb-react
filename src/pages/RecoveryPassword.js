@@ -27,11 +27,6 @@ const [errorMessage, setErrorMessage]=useState(undefined);
             return false;
         }
     }
-    const validationPassword =()=>{
-        if(passwordregex.test(newPassword) === true){
-            return 
-        }
-    }
 
     const handleSubmit=async(e)=> {
         e.preventDefault();

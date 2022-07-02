@@ -18,7 +18,13 @@
     }
 }
 
+.albumreser {
+    width: 100%;
+    margin-top: 30px;
+}
+
 .info-reserva{
+    max-width: 1280px;
     width: 100%;
     padding: 0px 80px;    
 
@@ -228,7 +234,8 @@
             }
     }
 }
-.container-total-booking{
+
+/*.container-total-booking{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -237,14 +244,5 @@
 .info_Host_container{
 
     display: flex;
-}
-.albumreser {
-    display: flex;
-    //height: 100vh;
-    justify-content: center;
-    /*width: 100%;
-    width: 90%;*/
-    margin-top: 30px;
-    //justify-content: center;
-    //z-index: -1;
-}
+}*/
+

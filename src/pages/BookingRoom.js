@@ -20,6 +20,7 @@ import { Icon } from '@iconify/react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import { faRedRiver } from '@fortawesome/free-brands-svg-icons';
 import AlbumModal from '../components/AlbumModal';
+//import '../styles/components/ReservaRoom';
 
 const containerStyle = {
   width: '500px',
@@ -33,8 +34,6 @@ const BookingRoom = () => {
   const { error, loading, bookingSiteData } = useSelector(
     (state) => state.bookingSiteReducer
   );
-
-  console.log('BookingSideData:', bookingSiteData);
 
   useEffect(() => {
     dispatch(getBookingSite(id));
@@ -55,7 +54,6 @@ const BookingRoom = () => {
 
   const photos = [...bookingSiteData.data.images.toString().split(',')];
 
-  // console.log('Photos: ', bookingSiteData.data);
   const listPhothos = [];
 
   bookingSiteData.data.images.forEach((element) => {
@@ -72,7 +70,6 @@ const BookingRoom = () => {
 
   return (
     <div className="container-total">
-      <div className="container-total-booking">
       <div className="titulo-anfitrion"></div>
       <div className="albumreser">
         {/* {photos.map((photo, index) => (
@@ -268,7 +265,6 @@ const BookingRoom = () => {
             />
           </section>
         ))}
-      </div>
       </div>
     </div>
   );

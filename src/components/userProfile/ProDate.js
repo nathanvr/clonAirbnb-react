@@ -1,5 +1,6 @@
 import { DatePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
+import { Button } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { userUpdate } from '../../store/reducers/User.reducer';
 import { getUser } from '../../store/reducers/User.reducer';
@@ -41,7 +42,9 @@ const ProDate = () => {
           onChange={setBirthday}
         />
       </div>
-      <button onClick={handleClick}>Guardar</button>
+      <Button style={{ margin: 10 }} variant="light" color="pink" onClick={handleClick}>
+      Guardar
+    </Button>
     </div>
   );
 };

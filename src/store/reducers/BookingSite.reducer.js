@@ -14,7 +14,6 @@ export const getBookingSite = (id) => {
         // Authorization: `Bearer ${token}`,
       });
       dispatch({ type: BOOKINGSITE_SUCCESS, payload: res.data });
-      console.log('data del sitio', res.data);
     } catch (error) {
       dispatch({ type: BOOKINGSITE_ERROR, payload: error });
     } finally {

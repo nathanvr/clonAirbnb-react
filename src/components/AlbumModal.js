@@ -13,8 +13,6 @@ import TextIcon from './TextIcon';
 import ModuleRandom from './ModuleRandom';
 import Module2vv from './Module2vv';
 
-//Modal.setAppElement('#root');
-
 const styles = {
   display: 'flex',
   justifyContent: 'space-between',
@@ -23,7 +21,6 @@ const styles = {
 const AlbumModal = (props) => {
   const { site, album } = props;
   const [modalOpen, setModalOpen] = useState(false);
-  // console.log('Album: ', album);
   return (
     <div>
       <Link to="#" onClick={() => setModalOpen(true)}>

@@ -33,11 +33,13 @@ const ProfilePill = () => {
     setBirthday(new Date(userData.birthday));
     setDescription(userData.description);
   }, [userData]);
-
+  if (description=== undefined){
+    setDescription("No tienes ninguna descripción")
+  }
   const list = [
     {
       label: 'Imagen',
-      description: 'Agreaga o edita tu imagen de perfil.',
+      description: 'Agrega o edita tu imagen de perfil.',
       content: <ProImage />,
     },
     {
@@ -64,7 +66,7 @@ const ProfilePill = () => {
     },
     {
       label: 'Contraseña',
-      description: 'Modifica tu contreseña',
+      description: 'Modifica tu contraseña',
       content: <ProPass />,
     },
   ];

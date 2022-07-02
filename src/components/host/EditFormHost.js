@@ -138,7 +138,6 @@ const EditFormHost = ({ booking }) => {
     new Date(booking.availabilityend),
   ]);
 
-  console.log('Availability: ', availability);
   //Current date
   const now = dayjs(new Date());
 

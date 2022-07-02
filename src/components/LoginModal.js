@@ -24,7 +24,7 @@ const LoginModal = (props) => {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
   const [visible, setVisible] = useState(false);
-  const {error, loading}=useSelector((state)=>state.userReducer)
+  const {errorLogin, loading}=useSelector((state)=>state.userReducer)
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -71,7 +71,7 @@ const LoginModal = (props) => {
             name='email'
             value={user.email}
             onChange={handleChange}
-            error={error !== null && true}
+            error={errorLogin !== null && true}
           />
 
           <PasswordInput
@@ -81,9 +81,9 @@ const LoginModal = (props) => {
             name='password'
             onChange={handleChange}
             value={user.password}
-            error={error !== null && true}
+            error={errorLogin !== null && true}
           />
-          {error !== null && <Alert title="Error!" color="red">Usuario o contraseña incorrectos</Alert>}
+          {errorLogin !== null && <Alert title="Error!" color="red">Usuario o contraseña incorrectos</Alert>}
           <div className="form__button__continue">
             <button className="form__button--continue" onClick={() => setVisible((v) => !v)}>Continua</button>
           </div>
