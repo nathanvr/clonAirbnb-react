@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { userUpdate } from '../../store/reducers/User.reducer';
-import { TextInput } from '@mantine/core';
+import { TextInput, Button} from '@mantine/core';
 import { getUser } from '../../store/reducers/User.reducer';
 
 const ProName = () => {
@@ -49,7 +49,9 @@ console.log(userData.name)
           onChange={(event) => setLastname(event.currentTarget.value)}
         />
       </div>
-      <button onClick={handleClick}>Guardar</button>
+      <Button style={{ margin: 10 }} variant="light" color="pink" onClick={handleClick}>
+      Guardar
+    </Button>
     </div>
   );
 };

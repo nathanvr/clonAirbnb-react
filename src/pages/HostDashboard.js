@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Tabs from '../components/host/Tabs';
 
 import FormHost from '../components/host/FormHost';
 import { useSelector, useDispatch } from 'react-redux';

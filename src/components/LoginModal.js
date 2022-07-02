@@ -15,15 +15,9 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import BrandIcon from './BrandIcon';
-import { z } from 'zod';
-import { useForm, zodResolver } from '@mantine/form';
 import { useSelector, useDispatch } from 'react-redux';
 import { postLogin } from '../store/reducers/User.reducer';
 
-
-const schema = z.object({
-  email: z.string().email({ message: 'Invalid email' }),
-});
 
 const LoginModal = (props) => {
   const { login, sitio } = props;
@@ -47,13 +41,6 @@ const LoginModal = (props) => {
     dispatch(postLogin(user));
   };
   
-  const form = useForm({
-    schema: zodResolver(schema),
-    initialValues: {
-      email: '',
-      password:''
-    },
-  });
 
   return (
     <div>

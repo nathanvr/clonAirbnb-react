@@ -18,7 +18,7 @@ const ProfilePill = () => {
   }, [dispatch]);
 
   const userData = useSelector((state) => state.userReducer);
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null);
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
