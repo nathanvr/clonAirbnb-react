@@ -46,7 +46,6 @@ const BookingSection = (props) => {
   });
 
   console.log('hola', BookingDates.toString().split(','));
-
   const datesArr = (dates) => {
     return dates.map((item) => {
       const diff =
@@ -96,7 +95,11 @@ const BookingSection = (props) => {
             <h3>Reserva</h3>
           </button> */}
           {isLoggedIn ? (
-            <Payment totalPay={Total}></Payment>
+            <Payment
+              totalPay={Total}
+              startDate={date[0]}
+              finishDate={date[1]}
+              totalNigths={totalDays}></Payment>
           ) : (
             <LoginModal sitio="Inicia Sesion" />
           )}

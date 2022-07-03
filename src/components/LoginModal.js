@@ -18,13 +18,13 @@ import BrandIcon from './BrandIcon';
 import { useSelector, useDispatch } from 'react-redux';
 import { postLogin } from '../store/reducers/User.reducer';
 
-
 const LoginModal = (props) => {
   const { login, sitio } = props;
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
   const [visible, setVisible] = useState(false);
   const {errorLogin, loading}=useSelector((state)=>state.userReducer)
+
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -40,8 +40,6 @@ const LoginModal = (props) => {
 
     dispatch(postLogin(user));
   };
-  
-
   return (
     <div>
       <Link to="#" onClick={() => setOpened(true)}>
@@ -59,16 +57,17 @@ const LoginModal = (props) => {
         overlayOpacity={0.55}
         overlayBlur={3}>
         <form onSubmit={handleSubmit}>
-          {loading ===true && 
-          <div className='loading' style={{ width: 400, zIndex:1000 }}>
-        <LoadingOverlay visible={visible} />
-        {/* ...other content */}
-      </div>}
+          {loading === true && (
+            <div className="loading" style={{ width: 400, zIndex: 1000 }}>
+              <LoadingOverlay visible={visible} />
+              {/* ...other content */}
+            </div>
+          )}
           <TextInput
             placeholder="example@example.com"
             label="Correo Electrónico"
             required
-            name='email'
+            name="email"
             value={user.email}
             onChange={handleChange}
             error={errorLogin !== null && true}
@@ -78,14 +77,18 @@ const LoginModal = (props) => {
             placeholder="Contraseña"
             label="Contraseña"
             required
-            name='password'
+            name="password"
             onChange={handleChange}
             value={user.password}
             error={errorLogin !== null && true}
           />
           {errorLogin !== null && <Alert title="Error!" color="red">Usuario o contraseña incorrectos</Alert>}
           <div className="form__button__continue">
-            <button className="form__button--continue" onClick={() => setVisible((v) => !v)}>Continua</button>
+            <button
+              className="form__button--continue"
+              onClick={() => setVisible((v) => !v)}>
+              Continua
+            </button>
           </div>
         </form>
         <div className="sectioner">
@@ -111,7 +114,6 @@ const LoginModal = (props) => {
               </div>
             </div>
           </button>
-      
         </div>
 
         <Link onClick={() => setOpened(false)} to="forgotpassword">

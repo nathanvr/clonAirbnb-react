@@ -1,0 +1,44 @@
+.resContainer {
+  background-color: whitesmoke;
+  width: auto;
+  margin: auto;
+  margin-top: 20px;
+  padding: 20px 30px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  .resContainer__title {
+    display: flex;
+    color: rgb(135, 74, 227);
+  }
+
+  .resContainer__body {
+    display: flex;
+    flex-direction: column;
+
+    div {
+      display: flex;
+      justify-content: space-between;
+      margin: 5px;
+      background-color: white;
+      height: 30px;
+      border-radius: 10px;
+      padding: 5px 20px;
+
+      span {
+        color: #914669;
+      }
+    }
+    button {
+      height: 30px;
+      padding: 5px;
+      margin-top: 10px;
+      background-color: #914669;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+  }
+}
