@@ -1,8 +1,15 @@
+$small: 300px;
+$medium: 900px;
+
 @mixin text-format-titles() {
     color: var(--darkgrey);
     font-size: 24px;
     font-weight: 700;
     line-height: 28px;
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+        font-size: 18px;
+    
+}
 }
 
 @mixin text-format-paragraph (){
@@ -10,4 +17,178 @@
     font-weight: 300;
     font-size: 16px;
     line-height: 19px;
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+        font-size: 14px;
+    
 }
+}
+
+@mixin module-wraper ($px, $pt, $pb){
+    margin:0px;
+    padding-left: $px;
+    padding-right: $px;
+    padding-top: $pt;
+    padding-bottom: $pb;
+}
+
+@mixin assign-margin ($mr, $ml){
+    margin-left: $ml;
+    margin-right: $mr;
+}
+
+@mixin assign-padding ($pr, $pl){
+    padding-left: $pl;
+    padding-right: $pr;
+}
+@mixin assign-fontstye ($fontSize, $color, $fontWeigth){
+    font-size: $fontSize;
+    color: $color;
+    font-weight: $fontWeigth;
+}
+
+@mixin text-format-cardsm () {
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #484848;
+    
+}
+
+@mixin text-format-cardmd-country () {
+    font-family: Roboto;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 12px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #767676;
+    text-transform: uppercase;
+}
+@mixin text-format-cardmd-reviews () {
+    font-family: Roboto;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 12px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #000000;
+}
+@mixin text-format-cardmd-h3 () {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #484848;
+}
+
+@mixin text-format-cardmd-p () {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #484848;
+}
+
+@mixin text-format-cardmd-score () {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    color: #008489;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+@mixin text-format-btn1 () {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+@mixin text-format-btn2 () {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 12px;
+    color: #484848;
+}
+
+@mixin text-format-btn3 () {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 12px;
+    color: #484848;
+}
+@mixin text-format-cardlg-city () {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+
+    color: #767676;
+}
+@mixin text-format-cardlg-score () {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+
+    color: #484848;
+}
+
+@mixin text-format-cardlg-text () {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+
+    color: #484848;
+}
+
+@mixin text-format-cardxl-title () {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+
+    color: #914669;
+}
+
+@mixin text-format-cardxl-text () {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    
+    color: #484848;
+}
+
+@mixin cards-display-margin(){
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 24px 0 88px 0;
+}
+

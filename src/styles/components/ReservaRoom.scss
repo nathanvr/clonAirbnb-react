@@ -1,0 +1,248 @@
+
+.info_Host_container{
+
+    display: flex;
+    justify-content: space-between;
+    h2{
+    @include assign-fontstye (22px, var(--textoreserva), 500);
+    }
+    p{
+    @include assign-fontstye (16px, var(--textoreserva), 300); 
+    }
+    .imagen{
+        img{
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+        }
+    }
+}
+
+.albumreser {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.info-reserva{
+    max-width: 1280px;
+    width: 100%;
+    padding: 0px 80px;    
+
+    #left{
+        width: 58%;
+        float:left;
+        padding-left: 23px;
+        @media only screen and (max-width:900px){
+            width: 100%;
+            float: none;
+        }
+    }
+    #right{
+        width: 42%;
+        float:right;
+        @media only screen and (max-width:900px){
+            width: 100%;
+            float: none;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+        .form{
+            @media only screen and (min-width:900px) and (max-width: 1060px){
+                padding-left: 30px;
+            }
+            @media only screen and (max-width:900px){
+                position: relative;
+            }
+
+        }
+
+    }
+    .titulo-Host{
+        padding: 48px 0 24px;
+        border-bottom: 1px solid lightgray;
+    }
+    .info-general-reserva{
+        padding: 32px 0px;
+        border-bottom: 1px solid lightgray;
+    }
+    .aircover{
+        padding: 32px 0px;
+        border-bottom: 1px solid lightgray;
+    }
+    .descripcion-reserva{
+        padding: 32px 0px;
+        border-bottom: 1px solid lightgray;
+    }
+    .info-habitaciones{
+        padding: 32px 0px;
+        border-bottom: 1px solid lightgray;
+    }
+    .calendar{
+        padding: 32px 0px;
+        border-bottom: 1px solid lightgray;
+        h2{
+            @include assign-fontstye (22px, var(--textoreserva), 500);
+        }
+    }
+    .servicios-room{
+            padding: 32px 0px;
+            border-bottom: 1px solid lightgray;
+        
+    }
+}
+
+
+.info_general_container{
+    .info-1{
+        display: flex;
+        h2, p{
+            padding-left: 10px;
+        }
+    }
+    .info-2{
+        display: flex;
+        h2, p{
+            padding-left: 10px;
+        }
+    }
+    .info-3{
+        display: flex;
+        h2, p{
+            padding-left: 10px;
+        }
+    }
+    h2{
+    @include assign-fontstye (16px, var(--textoreserva), 500); 
+    }
+    .info-general p{
+    @include assign-fontstye (14px, var(--parrafo), 300); 
+    margin:0px 0px 24px;
+    }
+}
+
+.info_general_aircover{
+    
+    img{
+        width: 123px;
+        height: 26px;
+        margin: 0px 0px 16px;
+    }
+    button{
+        background: none;
+        border: none;
+        text-decoration: underline;
+        @include assign-fontstye (16px, var(--textoreserva), 700); 
+    }
+    p{
+        @include assign-fontstye (16px, var(--textoreserva), 400); 
+        margin: 0px 0px 16px;
+    }
+}
+.info_general_descripcionreserva{
+    button{
+        background: none;
+        border: none;
+        text-decoration: underline;
+        @include assign-fontstye (16px, var(--textoreserva), 700); 
+    }
+    p{
+        @include assign-fontstye (16px, var(--textoreserva), 400); 
+        margin: 0px 0px 16px;
+    }
+}
+
+.info_general_habitaciones{
+    width: 208px;
+    height: 183px;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+    padding: 24px;
+
+}
+.info-habitaciones{
+    .titulo-seccion{
+        padding: 0 0 24px;
+        h2{
+            @include assign-fontstye (22px, var(--textoreserva), 500);
+        }
+    }
+}
+
+.container-total{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+.footer{
+
+    width: 100%;
+    padding: 32px 90px;
+
+    .Reseñas{  
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        flex-direction: row;
+        padding: 32px 0px;
+        border-bottom: 1px solid lightgray;
+    }
+    }
+
+
+.servicios-general{
+    .mostrar-modal{
+        background: none;
+        padding: 13px 23px;
+        border-radius: 10px;
+        border: 1px solid #222222;
+
+    }
+    .info-1{
+        
+        column-count:2;
+    .servicio{
+    width: 330px;
+    padding: 0px 0px 16px;
+    }
+}
+}
+
+
+.reseña-container{
+    margin: 0  0 40px;
+    P{
+            @include assign-fontstye (16px, var(--textoreserva), 300); 
+    }
+
+    .info-cliente{
+        display: flex;
+        padding: 0 0 16px;
+        img{
+            width: 48px;
+            height: 48px;
+            border-radius: 100%;
+        }
+    }
+    .nombre{
+        padding-left: 10px;
+        h2{
+            @include assign-fontstye (16px, var(--textoreserva), 500);
+            }
+            p{
+            @include assign-fontstye (16px, var(--parrafo), 300); 
+            }
+    }
+}
+
+/*.container-total-booking{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.info_Host_container{
+
+    display: flex;
+}*/
+

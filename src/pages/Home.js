@@ -1,34 +1,50 @@
-import React from "react";
-import Title from "../components/Title"
-import Header from "../components/Header";
+import React from 'react';
+import Title from '../components/Title';
+import Form from '../components/FormSearchDates';
+import CardMd from '../components/CardMd';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import {LoadingOverlay} from '@mantine/core';
+import { getBookingSites } from '../store/reducers/BookingSites.reducer';
 
-const Home = () =>{
-    return(
-        <div className="container-home">
-            <div className="header">
-                <Header></Header>
-            </div>
-            <div className="main">
-                <section>
-                <Title title="Explorar Airbnb"></Title>
-                </section>
-                <section>
-                <Title title="Alojamientos Airbnb Plus" info="Una selección de alojamientos contrastados según criterios de calidad y diseño"></Title>
-                </section>
-                <section>
-                <Title title="Descubre las aventuras de Airbnb" info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
-                </section>
-                <section>
-                <Title title="Alojamientos en todo el mundo"></Title>
-                </section>
-                <section>
-                <Title title="Experiencias altamente calificadas" info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
-                </section>
-                <section>
-                <Title title="Destinos destacados de Airbnb Más" info="Viajes de varios días organizados por expertos locales con actividades, comidas y alojamiento incluidos"></Title>
-                </section>            
-            </div>
-        </div>
-    )
-}
+const Home = () => {
+  const dispatch = useDispatch();
+  const [visible, setVisible] = useState(true);
+  const { loading, error, sites } = useSelector(
+    (state) => state.bookingSitesReducer
+  );
+  useEffect(() => {
+    dispatch(getBookingSites());
+  }, []);
+
+  if (error === true) {
+    return <p>Lo sentimos, ha ocurrido un error. {error}</p>;
+  }
+
+  return (
+    <div className="container-home">
+      <div className="header">
+        <Form></Form>
+      </div>
+      <div className="main">
+        <Title title="Alojamientos en todo el mundo" />
+        {loading ===true && 
+        <LoadingOverlay  visible={visible}/>}
+        <section className="alojamientos-plus">
+          {sites.map((site, index) => (
+            <Link to={`/room/${site._id}`} key={index}>
+              <CardMd service={site} />
+            </Link>
+          ))}
+        </section>
+      </div>
+    </div>
+  );
+};
+
 export default Home;

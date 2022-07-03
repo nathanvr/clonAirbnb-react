@@ -1,0 +1,12 @@
+.album-modal-container {
+    padding: 20px;
+}
+.album-modal-header, .album-modal-header div{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+.album-modal-main {
+    display: grid;
+    place-content: center;
+}

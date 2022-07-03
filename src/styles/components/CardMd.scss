@@ -1,0 +1,65 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixims';
+
+.bg-cardmd {
+  height: 371px;
+  width: 250px;
+  bottom: 0px;
+  border-radius: 4px;
+  background: #ffffff;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.rectangle-md {
+  height: 240px;
+  width: 250px;
+  margin-bottom: 15px;
+  img{
+    display: block;
+    height: 240px;
+    width: 250px;
+    object-fit: cover;
+  }
+.swiper {
+  height: 240px;
+  width: 250px;
+  border-radius: 15px;
+  object-fit: cover;
+  .swiper-slide{
+    object-fit: cover;
+  }
+  .swiper-slide img {
+    display: block;
+    height: 240px;
+    width: 250px;
+    object-fit: cover;
+  }
+}
+}
+
+.head{
+  display:flex; 
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+.country {
+
+  @include text-format-cardmd-country;
+}
+.reviews{
+  @include  text-format-cardmd-reviews;
+}
+}
+.cmdtexth3 {
+  @include text-format-cardmd-h3;
+}
+
+.cmdtextp {
+  margin-top: 5px;
+  @include text-format-cardmd-p;
+}
+
+#price{
+  font-weight: 500;
+}

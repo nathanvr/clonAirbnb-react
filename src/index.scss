@@ -1,14 +1,32 @@
 /*abstracts*/
-@use './styles/abstracts/variables';
-@use './styles/abstracts/mixims';
+@import  './styles/abstracts/variables';
+@import './styles/abstracts/mixims';
 
 /**/
-@use './styles/base/base';
-@use './styles/base/resets';
+@import './styles/base/base';
+@import './styles/base/resets';
 
 
-@use './styles/components/Navbar.scss';
-@use './styles/components/Header.scss';
-@use './styles/components/Home.scss';
-@use './styles/components/Title.scss';
-@use './styles/components/Form.scss';
+@import  './styles/components/Navbar.scss';
+@import  './styles/components/Home.scss';
+@import  './styles/components/Title.scss';
+@import  './styles/components/Form.scss';
+@import './styles/components/Header.scss';
+@import './styles/components/ReservaRoom.scss';
+@import './styles/components/CalendarioReservas.scss';
+@import './styles/components/LoginModal.scss';
+@import './styles/components/Host.scss';
+@import './styles/components/SubNavbar.scss';
+@import './styles/components/HostDashboard.scss';
+@import './styles/components/Tabs.scss';
+@import './styles/components/FormHost.scss';
+@import './styles/components/RegisterModal.scss';
+@import './styles/components/BookingSection.scss';
+@import './styles/components/Bookignsitecard.scss';
+@import './styles/components/FilterBooking.scss';
+
+
+.container-notfound{
+text-align: center;
+margin-top: 10px;
+}

@@ -1,0 +1,81 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixims';
+
+.btn1 {
+    position: relative; // relative to locate, absolute default
+    height: 48px;
+    width: 146px;
+    left: 0px;
+    top: 0px;
+    right: 0%;
+    bottom: 0%;
+
+    background: #FF5A5F;
+    border: none;
+    border-radius: 4px;
+}
+
+.text1 {
+    height: 19px;
+    width: 83px;
+    
+    position: absolute;
+    left: 21.23%;
+    right: 21.92%;
+    top: 31.25%;
+    bottom: 29.17%;
+
+    @include text-format-btn1;
+}
+
+.btn2 {
+    height: 28px;
+    width: 74px;
+    box-sizing: border-box;
+    position: relative; // relative to locate, absolute default
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    border: 1px solid #484848;
+    border-radius: 2px;
+}
+
+.text2 {
+    position: absolute;
+    left: 10.81%;
+    right: 10.81%;
+    top: 28.57%;
+    bottom: 28.57%;
+    @include text-format-btn2;
+    text-transform: uppercase;  
+}
+
+.btn3 {
+
+    height: 44px;
+    width: 200px;
+    box-sizing: border-box;
+    position: relative; // relative to locate, absolute default
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    background: #FFFFFF;
+    border-radius: 4px;
+}
+
+.text3 {
+    position: absolute;
+    width: 136px;
+    height: 12px;
+    left: 24px;
+    top: calc(50% - 12px/2);
+    text-transform: uppercase;
+    @include text-format-btn2;
+}
+
+.icon {
+    display:flex;
+}

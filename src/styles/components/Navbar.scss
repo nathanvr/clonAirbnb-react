@@ -1,33 +1,144 @@
 .navbar{
     width: 100%;
-    height: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    
-
+    padding: 11px 24px;
     img{
-        width: 28.65px;
-        height: 30.78px;
+        width: 29px;
+        height: 31px;
+        
     }
-    
     .nav-menu{
         display: flex;
     }
-    
+    #hidden{
+        display: flex;
+    }
     .nav-item{
         padding: 1rem;
         font-size: 14px;
         font-weight: 500;
-    }
-    .nav-item a{
-        color: var(--white);
     }
     .nav-item a:hover{
         background-color: rgba(255, 255, 255, 0.322);
         border-radius: 10rem;
         padding: 10px;
     }
+    .close{
+        display: none;
+}
+    .open{
+    display: none;
+    background: none;
+    border:none;
+    font-size: 24px;
+    cursor: pointer;
+
+    }
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+        .nav-menu{
+            display: none;
+        }
+        
+        .open{
+            display: block;
+    }
+    #hidden{
+        position: absolute;
+        left: 0px;
+        top: 60px;
+        height: auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        li{
+            margin:5px;
+            font-size:14px;
+        }
+    }
+    }
 }
 
+.navbar-home{
+
+    .nav-item a{
+        color: var(--white);
+    }
+    .open{
+        color: var(--white);
+    }
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+    #hidden{
+            background-color: #0576AE;
+        }
+    }
+}
+.navbar-host{
+    background-color: #000000;
+    .nav-menu{
+        display: none;
+    }
+    .nav-item a{
+        color: var(--white);
+    }
+    .open{
+        display: none;
+    }
+    .logo{
+        padding: 30px;
+    }
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+    #hidden{
+            display: none;
+        }
+    }
+}
+.navbar-default{
+    border-bottom: 1px solid rgba(201, 201, 201, 0.685);
+    
+    .nav-item a{
+        color: var(--darkgrey);
+    }
+    .nav-item a:hover{
+        background-color: #9e9e9e38;
+        border-radius: 10rem;
+        padding: 10px;
+    }
+
+    .open{
+        color: var(--darkgrey);
+    }
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+    #hidden{
+            background-color: #808080;
+    }
+}
+}
+.navbar-user{
+    display: flex;
+    align-items: center;
+    font-family: var(--font-family);
+        p{
+            margin-left: 5px;
+        }
+    .info-user-home{
+        display: flex;
+        align-items: center;
+        color:white;
+        width: 140px;
+        padding: 0 10px;
+    }
+
+    .info-user{
+        display: flex;
+        align-items: baseline;
+        width: 120px;
+    }
+}
+
+.logut
+{
+    color:#FF0000
+}
