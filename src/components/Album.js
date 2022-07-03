@@ -12,9 +12,7 @@ const Album = (props) => {
 
   // console.log(lol, album);
   return (
-    <div>
-      {lol ? <Module5xx album={album} /> : <AlbumSwiper album={album} />}
-    </div>
+    <>{lol ? <Module5xx album={album} /> : <AlbumSwiper album={album} />}</>
   );
 };
 

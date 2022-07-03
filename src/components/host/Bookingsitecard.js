@@ -59,7 +59,6 @@ const Bookingsitecard = ({booking}) => {
         
         
     });
-    console.log(response)
     if(response.status===200){
         dispatch(getUser())
         toast.success('Se eliminó tu sitio', {

@@ -1,9 +1,10 @@
 import { DatePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
+import { Button } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { userUpdate } from '../../store/reducers/User.reducer';
 import { getUser } from '../../store/reducers/User.reducer';
-import dayjs from 'dayjs';
+import dayjs from 'dayjs/locale/es';
 
 const ProDate = () => {
   const dispatch = useDispatch();
@@ -12,20 +13,21 @@ const ProDate = () => {
   }, [dispatch]);
 
   const userData = useSelector((state) => state.userReducer);
-  console.log('cumple', userData.birthday);
 
-  const [birthday, setBirthday] = useState(userData.birthday);
+  const [birthday, setBirthday] = useState(new Date(userData.birthday));
+  const [birthdayFormat, setBirthdayFormat] = useState('');
 
   useEffect(() => {
-    setBirthday(userData.birthday);
+    setBirthday(new Date(userData.birthday));
   }, [userData]);
 
+  useEffect(() => {
+    setBirthdayFormat();
+  }, [birthday]);
   const handleClick = () => {
     dispatch(
       userUpdate({
-        birthday: `${birthday.getDate()} de ${
-          dayjs.months[birthday.getMonth()]
-        } de ${birthday.getFullYear()}`,
+        birthday: birthday.toISOString(),
       })
     );
   };
@@ -33,13 +35,16 @@ const ProDate = () => {
     <div>
       <div style={{ margin: 10 }}>
         <DatePicker
+          locale="es"
           label="Fecha de nacimiento"
-          placeholder={userData.birthday}
+          placeholder={birthdayFormat}
           value={birthday}
           onChange={setBirthday}
         />
       </div>
-      <button onClick={handleClick}>Guardar</button>
+      <Button style={{ margin: 10 }} variant="light" color="pink" onClick={handleClick}>
+      Guardar
+    </Button>
     </div>
   );
 };

@@ -145,7 +145,6 @@ const FormHost = (props) => {
 
   //Current time
   const now = dayjs(new Date());
-  console.log('CurrentDate: ', now, 'Day', now.date());
 
   //Huespedes
   const addCountGuest = () => {
@@ -286,7 +285,6 @@ const FormHost = (props) => {
     e.preventDefault();
     setLoading(true);
     setVisible(true);
-    console.log(availability);
     const data = new FormData();
     data.append('home_type', home_type);
     data.append('description_type', description_type);
@@ -305,15 +303,11 @@ const FormHost = (props) => {
     data.append('zipcode', zipcode);
     data.append('lat', lati);
     data.append('lng', lngi);
-    data.append('availabilitybegin', availability[0].toISOString());
-    data.append('availabilityend', availability[1].toISOString());
     if (file) {
-      console.log(typeof file);
       for (let i = 0; i < file.length; i++) {
         data.append(`file_${i}`, file[i], file[i].name);
       }
     }
-    console.log('DataBooking: ', availability);
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
@@ -326,7 +320,6 @@ const FormHost = (props) => {
           },
         }
       );
-      console.log("respuesta",response);
       if (response.status === 201) { 
         dispatch(getUser())
         setLoading(false);

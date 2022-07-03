@@ -20,6 +20,7 @@ import { Icon } from '@iconify/react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import { faRedRiver } from '@fortawesome/free-brands-svg-icons';
 import AlbumModal from '../components/AlbumModal';
+//import '../styles/components/ReservaRoom';
 
 const containerStyle = {
   width: '500px',
@@ -33,8 +34,6 @@ const BookingRoom = () => {
   const { error, loading, bookingSiteData } = useSelector(
     (state) => state.bookingSiteReducer
   );
-
-  console.log('BookingSideData:', bookingSiteData);
 
   useEffect(() => {
     dispatch(getBookingSite(id));
@@ -55,7 +54,6 @@ const BookingRoom = () => {
 
   const photos = [...bookingSiteData.data.images.toString().split(',')];
 
-  // console.log('Photos: ', bookingSiteData.data);
   const listPhothos = [];
 
   bookingSiteData.data.images.forEach((element) => {
@@ -65,10 +63,13 @@ const BookingRoom = () => {
       height: 25,
     });
   });
+  const arr = [
+    [new Date(2022, 7, 10).toISOString(), new Date(2022, 7, 18).toISOString()],
+    [new Date(2022, 7, 10).toISOString(), new Date(2022, 8, 10).toISOString()],
+  ];
 
   return (
     <div className="container-total">
-      <div className="container-total-booking">
       <div className="titulo-anfitrion"></div>
       <div className="albumreser">
         {/* {photos.map((photo, index) => (
@@ -245,6 +246,7 @@ const BookingRoom = () => {
             <BookingSection
               priceNigth={bookingSiteData.data.price}
               maxguest={bookingSiteData.data.total_occupancy}
+              dates={arr}
             />
           </div>
         </div>
@@ -263,7 +265,6 @@ const BookingRoom = () => {
             />
           </section>
         ))}
-      </div>
       </div>
     </div>
   );

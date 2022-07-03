@@ -52,10 +52,10 @@ const Navbar = () => {
       </div>
       <ul className="nav-menu" id={show ? 'hidden' : ''}>
         <li className="nav-item">
-          <Link to="#">Français (FR)</Link>
+          <Link to="#">Español (ES)</Link>
         </li>
         <li className="nav-item">
-          <Link to="#">EUR </Link>
+          <Link to="#">COP</Link>
         </li>
         <li className="nav-item">
           <Link to="#">Ayuda</Link>

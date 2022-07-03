@@ -1,22 +1,25 @@
 import { useState } from 'react';
 import axios from 'axios';
-
+import { useDispatch } from 'react-redux';
+import { getUser } from '../../store/reducers/User.reducer';
+import { LoadingOverlay } from '@mantine/core';
+import { toast } from 'react-toastify';
 function ProImage() {
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
-
+  const [loading, setLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch();
   async function handleSubmit(e) {
     e.preventDefault();
 
     const data = new FormData();
     if (file) {
-      console.log(typeof file);
-      console.log('file: ', file);
-     
         data.append("file", file);
-     
     }
-
+    setLoading(true);
+    setVisible(true);
+    try{
     const token = localStorage.getItem('token');
     const response = await axios.put('http://localhost:8080/users/updateImage',
       data,
@@ -27,7 +30,33 @@ function ProImage() {
         },
       }
     );
-    console.log(response);
+    if(response.status===200){
+      setLoading(false);
+      setVisible(false);
+      toast.success('Imagen actualizada', {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
+      dispatch(getUser());
+    }
+    }catch (error){
+      setLoading(false);
+      setVisible(false);
+      toast.error('No se pudo actualizar tu sitio', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   }
 
   function readFile(file) {
@@ -49,6 +78,11 @@ function ProImage() {
   return (
     <div className="App">
       <form onSubmit={handleSubmit}>
+      {loading ===true && 
+        <div className='loading' style={{ width: 400}}>
+        <LoadingOverlay loaderProps={{ size: 'sm', color: 'pink', variant: 'bars' }} visible={visible} />
+        {/* ...other content */}
+    </div>}
         <label htmlFor="file">Imagen</label>
         <input
           type="file"

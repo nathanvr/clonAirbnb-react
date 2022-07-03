@@ -9,36 +9,37 @@ import ProDate from './userProfile/ProDate';
 import ProDescription from './userProfile/ProDescription';
 import ProPass from './userProfile/ProPass';
 import { getUser } from '../store/reducers/User.reducer';
+import dayjs from 'dayjs/locale/es';
 
 const ProfilePill = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
+
   const userData = useSelector((state) => state.userReducer);
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null);
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [birthDay, setBirthDay] = useState('');
+  const [birthday, setBirthday] = useState(new Date(userData.birthday));
   const [description, setDescription] = useState('');
-
-  console.log('userDat: ', userData);
-  console.log('birthday: ', birthDay, typeof birthDay);
 
   useEffect(() => {
     setName(userData.name);
     setImage(userData.image);
     setLastName(userData.lastname);
     setEmail(userData.email);
-    setBirthDay(userData.birthday);
+    setBirthday(new Date(userData.birthday));
     setDescription(userData.description);
   }, [userData]);
-
+  if (description=== undefined){
+    setDescription("No tienes ninguna descripción")
+  }
   const list = [
     {
       label: 'Imagen',
-      description: 'Agreaga o edita tu imagen de perfil.',
+      description: 'Agrega o edita tu imagen de perfil.',
       content: <ProImage />,
     },
     {
@@ -53,7 +54,9 @@ const ProfilePill = () => {
     },*/
     {
       label: 'Fecha de nacimiento',
-      description: `${birthDay}`,
+      description: `${birthday.getDate()} de ${
+        dayjs.months[birthday.getMonth()]
+      } de ${birthday.getFullYear()}`,
       content: <ProDate />,
     },
     {
@@ -63,7 +66,7 @@ const ProfilePill = () => {
     },
     {
       label: 'Contraseña',
-      description: 'Modifica tu contreseña',
+      description: 'Modifica tu contraseña',
       content: <ProPass />,
     },
   ];

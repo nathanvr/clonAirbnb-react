@@ -15,21 +15,16 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import BrandIcon from './BrandIcon';
-import { z } from 'zod';
-import { useForm, zodResolver } from '@mantine/form';
 import { useSelector, useDispatch } from 'react-redux';
 import { postLogin } from '../store/reducers/User.reducer';
-
-const schema = z.object({
-  email: z.string().email({ message: 'Invalid email' }),
-});
 
 const LoginModal = (props) => {
   const { login, sitio } = props;
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
   const [visible, setVisible] = useState(false);
-  const { error, loading } = useSelector((state) => state.userReducer);
+  const {errorLogin, loading}=useSelector((state)=>state.userReducer)
+
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -45,15 +40,6 @@ const LoginModal = (props) => {
 
     dispatch(postLogin(user));
   };
-
-  const form = useForm({
-    schema: zodResolver(schema),
-    initialValues: {
-      email: '',
-      password: '',
-    },
-  });
-
   return (
     <div>
       <Link to="#" onClick={() => setOpened(true)}>
@@ -84,7 +70,7 @@ const LoginModal = (props) => {
             name="email"
             value={user.email}
             onChange={handleChange}
-            error={error !== null && true}
+            error={errorLogin !== null && true}
           />
 
           <PasswordInput
@@ -94,13 +80,9 @@ const LoginModal = (props) => {
             name="password"
             onChange={handleChange}
             value={user.password}
-            error={error !== null && true}
+            error={errorLogin !== null && true}
           />
-          {error !== null && (
-            <Alert title="Error!" color="red">
-              Usuario o contraseña incorrectos
-            </Alert>
-          )}
+          {errorLogin !== null && <Alert title="Error!" color="red">Usuario o contraseña incorrectos</Alert>}
           <div className="form__button__continue">
             <button
               className="form__button--continue"
