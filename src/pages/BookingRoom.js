@@ -35,8 +35,6 @@ const BookingRoom = () => {
     (state) => state.bookingSiteReducer
   );
 
-  console.log('BookingSideData:', bookingSiteData);
-
   useEffect(() => {
     dispatch(getBookingSite(id));
   }, []);
@@ -56,7 +54,6 @@ const BookingRoom = () => {
 
   const photos = [...bookingSiteData.data.images.toString().split(',')];
 
-  // console.log('Photos: ', bookingSiteData.data);
   const listPhothos = [];
 
   bookingSiteData.data.images.forEach((element) => {

@@ -5,7 +5,6 @@ import { useParams, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { set } from "zod";
 
 const RecoveryPassword = () => {
 const {token} =useParams();
@@ -26,11 +25,6 @@ const [errorMessage, setErrorMessage]=useState(undefined);
             return true;
         }else{
             return false;
-        }
-    }
-    const validationPassword =()=>{
-        if(passwordregex.test(newPassword) === true){
-            return 
         }
     }
 

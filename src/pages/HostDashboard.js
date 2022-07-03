@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Tabs from '../components/host/Tabs';
 
 import FormHost from '../components/host/FormHost';
 import { useSelector, useDispatch } from 'react-redux';
@@ -21,9 +20,7 @@ const HostDashboard = () => {
 
   const { bookingSites, bookings } = useSelector((state) => state.userReducer);
   const rbookingsite = useSelector((state) => state.bookingSiteReducer);
-  console.log('bookingsites del user', bookingSites[0]);
-  console.log('bookings del user', bookings);
-  console.log('bookingsite desde el estado', rbookingsite);
+
 
   return (
     <div className="dashboard-container">

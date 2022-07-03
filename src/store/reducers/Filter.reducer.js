@@ -10,7 +10,6 @@ export const getBookingSitesFilter = (filterdata) => {
     dispatch({ type: FILTEREDBOOKING_LOADING, payload: true });
     try {
     const res = await axios.get("http://localhost:8080/bookingsites/filter", {params:filterdata});
-    console.log("respuesta",res)
     dispatch({ type: FILTEREDBOOKING_SUCCESS, payload: res.data.data});
 
     } catch (err) {

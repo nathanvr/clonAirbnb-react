@@ -16,13 +16,13 @@ const Profile = () => {
   return (
     <div className="profile">
       <div className="item-flex">
-        <h1>Informacion personal</h1>
+        <h1>Información personal</h1>
         <div>
           <ImageFrame />
         </div>
         <ProfilePill />
       </div>
-      <div className="item-flex">
+      <div className="item-flex2">
         <div className="description">
           <h2>¿Qué datos se pueden editar?</h2>
           <p>

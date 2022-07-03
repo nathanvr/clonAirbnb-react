@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 export const USER_ID = 'USER_ID';
 export const USER_ROLE = 'USER_ROLE';
 export const USER_NAME = 'USER_NAME';
@@ -30,7 +31,6 @@ export const USER_LOGOUT_SUCCESS = 'USER_LOGOUT_SUCCESS';
 //action creator: login
 
 export const getUser = () => {
-  // console.log('getUserini');
   return async (dispatch) => {
     const token = localStorage.getItem('token');
     try {
@@ -42,7 +42,6 @@ export const getUser = () => {
         },
       });
       const user = data.data;
-      // console.log('usuario desde el user reducer', user);
       dispatch({ type: USER_ROLE, payload: user.role });
       dispatch({ type: USER_NAME, payload: user.name });
       dispatch({ type: USER_LASTNAME, payload: user.lastname });
@@ -51,17 +50,11 @@ export const getUser = () => {
       dispatch({ type: USER_PASSWORD, payload: user.password });
       dispatch({ type: USER_DESCRIPTION, payload: user.description });
       dispatch({ type: USER_IMAGE, payload: user.image });
-      // console.log('getUser1');
       dispatch({ type: USER_BOOKINGSITES, payload: user.bookingsites });
-      // console.log('getUser2');
       dispatch({ type: USER_BOOKINGS, payload: user.bookings });
-      // console.log('getUser3');
       dispatch({ type: USER_REVIEWS, payload: user.reviews });
-      // console.log('getUser4');
       dispatch({ type: USER_LOGIN_SUCCESS });
-      // console.log('getUser5');
     } catch (err) {
-      // console.log('getUserFail', err);
       dispatch({ type: SIGNIN_FAILURE, payload: err });
     }
   };
@@ -113,14 +106,34 @@ export const userUpdate = (value) => {
   return async (dispatch) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.put('http://localhost:8080/users/update', value, {
+      const res = await axios.put('http://localhost:8080/users/update', value, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       dispatch(getUser());
+      if(res.status===200){
+        toast.success('Perfil actualizado', {
+            position: 'bottom-right',
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+        }
     } catch (error) {
       dispatch({ type: USER_REGISTER_ERROR, payload: error });
+      toast.error('No se pudo actualizar tu perfil', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 };
@@ -196,6 +209,7 @@ const initialState = {
   loading: false,
   isLoggedIn: false,
   error: null,
+  errorLogin:null,
   role: null,
   name: null,
   lastname: null,
@@ -212,19 +226,17 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
-      // console.log('Se lanzo USER_LOGIN_REQUEST');
       return {
         ...state,
         loading: true,
         isLoggedIn: false,
-        error: null,
+        errorLogin: null,
       };
 
     case USER_LOGIN_ERROR:
-      // console.log('Se lanzo USER_LOGIN_ERROR');
       return {
         ...state,
-        error: action.payload,
+        errorLogin: action.payload,
         token: null,
         loading: false,
         isLoggedIn: false,
@@ -242,30 +254,26 @@ const userReducer = (state = initialState, action) => {
         signed: false,
       };
     case USER_LOGOUT_SUCCESS:
-      // console.log('Se lanzo USER_LOGOUT_SUCCESS');
       localStorage.removeItem('token');
       return {
         ...state,
         token: null,
         isLoggedIn: false,
-        error: null,
+        errorLogin: null,
       };
     case USER_REGISTER_REQUEST:
-      // console.log('Se lanzo USER_REGISTER_REQUEST');
       return {
         ...state,
         loading: true,
         isLoggedIn: false,
       };
     case USER_REGISTER_SUCCESS:
-      // console.log('Se lanzo USER_REGISTER_SUCCESS');
       return {
         ...state,
         isLoggedIn: true,
         loading: false,
       };
     case USER_REGISTER_ERROR:
-      // console.log('Se lanzo USER_REGISTER_ERROR');
       return {
         ...state,
         error: action.payload,
@@ -328,7 +336,6 @@ const userReducer = (state = initialState, action) => {
         reviews: action.payload,
       };
     case USER_LOGIN_SUCCESS:
-      // console.log('Se lanzo USER_LOGIN_SUCCESS');
       return {
         ...state,
         isLoggedIn: true,
