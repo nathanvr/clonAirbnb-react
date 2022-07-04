@@ -15,36 +15,37 @@ function ProImage() {
 
     const data = new FormData();
     if (file) {
-        data.append("file", file);
+      data.append('file', file);
     }
     setLoading(true);
     setVisible(true);
-    try{
-    const token = localStorage.getItem('token');
-    const response = await axios.put('http://localhost:8080/users/updateImage',
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
-    if(response.status===200){
-      setLoading(false);
-      setVisible(false);
-      toast.success('Imagen actualizada', {
-          position: "bottom-right",
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.put(
+        'https://clonairbnb-backend.herokuapp.com/users/updateImage',
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      if (response.status === 200) {
+        setLoading(false);
+        setVisible(false);
+        toast.success('Imagen actualizada', {
+          position: 'bottom-right',
           autoClose: 5000,
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          });
-      dispatch(getUser());
-    }
-    }catch (error){
+        });
+        dispatch(getUser());
+      }
+    } catch (error) {
       setLoading(false);
       setVisible(false);
       toast.error('No se pudo actualizar tu sitio', {
@@ -78,11 +79,15 @@ function ProImage() {
   return (
     <div className="App">
       <form onSubmit={handleSubmit}>
-      {loading ===true && 
-        <div className='loading' style={{ width: 400}}>
-        <LoadingOverlay loaderProps={{ size: 'sm', color: 'pink', variant: 'bars' }} visible={visible} />
-        {/* ...other content */}
-    </div>}
+        {loading === true && (
+          <div className="loading" style={{ width: 400 }}>
+            <LoadingOverlay
+              loaderProps={{ size: 'sm', color: 'pink', variant: 'bars' }}
+              visible={visible}
+            />
+            {/* ...other content */}
+          </div>
+        )}
         <label htmlFor="file">Imagen</label>
         <input
           type="file"

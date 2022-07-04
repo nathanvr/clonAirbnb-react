@@ -14,7 +14,7 @@ import {
   Checkbox,
   TextInput,
   ScrollArea,
-  Text
+  Text,
 } from '@mantine/core';
 import axios from 'axios';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
@@ -22,8 +22,8 @@ import { useSelector } from 'react-redux';
 import { Icon } from '@iconify/react';
 import PlacesAutocomplete from '../Maps/PlacesAutocomplete';
 import { toast } from 'react-toastify';
-import { getUser } from "../../store/reducers/User.reducer";
-import { useDispatch } from "react-redux";
+import { getUser } from '../../store/reducers/User.reducer';
+import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import dayjsLocal from 'dayjs/locale/es';
 import 'dayjs/locale/es';
@@ -82,14 +82,14 @@ const options3 = [
   { value: 'shared', label: 'Una habitación compartida' },
 ];
 const containerStyle = {
-    width: '350px',
-    height: '250px'
-    };
+  width: '350px',
+  height: '250px',
+};
 
 const FormHost = (props) => {
   const { sitio } = props;
   const navigate = useNavigate();
-  const dispatch =useDispatch();
+  const dispatch = useDispatch();
   const { name } = useSelector((state) => state.userReducer);
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
@@ -124,14 +124,14 @@ const FormHost = (props) => {
   const [availability, setAvailability] = useState([new Date(), new Date()]);
 
   const [error, setError] = useState(null);
-  const [errorValidate, setErrorValidate]= useState({
+  const [errorValidate, setErrorValidate] = useState({
     formstep0: null,
     formstep1: null,
     formstep2: null,
     formstep3: null,
     formstep4: null,
     formstep5: null,
-  })
+  });
   const childToParent = (childdata) => {
     setAddress(childdata.value);
     setLat(childdata.lat);
@@ -198,62 +198,69 @@ const FormHost = (props) => {
     }
     setCountBaths(countBaths - 1);
   };
-  const validateform0 = ()=>{
-    if(home_type !== null && room_type !== null && description_type !== null){
-      setErrorValidate({formstep0:null})
-      return true
-    } else{
-      setErrorValidate({formstep0:"Debes completar todos los campos"})
+  const validateform0 = () => {
+    if (home_type !== null && room_type !== null && description_type !== null) {
+      setErrorValidate({ formstep0: null });
+      return true;
+    } else {
+      setErrorValidate({ formstep0: 'Debes completar todos los campos' });
     }
-  }
-  const validateform1 = ()=>{
-    if(countBaths >0 && countBeds>0 && countGuest>0 && countRooms>0 && isChecked.length>0){
-      setErrorValidate({formstep1:null})
-      return true
-    } else{
-      setErrorValidate({formstep1:"Debes completar todos los campos"})
+  };
+  const validateform1 = () => {
+    if (
+      countBaths > 0 &&
+      countBeds > 0 &&
+      countGuest > 0 &&
+      countRooms > 0 &&
+      isChecked.length > 0
+    ) {
+      setErrorValidate({ formstep1: null });
+      return true;
+    } else {
+      setErrorValidate({ formstep1: 'Debes completar todos los campos' });
     }
-  }
-  const validateform2 = ()=>{
-    if(address !== null){
-      setErrorValidate({formstep2:null})
-      return true
-    } else{
-      setErrorValidate({formstep2:"Ingresa la dirección de tu sitio"})
+  };
+  const validateform2 = () => {
+    if (address !== null) {
+      setErrorValidate({ formstep2: null });
+      return true;
+    } else {
+      setErrorValidate({ formstep2: 'Ingresa la dirección de tu sitio' });
     }
-  }
-  const validateform3 = ()=>{
-    if(file.length >=5){
-      setErrorValidate({formstep3:null})
-      return true
-    } else{
-      setErrorValidate({formstep3:"Debes subir al menos 5 fotos"})
+  };
+  const validateform3 = () => {
+    if (file.length >= 5) {
+      setErrorValidate({ formstep3: null });
+      return true;
+    } else {
+      setErrorValidate({ formstep3: 'Debes subir al menos 5 fotos' });
     }
-  }
-  const validateform4 = ()=>{
-    if(title.length >2 && description.length>2 && price>0){
-      setErrorValidate({formstep4:null})
-      return true
-    } else if(title.length <=2 ){
-      setErrorValidate({formstep4:"Titulo muy corto"})
-    } else if(description.length <=2){
-      setErrorValidate({formstep4:"Descripción muy corta"})
-    } else if (price === 0){
-      setErrorValidate({formstep4:"Descripción muy corta"})
-  }}
-  
+  };
+  const validateform4 = () => {
+    if (title.length > 2 && description.length > 2 && price > 0) {
+      setErrorValidate({ formstep4: null });
+      return true;
+    } else if (title.length <= 2) {
+      setErrorValidate({ formstep4: 'Titulo muy corto' });
+    } else if (description.length <= 2) {
+      setErrorValidate({ formstep4: 'Descripción muy corta' });
+    } else if (price === 0) {
+      setErrorValidate({ formstep4: 'Descripción muy corta' });
+    }
+  };
+
   const completeFormStep = () => {
-    if(validateform0() && formStep === 0){
-    setformStep((cur) => cur + 1);
-    } else if(formStep === 1 && validateform1()){
+    if (validateform0() && formStep === 0) {
       setformStep((cur) => cur + 1);
-    } else if(formStep===2 && validateform2()){
+    } else if (formStep === 1 && validateform1()) {
       setformStep((cur) => cur + 1);
-    } else if (formStep===3 && validateform3()){
+    } else if (formStep === 2 && validateform2()) {
       setformStep((cur) => cur + 1);
-    }else if (formStep===4 && validateform4()){
-      setformStep((cur) => cur + 1);}
-    
+    } else if (formStep === 3 && validateform3()) {
+      setformStep((cur) => cur + 1);
+    } else if (formStep === 4 && validateform4()) {
+      setformStep((cur) => cur + 1);
+    }
   };
   const backFormStep = () => {
     setformStep((cur) => cur - 1);
@@ -311,7 +318,7 @@ const FormHost = (props) => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        'http://localhost:8080/bookingsites/post',
+        'https://clonairbnb-backend.herokuapp.com/bookingsites/post',
         data,
         {
           headers: {
@@ -320,8 +327,8 @@ const FormHost = (props) => {
           },
         }
       );
-      if (response.status === 201) { 
-        dispatch(getUser())
+      if (response.status === 201) {
+        dispatch(getUser());
         setLoading(false);
         setVisible(false);
         toast.success('Se creó tu sitio', {
@@ -333,7 +340,7 @@ const FormHost = (props) => {
           draggable: true,
           progress: undefined,
         });
-        setOpened(false)
+        setOpened(false);
         setCountGuest(0);
         setCountBeds(0);
         setCountRooms(0);
@@ -342,16 +349,16 @@ const FormHost = (props) => {
         setHome_type(null);
         setDescription_type(null);
         setRoom_type(null);
-       setformStep(0);
+        setformStep(0);
         setAddress(null);
         setCity('');
         setCountry('');
-       setZipcode(undefined);
+        setZipcode(undefined);
         setTitle('');
         setDescription('');
         setPrice(45000);
         setLat(0);
-       setLng(0);
+        setLng(0);
         setImage(null);
         setFile(null);
       }
@@ -544,7 +551,9 @@ const FormHost = (props) => {
                       data={options3}
                     />
                   </div>
-                  {errorValidate.formstep0 !== null && <Text color="red">{errorValidate.formstep0}</Text>}
+                  {errorValidate.formstep0 !== null && (
+                    <Text color="red">{errorValidate.formstep0}</Text>
+                  )}
                 </div>
               </section>
             )}
@@ -668,40 +677,67 @@ const FormHost = (props) => {
                       <Checkbox value="firstaidkit" label="Botiquín" />
                     </CheckboxGroup>
                   </div>
-                  {errorValidate.formstep1 !== null && <Text color="red">{errorValidate.formstep1}</Text>}
+                  {errorValidate.formstep1 !== null && (
+                    <Text color="red">{errorValidate.formstep1}</Text>
+                  )}
                 </div>
-                </section>)}
-                {formStep===2 && (<section>
-                    <div className="typebooking2">
-                    <h1>Paso 3: Selecciona tu ubicación</h1>
-                        
-                                <section className="section-map">
-                                    <div className="adress_content">
-                                            <PlacesAutocomplete childToParent={childToParent}/>
-                                            
-                                            <TextInput label="Pais" required value={country} onChange={(event) => setCountry(event.currentTarget.value)}></TextInput>
-                                            <TextInput label="Ciudad" required value={city} onChange={(event) => setCity(event.currentTarget.value)}></TextInput>
-                                            <TextInput label="Zipcode" value={zipcode} onChange={(event) => setZipcode(event.currentTarget.value)}></TextInput>
-                                        </div>
-                                        <div className="coordinates">
-                                        {address}
-                                        <GoogleMap
-                                                mapContainerStyle={containerStyle}
-                                                center={center}
-                                                zoom={15}>
-                                                    <Marker  visible={true} onLoad={onLoad} position={position} />
-                                                
-                                            </GoogleMap>
-                                        </div>
-                                </section>
-                                </div>
-                                {errorValidate.formstep2 !== null && <Text color="red">{errorValidate.formstep2}</Text>}
-                    </section>)}
-            {formStep === 3 && (
-            <section>
+              </section>
+            )}
+            {formStep === 2 && (
+              <section>
                 <div className="typebooking2">
-                <h1>Paso 4: Sube tus fotos</h1>
-                <section>
+                  <h1>Paso 3: Selecciona tu ubicación</h1>
+
+                  <section className="section-map">
+                    <div className="adress_content">
+                      <PlacesAutocomplete childToParent={childToParent} />
+
+                      <TextInput
+                        label="Pais"
+                        required
+                        value={country}
+                        onChange={(event) =>
+                          setCountry(event.currentTarget.value)
+                        }></TextInput>
+                      <TextInput
+                        label="Ciudad"
+                        required
+                        value={city}
+                        onChange={(event) =>
+                          setCity(event.currentTarget.value)
+                        }></TextInput>
+                      <TextInput
+                        label="Zipcode"
+                        value={zipcode}
+                        onChange={(event) =>
+                          setZipcode(event.currentTarget.value)
+                        }></TextInput>
+                    </div>
+                    <div className="coordinates">
+                      {address}
+                      <GoogleMap
+                        mapContainerStyle={containerStyle}
+                        center={center}
+                        zoom={15}>
+                        <Marker
+                          visible={true}
+                          onLoad={onLoad}
+                          position={position}
+                        />
+                      </GoogleMap>
+                    </div>
+                  </section>
+                </div>
+                {errorValidate.formstep2 !== null && (
+                  <Text color="red">{errorValidate.formstep2}</Text>
+                )}
+              </section>
+            )}
+            {formStep === 3 && (
+              <section>
+                <div className="typebooking2">
+                  <h1>Paso 4: Sube tus fotos</h1>
+                  <section>
                     <h2>Ahora, agreguemos algunas fotos de tu espacio</h2>
                     <input
                       type="file"
@@ -715,9 +751,10 @@ const FormHost = (props) => {
                   <div className="addphotos">
                     {!!image && <img src={image} alt="upload preview" />}
                   </div>
-                  {errorValidate.formstep3 !== null && <Text color="red">{errorValidate.formstep3}</Text>}
+                  {errorValidate.formstep3 !== null && (
+                    <Text color="red">{errorValidate.formstep3}</Text>
+                  )}
                 </div>
-                
               </section>
             )}
             {formStep === 4 && (
@@ -763,7 +800,9 @@ const FormHost = (props) => {
                     </section>
                   </section>
                 </div>
-                {errorValidate.formstep4 !== null && <Text color="red">{errorValidate.formstep4}</Text>}
+                {errorValidate.formstep4 !== null && (
+                  <Text color="red">{errorValidate.formstep4}</Text>
+                )}
               </section>
             )}
             {formStep === 5 && (
