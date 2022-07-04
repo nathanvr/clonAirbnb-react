@@ -20,7 +20,7 @@ const PaymentRes = () => {
           url: `https://secure.epayco.co/validation/v1/reference/${payId}`,
         });
 
-        if (res.data.data.x_cod_response) {
+        if (res.data.data.x_cod_response === 1) {
           const dates = [];
           dates.push(res.data.data.x_extra1);
           dates.push(res.data.data.x_extra2);
@@ -32,7 +32,7 @@ const PaymentRes = () => {
 
           try {
             const response = await axios.post(
-              'http://localhost:8080/bookings',
+              'https://clonairbnb-backend.herokuapp.com/bookings',
               body,
               {
                 headers: {

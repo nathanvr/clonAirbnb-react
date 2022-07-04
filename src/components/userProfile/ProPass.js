@@ -1,4 +1,10 @@
-import { PasswordInput, Button, Header,LoadingOverlay, Text} from '@mantine/core';
+import {
+  PasswordInput,
+  Button,
+  Header,
+  LoadingOverlay,
+  Text,
+} from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -158,85 +164,89 @@ const ProPass = () => {
     event.preventDefault();
     setLoading(true);
     setVisible(true);
-    try{
-    const token = localStorage.getItem('token');
-    const response = await axios.put(
-      'http://localhost:8080/users/changepassword',
-      {
-        password: input.password,
-        newpassword: input.newPassword,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.put(
+        'https://clonairbnb-backend.herokuapp.com/users/changepassword',
+        {
+          password: input.password,
+          newpassword: input.newPassword,
         },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setInvalidPass(!response.data.data);
+      console.log('error', error.invalidpass);
+      if (response.status === 201 && response.data.data === true) {
+        toast.success('Contraseña actualizada', {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setLoading(false);
+        setVisible(false);
       }
-    );
-    setInvalidPass(!response.data.data);
-    console.log("error", error.invalidpass)
-    if(response.status===201 && response.data.data === true){
-      toast.success('Contraseña actualizada', {
-          position: "bottom-right",
+      if (response.status === 201 && response.data.data === false) {
+        toast.error('No se pudo cambiar tu contraseña', {
+          position: 'bottom-right',
           autoClose: 5000,
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          });
-          setLoading(false)
-          setVisible(false);
-        
-        }
-    if(response.status===201 && response.data.data === false){
+        });
+        setLoading(false);
+        setVisible(false);
+      }
+      setLoading(false);
+      setVisible(false);
+      console.log('Response: ', response);
+      setInput((prev) => ({
+        password: '',
+        newPassword: '',
+        confirmPassword: '',
+      }));
+      console.log('Response:', response.data.data);
+      setInvalidPass(!response.data.data);
+      setPass((prev) => ({
+        password: false,
+        newpassword: false,
+      }));
+      setSubmit(true);
+    } catch (error) {
+      setLoading(false);
+      setVisible(false);
       toast.error('No se pudo cambiar tu contraseña', {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          });
-          setLoading(false)
-          setVisible(false);
-        }
-    setLoading(false);
-    setVisible(false);
-    console.log('Response: ', response);
-    setInput((prev) => ({
-      password: '',
-      newPassword: '',
-      confirmPassword: '',
-    }));
-    console.log('Response:', response.data.data);
-    setInvalidPass(!response.data.data);
-    setPass((prev) => ({
-      password: false,
-      newpassword: false,
-    }));
-    setSubmit(true);
-  }catch(error){
-    setLoading(false);
-    setVisible(false);
-    toast.error('No se pudo cambiar tu contraseña', {
-      position: 'bottom-right',
-      autoClose: 5000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  }};
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
 
   return (
     <div>
-      {loading ===true && 
-        <div className='loading' style={{ width: 400}}>
-        <LoadingOverlay loaderProps={{ size: 'sm', color: 'pink', variant: 'bars' }} visible={visible} />
-        {/* ...other content */}
-    </div>}
+      {loading === true && (
+        <div className="loading" style={{ width: 400 }}>
+          <LoadingOverlay
+            loaderProps={{ size: 'sm', color: 'pink', variant: 'bars' }}
+            visible={visible}
+          />
+          {/* ...other content */}
+        </div>
+      )}
       <p>Modifica tu contraseña de ingreso</p>
       <div style={{ margin: 10 }}>
         <PasswordInput
@@ -255,7 +265,7 @@ const ProPass = () => {
           onChange={onInputChange}
           onBlur={validateInput}
         />
-        {error.newPassword &&  <Text color="red">{error.newPassword}</Text>}
+        {error.newPassword && <Text color="red">{error.newPassword}</Text>}
       </div>
       <div style={{ margin: 10 }}>
         <PasswordInput
@@ -266,14 +276,18 @@ const ProPass = () => {
           onBlur={validateInput}
         />
         {error.confirmPassword && (
-           <Text color="red">{error.confirmPassword}</Text>
-        )} 
-        {error.invalidpass &&  <Text>{error.invalidpass}</Text>}
+          <Text color="red">{error.confirmPassword}</Text>
+        )}
+        {error.invalidpass && <Text>{error.invalidpass}</Text>}
       </div>
-      <Button disabled={!disabled} onClick={handleSubmit} style={{ margin: 10 }} variant="light" color="pink">
+      <Button
+        disabled={!disabled}
+        onClick={handleSubmit}
+        style={{ margin: 10 }}
+        variant="light"
+        color="pink">
         Guardar
       </Button>
-     
     </div>
   );
 };
