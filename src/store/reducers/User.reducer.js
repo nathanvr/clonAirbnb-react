@@ -36,7 +36,7 @@ export const getUser = () => {
     try {
       const data = await axios({
         method: 'GET',
-        baseURL: 'http://localhost:8080/users/getid',
+        baseURL: 'https://clonairbnb-backend.herokuapp.com/users/getid',
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -65,7 +65,7 @@ export const postLogin = (loginState) => {
     dispatch({ type: USER_LOGIN_REQUEST });
     try {
       const res = await axios.post(
-        'http://localhost:8080/users/login',
+        'https://clonairbnb-backend.herokuapp.com/users/login',
         loginState
       );
       localStorage.setItem('token', res.data.data);
@@ -89,15 +89,21 @@ export const postRegister = (registerState) => {
     dispatch({ type: USER_REGISTER_REQUEST });
     try {
       const res = await axios.post(
-        'http://localhost:8080/users/singup',
+        'https://clonairbnb-backend.herokuapp.com/users/singup',
         registerState
       );
       localStorage.setItem('token', res.data.data.token);
       dispatch({ type: USER_REGISTER_SUCCESS, payload: res });
       dispatch(getUser());
     } catch (error) {
-      if(error.response.data.data.errors.email.message === "email already exist"){
-        dispatch({ type: USER_REGISTER_ERROR, payload: error.response.data.data.errors.email.message });}
+      if (
+        error.response.data.data.errors.email.message === 'email already exist'
+      ) {
+        dispatch({
+          type: USER_REGISTER_ERROR,
+          payload: error.response.data.data.errors.email.message,
+        });
+      }
     }
   };
 };
@@ -106,23 +112,27 @@ export const userUpdate = (value) => {
   return async (dispatch) => {
     const token = localStorage.getItem('token');
     try {
-      const res = await axios.put('http://localhost:8080/users/update', value, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      dispatch(getUser());
-      if(res.status===200){
-        toast.success('Perfil actualizado', {
-            position: 'bottom-right',
-            autoClose: 5000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            });
+      const res = await axios.put(
+        'https://clonairbnb-backend.herokuapp.com/users/update',
+        value,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
+      );
+      dispatch(getUser());
+      if (res.status === 200) {
+        toast.success('Perfil actualizado', {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
     } catch (error) {
       dispatch({ type: USER_REGISTER_ERROR, payload: error });
       toast.error('No se pudo actualizar tu perfil', {
@@ -209,7 +219,7 @@ const initialState = {
   loading: false,
   isLoggedIn: false,
   error: null,
-  errorLogin:null,
+  errorLogin: null,
   role: null,
   name: null,
   lastname: null,

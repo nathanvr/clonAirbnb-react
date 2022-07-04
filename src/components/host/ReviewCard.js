@@ -42,7 +42,7 @@ const ReviewCard = ({ booking }) => {
 
     const token = localStorage.getItem('token');
     const response = await axios.delete(
-      `http://localhost:8080/bookingsites/${booking._id}`,
+      `https://clonairbnb-backend.herokuapp.com/bookingsites/${booking._id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
