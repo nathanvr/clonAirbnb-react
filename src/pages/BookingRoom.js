@@ -20,6 +20,7 @@ import { Icon } from '@iconify/react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import { faRedRiver } from '@fortawesome/free-brands-svg-icons';
 import AlbumModal from '../components/AlbumModal';
+import { changeAlbum } from '../store/reducers/Album.reducer';
 //import '../styles/components/ReservaRoom';
 
 const containerStyle = {
@@ -35,11 +36,11 @@ const BookingRoom = () => {
     (state) => state.bookingSiteReducer
   );
 
-  console.log('BookingSideData:', bookingSiteData);
-
   useEffect(() => {
     dispatch(getBookingSite(id));
   }, []);
+
+  //dispatch(changeAlbum(photos));
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyCsW9trmjliEY9-Qz_uuAK8C2DRCUFzDqs',
@@ -53,9 +54,9 @@ const BookingRoom = () => {
   } else if (error === true) {
     return <p>Lo sentimos, ha ocurrido un error. {error}</p>;
   }
-
+  console.log('BookingSideData:', bookingSiteData);
   const photos = [...bookingSiteData.data.images.toString().split(',')];
-
+  console.log('BookingSideData:', bookingSiteData);
   // console.log('Photos: ', bookingSiteData.data);
   const listPhothos = [];
 

@@ -1,7 +1,7 @@
 import '../styles/components/AlbumModal.scss';
 //import Modal from 'react-modal/lib/components/Modal';
 import { Modal } from '@mantine/core';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   faAngleLeft,
@@ -11,19 +11,25 @@ import {
 import BrandIcon from './BrandIcon';
 import TextIcon from './TextIcon';
 import ModuleRandom from './ModuleRandom';
-import Module2vv from './Module2vv';
+import { useDispatch } from 'react-redux';
+import { changeAlbum } from '../store/reducers/Album.reducer';
 
 //Modal.setAppElement('#root');
 
-const styles = {
+/*const styles = {
   display: 'flex',
   justifyContent: 'space-between',
-};
+};*/
 
 const AlbumModal = (props) => {
+  const dispatch = useDispatch();
   const { site, album } = props;
   const [modalOpen, setModalOpen] = useState(false);
-  // console.log('Album: ', album);
+
+  useEffect(() => {
+    dispatch(changeAlbum(album));
+  }, [album]);
+
   return (
     <div>
       <Link to="#" onClick={() => setModalOpen(true)}>
@@ -59,7 +65,7 @@ const AlbumModal = (props) => {
             </div>
           </div>
           <div className="album-modal-main">
-            <ModuleRandom album={album} length={album.length + 1} />
+            <ModuleRandom length={album.length} />
           </div>
         </div>
       </Modal>

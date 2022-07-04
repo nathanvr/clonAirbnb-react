@@ -23,6 +23,7 @@ const BookingSection = (props) => {
     { date: ['2022-06-29T05:00:00.000Z', '2022-07-06T05:00:00.000Z'] },
     { date: ['2022-07-20T05:00:00.000Z', '2022-07-25T05:00:00.000Z'] },
   ];
+
   function getDates(startDate, endDate) {
     const dates = [];
     let currentDate = startDate;
