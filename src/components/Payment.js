@@ -37,7 +37,7 @@ const Payment = (props) => {
       extra4: bookingSiteData.data._id, //id del bookingsite
 
       // confirmation: 'http://secure2.payco.co/prueba_curl.php',
-      response: `http://localhost:3000/response`,
+      response: `https://airbnbclon.netlify.app/response`,
 
       //Atributos cliente
       name_billing: fullName,
