@@ -19,6 +19,7 @@ const AlbumDetailModal = (props) => {
   const { site } = props;
   const { album } = useSelector((state) => state.albumReducer);
   const [modalOpen, setModalOpen] = useState(false);
+
   const slices = album.map((item, index) => {
     console.log('photo', index, ': ', item);
     return (
@@ -26,14 +27,12 @@ const AlbumDetailModal = (props) => {
         tag="li"
         //wrapperTag="ul"
         key={index}
-        //virtualIndex={index}
+        virtualIndex={index}
         className="swiper-slide">
         <PhotoAlbumDetail
           style={{ alignSelf: 'center' }}
           src={item}
-          x="auto"
-          y="100vh"
-          index={index}
+          key={index}
         />
       </SwiperSlide>
     );
@@ -47,13 +46,14 @@ const AlbumDetailModal = (props) => {
       <Modal
         styles={{
           root: { padding: '0px' },
-          //inner: { padding: '0px' },
+          inner: { padding: '0px', backgroundColor: 'black' },
           modal: { backgroundColor: 'black', padding: '0px' },
         }}
         size="full"
         withCloseButton={false}
         opened={modalOpen}
         onClose={() => setModalOpen(false)}
+        overlayColor="black"
         overlayOpacity={0.55}
         overlayBlur={3}>
         <div className="album-modal-container">

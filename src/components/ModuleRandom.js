@@ -1,7 +1,9 @@
 import Modules from './Modules';
+import { useSelector } from 'react-redux';
 
 const ModuleRandom = (props) => {
-  const { length } = props;
+  const { album } = useSelector((state) => state.albumReducer);
+  const length = album.length;
 
   const division = [];
   const indexes = [0];

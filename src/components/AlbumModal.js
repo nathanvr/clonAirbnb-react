@@ -11,30 +11,19 @@ import {
 import BrandIcon from './BrandIcon';
 import TextIcon from './TextIcon';
 import ModuleRandom from './ModuleRandom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeAlbum } from '../store/reducers/Album.reducer';
 
 //Modal.setAppElement('#root');
 
-/*const styles = {
-  display: 'flex',
-  justifyContent: 'space-between',
-};*/
-
 const AlbumModal = (props) => {
   const dispatch = useDispatch();
-  const { site, album } = props;
+  const { site } = props;
   const [modalOpen, setModalOpen] = useState(false);
-  console.log('!!!RenderModal');
 
-  useEffect(() => {
+  /*useEffect(() => {
     dispatch(changeAlbum(album));
-  }, [album]);
-
-  const Random = memo((props) => {
-    console.log('!!!Pues');
-    return <ModuleRandom length={props.length} />;
-  });
+  }, [album]);*/
 
   return (
     <div>
@@ -71,7 +60,7 @@ const AlbumModal = (props) => {
             </div>
           </div>
           <div className="album-modal-main">
-            <Random length={album.length} />
+            <ModuleRandom />
           </div>
         </div>
       </Modal>

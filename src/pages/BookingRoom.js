@@ -18,6 +18,7 @@ import { Icon } from '@iconify/react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import AlbumModal from '../components/AlbumModal';
 import AlbumDetailModal from '../components/AlbumDetailModal';
+import { changeAlbum } from '../store/reducers/Album.reducer';
 //import '../styles/components/ReservaRoom';
 
 const containerStyle = {
@@ -37,6 +38,9 @@ const BookingRoom = () => {
     dispatch(getBookingSite(id));
   }, []);
 
+  useEffect(() => {
+    dispatch(changeAlbum(bookingSiteData.data.images));
+  }, [id]);
   //di
 
   const { isLoaded } = useLoadScript({
@@ -77,12 +81,11 @@ const BookingRoom = () => {
               <img src={photo} alt={index} />
             </div>
           ))} */}
-        <Album album={photos} />
-        {/* <Album /> */}
+        <Album />
       </div>
 
       <button>
-        <AlbumModal site="Album1" album={photos} />
+        <AlbumModal site="Album1" />
       </button>
       <button>
         <AlbumDetailModal site="ALbum2" />

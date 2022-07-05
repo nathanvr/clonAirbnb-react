@@ -1,8 +1,9 @@
 import Photo from './Photo';
 import '../styles/components/Module5xx.scss';
+import { useSelector } from 'react-redux';
 
 const Module5xx = (props) => {
-  const { album } = props;
+  const { album } = useSelector((state) => state.albumReducer);
   return (
     <div className="module5xx">
       <Photo src={album[0]} x="50%" y="100%" />
