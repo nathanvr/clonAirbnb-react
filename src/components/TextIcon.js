@@ -10,7 +10,7 @@ const TextIcon = (props) => {
   return (
     <div>
       <p style={{ textDecoration: 'underline', color: colorIcon }}>
-        <span>
+        <span style={{ paddingRight: '5px' }}>
           <BrandIcon
             iconType={iconType}
             colorIcon={colorIcon}

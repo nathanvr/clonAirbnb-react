@@ -1,6 +1,5 @@
 import React from 'react';
 import InfoHostTitulo from '../components/InfoHostTitulo';
-import Host1 from '../images/Hostes/Host1.jpg';
 import Aircoversection from '../components/Aircoversection';
 import DescripcionReserva from '../components/DescripcionReserva';
 import 'swiper/css';
@@ -15,12 +14,10 @@ import BookingSection from '../components/BookingSection';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getBookingSite } from '../store/reducers/BookingSite.reducer';
-import PhotoAlbum from 'react-photo-album';
 import { Icon } from '@iconify/react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
-import { faRedRiver } from '@fortawesome/free-brands-svg-icons';
 import AlbumModal from '../components/AlbumModal';
-import { changeAlbum } from '../store/reducers/Album.reducer';
+import AlbumDetailModal from '../components/AlbumDetailModal';
 //import '../styles/components/ReservaRoom';
 
 const containerStyle = {
@@ -40,7 +37,7 @@ const BookingRoom = () => {
     dispatch(getBookingSite(id));
   }, []);
 
-  //dispatch(changeAlbum(photos));
+  //di
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyCsW9trmjliEY9-Qz_uuAK8C2DRCUFzDqs',
@@ -54,7 +51,6 @@ const BookingRoom = () => {
   } else if (error === true) {
     return <p>Lo sentimos, ha ocurrido un error. {error}</p>;
   }
-  console.log('BookingSideData:', bookingSiteData);
   const photos = [...bookingSiteData.data.images.toString().split(',')];
   console.log('BookingSideData:', bookingSiteData);
   // console.log('Photos: ', bookingSiteData.data);
@@ -86,7 +82,10 @@ const BookingRoom = () => {
       </div>
 
       <button>
-        <AlbumModal site="Album" album={photos} />
+        <AlbumModal site="Album1" album={photos} />
+      </button>
+      <button>
+        <AlbumDetailModal site="ALbum2" />
       </button>
 
       <div className="info-reserva">

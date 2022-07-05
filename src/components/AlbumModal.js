@@ -1,7 +1,7 @@
 import '../styles/components/AlbumModal.scss';
 //import Modal from 'react-modal/lib/components/Modal';
 import { Modal } from '@mantine/core';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   faAngleLeft,
@@ -25,10 +25,16 @@ const AlbumModal = (props) => {
   const dispatch = useDispatch();
   const { site, album } = props;
   const [modalOpen, setModalOpen] = useState(false);
+  console.log('!!!RenderModal');
 
   useEffect(() => {
     dispatch(changeAlbum(album));
   }, [album]);
+
+  const Random = memo((props) => {
+    console.log('!!!Pues');
+    return <ModuleRandom length={props.length} />;
+  });
 
   return (
     <div>
@@ -47,25 +53,25 @@ const AlbumModal = (props) => {
             <BrandIcon
               iconType={faAngleLeft}
               colorIcon={{ color: '#484848' }}
-              sizeIcon="16px"
+              sizeIcon="14px"
             />
             <div>
               <TextIcon
                 iconType={faArrowUpFromBracket}
                 colorIcon="#222222"
-                sizeIcon="16px"
+                sizeIcon="14px"
                 text="Compartir"
               />
               <TextIcon
                 iconType={faHeart}
                 colorIcon="#222222"
-                sizeIcon="16px"
+                sizeIcon="14px"
                 text="Guardar"
               />
             </div>
           </div>
           <div className="album-modal-main">
-            <ModuleRandom length={album.length} />
+            <Random length={album.length} />
           </div>
         </div>
       </Modal>
