@@ -78,7 +78,9 @@ const AlbumDetailModal = (props) => {
             </div>
           </div>
           <div>
+            {/*
             <Swiper
+              id='main'
               tag="div"
               wrapperTag="ul"
               spaceBetween={0}
@@ -95,6 +97,8 @@ const AlbumDetailModal = (props) => {
               onSwiper={(swiper) => console.log(swiper, 'album: ', album)}>
               {slices}
             </Swiper>
+            */}
+            <Swiper id="main">{slices}</Swiper>
           </div>
         </div>
       </Modal>

@@ -39,9 +39,10 @@ const BookingRoom = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(changeAlbum(bookingSiteData.data.images));
-  }, [id]);
-  //di
+    if (!loading) {
+      dispatch(changeAlbum(bookingSiteData.data.images));
+    }
+  }, [loading]);
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyCsW9trmjliEY9-Qz_uuAK8C2DRCUFzDqs',
