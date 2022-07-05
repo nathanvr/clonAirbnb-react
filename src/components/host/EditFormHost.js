@@ -138,7 +138,6 @@ const EditFormHost = ({ booking }) => {
     new Date(booking.availabilityend),
   ]);
 
-  console.log('Availability: ', availability);
   //Current date
   const now = dayjs(new Date());
 
@@ -258,7 +257,7 @@ const EditFormHost = ({ booking }) => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.put(
-        `http://localhost:8080/bookingsites/update/${booking._id}`,
+        `https://clonairbnb-backend.herokuapp.com/bookingsites/update/${booking._id}`,
         data,
         {
           headers: {

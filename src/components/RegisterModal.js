@@ -11,8 +11,6 @@ import {
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DatePicker } from '@mantine/dates';
-import { z } from 'zod';
-import { useForm, zodResolver } from '@mantine/form';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { postRegister } from '../store/reducers/User.reducer';

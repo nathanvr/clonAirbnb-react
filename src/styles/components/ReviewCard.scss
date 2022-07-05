@@ -1,13 +1,33 @@
-table {
-  border: 1px solid lightgray;
-  width: 60%;
-  margin: auto;
-
-  thead {
-    background-color: white;
-    color: lightgrey;
+.bs__bookings__list {
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  .bs__bookings__list__header {
+    display: flex;
+    height: 40px;
+    margin: 5px;
+    background-color: rgb(135, 74, 227);
+    border-radius: 10px;
+    padding: 8px 20px;
+    justify-content: space-between;
+    border: 1px solid lightgray;
+    p {
+      width: 33%;
+      color: white;
+    }
   }
-  tbody {
-    background-color: white;
+  .bs__bookings__list__item {
+    border: 1px solid lightgray;
+    display: flex;
+    height: 40px;
+    margin: 5px;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    padding: 8px 20px;
+    justify-content: space-between;
+
+    p {
+      width: 33%;
+    }
   }
 }

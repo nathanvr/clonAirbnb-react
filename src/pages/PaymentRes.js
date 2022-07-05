@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../styles/components/PaymentRes.scss';
+import { Link } from 'react-router-dom';
+
 const url = new URLSearchParams(window.location.search);
 const payId = url.get('ref_payco');
 
@@ -17,7 +20,7 @@ const PaymentRes = () => {
           url: `https://secure.epayco.co/validation/v1/reference/${payId}`,
         });
 
-        if (res.data.data.x_cod_response) {
+        if (res.data.data.x_cod_response === 1) {
           const dates = [];
           dates.push(res.data.data.x_extra1);
           dates.push(res.data.data.x_extra2);
@@ -29,7 +32,7 @@ const PaymentRes = () => {
 
           try {
             const response = await axios.post(
-              'http://localhost:8080/bookings',
+              'https://clonairbnb-backend.herokuapp.com/bookings',
               body,
               {
                 headers: {
@@ -60,35 +63,7 @@ const PaymentRes = () => {
   dates.push(dataRes.x_extra2);
   console.log(dataRes.x_cod_response);
 
-  // useEffect(() => {
-  //   const bookingSave = async () => {
-  //     if (dataRes.x_cod_response === 1) {
-  //       const token = localStorage.getItem('token');
-  //       const body = {
-  //         bookingSiteId: dataRes.x_extra4,
-  //         date: dates,
-  //       };
-
-  //       try {
-  //         const response = await axios.post(
-  //           'http://localhost:8080/bookings',
-  //           body,
-  //           {
-  //             headers: {
-  //               Authorization: `Bearer ${token}`,
-  //             },
-  //           }
-  //         );
-  //         console.log('respuesta', response);
-  //       } catch (error) {
-  //         console.log('Error', error);
-  //       }
-  //     }
-  //   };
-  //   bookingSave();
-  // }, []);
-
-  console.log(dataRes);
+  console.log('respuesta', dataRes);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -98,24 +73,52 @@ const PaymentRes = () => {
   }
 
   //////////////////////////////////////////////
+
+  //{new Date(item.date[1]).getDate()}/
+  //{new Date(item.date[1]).getMonth() + 1}/
+  //{new Date(item.date[1]).getFullYear()
+
   if (dataRes.x_cod_response === 1) {
     return (
-      <div>
-        <div>
+      <div className="resContainer">
+        <div className="resContainer__title">
           <h2>Pago realizado satisfactoriamente</h2>
         </div>
-
-        <div>Factura No: {dataRes.x_id_invoice}</div>
-        <div>Descripcion: {dataRes.x_description}</div>
-        <div>Llegada: {dataRes.x_extra1}</div>
-        <div>Salida: {dataRes.x_extra2}</div>
-        <div>Total noches: {dataRes.x_extra3}</div>
+        <div className="resContainer__body">
+          <div>
+            <span>Factura No:</span> {dataRes.x_id_invoice}
+          </div>
+          <div>
+            <span>Descripcion:</span> {dataRes.x_description}
+          </div>
+          <div>
+            <span>Llegada:</span> {new Date(dataRes.x_extra1).getDate()}/
+            {new Date(dataRes.x_extra1).getMonth() + 1}/
+            {new Date(dataRes.x_extra1).getFullYear()}
+          </div>
+          <div>
+            <span>Salida:</span> {new Date(dataRes.x_extra2).getDate()}/
+            {new Date(dataRes.x_extra2).getMonth() + 1}/
+            {new Date(dataRes.x_extra2).getFullYear()}
+          </div>
+          <div>
+            <span>Total noches:</span> {dataRes.x_extra3}
+          </div>
+          <div>
+            <span>Total pagado:</span> {dataRes.x_amount}{' '}
+            {dataRes.x_currency_code}
+          </div>
+          <Link to={'/'}>
+            {' '}
+            <button>Reservaciones</button>{' '}
+          </Link>
+        </div>
       </div>
     );
   } else {
     return (
       <div>
-        <div>respuesta: hubo problemas</div>
+        <h2 className="resContainer__title">respuesta: hubo problemas</h2>
       </div>
     );
   }

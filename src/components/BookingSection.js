@@ -6,14 +6,14 @@ import { useSelector } from 'react-redux';
 import LoginModal from './LoginModal';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
-import { object } from 'zod';
+
 
 const BookingSection = (props) => {
   const now = dayjs(new Date());
   const { isLoggedIn } = useSelector((state) => state.userReducer);
   const { priceNigth, maxguest, dates } = props;
   const [date, setDate] = useState([new Date(), new Date()]);
-  const [numGuest, setNumGuest] = useState(0);
+  const [numGuest, setNumGuest] = useState(1);
   const totalDays = (date[1] - date[0]) / (1000 * 60 * 60 * 24);
   const totalNigths = totalDays * priceNigth;
   const taxService = totalNigths * 0.203;
@@ -47,7 +47,6 @@ const BookingSection = (props) => {
   });
 
   console.log('hola', BookingDates.toString().split(','));
-
   const datesArr = (dates) => {
     return dates.map((item) => {
       const diff =
@@ -97,7 +96,11 @@ const BookingSection = (props) => {
             <h3>Reserva</h3>
           </button> */}
           {isLoggedIn ? (
-            <Payment totalPay={Total}></Payment>
+            <Payment
+              totalPay={Total}
+              startDate={date[0]}
+              finishDate={date[1]}
+              totalNigths={totalDays}></Payment>
           ) : (
             <LoginModal sitio="Inicia Sesion" />
           )}

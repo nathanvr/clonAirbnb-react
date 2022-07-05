@@ -9,8 +9,9 @@ import 'swiper/css/scrollbar';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import {LoadingOverlay} from '@mantine/core';
+import { LoadingOverlay } from '@mantine/core';
 import { getBookingSites } from '../store/reducers/BookingSites.reducer';
+import { albumReset } from '../store/reducers/Album.reducer';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const Home = () => {
   const { loading, error, sites } = useSelector(
     (state) => state.bookingSitesReducer
   );
+  dispatch(albumReset());
   useEffect(() => {
     dispatch(getBookingSites());
   }, []);
@@ -33,8 +35,7 @@ const Home = () => {
       </div>
       <div className="main">
         <Title title="Alojamientos en todo el mundo" />
-        {loading ===true && 
-        <LoadingOverlay  visible={visible}/>}
+        {loading === true && <LoadingOverlay visible={visible} />}
         <section className="alojamientos-plus">
           {sites.map((site, index) => (
             <Link to={`/room/${site._id}`} key={index}>

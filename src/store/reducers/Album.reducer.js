@@ -11,6 +11,13 @@ export function changeAlbum(value) {
   };
 }
 
+export function albumReset() {
+  return {
+    type: CHANGE_ALBUM,
+    payload: [],
+  };
+}
+
 export function changeIndex(value) {
   return {
     type: CHANGE_INDEX,

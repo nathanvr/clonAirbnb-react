@@ -18,7 +18,7 @@ import { Icon } from '@iconify/react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import AlbumModal from '../components/AlbumModal';
 import AlbumDetailModal from '../components/AlbumDetailModal';
-import { changeAlbum } from '../store/reducers/Album.reducer';
+import { albumReset, changeAlbum } from '../store/reducers/Album.reducer';
 //import '../styles/components/ReservaRoom';
 
 const containerStyle = {
@@ -37,12 +37,13 @@ const BookingRoom = () => {
   useEffect(() => {
     dispatch(getBookingSite(id));
   }, []);
-
-  useEffect(() => {
+  /*useEffect(() => {
     if (!loading) {
-      dispatch(changeAlbum(bookingSiteData.data.images));
+      dispatch(
+        changeAlbum([...bookingSiteData.data.images.toString().split(',')])
+      );
     }
-  }, [loading]);
+  }, [id]);*/
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyCsW9trmjliEY9-Qz_uuAK8C2DRCUFzDqs',
@@ -57,8 +58,6 @@ const BookingRoom = () => {
     return <p>Lo sentimos, ha ocurrido un error. {error}</p>;
   }
   const photos = [...bookingSiteData.data.images.toString().split(',')];
-  console.log('BookingSideData:', bookingSiteData);
-  // console.log('Photos: ', bookingSiteData.data);
   const listPhothos = [];
 
   bookingSiteData.data.images.forEach((element) => {
@@ -82,7 +81,7 @@ const BookingRoom = () => {
               <img src={photo} alt={index} />
             </div>
           ))} */}
-        <Album />
+        <Album album={photos} />
       </div>
 
       <button>

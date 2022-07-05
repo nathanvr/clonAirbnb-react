@@ -10,11 +10,10 @@ export const getBookingSite = (id) => {
     try {
       const res = await axios({
         method: 'GET',
-        baseURL: `http://localhost:8080/bookingsites/${id}`,
+        baseURL: `https://clonairbnb-backend.herokuapp.com/bookingsites/${id}`,
         // Authorization: `Bearer ${token}`,
       });
       dispatch({ type: BOOKINGSITE_SUCCESS, payload: res.data });
-      console.log('data del sitio', res.data);
     } catch (error) {
       dispatch({ type: BOOKINGSITE_ERROR, payload: error });
     } finally {

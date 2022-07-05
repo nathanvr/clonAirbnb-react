@@ -42,7 +42,7 @@ const ReviewCard = ({ booking }) => {
 
     const token = localStorage.getItem('token');
     const response = await axios.delete(
-      `http://localhost:8080/bookingsites/${booking._id}`,
+      `https://clonairbnb-backend.herokuapp.com/bookingsites/${booking._id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -71,9 +71,9 @@ const ReviewCard = ({ booking }) => {
         <Accordion.Item
           label={<AccordionLabel {...booking} />}
           key={booking._id}>
-          <div>
+          <div className="bs__bookings">
             {reservations.length === 0 && (
-              <div>
+              <div className="bs__bookings__dont">
                 <Icon
                   icon="fluent:text-bullet-list-square-search-20-regular"
                   className="icon"
@@ -81,40 +81,30 @@ const ReviewCard = ({ booking }) => {
                 <p>No tienes reservas en este momento.</p>
               </div>
             )}
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Start date</th>
-                  <th>End date</th>
-                </tr>
-              </thead>
+            <div className="bs__bookings__list">
+              <div className="bs__bookings__list__header">
+                <p>Nombre</p>
+                <p>Llegada</p>
+                <p>Salida</p>
+              </div>
               {reservations.map((item, index) => (
-                <tbody key={index}>
-                  <tr>
-                    <td>
-                      {item.userId.name} {item.userId.lastname}
-                    </td>
-                    <td>
-                      {new Date(item.date[0]).getDate()}/
-                      {new Date(item.date[0]).getMonth() + 1}/
-                      {new Date(item.date[0]).getFullYear()}
-                    </td>
-                    <td>
-                      {new Date(item.date[1]).getDate()}/
-                      {new Date(item.date[1]).getMonth() + 1}/
-                      {new Date(item.date[1]).getFullYear()}
-                    </td>
-                  </tr>
-                </tbody>
-
-                // <div key={index}>
-                //   <p>{item.userId.name}</p>
-                //   <p>{item.date[0]}</p>
-                //   <p>{item.date[1]}</p>
-                // </div>
+                <div className="bs__bookings__list__item" key={index}>
+                  <p>
+                    {item.userId.name} {item.userId.lastname}
+                  </p>
+                  <p>
+                    {new Date(item.date[0]).getDate()}/
+                    {new Date(item.date[0]).getMonth() + 1}/
+                    {new Date(item.date[0]).getFullYear()}
+                  </p>
+                  <p>
+                    {new Date(item.date[1]).getDate()}/
+                    {new Date(item.date[1]).getMonth() + 1}/
+                    {new Date(item.date[1]).getFullYear()}
+                  </p>
+                </div>
               ))}
-            </table>
+            </div>
           </div>
         </Accordion.Item>
       </Accordion>

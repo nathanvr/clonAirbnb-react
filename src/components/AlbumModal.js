@@ -31,7 +31,7 @@ const AlbumModal = (props) => {
         {site}
       </Link>
       <Modal
-        size="full"
+        size="80%"
         withCloseButton={false}
         opened={modalOpen}
         onClose={() => setModalOpen(false)}
