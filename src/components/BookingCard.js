@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
+  Badge,
   Modal,
   Button,
   useMantineTheme,
@@ -29,11 +30,24 @@ const BookingCard = (props) => {
     new Date(booking.date[0]),
     new Date(booking.date[1]),
   ]);
+  const [state, setState] = useState('active');
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   console.log('Booking card: ', booking);
+  const states = {
+    active: {
+      color: { from: 'teal', to: 'lime', deg: 105 },
+      text: 'activo',
+    },
+    canceled: {
+      color: { from: 'orange', to: 'red', deg: 105 },
+      text: 'cancelado',
+    },
+  };
+  useEffect(() => {}, []);
+
   function AccordionLabel() {
     return (
       <Group noWrap>
@@ -41,7 +55,9 @@ const BookingCard = (props) => {
           <img src={image} alt="booking-photo" loading="lazy"></img>
         </div>
         <div>
-          <Text size="xl">{booking.title}</Text>
+          <Badge variant="gradient" gradient={states[state].color}>
+            {states[state].text}
+          </Badge>
           <Text size="sm" color="dimmed" weight={400}>
             {booking.description}
           </Text>
@@ -61,10 +77,14 @@ const BookingCard = (props) => {
     e.preventDefault();
     setLoading(true);
     setVisible(true);
+    setState('canceled');
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.delete(
+      const response = await axios.put(
         `http://localhost:8080/bookings/${booking._id}`,
+        {
+          state: 'canceled',
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -74,7 +94,6 @@ const BookingCard = (props) => {
       if (response.status === 200) {
         console.log('getUser2');
         dispatch(getUser());
-        console.log('getUser2');
         toast.success('Se eliminó tu sitio', {
           position: 'bottom-right',
           autoClose: 5000,
@@ -117,9 +136,11 @@ const BookingCard = (props) => {
           key={booking._id}>
           <div className="boxfooter2">
             <EditFormBooking booking={booking} />
-            <Button color="red" onClick={() => setOpened(true)}>
-              Eliminar
-            </Button>
+            {state !== 'canceled' && (
+              <Button color="red" onClick={() => setOpened(true)}>
+                Cancelar
+              </Button>
+            )}
             <Link to={`/room/${booking.bookingSiteId}`}>
               <Button>Ir al sitio</Button>
             </Link>
@@ -147,14 +168,14 @@ const BookingCard = (props) => {
             {/* ...other content */}
           </div>
         )}
-        <p>Estas seguro que desea canselar la reserva?</p>
+        <p>Estas seguro que deseas cancelar la reserva?</p>
         <div className="cancel-buttons">
           <div>
-            <Button color="gray">Cancelar</Button>
+            <Button color="gray">Volver</Button>
           </div>
           <div>
             <Button color="red" onClick={handleOnclick}>
-              Eliminar
+              Cancelar
             </Button>
           </div>
         </div>
