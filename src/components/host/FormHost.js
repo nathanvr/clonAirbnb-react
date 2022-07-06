@@ -498,7 +498,7 @@ const FormHost = (props) => {
         {sitio}
       </Link>
       <Modal
-        size="80%"
+        size="85%"
         className='modal-formHost'
         opened={opened}
         onClose={() => setOpened(false)}
@@ -509,7 +509,9 @@ const FormHost = (props) => {
         }
         overlayOpacity={0.55}
         overlayBlur={3}>
+      
         <div className="container-form">
+        
           <form onSubmit={handleSubmit}>
             {loading === true && (
               <div className="loading" style={{ width: 400 }}>
@@ -766,8 +768,7 @@ const FormHost = (props) => {
               style={isDragging ? { color: "red" } : null}
               onClick={onImageUpload}
               {...dragProps}
-            >
-              Da click o arrastra tus imagenes aquí
+            >Sube tus imágenes
             </Button>
             &nbsp;
             <Button variant="outline" color="pink" leftIcon={<TrashX/>} onClick={onImageRemoveAll}>Borra todas las imágenes</Button>
@@ -894,7 +895,8 @@ const FormHost = (props) => {
             {renderButtonPrev()}
             {renderButtonNext()}
           </section>
-        </div>
+         
+        </div> 
       </Modal>
     </div>
   );

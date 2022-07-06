@@ -9,9 +9,16 @@
 .container-form{
     padding: 0 20px ;
     margin: 2px 20px;
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+        padding: 0 0px ;
+        margin: 0px 0px;
+        }
 
     h1{
         @include assign-fontstye (30px, var(--green), 500);
+        @media only screen and (min-width: 300px) and (max-width: 900px){
+            @include assign-fontstye (15px, var(--green), 500);
+            }
     }
     h2{
 
@@ -42,6 +49,7 @@
     }
     .typebooking2{
 
+    
         h2{
             padding: 10px 0;
             @include assign-fontstye (16Px, rgb(80, 80, 80), 500);
@@ -262,9 +270,13 @@
 
 }
 .buttons-uploads{
+    padding: 10px;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+
+
 }
 
 .swiper1{
@@ -284,3 +296,4 @@
         object-fit: cover;
     }
 }
+

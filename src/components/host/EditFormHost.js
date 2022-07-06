@@ -427,7 +427,7 @@ const EditFormHost = ({ booking }) => {
         Editar
       </Button>
       <Modal
-        size="80%"
+        size="85%"
         opened={opened}
         onClose={() => setOpened(false)}
         overlayColor={
