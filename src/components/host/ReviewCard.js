@@ -16,7 +16,7 @@ import 'swiper/css/pagination';
 import nophoto from '../../images/notavailable.png';
 import { Icon } from '@iconify/react';
 import axios from 'axios';
-//import '../../styles/components/ReviewCard.scss';
+import '../../styles/components/ReviewCard.scss';
 
 const ReviewCard = ({ booking }) => {
   const [opened, setOpened] = useState(false);
