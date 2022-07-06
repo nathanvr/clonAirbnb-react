@@ -1,9 +1,10 @@
 .dashboard-container{
-
+    
 .hero{
     width: 100%;
     padding:64px 80px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     background: rgb(78,52,156);
@@ -24,6 +25,10 @@
 }
 .container-bookings{
     padding:20px 80px;
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+        padding: 20px 20px;;
+
+    }
 
 
     h2{
@@ -49,3 +54,16 @@
     }
 }
 
+.scroll-booking{
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+    width: 600px;
+    }
+}
+
+.scroll-booking2{
+    display: flex;
+    align-items: center;
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+    width: 600px;
+    }
+}

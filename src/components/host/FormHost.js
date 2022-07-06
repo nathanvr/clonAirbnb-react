@@ -1,11 +1,10 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState} from 'react';
 import {
   Modal,
   useMantineTheme,
   Textarea,
   LoadingOverlay,
 } from '@mantine/core';
-import { DateRangePicker } from '@mantine/dates';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   NumberInput,
@@ -15,6 +14,7 @@ import {
   TextInput,
   ScrollArea,
   Text,
+  Button
 } from '@mantine/core';
 import axios from 'axios';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
@@ -25,8 +25,13 @@ import { toast } from 'react-toastify';
 import { getUser } from '../../store/reducers/User.reducer';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
-import dayjsLocal from 'dayjs/locale/es';
 import 'dayjs/locale/es';
+import ImageUploading from "react-images-uploading";
+import { CloudUpload, TrashX } from 'tabler-icons-react';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation } from 'swiper';
+import "swiper/css";
+import "swiper/css/pagination";
 
 const options1 = [
   { value: 'apartment', label: 'Apartamentos' },
@@ -88,7 +93,6 @@ const containerStyle = {
 
 const FormHost = (props) => {
   const { sitio } = props;
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { name } = useSelector((state) => state.userReducer);
   const theme = useMantineTheme();
@@ -112,16 +116,13 @@ const FormHost = (props) => {
   const [lati, setLat] = useState(0);
   const [lngi, setLng] = useState(0);
   const [image, setImage] = useState(null);
-  const [file, setFile] = useState(null);
-  const [selected, setSelected] = useState(null);
+  const [images, setImages] = useState([]);
+  const [file, setFile] = useState([]);
   const [center, setCenter] = useState({ lat: 4.570868, lng: -74.297333 });
   const [position, setPosition] = useState({ lat: 4.570868, lng: -74.297333 });
   const [libraries] = useState(['places']);
-  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
-
-  const [availability, setAvailability] = useState([new Date(), new Date()]);
 
   const [error, setError] = useState(null);
   const [errorValidate, setErrorValidate] = useState({
@@ -142,9 +143,6 @@ const FormHost = (props) => {
     setPosition({ lat: childdata.lat, lng: childdata.lng });
     setCenter({ lat: childdata.lat, lng: childdata.lng });
   };
-
-  //Current time
-  const now = dayjs(new Date());
 
   //Huespedes
   const addCountGuest = () => {
@@ -377,11 +375,16 @@ const FormHost = (props) => {
       });
     }
   }
+  const onChange = (imageList, addUpdateIndex) => {
+    // data for submit
+    setImages(imageList);
+    imageList.map((item)=>{
+      file.push(item.file)
+    })
+  };
 
-  function handleChange(e) {
-    readFile(e.target.files[0]);
-    setFile(e.target.files);
-  }
+  console.log(file)
+
 
   function readFile(file) {
     const reader = new FileReader();
@@ -495,7 +498,8 @@ const FormHost = (props) => {
         {sitio}
       </Link>
       <Modal
-        size="70%"
+        size="80%"
+        className='modal-formHost'
         opened={opened}
         onClose={() => setOpened(false)}
         overlayColor={
@@ -688,7 +692,7 @@ const FormHost = (props) => {
                 <div className="typebooking2">
                   <h1>Paso 3: Selecciona tu ubicación</h1>
 
-                  <section className="section-map">
+                  <section className="section-maps">
                     <div className="adress_content">
                       <PlacesAutocomplete childToParent={childToParent} />
 
@@ -714,7 +718,6 @@ const FormHost = (props) => {
                         }></TextInput>
                     </div>
                     <div className="coordinates">
-                      {address}
                       <GoogleMap
                         mapContainerStyle={containerStyle}
                         center={center}
@@ -739,14 +742,51 @@ const FormHost = (props) => {
                   <h1>Paso 4: Sube tus fotos</h1>
                   <section>
                     <h2>Ahora, agreguemos algunas fotos de tu espacio</h2>
-                    <input
-                      type="file"
-                      multiple
-                      accept="image/*"
-                      name="file"
-                      id="file"
-                      onChange={handleChange}
-                    />
+                    <div className="uploader">
+      <ImageUploading
+        multiple
+        value={images}
+        onChange={onChange}
+        maxNumber={7}
+        dataURLKey="data_url"
+      >
+        {({
+          imageList,
+          onImageUpload,
+          onImageRemoveAll,
+          onImageUpdate,
+          onImageRemove,
+          isDragging,
+          dragProps
+        }) => (
+          // write your building UI
+          <div className="upload__image-wrapper">
+            <div className='buttons-uploads'>
+              <Button variant="outline" color="pink" leftIcon={<CloudUpload/>}
+              style={isDragging ? { color: "red" } : null}
+              onClick={onImageUpload}
+              {...dragProps}
+            >
+              Da click o arrastra tus imagenes aquí
+            </Button>
+            &nbsp;
+            <Button variant="outline" color="pink" leftIcon={<TrashX/>} onClick={onImageRemoveAll}>Borra todas las imágenes</Button>
+            </div>
+            <div className='display-images'>
+            {imageList.map((image, index) => (
+              <div key={index} className="image-item">
+                <img src={image.data_url} alt="" width="100" />
+                <div className="image-item__btn-wrapper">
+                <Button style={{marginRight:10}} variant="outline" size="xs" compact color="green" onClick={() => onImageUpdate(index)}>Cambiar</Button>
+                <Button variant="outline" size="xs"   compact color="red" onClick={() => onImageRemove(index)}>Borrar</Button>
+                </div>
+              </div>
+            ))}
+            </div>
+          </div>
+        )}
+      </ImageUploading>
+    </div>
                   </section>
                   <div className="addphotos">
                     {!!image && <img src={image} alt="upload preview" />}
@@ -782,7 +822,7 @@ const FormHost = (props) => {
                         }
                       />
                       <NumberInput
-                        label="Ahora viene la mejor parte: define el precio"
+                        label="Ahora viene la mejor parte: define el precio por noche"
                         required
                         hideControls
                         value={price}
@@ -795,7 +835,7 @@ const FormHost = (props) => {
                         }
                         min={0}
                         step={1}
-                        styles={{ input: { width: 400 } }}
+                        styles={{ input: { width: "100%" } }}
                       />
                     </section>
                   </section>
@@ -810,9 +850,21 @@ const FormHost = (props) => {
                 <div className="typebooking5">
                   <ScrollArea style={{ height: 350 }}>
                     <h2>Revisa tu anuncio</h2>
-                    <div className="addphotos">
-                      {!!image && <img src={image} alt="upload preview" />}
-                    </div>
+                    <div className='display-images'>
+                    <Swiper
+                      pagination={{
+                        dynamicBullets: true,
+                      }}
+                      modules={[Pagination]}
+                      className="swiper1"
+                      >
+            {images.map((image, index) => (
+                <SwiperSlide key={index} virtualIndex={index} className="swiper-slide1">
+                <img src={image.data_url} alt=""/>
+                </SwiperSlide>
+            ))}
+             </Swiper>
+            </div>
                     <div>
                       <h3>
                         {title} - Anfitrión: {name}. {price}
@@ -838,7 +890,7 @@ const FormHost = (props) => {
               </section>
             )}
           </form>
-          <section className="buttons">
+          <section className="buttons-form-host">
             {renderButtonPrev()}
             {renderButtonNext()}
           </section>

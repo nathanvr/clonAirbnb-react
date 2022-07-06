@@ -1,4 +1,4 @@
-import { Input, Textarea, Button } from '@mantine/core';
+import { Textarea, Button } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { userUpdate } from '../../store/reducers/User.reducer';
@@ -16,7 +16,7 @@ const ProDescription = () => {
     setDescription(userData.description)
   }, [userData]);
   useEffect(() => {
-    userRole == 'guest'
+    userRole === 'guest'
       ? setParraf('Parrafo de Guest')
       : setParraf('Parrafo de Host');
   }, [userRole]);

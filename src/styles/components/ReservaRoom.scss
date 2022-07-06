@@ -1,6 +1,6 @@
 
 .info_Host_container{
-
+    width: 100%;
     display: flex;
     justify-content: space-between;
     h2{
@@ -19,46 +19,55 @@
 }
 
 .albumreser {
-    width: 100%;
+    width: 95%;
     margin-top: 30px;
+    @media only screen and (max-width:900px){
+        width: 90%;
+    }
+    
 }
 
 .info-reserva{
     max-width: 1280px;
     width: 100%;
-    padding: 0px 80px;    
+    padding: 0px 80px;   
+    @media only screen and (max-width:900px){
+        padding: 0px 15px;
+    } 
 
     #left{
         width: 58%;
         float:left;
         padding-left: 23px;
         @media only screen and (max-width:900px){
-            width: 100%;
+            width: 95%;
             float: none;
         }
+        
     }
     #right{
         width: 42%;
         float:right;
         @media only screen and (max-width:900px){
-            width: 100%;
+            width: 95%;
             float: none;
-            position: relative;
             display: flex;
             justify-content: center;
         }
         .form{
+            width: 100%;
             @media only screen and (min-width:900px) and (max-width: 1060px){
                 padding-left: 30px;
             }
             @media only screen and (max-width:900px){
-                position: relative;
+                padding: 0;
+                width: 90%;
             }
-
         }
 
     }
     .titulo-Host{
+        width: 100%;
         padding: 48px 0 24px;
         border-bottom: 1px solid lightgray;
     }
@@ -67,12 +76,17 @@
         border-bottom: 1px solid lightgray;
     }
     .aircover{
+        width: 100%;
         padding: 32px 0px;
         border-bottom: 1px solid lightgray;
     }
     .descripcion-reserva{
+        width: 100%;
         padding: 32px 0px;
         border-bottom: 1px solid lightgray;
+        h2{
+            margin-bottom: 20px;
+        }
     }
     .info-habitaciones{
         padding: 32px 0px;
@@ -86,9 +100,13 @@
         }
     }
     .servicios-room{
+        width: 100%;
             padding: 32px 0px;
             border-bottom: 1px solid lightgray;
         
+    }
+    h2{
+        margin-bottom: 20px;
     }
 }
 
@@ -122,22 +140,21 @@
 }
 
 .info_general_aircover{
-    
+    width: 90%;
     img{
         width: 123px;
         height: 26px;
         margin: 0px 0px 16px;
     }
     button{
-        background: none;
-        border: none;
+        padding: 0;
         text-decoration: underline;
-        @include assign-fontstye (16px, var(--textoreserva), 700); 
     }
     p{
         @include assign-fontstye (16px, var(--textoreserva), 400); 
         margin: 0px 0px 16px;
     }
+    
 }
 .info_general_descripcionreserva{
     button{
@@ -170,14 +187,22 @@
 }
 
 .container-total{
+    height: auto;
     display: flex;
+    width: 100%;
     flex-direction: column;
     align-items:center;
+    
 }
 .footer{
 
-    width: 100%;
-    padding: 32px 90px;
+    width: 80%;
+    margin-top: 50px;   
+    @media only screen and (max-width:900px){
+        width: 90%;
+        margin-top: 50px;
+        padding: 10px;
+    } 
 
     .Reseñas{  
         display: flex;
@@ -235,14 +260,34 @@
     }
 }
 
-/*.container-total-booking{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.info_Host_container{
+.section-map{
+    width: 90%;
+    padding-left: 70px;
+    margin-top: 20px;
 
+    h2{
+        padding: 0 0 15px;
+    }
+    p{
+        padding-top: 15px;
+    }
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+        width: 90%;
+        margin-top: 70px;
+        padding-left: 20px;
+    }}
+
+    .services-list{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+    .services-item{
+    width: 200px;
+    padding: 10px;
     display: flex;
-}*/
+    align-items: flex-end;
+    }
+    }
 

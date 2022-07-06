@@ -1,23 +1,25 @@
 .bs__bookings__list {
+  width: 100%;
   background-color: white;
   padding: 15px;
   border-radius: 10px;
   .bs__bookings__list__header {
     display: flex;
-    height: 40px;
     margin: 5px;
     background-color: rgb(135, 74, 227);
     border-radius: 10px;
     padding: 8px 20px;
     justify-content: space-between;
-    border: 1px solid lightgray;
     p {
       width: 33%;
       color: white;
+      display: flex;
+      justify-content: center;
     }
   }
-  .bs__bookings__list__item {
-    border: 1px solid lightgray;
+  
+}
+.bs__bookings__list__item {
     display: flex;
     height: 40px;
     margin: 5px;
@@ -28,6 +30,14 @@
 
     p {
       width: 33%;
+      font-size: 12px;
     }
   }
+.item-modal-cancelation{
+  text-align: center;
+  margin: 10px 5px;
+}
+.item-modal-cancelation-list{
+  text-align: justify;
+  margin: 10px 5px;
 }

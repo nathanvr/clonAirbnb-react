@@ -77,14 +77,27 @@
                 width: 200px;
             }
         }
-        .section-map{
+        .section-maps{
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-
+            @media only screen and (min-width: 300px) and (max-width: 900px){
+                flex-direction: column;
+        
+            }
             .adress_content{
-                width: 400px;
+                width: 50%;
+                @media only screen and (min-width: 300px) and (max-width: 900px){
+                    width: 100%;
+            
+                }
+            
+            }
                 .coordinates{
+                    width: 45%;
+                    @media only screen and (min-width: 300px) and (max-width: 900px){
+                        width: 100%;
+                    }
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
@@ -97,11 +110,11 @@
                         cursor: pointer;
                     }
                 }
-            }
+            
         }
     }
     .typebooking4{
-
+        width: 100%;
 
         .addphotos{
 
@@ -136,7 +149,7 @@
             color: darkgray;
         }
     }
-    .buttons{
+    .buttons-form-host{
         display: flex;
         justify-content: space-between;
         padding: 20px;
@@ -192,7 +205,7 @@
 }
 
 .typebooking5{
-    width: 800px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -210,5 +223,64 @@
     border: none;
     background-color: var(--red);
     color: white;
+    }
+}
+.modal-formHost{
+
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+        size: 100%;
+
+    }
+}
+.upload__image-wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+.image-item{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    img{
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+}
+
+.display-images{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+.buttons-uploads{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.swiper1{
+    width: 200px;
+    height: 200px;
+
+
+    .swiper-slide1{
+        width: 200px;
+        height: 200px;
+    }
+
+    .swiper-slide1 img {
+        display: block;
+        height: 200px;
+        width: 200px;
+        object-fit: cover;
     }
 }

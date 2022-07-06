@@ -17,6 +17,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import PaymentRes from './pages/PaymentRes';
+import Help from './pages/Help'
 
 
 function App() {
@@ -73,6 +74,11 @@ function App() {
             exact
             path="/password-recovery/:token"
             element={<RecoveryPassword></RecoveryPassword>}
+          />
+          <Route
+            exact
+            path="/help"
+            element={<Help/>}
           />
           <Route
             exact

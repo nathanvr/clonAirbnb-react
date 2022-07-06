@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Modal,
@@ -6,10 +6,10 @@ import {
   useMantineTheme,
   Group,
   LoadingOverlay,
-  Avatar,
   Text,
   Accordion,
   ThemeIcon,
+  ScrollArea
 } from '@mantine/core';
 import EditFormHost from './EditFormHost';
 import 'swiper/css';
@@ -23,14 +23,17 @@ import { useDispatch } from 'react-redux';
 
 const Bookingsitecard = ({ booking }) => {
   const [opened, setOpened] = useState(false);
+  const [value, setValue] = useState('');
   const theme = useMantineTheme();
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [error, setError] = useState(null);
+  console.log(booking)
   const dispatch = useDispatch();
   function AccordionLabel({ label, image, description }) {
     return (
-      <Group noWrap>
+      <Group>
+         <ScrollArea style={{ width: "100%" }}>
+            <div className='scroll-booking2'>
         {booking.images.toString().split(',').length === 0 && (
           <div className="photo-notfound">
             <img src={nophoto} alt="notphoto" loading="lazy"></img>
@@ -48,9 +51,11 @@ const Bookingsitecard = ({ booking }) => {
         <div>
           <Text size="xl">{booking.title}</Text>
           <Text size="sm" color="dimmed" weight={400}>
-            {booking.description}
+            {booking.total_occupancy} huéspedes - {booking.total_beds} habitación(es) - {booking.total_beds} cama(s) - {booking.total_bathrooms} baño(s)
           </Text>
         </div>
+        </div>
+        </ScrollArea>
       </Group>
     );
   }
@@ -147,7 +152,7 @@ const Bookingsitecard = ({ booking }) => {
         <p>Estas seguro de eliminar este sitio?</p>
         <div className="cancel-buttons">
           <div>
-            <Button color="gray">Cancelar</Button>
+            <Button color="gray" onClick={() => setOpened(false)}>Cancelar</Button>
           </div>
           <div>
             <Button color="red" onClick={handleOnclick}>
