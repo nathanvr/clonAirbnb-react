@@ -20,7 +20,7 @@ const HostDashboard = () => {
 
   const { bookingSites, bookings } = useSelector((state) => state.userReducer);
   const rbookingsite = useSelector((state) => state.bookingSiteReducer);
-
+  console.log('BookinSite: ', bookingSites);
 
   return (
     <div className="dashboard-container">

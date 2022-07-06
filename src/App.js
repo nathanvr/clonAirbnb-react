@@ -17,7 +17,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import PaymentRes from './pages/PaymentRes';
-
+import Booking from './pages/Booking';
 
 function App() {
   const token = localStorage.getItem('token');
@@ -79,6 +79,7 @@ function App() {
             path="/profile"
             element={token !== null ? <Profile /> : <Navigate to="/" />}
           />
+          <Route exact path="/booking" element={<Booking></Booking>} />
           <Route exact path="*" element={<NotFound></NotFound>} />
         </Routes>
       </BrowserRouter>
