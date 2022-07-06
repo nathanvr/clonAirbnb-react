@@ -9,8 +9,9 @@ import {
   LoadingOverlay,
   Button,
   ScrollArea,
+  TextInput,
+  Textarea,
 } from '@mantine/core';
-import { DateRangePicker } from '@mantine/dates';
 import dayjsLocal from 'dayjs/locale/es';
 import dayjs from 'dayjs';
 
@@ -22,11 +23,16 @@ const containerStyle = {
 const EditFormBooking = (booking) => {
   const dispatch = useDispatch();
   const theme = useMantineTheme();
+  const [title, setTitle] = useState('');
+  const [message, setMessage] = useState('');
   const [opened, setOpened] = useState(false);
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   const [error, setError] = useState(null);
-  const [date, setDate] = useState([]);
+  const [date, setDate] = useState([
+    new Date(booking.booking.date[0]),
+    new Date(booking.booking.date[1]),
+  ]);
   const [formStep, setformStep] = useState(0);
   console.log('DateZzZZ: ', booking.booking.date[0]);
   const [dateOld, setDateOld] = useState([
@@ -86,32 +92,29 @@ const EditFormBooking = (booking) => {
     } else {
       return (
         <button type="button" id="button" onClick={completeFormStep}>
-          Siguiente
+          Enviar
         </button>
       );
     }
   };
-  console.log('DateZzZZ3: ', booking.booking.date[0]);
+  console.log('DateZzZZ3: ', booking.booking);
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
     setVisible(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.put(
-        `http://localhost:8080/bookingsites/update/${booking._id}`,
-        date,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-      if (response.status === 200) {
+      const response = await axios.post('http://localhost:8080/reviews/', {
+        bookingSiteId: booking.booking.bookingSiteId,
+        userId: booking.booking.userId,
+        title: title,
+        message: message,
+      });
+      console.log('Response: ', response);
+      if (response.status === 201) {
         setLoading(false);
         setVisible(false);
-        toast.success('Se actualizó tu resserva', {
+        toast.success('Se envio la reseña', {
           position: 'bottom-right',
           autoClose: 5000,
           hideProgressBar: true,
@@ -127,7 +130,7 @@ const EditFormBooking = (booking) => {
       setError(error);
       setLoading(false);
       setVisible(false);
-      toast.error('No se pudo actualizar tu reserva', {
+      toast.error('No se pudo enviar la reseña', {
         position: 'bottom-right',
         autoClose: 5000,
         hideProgressBar: true,
@@ -142,7 +145,7 @@ const EditFormBooking = (booking) => {
   return (
     <div>
       <Button color="violet" onClick={() => setOpened(true)}>
-        Editar
+        Reseña
       </Button>
       <Modal
         size="70%"
@@ -166,73 +169,28 @@ const EditFormBooking = (booking) => {
                 {/* ...other content */}
               </div>
             )}
-            {formStep === 0 && (
-              <section>
-                <div>
-                  <h1>Cambia la fecha</h1>
-                  <h2>Elige una nueva fecha de hospedaje.</h2>
-                  <DateRangePicker
-                    locale="es"
-                    label="Selecciona las fechas"
-                    placeholder="Inicio/Fin"
-                    minDate={dayjs(new Date())
-                      .startOf('month')
-                      .add(now.date(), 'days')
-                      .toDate()}
-                    value={date}
-                    onChange={setDate}
-                    amountOfMonths={2}
-                    excludeDate={(date) =>
-                      BookingDates.toString()
-                        .split(',')
-                        .some(
-                          (dates) =>
-                            date.getTime() === new Date(dates).getTime()
-                        )
-                    }
-                  />
-                </div>
-              </section>
-            )}
-            {formStep === 1 && (
-              <section>
-                <div className="typebooking5">
-                  <ScrollArea style={{ height: 350 }}>
-                    <h1>Hecho</h1>
-                    <h2>Este fue tu cambio</h2>
-                    <div>
-                      <p>
-                        {`Desde el 
-                      ${dateOld[0].getDate()} de ${
-                          dayjsLocal.months[dateOld[0].getMonth()]
-                        } de ${dateOld[0].getFullYear()}
-                      , hasta el
-                      ${dateOld[1].getDate()} de ${
-                          dayjsLocal.months[dateOld[1].getMonth()]
-                        } de ${dateOld[1].getFullYear()}`}
-                      </p>
-                      <p>Cambia a</p>
-                      <p>
-                        {`Desde el 
-                      ${dateOld[0].getDate()} de ${
-                          dayjsLocal.months[dateOld[0].getMonth()]
-                        } de ${dateOld[0].getFullYear()}
-                      , hasta el
-                      ${dateOld[1].getDate()} de ${
-                          dayjsLocal.months[dateOld[1].getMonth()]
-                        } de ${dateOld[1].getFullYear()}`}
-                      </p>
-                    </div>
-                    <button className="send-form">Enviar</button>
-                  </ScrollArea>
-                </div>
-              </section>
-            )}
+            <section>
+              <div>
+                <h1>Reseña</h1>
+                <TextInput
+                  label="Añade un titulo a tu reseña"
+                  placeholder="Añade un titulo"
+                  required
+                  value={title}
+                  onChange={(event) =>
+                    setTitle(event.currentTarget.value)
+                  }></TextInput>
+                <Textarea
+                  label="Ahora dejanos tu opiniòn"
+                  placeholder="Añade una reseña"
+                  required
+                  value={message}
+                  onChange={(event) => setMessage(event.currentTarget.value)}
+                />
+              </div>
+              <button className="send-form">Enviar</button>
+            </section>
           </form>
-          <section className="buttons">
-            {renderButtonPrev()}
-            {renderButtonNext()}
-          </section>
         </div>
       </Modal>
     </div>

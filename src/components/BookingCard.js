@@ -137,17 +137,16 @@ const BookingCard = (props) => {
         }
         overlayOpacity={0.55}
         overlayBlur={3}>
-        {/*{' '}
+        {' '}
         {loading === true && (
           <div className="loading" style={{ width: 400 }}>
             <LoadingOverlay
               loaderProps={{ size: 'sm', color: 'pink', variant: 'bars' }}
               visible={visible}
             />
-            {/* ...other content 
+            {/* ...other content */}
           </div>
         )}
-        */}
         <p>Estas seguro que desea canselar la reserva?</p>
         <div className="cancel-buttons">
           <div>

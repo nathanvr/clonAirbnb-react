@@ -9,19 +9,18 @@ import { getBookingSites } from '../store/reducers/BookingSites.reducer';
 const Booking = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log('getuser');
+    console.log('getuserin');
     dispatch(getUser());
   }, [dispatch]);
 
-  const { sites } = useSelector((state) => state.bookingSitesReducer);
   const { bookings } = useSelector((state) => state.userReducer);
-
-  const [bookingsiteId, setBookingsiteId] = useState('');
+  const { sites } = useSelector((state) => state.bookingSitesReducer);
+  const [booking, setBooking] = useState([]);
   let ids = {};
 
-  /*useEffect(() => {
-    setBookingsiteId(bookings.bookingSiteId);
-  }, [bookings]);*/
+  useEffect(() => {
+    setBooking([...bookings]);
+  }, [bookings]);
 
   useEffect(() => {
     dispatch(getBookingSites());
@@ -34,13 +33,13 @@ const Booking = () => {
     ids = { ...ids, [item._id]: item.images.toString().split(',')[0] };
   });
 
-  console.log('Ids: ', ids, 'Bookingszzz: ', bookings);
+  console.log('Ids: ', ids, 'Bookingszzz: ', booking);
 
   const current = new Date();
   const date = `${current.getDate()} de ${
     dayjs.months[current.getMonth()]
   } de ${current.getFullYear()}`;
-  console.log('BookingSiteReser: ', bookings);
+  console.log('BookingSiteReser: ', booking);
 
   return (
     <div className="dashboard-container">
@@ -63,7 +62,7 @@ const Booking = () => {
                 <p>No tienes reservas en este momento.</p>
               </div>
             )}
-            {bookings.map((item, i) => (
+            {booking.map((item, i) => (
               <BookingCard
                 key={`bookingcard${i}`}
                 booking={item}

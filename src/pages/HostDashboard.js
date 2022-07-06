@@ -16,7 +16,7 @@ const HostDashboard = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUser());
-  }, [dispatch]);
+  });
 
   const { bookingSites, bookings } = useSelector((state) => state.userReducer);
   const rbookingsite = useSelector((state) => state.bookingSiteReducer);
