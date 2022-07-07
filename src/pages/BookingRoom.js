@@ -315,7 +315,7 @@ console.log("promedio",PromTotal)
               cliente={review.userId.name}
               title={review.title}
               comentario={review.message}
-              src={review.userId.image}
+              src={review.userId.image ? review.userId.image : "https://res.cloudinary.com/dhacdmuvs/image/upload/v1656033094/user_z5tc8r.jpg"}
             />
           </section>
         ))}

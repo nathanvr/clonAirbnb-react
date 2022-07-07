@@ -30,7 +30,7 @@ const BookingCard = (props) => {
     new Date(booking.date[0]),
     new Date(booking.date[1]),
   ]);
-  const [statusBooking, setStatusBooking] = useState('active');
+  const [statusBooking, setStatusBooking] = useState(booking.statusBooking);
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
   const [loading, setLoading] = useState(false);
@@ -41,7 +41,7 @@ const BookingCard = (props) => {
       color: { from: 'teal', to: 'lime', deg: 105 },
       text: 'activo',
     },
-    canceled: {
+    cancelled: {
       color: { from: 'orange', to: 'red', deg: 105 },
       text: 'cancelado',
     },
@@ -77,7 +77,7 @@ const BookingCard = (props) => {
     e.preventDefault();
     setLoading(true);
     setVisible(true);
-    setStatusBooking('canceled');
+    setStatusBooking('cancelled');
     try {
       const token = localStorage.getItem('token');
       const response = await axios.put(
@@ -93,7 +93,7 @@ const BookingCard = (props) => {
       );
       if (response.status === 200) {
         dispatch(getUser());
-        toast.success('Se eliminó tu sitio', {
+        toast.success('Se canceló tu sitio', {
           position: 'bottom-right',
           autoClose: 5000,
           hideProgressBar: true,
@@ -135,7 +135,7 @@ const BookingCard = (props) => {
           key={booking._id}>
           <div className="boxfooter2">
             <EditFormBooking booking={booking} />
-            {statusBooking !== 'canceled' && (
+            {statusBooking !== 'cancelled' && (
               <Button color="red" onClick={() => setOpened(true)}>
                 Cancelar
               </Button>
