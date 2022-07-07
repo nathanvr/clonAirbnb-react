@@ -7,7 +7,6 @@ import LoginModal from './LoginModal';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 
-
 const BookingSection = (props) => {
   const now = dayjs(new Date());
   const { isLoggedIn } = useSelector((state) => state.userReducer);
@@ -16,8 +15,8 @@ const BookingSection = (props) => {
   const [numGuest, setNumGuest] = useState(1);
   const totalDays = (date[1] - date[0]) / (1000 * 60 * 60 * 24);
   const totalNigths = totalDays * priceNigth;
-  const taxService = totalNigths * 0.203;
-  const taxClean = totalNigths * 0.042;
+  const taxService = Math.round(totalNigths * 0.203);
+  const taxClean = Math.round(totalNigths * 0.042);
   const Total = totalNigths + taxService + taxClean;
 
   function getDates(startDate, endDate) {
