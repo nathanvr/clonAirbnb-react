@@ -359,6 +359,7 @@ const FormHost = (props) => {
         setLng(0);
         setImage(null);
         setFile(null);
+        setImages([])
       }
     } catch (error) {
       setError(error);
@@ -378,9 +379,11 @@ const FormHost = (props) => {
   const onChange = (imageList, addUpdateIndex) => {
     // data for submit
     setImages(imageList);
+    const array = [];
     imageList.map((item)=>{
-      file.push(item.file)
+      array.push(item.file)
     })
+    setFile(array)
   };
 
   console.log(file)
