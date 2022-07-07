@@ -1,21 +1,18 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import '../../styles/components/ImageFrame.scss';
-import {Button, Modal, useMantineTheme,
-  LoadingOverlay,
-} from '@mantine/core';
+import { Button, Modal, useMantineTheme, LoadingOverlay } from '@mantine/core';
 import axios from 'axios';
 import { getUser } from '../../store/reducers/User.reducer';
 import { toast } from 'react-toastify';
 
 const ImageFrame = () => {
   const user = useSelector((state) => state.userReducer);
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const [opened, setOpened] = useState(false);
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   const theme = useMantineTheme();
-
 
   async function handleOnclick(e) {
     e.preventDefault();
@@ -23,15 +20,15 @@ const ImageFrame = () => {
     setVisible(true);
     try {
       const token = localStorage.getItem('token');
-      console.log(token)
+      console.log(token);
       const response = await axios({
         method: 'PUT',
-        baseURL: 'http://localhost:8080/users/deleteImage',
+        baseURL: 'https://clonairbnb-backend.herokuapp.com/users/deleteImage',
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response)
+      console.log(response);
       if (response.status === 200) {
         dispatch(getUser());
         toast.success('Se eliminó tu foto', {
@@ -59,24 +56,28 @@ const ImageFrame = () => {
         progress: undefined,
       });
     }
-  
   }
   return (
     <div className="image-center">
-      {user.image === null || user.image === undefined ? 
-      (<img className="image-frame" 
-      src="https://res.cloudinary.com/dhacdmuvs/image/upload/v1656033094/user_z5tc8r.jpg" 
-      alt={user.name}>
-      </img>) : 
-      (  
-        <div className='image-button'> 
-        <img className="image-frame" src={user.image} alt={user.name}></img>
-        <Button className='button-image-delete' color="gray" radius="xl" compact uppercase onClick={() => setOpened(true)}>
-        X
-      </Button>
-
-
-      </div>) }
+      {user.image === null || user.image === undefined ? (
+        <img
+          className="image-frame"
+          src="https://res.cloudinary.com/dhacdmuvs/image/upload/v1656033094/user_z5tc8r.jpg"
+          alt={user.name}></img>
+      ) : (
+        <div className="image-button">
+          <img className="image-frame" src={user.image} alt={user.name}></img>
+          <Button
+            className="button-image-delete"
+            color="gray"
+            radius="xl"
+            compact
+            uppercase
+            onClick={() => setOpened(true)}>
+            X
+          </Button>
+        </div>
+      )}
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
@@ -101,7 +102,9 @@ const ImageFrame = () => {
         <p>Estas seguro de eliminar tu foto de perfil?</p>
         <div className="cancel-buttons">
           <div>
-            <Button color="gray" onClick={() => setOpened(false)}>Cancelar</Button>
+            <Button color="gray" onClick={() => setOpened(false)}>
+              Cancelar
+            </Button>
           </div>
           <div>
             <Button color="red" onClick={handleOnclick}>

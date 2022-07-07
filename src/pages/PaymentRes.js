@@ -3,7 +3,7 @@ import axios from 'axios';
 import '../styles/components/PaymentRes.scss';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { LoadingOverlay, Button} from '@mantine/core';
+import { LoadingOverlay, Button } from '@mantine/core';
 
 const url = new URLSearchParams(window.location.search);
 const payId = url.get('ref_payco');
@@ -17,7 +17,7 @@ const PaymentRes = () => {
   useEffect(() => {
     const payRes = async () => {
       setLoading(true);
-      setVisible(true)
+      setVisible(true);
       try {
         const res = await axios({
           method: 'GET',
@@ -32,15 +32,15 @@ const PaymentRes = () => {
           const body = {
             bookingSiteId: res.data.data.x_extra4,
             date: dates,
-            invoiceNum:res.data.data.x_id_invoice,
-            description:res.data.data.x_description,
+            invoiceNum: res.data.data.x_id_invoice,
+            description: res.data.data.x_description,
             amount: res.data.data.x_amount,
-            currency: res.data.data.x_currency_code
+            currency: res.data.data.x_currency_code,
           };
 
           try {
             const response = await axios.post(
-              'http://localhost:8080/bookings',
+              'https://clonairbnb-backend.herokuapp.com/bookings',
               body,
               {
                 headers: {
@@ -48,7 +48,7 @@ const PaymentRes = () => {
                 },
               }
             );
-            if (response.status===201){
+            if (response.status === 201) {
               toast.success('Se creó tu reserva', {
                 position: 'bottom-right',
                 autoClose: 5000,
@@ -75,10 +75,10 @@ const PaymentRes = () => {
 
         setDataRes(res.data.data);
         setLoading(false);
-        setVisible(false)
+        setVisible(false);
       } catch (error) {
         setError(true);
-        setVisible(false)
+        setVisible(false);
         setLoading(false);
         console.log(error);
       }
@@ -95,13 +95,15 @@ const PaymentRes = () => {
   console.log('respuesta', dataRes);
 
   if (loading) {
-    return <div className="loading" style={{ width: 400 }}>
-    <LoadingOverlay
-      loaderProps={{ size: 'sm', color: 'pink', variant: 'bars' }}
-      visible={visible}
-    />
-    {/* ...other content */}
-  </div>;
+    return (
+      <div className="loading" style={{ width: 400 }}>
+        <LoadingOverlay
+          loaderProps={{ size: 'sm', color: 'pink', variant: 'bars' }}
+          visible={visible}
+        />
+        {/* ...other content */}
+      </div>
+    );
   }
   if (error) {
     return <p>Lo sentimos, ha ocurrido un error. {error}</p>;
@@ -115,44 +117,42 @@ const PaymentRes = () => {
 
   if (dataRes.x_cod_response === 1) {
     return (
-      <div className='contianer-paymentres'>
-      <div className="resContainer">
-        <div className="resContainer__title">
-          <h2>Pago realizado satisfactoriamente</h2>
-        </div>
-        <div className="resContainer__body">
-          <div>
-            <span>Factura No:</span> {dataRes.x_id_invoice}
+      <div className="contianer-paymentres">
+        <div className="resContainer">
+          <div className="resContainer__title">
+            <h2>Pago realizado satisfactoriamente</h2>
           </div>
-          <div>
-            <span>Descripcion:</span> {dataRes.x_description}
+          <div className="resContainer__body">
+            <div>
+              <span>Factura No:</span> {dataRes.x_id_invoice}
+            </div>
+            <div>
+              <span>Descripcion:</span> {dataRes.x_description}
+            </div>
+            <div>
+              <span>Llegada:</span> {new Date(dataRes.x_extra1).getDate()}/
+              {new Date(dataRes.x_extra1).getMonth() + 1}/
+              {new Date(dataRes.x_extra1).getFullYear()}
+            </div>
+            <div>
+              <span>Salida:</span> {new Date(dataRes.x_extra2).getDate()}/
+              {new Date(dataRes.x_extra2).getMonth() + 1}/
+              {new Date(dataRes.x_extra2).getFullYear()}
+            </div>
+            <div>
+              <span>Total noches:</span> {dataRes.x_extra3}
+            </div>
+            <div>
+              <span>Total pagado:</span> $ {dataRes.x_amount}{' '}
+              {dataRes.x_currency_code}
+            </div>
           </div>
-          <div>
-            <span>Llegada:</span> {new Date(dataRes.x_extra1).getDate()}/
-            {new Date(dataRes.x_extra1).getMonth() + 1}/
-            {new Date(dataRes.x_extra1).getFullYear()}
-          </div>
-          <div>
-            <span>Salida:</span> {new Date(dataRes.x_extra2).getDate()}/
-            {new Date(dataRes.x_extra2).getMonth() + 1}/
-            {new Date(dataRes.x_extra2).getFullYear()}
-          </div>
-          <div>
-            <span>Total noches:</span> {dataRes.x_extra3}
-          </div>
-          <div>
-            <span>Total pagado:</span> $ {dataRes.x_amount}{' '}
-            {dataRes.x_currency_code}
-          </div>
-          
-        </div>
-        <Link to={'/'}>
+          <Link to={'/'}>
             <Button variant="light" color="pink">
-              
-            Ir a tus reservas
-          </Button></Link>
-      </div>
-      
+              Ir a tus reservas
+            </Button>
+          </Link>
+        </div>
       </div>
     );
   } else {
