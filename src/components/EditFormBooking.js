@@ -11,13 +11,12 @@ import {
   ScrollArea,
   TextInput,
   Textarea,
-  Text
+  Text,
 } from '@mantine/core';
 import dayjsLocal from 'dayjs/locale/es';
 import dayjs from 'dayjs';
 import ReactStars from 'react-rating-stars-component';
 import star from 'react-rating-stars-component/dist/star';
-
 
 const containerStyle = {
   width: '350px',
@@ -108,16 +107,19 @@ const EditFormBooking = (booking) => {
     e.preventDefault();
     setLoading(true);
     setVisible(true);
-    rating.push(stars)
+    rating.push(stars);
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://localhost:8080/reviews/', {
-        bookingSiteId: booking.booking.bookingSiteId,
-        userId: booking.booking.userId,
-        title: title,
-        message: message,
-        rating:rating
-      });
+      const response = await axios.post(
+        'https://clonairbnb-backend.herokuapp.com/reviews/',
+        {
+          bookingSiteId: booking.booking.bookingSiteId,
+          userId: booking.booking.userId,
+          title: title,
+          message: message,
+          rating: rating,
+        }
+      );
       console.log('Response: ', response);
       if (response.status === 201) {
         setLoading(false);
@@ -155,9 +157,9 @@ const EditFormBooking = (booking) => {
     value: stars,
     onChange: (newValue) => {
       setStars(newValue);
-    }
+    },
   };
-  console.log(stars)
+  console.log(stars);
 
   return (
     <div>
@@ -189,15 +191,18 @@ const EditFormBooking = (booking) => {
             <section>
               <div>
                 <h1>Reseña</h1>
-                <div className="App"> 
-                <Text>Califica tu experiencia</Text>    
-                  <ReactStars {...example1} count={5}
+                <div className="App">
+                  <Text>Califica tu experiencia</Text>
+                  <ReactStars
+                    {...example1}
+                    count={5}
                     size={24}
                     isHalf={true}
                     emptyIcon={<i className="far fa-star"></i>}
                     halfIcon={<i className="fa fa-star-half-alt"></i>}
                     fullIcon={<i className="fa fa-star"></i>}
-                    activeColor="#ffd700" />
+                    activeColor="#ffd700"
+                  />
                 </div>
                 <TextInput
                   label="Añade un titulo a tu reseña"
