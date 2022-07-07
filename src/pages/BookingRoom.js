@@ -21,7 +21,7 @@ import AlbumDetailModal from '../components/AlbumDetailModal';
 import { albumReset, changeAlbum } from '../store/reducers/Album.reducer';
 import { Button } from '@mantine/core';
 import { Location } from 'tabler-icons-react';
-//import '../styles/components/ReservaRoom';
+import { LoadingOverlay } from '@mantine/core';
 
 const containerStyle = {
   width: '95%',
@@ -31,6 +31,7 @@ const containerStyle = {
 
 const BookingRoom = () => {
   const dispatch = useDispatch();
+  const [visible, setVisible] = useState(true);
   const [libraries] = useState(['places']);
   const { id } = useParams();
   const { error, loading, bookingSiteData } = useSelector(
@@ -55,10 +56,22 @@ const BookingRoom = () => {
     libraries,
   });
 
-  if (!isLoaded) return <div>Loading...</div>;
+  if (!isLoaded) return <div className="loading" style={{ width: 400 }}>
+  <LoadingOverlay
+    loaderProps={{ size: 'sm', color: 'pink', variant: 'bars' }}
+    visible={visible}
+  />
+  {/* ...other content */}
+</div>;
 
   if (loading === true) {
-    return <p>loading...</p>;
+    return <div className="loading" style={{ width: 400 }}>
+    <LoadingOverlay
+      loaderProps={{ size: 'sm', color: 'pink', variant: 'bars' }}
+      visible={visible}
+    />
+    {/* ...other content */}
+  </div>;
   } else if (error === true) {
     return <p>Lo sentimos, ha ocurrido un error. {error}</p>;
   }
