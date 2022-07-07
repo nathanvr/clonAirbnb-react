@@ -17,6 +17,9 @@ import { getBookingSite } from '../store/reducers/BookingSite.reducer';
 import { Icon } from '@iconify/react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import AlbumModal from '../components/AlbumModal';
+import AlbumDetailModal from '../components/AlbumDetailModal';
+import { albumReset, changeAlbum } from '../store/reducers/Album.reducer';
+import { Button } from '@mantine/core';
 import { Location } from 'tabler-icons-react';
 //import '../styles/components/ReservaRoom';
 
@@ -39,6 +42,14 @@ const BookingRoom = () => {
     dispatch(getBookingSite(id));
   }, [dispatch]);
 
+  useEffect(() => {
+    if (!loading) {
+      dispatch(
+        changeAlbum([...bookingSiteData.data.images.toString().split(',')])
+      );
+    }
+  }, [bookingSiteData]);
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyCsW9trmjliEY9-Qz_uuAK8C2DRCUFzDqs',
     libraries,
@@ -51,9 +62,7 @@ const BookingRoom = () => {
   } else if (error === true) {
     return <p>Lo sentimos, ha ocurrido un error. {error}</p>;
   }
-
   const photos = [...bookingSiteData.data.images.toString().split(',')];
-
   const listPhothos = [];
 
   bookingSiteData.data.images.forEach((element) => {
@@ -74,11 +83,14 @@ const BookingRoom = () => {
       <div className="albumreser">
         <Album album={photos} />
       </div>
-
+      <Button radius="md" className="btnAlbum">
+        <AlbumModal style={{ color: 'white' }} site="Mostrar todas las fotos" />
+      </Button>
+      {/*
       <button>
-        <AlbumModal site="Album" album={photos} />
+        <AlbumDetailModal site="ALbum2" />
       </button>
-
+      */}
       <div className="info-reserva">
         <div id="left">
           <section className="titulo-Host">
@@ -265,6 +277,8 @@ const BookingRoom = () => {
               {bookingSiteData.data.city}, {bookingSiteData.data.country}{' '}
             </p>
           </div>
+        </div>
+      </div>
       <div className="footer">
 
         <h2> {bookingSiteData.data.reviews.length} reseñas</h2>

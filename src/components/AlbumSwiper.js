@@ -3,9 +3,11 @@ import SwiperCore from 'swiper';
 import 'swiper/css/bundle';
 import { Pagination } from 'swiper';
 import Photo from './Photo';
+import { useSelector } from 'react-redux';
 
 const AlbumSwiper = (props) => {
   const { album } = props;
+  //const { album } = useSelector((state) => state.albumReducer);
 
   const slices = album.map((item, index) => {
     console.log('photo', index, ': ', item);

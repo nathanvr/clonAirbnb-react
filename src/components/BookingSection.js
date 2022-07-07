@@ -19,6 +19,7 @@ const BookingSection = (props) => {
   const taxClean = Math.round(totalNigths * 0.042);
   const Total = totalNigths + taxService + taxClean;
 
+
   function getDates(startDate, endDate) {
     const dates = [];
     let currentDate = startDate;

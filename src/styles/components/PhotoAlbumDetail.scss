@@ -1,0 +1,21 @@
+.photoAlbum {
+    display: flex;
+    margin: 0px;
+    padding: 0px;
+    //height: 84vh;
+    //width: auto;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    overflow: hidden;
+    position: relative;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.photoAlbum img {
+  width: auto;
+  height: 84vh;
+  //padding-bottom: 5vh;
+  object-fit: cover;
+}
