@@ -84,7 +84,7 @@ const BookingCard = (props) => {
         bookingId: booking._id,
       };
       const response = await axios.put(
-        `http://localhost:8080/bookings/cancelUser/`, body,
+        `https://clonairbnb-backend.herokuapp.com/bookings/cancelUser/`, body,
         
         {
           headers: {
