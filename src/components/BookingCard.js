@@ -37,7 +37,7 @@ const BookingCard = (props) => {
   const [visible, setVisible] = useState(false);
   console.log('Booking card: ', booking);
   const states = {
-    active: {
+    undefined: {
       color: { from: 'teal', to: 'lime', deg: 105 },
       text: 'activo',
     },
