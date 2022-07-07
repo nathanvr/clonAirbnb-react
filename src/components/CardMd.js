@@ -8,6 +8,20 @@ const CardMd = ({ service }) => {
   const options2 = { style: 'currency', currency: 'COP' };
   const numberFormat2 = new Intl.NumberFormat('es-CO', options2);
   const price=numberFormat2.format(service.price)
+  const reviews=service.reviews
+  const ratingTotal=[]
+  const rating = reviews.forEach((review)=>{
+        ratingTotal.push(review.rating[0])
+  })
+  console.log(ratingTotal)
+  const initialValue = 0;
+  const sumWithInitial = ratingTotal.reduce(
+  (previousValue, currentValue) => previousValue + currentValue,
+  initialValue
+);
+const PromTotal = (sumWithInitial/ratingTotal.length).toFixed(1)
+console.log("promedio",PromTotal)
+  console.log("ajaja",service.reviews)
   return (
       <div className="bg-cardmd" key={service._id}>
         <div className="rectangle-md">
@@ -41,6 +55,9 @@ const CardMd = ({ service }) => {
       </h2>
       {service.reviews.length === 0 &&
           <p className='reviews'>Nuevo ★</p>
+      }
+      {service.reviews.length > 0 &&
+          <p className='reviews'>{PromTotal} ★</p>
       }
       
       </div>
