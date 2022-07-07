@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import '../styles/components/ForgotPassword.scss';
 import { PasswordInput, Alert, LoadingOverlay } from '@mantine/core';
-import { useParams, Navigate, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const RecoveryPassword = () => {

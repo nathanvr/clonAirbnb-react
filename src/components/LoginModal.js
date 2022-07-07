@@ -45,7 +45,7 @@ const LoginModal = (props) => {
       <Link to="#" onClick={() => setOpened(true)}>
         {sitio}
       </Link>
-      <Modal
+      <Modal centered
         opened={opened}
         onClose={() => setOpened(false)}
         title="Iniciar sesión"
@@ -91,31 +91,6 @@ const LoginModal = (props) => {
             </button>
           </div>
         </form>
-        <div className="sectioner">
-          <div className="section__divider" />
-          <p>o</p>
-          <div className="section__divider" />
-        </div>
-
-        <div className="form__buttons__sm">
-          <button
-            type="submit"
-            className="form__buttons__sm__f btn btn-outline-dark">
-            <div className="form__buttons__sm__f__content">
-              <div className="form__buttons__sm__f__content--icon">
-                <BrandIcon
-                  iconType={faFacebook}
-                  colorIcon="black"
-                  sizeIcon="12px"
-                />
-              </div>
-              <div className="form__buttons__sm__f__content--text">
-                <span>Continua con Facebook</span>
-              </div>
-            </div>
-          </button>
-        </div>
-
         <Link onClick={() => setOpened(false)} to="forgotpassword">
           <p id="forgot-password">Olvidaste la contraseña?</p>
         </Link>

@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import { userChange } from '../store/reducers/User.reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfilePill from '../components/ProfilePill';
 import { getUser } from '../store/reducers/User.reducer';
 import ImageFrame from '../components/userProfile/ImageFrame';
+import { Text } from '@mantine/core';
 import '../styles/components/Profile.scss';
 import '../styles/components/ImageFrame.scss';
+import DeleteFrame from '../components/userProfile/Deleteframe';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -16,8 +17,8 @@ const Profile = () => {
   return (
     <div className="profile">
       <div className="item-flex">
-        <h1>Información personal</h1>
-        <div>
+        <h1 style={{textAlign:"center"}}>Información personal</h1>
+        <div className='image-frames'>
           <ImageFrame />
         </div>
         <ProfilePill />
@@ -25,19 +26,22 @@ const Profile = () => {
       <div className="item-flex2">
         <div className="description">
           <h2>¿Qué datos se pueden editar?</h2>
-          <p>
+          <Text>
             No se pueden modificar los datos que Airbnb utiliza para verificar
             tu identidad. Puedes modificar tus datos personales y de contacto,
             pero podríamos pedirte que verifiques tu identidad la próxima vez
             que hagas una reservación o crees un anuncio.
-          </p>
+          </Text>
         </div>
         <div className="description">
           <h2>¿Qué información se comparte con los demás?</h2>
-          <p>
+          <Text>
             Airbnb solo proporciona los datos de contacto de los anfitriones y
             los huéspedes una vez que la reservación se haya confirmado.
-          </p>
+            </Text>
+        </div>
+        <div className='delete-frame'>
+        <DeleteFrame/>
         </div>
       </div>
     </div>

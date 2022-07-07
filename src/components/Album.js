@@ -5,12 +5,9 @@ import { useSelector } from 'react-redux';
 
 const Album = (props) => {
   const { album } = props;
-  //const album = useSelector((state) => state.bookingSiteReducer);
-
-  // console.log('Booking album!!: ', album);
+  //const { album } = useSelector((state) => state.albumReducer);
   const lol = useMediaQuery({ query: '(min-width: 740px)' });
 
-  // console.log(lol, album);
   return (
     <>{lol ? <Module5xx album={album} /> : <AlbumSwiper album={album} />}</>
   );

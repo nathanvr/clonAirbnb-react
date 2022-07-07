@@ -187,8 +187,9 @@ $medium: 900px;
 
 @mixin cards-display-margin(){
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
     margin: 24px 0 88px 0;
+    
 }
 

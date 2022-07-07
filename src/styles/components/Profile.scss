@@ -4,15 +4,48 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+        flex-direction: column ;
+        padding:10px 10px;
+
+    }
+    
 }
 .item-flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
     width: 50%;
+    
+
+    .image-frames{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding-left: 20px;
+        padding-top: 20px;
+    }
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+        width: 100%;
+    }
 }
 .item-flex2 {
     width: 50%;
     display: flex;
     flex-direction: column;
-    padding: 0 20px;
+    justify-content: center;
+    padding: 0 40px;
+    .delete-frame{
+        margin-top: 40px;
+        @media only screen and (min-width: 300px) and (max-width: 900px){
+            width: 100%;
+        }
+    }
+    @media only screen and (min-width: 300px) and (max-width: 900px){
+        width: 100%;
+    }
 }
 .description {
     margin-top: 20px;

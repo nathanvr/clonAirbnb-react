@@ -5,7 +5,7 @@ import '../styles/components/ForgotPassword.scss';
 import { Link } from 'react-router-dom';
 import { TextInput, Alert, LoadingOverlay } from '@mantine/core';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 

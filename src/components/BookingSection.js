@@ -7,7 +7,6 @@ import LoginModal from './LoginModal';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 
-
 const BookingSection = (props) => {
   const now = dayjs(new Date());
   const { isLoggedIn } = useSelector((state) => state.userReducer);
@@ -16,13 +15,11 @@ const BookingSection = (props) => {
   const [numGuest, setNumGuest] = useState(1);
   const totalDays = (date[1] - date[0]) / (1000 * 60 * 60 * 24);
   const totalNigths = totalDays * priceNigth;
-  const taxService = totalNigths * 0.203;
-  const taxClean = totalNigths * 0.042;
+  const taxService = Math.round(totalNigths * 0.203);
+  const taxClean = Math.round(totalNigths * 0.042);
   const Total = totalNigths + taxService + taxClean;
-  const example = [
-    { date: ['2022-06-29T05:00:00.000Z', '2022-07-06T05:00:00.000Z'] },
-    { date: ['2022-07-20T05:00:00.000Z', '2022-07-25T05:00:00.000Z'] },
-  ];
+
+
   function getDates(startDate, endDate) {
     const dates = [];
     let currentDate = startDate;
@@ -39,7 +36,7 @@ const BookingSection = (props) => {
   }
 
   let BookingDates = [];
-  const datesf = example.forEach((index) => {
+  const datesf = dates.forEach((index) => {
     BookingDates.push(
       getDates(new Date(index.date[0]), new Date(index.date[1]))
     );
