@@ -93,7 +93,7 @@ const BookingCard = (props) => {
       );
       if (response.status === 200) {
         dispatch(getUser());
-        toast.success('Se eliminó tu sitio', {
+        toast.success('Se canceló tu sitio', {
           position: 'bottom-right',
           autoClose: 5000,
           hideProgressBar: true,

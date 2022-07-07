@@ -48,28 +48,11 @@ const PaymentRes = () => {
                 },
               }
             );
-            if (response.status===201){
-              toast.success('Se creó tu reserva', {
-                position: 'bottom-right',
-                autoClose: 5000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
-            }
-            console.log('respuesta', response);
+            setVisible(false)
+            setLoading(false)
           } catch (error) {
-            toast.error('No se pudo crear tu reserva', {
-              position: 'bottom-right',
-              autoClose: 5000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
+            setVisible(false)
+            setLoading(false)
           }
         }
 
