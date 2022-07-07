@@ -30,7 +30,7 @@ const BookingCard = (props) => {
     new Date(booking.date[0]),
     new Date(booking.date[1]),
   ]);
-  const [state, setState] = useState('active');
+  const [statusBooking, setStatusBooking] = useState('active');
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
   const [loading, setLoading] = useState(false);
@@ -55,8 +55,8 @@ const BookingCard = (props) => {
           <img src={image} alt="booking-photo" loading="lazy"></img>
         </div>
         <div>
-          <Badge variant="gradient" gradient={states[state].color}>
-            {states[state].text}
+          <Badge variant="gradient" gradient={states[statusBooking].color}>
+            {states[statusBooking].text}
           </Badge>
           <Text size="sm" color="dimmed" weight={400}>
             {booking.description}
@@ -77,13 +77,13 @@ const BookingCard = (props) => {
     e.preventDefault();
     setLoading(true);
     setVisible(true);
-    setState('canceled');
+    setStatusBooking('canceled');
     try {
       const token = localStorage.getItem('token');
       const response = await axios.put(
         `http://localhost:8080/bookings/${booking._id}`,
         {
-          state: 'canceled',
+          statusBooking: statusBooking,
         },
         {
           headers: {
@@ -92,7 +92,6 @@ const BookingCard = (props) => {
         }
       );
       if (response.status === 200) {
-        console.log('getUser2');
         dispatch(getUser());
         toast.success('Se eliminó tu sitio', {
           position: 'bottom-right',
@@ -136,7 +135,7 @@ const BookingCard = (props) => {
           key={booking._id}>
           <div className="boxfooter2">
             <EditFormBooking booking={booking} />
-            {state !== 'canceled' && (
+            {statusBooking !== 'canceled' && (
               <Button color="red" onClick={() => setOpened(true)}>
                 Cancelar
               </Button>

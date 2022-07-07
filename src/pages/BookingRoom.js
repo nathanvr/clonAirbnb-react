@@ -19,6 +19,7 @@ import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import AlbumModal from '../components/AlbumModal';
 import AlbumDetailModal from '../components/AlbumDetailModal';
 import { albumReset, changeAlbum } from '../store/reducers/Album.reducer';
+import { Button } from '@mantine/core';
 //import '../styles/components/ReservaRoom';
 
 const containerStyle = {
@@ -37,13 +38,14 @@ const BookingRoom = () => {
   useEffect(() => {
     dispatch(getBookingSite(id));
   }, []);
-  /*useEffect(() => {
+
+  useEffect(() => {
     if (!loading) {
       dispatch(
         changeAlbum([...bookingSiteData.data.images.toString().split(',')])
       );
     }
-  }, [id]);*/
+  }, [bookingSiteData]);
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyCsW9trmjliEY9-Qz_uuAK8C2DRCUFzDqs',
@@ -76,21 +78,16 @@ const BookingRoom = () => {
     <div className="container-total">
       <div className="titulo-anfitrion"></div>
       <div className="albumreser">
-        {/* {photos.map((photo, index) => (
-            <div key={index}>
-              <img src={photo} alt={index} />
-            </div>
-          ))} */}
         <Album album={photos} />
       </div>
-
-      <button>
-        <AlbumModal site="Album1" />
-      </button>
+      <Button radius="md" className="btnAlbum">
+        <AlbumModal style={{ color: 'white' }} site="Mostrar todas las fotos" />
+      </Button>
+      {/*
       <button>
         <AlbumDetailModal site="ALbum2" />
       </button>
-
+      */}
       <div className="info-reserva">
         <div id="left">
           <section className="titulo-Host">
@@ -257,7 +254,6 @@ const BookingRoom = () => {
           </div>
         </div>
       </div>
-
       <div className="footer">
         <h2> {bookingSiteData.data.reviews.length} reseñas</h2>
 

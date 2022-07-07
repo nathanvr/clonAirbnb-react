@@ -23,6 +23,15 @@
     margin-top: 30px;
 }
 
+.btnAlbum {
+    margin: 10px 0px;
+    display:flex;
+    justify-content: center;
+    font-size:14px;
+    background-color: var(--red);
+    color: white;
+}
+
 .info-reserva{
     max-width: 1280px;
     width: 100%;
@@ -234,6 +243,7 @@
             }
     }
 }
+
 
 /*.container-total-booking{
     display: flex;
