@@ -17,6 +17,7 @@ import axios from 'axios';
 import '../../styles/components/ReviewCard.scss';
 import BookingCard from './BookingsCard';
 
+
 const ReviewCard = ({ booking }) => {
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
