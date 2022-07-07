@@ -11,9 +11,13 @@ import {
   ScrollArea,
   TextInput,
   Textarea,
+  Text
 } from '@mantine/core';
 import dayjsLocal from 'dayjs/locale/es';
 import dayjs from 'dayjs';
+import ReactStars from 'react-rating-stars-component';
+import star from 'react-rating-stars-component/dist/star';
+
 
 const containerStyle = {
   width: '350px',
@@ -23,6 +27,8 @@ const containerStyle = {
 const EditFormBooking = (booking) => {
   const dispatch = useDispatch();
   const theme = useMantineTheme();
+  const [stars, setStars] = useState(4);
+  const rating = [];
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
   const [opened, setOpened] = useState(false);
@@ -102,6 +108,7 @@ const EditFormBooking = (booking) => {
     e.preventDefault();
     setLoading(true);
     setVisible(true);
+    rating.push(stars)
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post('http://localhost:8080/reviews/', {
@@ -109,6 +116,7 @@ const EditFormBooking = (booking) => {
         userId: booking.booking.userId,
         title: title,
         message: message,
+        rating:rating
       });
       console.log('Response: ', response);
       if (response.status === 201) {
@@ -142,6 +150,15 @@ const EditFormBooking = (booking) => {
     }
     console.log('DateZzZZ2: ', booking.booking.date[0]);
   }
+  var example1 = {
+    size: 24,
+    value: stars,
+    onChange: (newValue) => {
+      setStars(newValue);
+    }
+  };
+  console.log(stars)
+
   return (
     <div>
       <Button color="violet" onClick={() => setOpened(true)}>
@@ -172,6 +189,16 @@ const EditFormBooking = (booking) => {
             <section>
               <div>
                 <h1>Reseña</h1>
+                <div className="App"> 
+                <Text>Califica tu experiencia</Text>    
+                  <ReactStars {...example1} count={5}
+                    size={24}
+                    isHalf={true}
+                    emptyIcon={<i className="far fa-star"></i>}
+                    halfIcon={<i className="fa fa-star-half-alt"></i>}
+                    fullIcon={<i className="fa fa-star"></i>}
+                    activeColor="#ffd700" />
+                </div>
                 <TextInput
                   label="Añade un titulo a tu reseña"
                   placeholder="Añade un titulo"

@@ -37,7 +37,7 @@ const BookingRoom = () => {
   const { error, loading, bookingSiteData } = useSelector(
     (state) => state.bookingSiteReducer
   );
-
+  console.log(bookingSiteData)
 
   useEffect(() => {
     dispatch(getBookingSite(id));
@@ -77,7 +77,19 @@ const BookingRoom = () => {
   }
   const photos = [...bookingSiteData.data.images.toString().split(',')];
   const listPhothos = [];
-
+  const reviews=[...bookingSiteData.data.reviews]
+  const ratingTotal=[]
+  const rating = reviews.forEach((review)=>{
+        ratingTotal.push(review.rating[0])
+  })
+  console.log(ratingTotal)
+  const initialValue = 0;
+  const sumWithInitial = ratingTotal.reduce(
+  (previousValue, currentValue) => previousValue + currentValue,
+  initialValue
+);
+const PromTotal = (sumWithInitial/ratingTotal.length).toFixed(1)
+console.log("promedio",PromTotal)
   bookingSiteData.data.images.forEach((element) => {
     listPhothos.push({
       src: element,
@@ -89,6 +101,7 @@ const BookingRoom = () => {
     [new Date(2022, 7, 10).toISOString(), new Date(2022, 7, 18).toISOString()],
     [new Date(2022, 7, 10).toISOString(), new Date(2022, 8, 10).toISOString()],
   ];
+  console.log("!!!!!!!!!!!!!!!!!!!!!",ratingTotal)
 
   return (
     <div className="container-total">
@@ -230,7 +243,7 @@ const BookingRoom = () => {
                       <Icon icon="bxs:washer" style={{color: "#FF5A5F", marginRight:10}} /> </div>
                       <div>
                       Lavadora</div>
-                     </div>
+                    </div>
                   );
                 } else if (element === 'airconditioner') {
                   return (
@@ -290,19 +303,19 @@ const BookingRoom = () => {
               {bookingSiteData.data.city}, {bookingSiteData.data.country}{' '}
             </p>
           </div>
-        </div>
-      </div>
+
+
       <div className="footer">
 
-        <h2> {bookingSiteData.data.reviews.length} reseñas</h2>
+        <h2> {bookingSiteData.data.reviews.length} reseñas - {bookingSiteData.data.reviews.length>0 && <span>{PromTotal}<span style={{color:"#ffd700"}}>★</span></span>}</h2>
 
         {bookingSiteData.data.reviews.map((review, index) => (
           <section className="Reseñas" key={index}>
             <ReseñaReserva
-              cliente={review.user}
-              fecha="abril de 2022"
-              comentario={review.comment}
-              src={persona1}
+              cliente={review.userId.name}
+              title={review.title}
+              comentario={review.message}
+              src={review.userId.image}
             />
           </section>
         ))}
