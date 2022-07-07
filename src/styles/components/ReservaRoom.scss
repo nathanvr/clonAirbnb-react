@@ -244,14 +244,15 @@
 
 
 .reseña-container{
-    margin: 0  0 40px;
+    
     P{
             @include assign-fontstye (16px, var(--textoreserva), 300); 
     }
 
     .info-cliente{
         display: flex;
-        padding: 0 0 16px;
+        align-items: center;
+        padding: 0 0 5px;
         img{
             width: 48px;
             height: 48px;

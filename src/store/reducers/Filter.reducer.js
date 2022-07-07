@@ -10,7 +10,7 @@ export const getBookingSitesFilter = (filterdata) => {
     dispatch({ type: FILTEREDBOOKING_LOADING, payload: true });
     try {
       const res = await axios.get(
-        'https://clonairbnb-backend.herokuapp.com/bookingsites/filter',
+        'http://localhost:8080/bookingsites/filter',
         { params: filterdata }
       );
       dispatch({ type: FILTEREDBOOKING_SUCCESS, payload: res.data.data });
