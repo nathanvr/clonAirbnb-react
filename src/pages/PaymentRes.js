@@ -132,7 +132,7 @@ const PaymentRes = () => {
               {dataRes.x_currency_code}
             </div>
           </div>
-          <Link to={'/'}>
+          <Link to={'/booking'}>
             <Button variant="light" color="pink">
               Ir a tus reservas
             </Button>

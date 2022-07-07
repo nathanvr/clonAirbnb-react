@@ -80,11 +80,12 @@ const BookingCard = (props) => {
     setStatusBooking('cancelled');
     try {
       const token = localStorage.getItem('token');
+      const body = {
+        bookingId: booking._id,
+      };
       const response = await axios.put(
-        `https://clonairbnb-backend.herokuapp.com/bookings/${booking._id}`,
-        {
-          statusBooking: statusBooking,
-        },
+        `https://clonairbnb-backend.herokuapp.com/bookings/cancelUser/`, body,
+        
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -93,7 +94,7 @@ const BookingCard = (props) => {
       );
       if (response.status === 200) {
         dispatch(getUser());
-        toast.success('Se canceló tu sitio', {
+        toast.success('Se canceló tu reserva', {
           position: 'bottom-right',
           autoClose: 5000,
           hideProgressBar: true,
@@ -108,7 +109,7 @@ const BookingCard = (props) => {
       }
     } catch (error) {
       setVisible(false);
-      toast.error('No se pudo eliminar tu sitio', {
+      toast.error('No se pudo cancelar tu reserva', {
         position: 'bottom-right',
         autoClose: 5000,
         hideProgressBar: true,
