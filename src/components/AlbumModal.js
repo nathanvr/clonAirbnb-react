@@ -32,33 +32,12 @@ const AlbumModal = (props) => {
       </Link>
       <Modal
         size="80%"
-        withCloseButton={false}
         opened={modalOpen}
         onClose={() => setModalOpen(false)}
         overlayOpacity={0.55}
         overlayBlur={3}>
         <div className="album-modal-container">
-          <div className="album-modal-header">
-            <BrandIcon
-              iconType={faAngleLeft}
-              colorIcon={{ color: '#484848' }}
-              sizeIcon="14px"
-            />
-            <div>
-              <TextIcon
-                iconType={faArrowUpFromBracket}
-                colorIcon="#222222"
-                sizeIcon="14px"
-                text="Compartir"
-              />
-              <TextIcon
-                iconType={faHeart}
-                colorIcon="#222222"
-                sizeIcon="14px"
-                text="Guardar"
-              />
-            </div>
-          </div>
+          
           <div className="album-modal-main">
             <ModuleRandom />
           </div>
