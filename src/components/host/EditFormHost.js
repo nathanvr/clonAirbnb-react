@@ -281,6 +281,8 @@ const EditFormHost = ({ booking }) => {
         });
         dispatch(getUser());
         setOpened(false);
+        setImages1([])
+        setFile(null)
       }
     } catch (error) {
       setError(error);
@@ -301,9 +303,11 @@ const EditFormHost = ({ booking }) => {
   const onChange = (imageList, addUpdateIndex) => {
     // data for submit
     setImages1(imageList);
+    const array = [];
     imageList.map((item)=>{
-      file.push(item.file)
+      array.push(item.file)
     })
+    setFile(array)
   };
 
   function readFile(file) {
