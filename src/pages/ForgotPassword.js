@@ -24,7 +24,7 @@ const ForgotPassword = () => {
     setVisible(true);
     try {
       const response = await axios.post(
-        'http://localhost:8080/users/recoverypassword',
+        'https://clonairbnb-backend.herokuapp.com/users/recoverypassword',
         data
       );
       if (response.status === 201) {

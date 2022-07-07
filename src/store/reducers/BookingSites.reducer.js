@@ -51,7 +51,7 @@ export const getBookingSites = () => {
       dispatch({ type: BOOKINGSITES_LOADING, payload: true });
       const data = await axios({
         method: 'GET',
-        baseURL: 'http://localhost:8080/bookingsites',
+        baseURL: 'https://clonairbnb-backend.herokuapp.com/bookingsites',
         //   Authorization: `Bearer ${token}`
       });
       dispatch({ type: BOOKINGSITES_SUCCESS, payload: data.data.data });
