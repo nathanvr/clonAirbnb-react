@@ -20,7 +20,7 @@ const Home = () => {
   );
   useEffect(() => {
     dispatch(getBookingSites());
-  }, []);
+  }, [dispatch]);
 
   if (error === true) {
     return <p>Lo sentimos, ha ocurrido un error. {error}</p>;
@@ -38,7 +38,9 @@ const Home = () => {
         <section className="alojamientos-plus">
           {sites.map((site, index) => (
             <Link to={`/room/${site._id}`} key={index}>
+              <div className='bookingsites-section'>
               <CardMd service={site} />
+              </div>
             </Link>
           ))}
         </section>

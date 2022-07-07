@@ -18,15 +18,19 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { Icon } from '@iconify/react';
 import PlacesAutocomplete from '../Maps/PlacesAutocomplete';
-import { DateRangePicker } from '@mantine/dates';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
-import { Trash } from 'tabler-icons-react';
 import { toast } from 'react-toastify';
 import { getUser } from '../../store/reducers/User.reducer';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
-import dayjsLocal from 'dayjs/locale/es';
 import 'dayjs/locale/es';
+import ImageUploading from "react-images-uploading";
+import { CloudUpload, TrashX } from 'tabler-icons-react';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation } from 'swiper';
+import "swiper/css";
+import "swiper/css/pagination";
+
 
 const options1 = [
   { value: 'apartment', label: 'Apartamentos' },
@@ -115,7 +119,8 @@ const EditFormHost = ({ booking }) => {
   const [lati, setLat] = useState(booking.lat);
   const [lngi, setLng] = useState(booking.lng);
   const [image, setImage] = useState(null);
-  const [file, setFile] = useState(null);
+  const [images1, setImages1] = useState([]);
+  const [file, setFile] = useState([]);
   const [center, setCenter] = useState({
     lat: Number(booking.lat),
     lng: Number(booking.lng),
@@ -133,10 +138,6 @@ const EditFormHost = ({ booking }) => {
   const onLoad = (marker) => {
     console.log('marker: ', marker);
   };
-  const [availability, setAvailability] = useState([
-    new Date(booking.availabilitybegin),
-    new Date(booking.availabilityend),
-  ]);
 
   //Current date
   const now = dayjs(new Date());
@@ -211,7 +212,7 @@ const EditFormHost = ({ booking }) => {
     }
   };
   const renderButtonNext = () => {
-    if (formStep === 6) {
+    if (formStep === 5) {
       return undefined;
     } else {
       return (
@@ -297,10 +298,13 @@ const EditFormHost = ({ booking }) => {
     }
   }
 
-  function handleChange(e) {
-    readFile(e.target.files[0]);
-    setFile(e.target.files);
-  }
+  const onChange = (imageList, addUpdateIndex) => {
+    // data for submit
+    setImages1(imageList);
+    imageList.map((item)=>{
+      file.push(item.file)
+    })
+  };
 
   function readFile(file) {
     const reader = new FileReader();
@@ -423,7 +427,7 @@ const EditFormHost = ({ booking }) => {
         Editar
       </Button>
       <Modal
-        size="70%"
+        size="85%"
         opened={opened}
         onClose={() => setOpened(false)}
         overlayColor={
@@ -609,7 +613,7 @@ const EditFormHost = ({ booking }) => {
               <section>
                 <div className="typebooking2">
                   <h1>Paso 3: Selecciona tu ubicación</h1>
-                  <section className="section-map">
+                  <section className="section-maps">
                     <div className="adress_content">
                       <PlacesAutocomplete childToParent={childToParent} />
 
@@ -635,7 +639,6 @@ const EditFormHost = ({ booking }) => {
                         }></TextInput>
                     </div>
                     <div className="coordinates">
-                      {address}
                       <GoogleMap
                         mapContainerStyle={containerStyle}
                         center={center}
@@ -657,14 +660,51 @@ const EditFormHost = ({ booking }) => {
                   <h1>Paso 4: Sube tus fotos</h1>
                   <section>
                     <h2>Ahora, agreguemos algunas fotos de tu espacio</h2>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      name="file"
-                      id="file"
-                      multiple
-                      onChange={handleChange}
-                    />
+                    <div className="uploader">
+      <ImageUploading
+        multiple
+        value={images1}
+        onChange={onChange}
+        maxNumber={7}
+        dataURLKey="data_url"
+      >
+        {({
+          imageList,
+          onImageUpload,
+          onImageRemoveAll,
+          onImageUpdate,
+          onImageRemove,
+          isDragging,
+          dragProps
+        }) => (
+          // write your building UI
+          <div className="upload__image-wrapper">
+            <div className='buttons-uploads'>
+              <Button variant="outline" color="pink" leftIcon={<CloudUpload/>}
+              style={isDragging ? { color: "red" } : null}
+              onClick={onImageUpload}
+              {...dragProps}
+            >
+              Da click o arrastra tus imagenes aquí
+            </Button>
+            &nbsp;
+            <Button variant="outline" color="pink" leftIcon={<TrashX/>} onClick={onImageRemoveAll}>Borra todas las imágenes</Button>
+            </div>
+            <div className='display-images'>
+            {imageList.map((image, index) => (
+              <div key={index} className="image-item">
+                <img src={image.data_url} alt="" width="100" />
+                <div className="image-item__btn-wrapper">
+                <Button style={{marginRight:10}} variant="outline" size="xs" compact color="green" onClick={() => onImageUpdate(index)}>Cambiar</Button>
+                <Button variant="outline" size="xs"   compact color="red" onClick={() => onImageRemove(index)}>Borrar</Button>
+                </div>
+              </div>
+            ))}
+            </div>
+          </div>
+        )}
+      </ImageUploading>
+    </div>
                   </section>
                   <div className="addphotos">
                     {!!image && <img src={image} alt="upload preview" />}
@@ -738,7 +778,7 @@ const EditFormHost = ({ booking }) => {
                         }
                         min={0}
                         step={1}
-                        styles={{ input: { width: 400 } }}
+                        styles={{ input: { width: "100%" } }}
                       />
                     </section>
                   </section>
@@ -751,10 +791,26 @@ const EditFormHost = ({ booking }) => {
                 <div className="typebooking5">
                   <ScrollArea style={{ height: 350 }}>
                     <h2>Revisa tu anuncio</h2>
-                    <div className="addphotos">
-                      {!!image && <img src={image} alt="upload preview" />}
-                    </div>
-                    <div>
+                    <div className='display-images'>
+                    <Swiper
+                      pagination={{
+                        dynamicBullets: true,
+                      }}
+                      modules={[Pagination]}
+                      className="swiper1"
+                      >
+            {images.map((image, index) => (
+                <SwiperSlide key={index} virtualIndex={index} className="swiper-slide1">
+                <img src={image} alt=""/>
+                </SwiperSlide>
+            ))}
+            {images1.map((image, index) => (
+                <SwiperSlide key={index} virtualIndex={index} className="swiper-slide1">
+                <img src={image.data_url} alt=""/>
+                </SwiperSlide>
+            ))}
+             </Swiper>
+            </div><div>
                       <h3>
                         {title} - Anfitrión: {name}. {price}
                       </h3>
@@ -780,7 +836,7 @@ const EditFormHost = ({ booking }) => {
             )}
           </form>
 
-          <section className="buttons">
+          <section className="buttons-form-host">
             {renderButtonPrev()}
             {renderButtonNext()}
           </section>

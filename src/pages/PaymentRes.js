@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/components/PaymentRes.scss';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { LoadingOverlay, Button} from '@mantine/core';
 
 const url = new URLSearchParams(window.location.search);
 const payId = url.get('ref_payco');
@@ -10,10 +12,12 @@ const PaymentRes = () => {
   const [dataRes, setDataRes] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const payRes = async () => {
       setLoading(true);
+      setVisible(true)
       try {
         const res = await axios({
           method: 'GET',
@@ -28,11 +32,15 @@ const PaymentRes = () => {
           const body = {
             bookingSiteId: res.data.data.x_extra4,
             date: dates,
+            invoiceNum:res.data.data.x_id_invoice,
+            description:res.data.data.x_description,
+            amount: res.data.data.x_amount,
+            currency: res.data.data.x_currency_code
           };
 
           try {
             const response = await axios.post(
-              'https://clonairbnb-backend.herokuapp.com/bookings',
+              'http://localhost:8080/bookings',
               body,
               {
                 headers: {
@@ -40,16 +48,37 @@ const PaymentRes = () => {
                 },
               }
             );
+            if (response.status===201){
+              toast.success('Se creó tu reserva', {
+                position: 'bottom-right',
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            }
             console.log('respuesta', response);
           } catch (error) {
-            console.log('Error', error);
+            toast.error('No se pudo crear tu reserva', {
+              position: 'bottom-right',
+              autoClose: 5000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
           }
         }
 
         setDataRes(res.data.data);
         setLoading(false);
+        setVisible(false)
       } catch (error) {
         setError(true);
+        setVisible(false)
         setLoading(false);
         console.log(error);
       }
@@ -66,7 +95,13 @@ const PaymentRes = () => {
   console.log('respuesta', dataRes);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <div className="loading" style={{ width: 400 }}>
+    <LoadingOverlay
+      loaderProps={{ size: 'sm', color: 'pink', variant: 'bars' }}
+      visible={visible}
+    />
+    {/* ...other content */}
+  </div>;
   }
   if (error) {
     return <p>Lo sentimos, ha ocurrido un error. {error}</p>;
@@ -80,6 +115,7 @@ const PaymentRes = () => {
 
   if (dataRes.x_cod_response === 1) {
     return (
+      <div className='contianer-paymentres'>
       <div className="resContainer">
         <div className="resContainer__title">
           <h2>Pago realizado satisfactoriamente</h2>
@@ -105,14 +141,18 @@ const PaymentRes = () => {
             <span>Total noches:</span> {dataRes.x_extra3}
           </div>
           <div>
-            <span>Total pagado:</span> {dataRes.x_amount}{' '}
+            <span>Total pagado:</span> $ {dataRes.x_amount}{' '}
             {dataRes.x_currency_code}
           </div>
-          <Link to={'/'}>
-            {' '}
-            <button>Reservaciones</button>{' '}
-          </Link>
+          
         </div>
+        <Link to={'/'}>
+            <Button variant="light" color="pink">
+              
+            Ir a tus reservas
+          </Button></Link>
+      </div>
+      
       </div>
     );
   } else {

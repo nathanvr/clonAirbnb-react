@@ -1,6 +1,6 @@
 import { Input } from '@mantine/core';
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { userUpdate } from '../../store/reducers/User.reducer';
 
 const ProName = () => {

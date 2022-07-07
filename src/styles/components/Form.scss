@@ -76,12 +76,6 @@
     background-color: #FFFFFF ;
     padding: 24px;
 
-    @media only screen and (max-width: 900px){
-        
-        margin-left:80px;
-        align-items: center;
-    }
-
     @media only screen and (max-width: 768px){
         .searchContainerFormFilter__title{
             font-size: 20px;
@@ -105,6 +99,7 @@
 
 .searchContainerFormFilter__form__schedule{
     display: flex;
+    flex-wrap: wrap;
     margin-bottom: 10px;
 
     label{
@@ -142,6 +137,7 @@
 .searchContainerForm__formFilter{
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     padding: 15px;

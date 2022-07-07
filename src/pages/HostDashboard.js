@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 
 import FormHost from '../components/host/FormHost';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,6 +7,7 @@ import Bookingsitecard from '../components/host/Bookingsitecard';
 import { Icon } from '@iconify/react';
 import dayjs from 'dayjs/locale/es';
 import ReviewCard from '../components/host/ReviewCard';
+import { ScrollArea } from '@mantine/core';
 
 const HostDashboard = () => {
   const current = new Date();
@@ -18,9 +19,7 @@ const HostDashboard = () => {
     dispatch(getUser());
   }, [dispatch]);
 
-  const { bookingSites, bookings } = useSelector((state) => state.userReducer);
-  const rbookingsite = useSelector((state) => state.bookingSiteReducer);
-
+  const { bookingSites} = useSelector((state) => state.userReducer);
 
   return (
     <div className="dashboard-container">
@@ -48,9 +47,14 @@ const HostDashboard = () => {
                 <p>No tienes sitios en este momento.</p>
               </div>
             )}
+            <ScrollArea style={{ width: "100%" }}>
+            <div className='scroll-booking'>
             {bookingSites.map((item, i) => (
               <ReviewCard booking={item} key={i} />
             ))}
+            </div>
+            </ScrollArea>
+
           </div>
         </div>
       </div>
@@ -66,10 +70,15 @@ const HostDashboard = () => {
                 />
                 <p>No tienes sitios en este momento.</p>
               </div>
-            )}
+            )} 
+            <ScrollArea style={{ width: "100%" }}>
             {bookingSites.map((item, i) => (
+
+             
               <Bookingsitecard booking={item} key={i} />
+              
             ))}
+            </ScrollArea>
           </div>
         </div>
       </div>

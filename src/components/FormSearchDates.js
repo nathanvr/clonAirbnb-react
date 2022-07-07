@@ -45,7 +45,7 @@ const FormSearchDates = () => {
         <PlacesAutocomplete childToParent={childToParent}/>
         </div>
 
-        <div className="e">
+        <div>
         <DateRangePicker
           label="Check-in    →   Check-Out"
           placeholder="Selecciona tu fecha"
@@ -55,7 +55,7 @@ const FormSearchDates = () => {
     />
 
         </div>
-        <div>
+        <div className='e'>
         <NumberInput required placeholder="¿Cuántos viajan? "label="Viajeros" value={numGuest} onChange={(val) => setNumGuest(val)}  min={1} />
         </div>
         <div className={location.pathname === '/' ? "searchContainerForm__button" : "searchContainerFormFilter__button" }>
