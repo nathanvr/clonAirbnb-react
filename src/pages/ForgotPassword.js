@@ -5,7 +5,7 @@ import '../styles/components/ForgotPassword.scss';
 import { Link } from 'react-router-dom';
 import { TextInput, Alert, LoadingOverlay } from '@mantine/core';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,7 +24,7 @@ const ForgotPassword = () => {
     setVisible(true);
     try {
       const response = await axios.post(
-        'https://clonairbnb-backend.herokuapp.com/users/recoverypassword',
+        'http://localhost:8080/users/recoverypassword',
         data
       );
       if (response.status === 201) {

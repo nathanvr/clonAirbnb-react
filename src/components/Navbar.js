@@ -41,7 +41,7 @@ const Navbar = () => {
           : 'navbar navbar-default'
       }>
       <div className="logo">
-        <Link to="/" onClick={() => setShow(show)}>
+        <Link to="/" onClick={() => setShow(!show)}>
           <BrandIcon
             className="nav--logo"
             iconType={faAirbnb}
@@ -58,7 +58,7 @@ const Navbar = () => {
           <Link to="#">COP</Link>
         </li>
         <li className="nav-item">
-          <Link to="#">Ayuda</Link>
+          <Link to="/help">Ayuda</Link>
         </li>
         {isLoggedIn ? (
           <div className="navbar-user">
@@ -70,23 +70,20 @@ const Navbar = () => {
                   className={
                     location.pathname === '/' ? 'info-user-home' : 'info-user'
                   }>
-                  <UnstyledButton>
-                    <Group>
-                      <Avatar
-                        radius="xl"
-                        size={30}
-                        src={image === undefined ? null : image}
-                      />
+
+                      <UnstyledButton className='avatar-button'
+                      >
+                      <Group>
+                      <Avatar radius="xl" size={30} src={image === undefined ? null : image} />
                       <div>
-                        <Text
-                          component="span"
-                          align="center"
-                          color={location.pathname === '/' ? 'white' : 'gray'}
-                          size="md"
-                          weight={400}
-                          style={{ fontFamily: 'Roboto, sans-serif' }}>
-                          {name} {}
-                        </Text>
+                      <Text
+                        component="span"
+                        align="center"
+                        color={location.pathname === '/' ? 'white' : 'gray'}
+                        size="md"
+                        weight={400}
+                        style={{ fontFamily: 'Roboto, sans-serif', fontWeight:500 }}>{name}</Text>
+
                       </div>
                     </Group>
                   </UnstyledButton>
@@ -96,7 +93,8 @@ const Navbar = () => {
               delay={500}>
               {role === 'guest' ? (
                 <div>
-                  <Link to="/profile">
+
+                  <Link to="/profile" onClick={() => setShow(!show)}>
                     <Menu.Item>
                       <Group>
                         <User size={17} strokeWidth={2} color={'black'} />
@@ -106,7 +104,7 @@ const Navbar = () => {
                       </Group>
                     </Menu.Item>
                   </Link>
-                  <Link to="booking">
+                  <Link to="booking" onClick={() => setShow(!show)}>
                     <Menu.Item>
                       <Group>
                         <Folder size={17} strokeWidth={2} color={'black'} />
@@ -117,7 +115,7 @@ const Navbar = () => {
                     </Menu.Item>
                   </Link>
                   <Divider />
-                  <Link to="/">
+                  <Link to="/" onClick={() => setShow(!show)}>
                     <Menu.Item onClick={handleSignOut}>
                       <Group>
                         <TransferOut
@@ -136,7 +134,7 @@ const Navbar = () => {
                 </div>
               ) : (
                 <div>
-                  <Link to="/profile">
+                  <Link to="/profile" onClick={() => setShow(!show)}>
                     <Menu.Item>
                       <Group>
                         <User size={17} strokeWidth={2} color={'black'} />
@@ -146,7 +144,7 @@ const Navbar = () => {
                       </Group>
                     </Menu.Item>
                   </Link>
-                  <Link to="/host/dashboard">
+                  <Link to="/host/dashboard" onClick={() => setShow(!show)}>
                     <Menu.Item>
                       <Group>
                         <Folder size={17} strokeWidth={2} color={'black'} />{' '}
@@ -156,7 +154,7 @@ const Navbar = () => {
                       </Group>
                     </Menu.Item>
                   </Link>
-                  <Link to="/booking">
+                  <Link to="/booking" onClick={() => setShow(!show)}>
                     <Menu.Item>
                       <Group>
                         <Folder size={17} strokeWidth={2} color={'black'} />

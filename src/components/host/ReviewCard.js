@@ -1,27 +1,33 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { TrashX ,UserCircle, PlaneArrival,PlaneDeparture, Edit, Calendar, CalendarOff, FileTime} from 'tabler-icons-react';
 import {
   Modal,
   Button,
   useMantineTheme,
   Group,
-  Avatar,
   Text,
   Accordion,
-  ThemeIcon,
+  ThemeIcon,ScrollArea, Select, Textarea,
 } from '@mantine/core';
-import EditFormHost from './EditFormHost';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import nophoto from '../../images/notavailable.png';
 import { Icon } from '@iconify/react';
 import axios from 'axios';
-//import '../../styles/components/ReviewCard.scss';
+import '../../styles/components/ReviewCard.scss';
+import BookingCard from './BookingsCard';
+
 
 const ReviewCard = ({ booking }) => {
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
-  // console.log("aaaaaa",booking.bookings)
+  const [value, setValue] = useState('');
+  const [description, setDescription] = useState('');
+  const [error, setError] = useState('');
+  const today= new Date().getTime()
+  var OneDay = new Date().getTime() + (1 * 24 * 60 * 60 * 1000)
+  console.log("is this",OneDay)
+  
   function AccordionLabel({ label, image, description }) {
     return (
       <Group noWrap>
@@ -39,24 +45,17 @@ const ReviewCard = ({ booking }) => {
   }
   async function handleOnclick(e) {
     e.preventDefault();
-
-    const token = localStorage.getItem('token');
-    const response = await axios.delete(
-      `https://clonairbnb-backend.herokuapp.com/bookingsites/${booking._id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
-    console.log('respuesta', response);
-    if (response.status === 200) {
-      window.location.reload();
+    if(value !== '' && description!==''){
+      
     }
+    if(value === '' && description ===''){
+      setError("Por favor completa los campos")
+    }
+
+    
   }
   const reservations = booking.bookings;
-  console.log('reservaciones:', reservations);
+  const todayDate = new Date().getDate()
 
   return (
     <>
@@ -81,57 +80,32 @@ const ReviewCard = ({ booking }) => {
                 <p>No tienes reservas en este momento.</p>
               </div>
             )}
-            <div className="bs__bookings__list">
+            {reservations.length>0 && 
+            <ScrollArea style={{ height: 200 }} offsetScrollbars>
+              <div className="bs__bookings__list">
               <div className="bs__bookings__list__header">
-                <p>Nombre</p>
-                <p>Llegada</p>
-                <p>Salida</p>
+                <p><UserCircle/> Nombre</p>
+                <p><PlaneArrival/> Llegada</p>
+                <p><PlaneDeparture/> Salida</p>
+                <p><FileTime/> Estado</p>
+                <p><Edit/> Editar</p>
               </div>
+              
               {reservations.map((item, index) => (
-                <div className="bs__bookings__list__item" key={index}>
-                  <p>
-                    {item.userId.name} {item.userId.lastname}
-                  </p>
-                  <p>
-                    {new Date(item.date[0]).getDate()}/
-                    {new Date(item.date[0]).getMonth() + 1}/
-                    {new Date(item.date[0]).getFullYear()}
-                  </p>
-                  <p>
-                    {new Date(item.date[1]).getDate()}/
-                    {new Date(item.date[1]).getMonth() + 1}/
-                    {new Date(item.date[1]).getFullYear()}
-                  </p>
+                <div className="bs__bookings__list__item1" key={index}>
+                  <div className="bs__bookings">
+                      <BookingCard booking={item}></BookingCard>
                 </div>
-              ))}
+                </div>
+              ))
+              }
+              </div>
+          </ScrollArea>
+            }
             </div>
-          </div>
         </Accordion.Item>
       </Accordion>
 
-      <Modal
-        opened={opened}
-        onClose={() => setOpened(false)}
-        title="Eliminar sitio"
-        overlayColor={
-          theme.colorScheme === 'dark'
-            ? theme.colors.dark[9]
-            : theme.colors.gray[2]
-        }
-        overlayOpacity={0.55}
-        overlayBlur={3}>
-        <p>Estas seguro de eliminar este sitio?</p>
-        <div className="cancel-buttons">
-          <div>
-            <Button color="gray">Cancelar</Button>
-          </div>
-          <div>
-            <Button color="red" onClick={handleOnclick}>
-              Eliminar
-            </Button>
-          </div>
-        </div>
-      </Modal>
     </>
   );
 };

@@ -1,7 +1,6 @@
 import {
   PasswordInput,
   Button,
-  Header,
   LoadingOverlay,
   Text,
 } from '@mantine/core';

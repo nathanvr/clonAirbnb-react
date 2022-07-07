@@ -20,12 +20,14 @@ import AlbumModal from '../components/AlbumModal';
 import AlbumDetailModal from '../components/AlbumDetailModal';
 import { albumReset, changeAlbum } from '../store/reducers/Album.reducer';
 import { Button } from '@mantine/core';
+import { Location } from 'tabler-icons-react';
 //import '../styles/components/ReservaRoom';
 
 const containerStyle = {
-  width: '500px',
-  height: '400px',
-};
+  width: '95%',
+  height: '300px'
+  };
+
 
 const BookingRoom = () => {
   const dispatch = useDispatch();
@@ -35,9 +37,10 @@ const BookingRoom = () => {
     (state) => state.bookingSiteReducer
   );
 
+
   useEffect(() => {
     dispatch(getBookingSite(id));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (!loading) {
@@ -130,98 +133,125 @@ const BookingRoom = () => {
 
           <section className="servicios-room">
             <h2>Lo que este lugar ofrece</h2>
+            <div className='services-list'>
             {bookingSiteData.data.services[0]
               .split(',')
               .map((element, index) => {
                 if (element === 'pool') {
                   return (
-                    <p key={index}>
-                      <Icon icon="cil:pool" />
-                      Piscina
-                    </p>
+                    <div className="services-item" key={index}> 
+                      <div>
+                      <Icon icon="cil:pool" style={{color: "#FF5A5F", marginRight:10}}/></div>
+                      <div>
+                      Piscina</div>
+                    </div>
                   );
                 } else if (element === 'jacuzzi') {
                   return (
-                    <p key={index}>
-                      <Icon icon="emojione-monotone:bathtub" />
-                      Jacuzzi
-                    </p>
+                    <div className="services-item" key={index}> <div>
+                      <Icon icon="emojione-monotone:bathtub" style={{color: "#FF5A5F", marginRight:10}} /> </div>
+                      <div>
+                      Jacuzzi</div>
+                    </div>
                   );
                 } else if (element === 'bbq') {
                   return (
-                    <p key={index}>
+                    <div className="services-item" key={index}> <div>
                       {' '}
-                      <Icon icon="iconoir:bbq" />
-                      Parrila
-                    </p>
+                      <Icon icon="iconoir:bbq"  style={{color: "#FF5A5F", marginRight:10}} /> </div>
+                      <div>
+                      Parrila</div>
+                </div>
                   );
                 } else if (element === 'woodfire') {
                   return (
-                    <p key={index}>
-                      <Icon icon="icon-park-outline:fire-two" />
-                      Fogata
-                    </p>
+                    <div className="services-item" key={index}> <div>
+                      <Icon icon="icon-park-outline:fire-two" style={{color: "#FF5A5F", marginRight:10}}/> </div>
+                      <div>
+                      Fogata</div>
+                  </div>
                   );
                 } else if (element === 'essentialservices') {
                   return (
-                    <p key={index}>
-                      <Icon icon="ep:toilet-paper" />
-                      Servicios esenciales
-                    </p>
+                    <div className="services-item" key={index}> <div>
+                      <Icon icon="ep:toilet-paper" style={{color: "#FF5A5F", marginRight:10}} /> </div>
+                      <div>
+                      Servicios esenciales </div>
+                    </div>
                   );
                 } else if (element === 'hotwater') {
                   return (
-                    <p key={index}>
-                      <Icon icon="ph:thermometer-hot" />
-                      Agua caliente
-                    </p>
+                    <div className="services-item" key={index}> <div>
+                      <Icon icon="ph:thermometer-hot"  style={{color: "#FF5A5F", marginRight:10}}/> </div>
+                      <div>
+                      Agua caliente</div>
+         </div>
                   );
                 } else if (element === 'wifi') {
                   return (
-                    <p key={index}>
-                      <Icon icon="clarity:wifi-line" />
-                      Wifi
-                    </p>
+                    <div className="services-item" key={index}> <div>
+                      <Icon icon="clarity:wifi-line" style={{color: "#FF5A5F", marginRight:10}} /> </div>
+                      <div>
+                      Wifi</div>
+    </div>
                   );
                 } else if (element === 'tv') {
                   return (
-                    <p key={index}>
-                      <Icon icon="arcticons:hanju-tv" />
-                      Tv
-                    </p>
+                    <div className="services-item" key={index}> <div>
+                      <Icon icon="arcticons:hanju-tv"  style={{color: "#FF5A5F", marginRight:10}} /> </div>
+                      <div>
+                      Tv</div>
+                 </div>
                   );
                 } else if (element === 'kitchen') {
                   return (
-                    <p key={index}>
-                      <Icon icon="tabler:tools-kitchen-2" />
-                      Cocina
-                    </p>
+                    <div className="services-item" key={index}> <div>
+                      <Icon icon="tabler:tools-kitchen-2" style={{color: "#FF5A5F", marginRight:10}} /> </div>
+                      <div>
+                      Cocina</div>
+                </div>
                   );
                 } else if (element === 'washer') {
                   return (
-                    <p key={index}>
-                      <Icon icon="bxs:washer" />
-                      Lavadora
-                    </p>
+                    <div className="services-item" key={index}> <div>
+                      <Icon icon="bxs:washer" style={{color: "#FF5A5F", marginRight:10}} /> </div>
+                      <div>
+                      Lavadora</div>
+                     </div>
                   );
                 } else if (element === 'airconditioner') {
                   return (
-                    <p key={index}>
-                      <Icon icon="iconoir:air-conditioner" />
-                      Aire acondicionado
-                    </p>
+                    <div className="services-item" key={index}> <div>
+                      <Icon icon="iconoir:air-conditioner" style={{color: "#FF5A5F", marginRight:10}} /> </div>
+                      <div>
+                      Aire acondicionado</div>
+                  </div>
                   );
                 } else if (element === 'firstaidkit') {
                   return (
-                    <p key={index}>
-                      <Icon icon="clarity:first-aid-kit-line" />
-                      Botiquín
-                    </p>
+                    <div className="services-item" key={index}> <div>
+                      <Icon icon="clarity:first-aid-kit-line" style={{color: "#FF5A5F", marginRight:10}} /> </div>
+                      <div>
+
+                      Botiquín</div>
+                    </div>
                   );
                 }
               })}
+              </div>
           </section>
-          <section className="calendar">
+        </div>
+        <div id="right">
+          <div className="form">
+            <BookingSection
+              priceNigth={bookingSiteData.data.price}
+              maxguest={bookingSiteData.data.total_occupancy}
+              dates={bookingSiteData.data.bookings}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="section-map">
             <h2>¿A dónde irás?</h2>
             <GoogleMap
               mapContainerStyle={containerStyle}
@@ -239,22 +269,18 @@ const BookingRoom = () => {
               />
             </GoogleMap>
             <p>
-              {bookingSiteData.data.address}, {bookingSiteData.data.city},
-              {bookingSiteData.data.country}{' '}
+            <Location
+              size={14}
+              strokeWidth={2}
+              color={'#FF5A5F'}
+              />
+              {bookingSiteData.data.city}, {bookingSiteData.data.country}{' '}
             </p>
-          </section>
-        </div>
-        <div id="right">
-          <div className="form">
-            <BookingSection
-              priceNigth={bookingSiteData.data.price}
-              maxguest={bookingSiteData.data.total_occupancy}
-              dates={arr}
-            />
           </div>
         </div>
       </div>
       <div className="footer">
+
         <h2> {bookingSiteData.data.reviews.length} reseñas</h2>
 
         {bookingSiteData.data.reviews.map((review, index) => (
